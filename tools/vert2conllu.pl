@@ -264,8 +264,8 @@ sub process_file
             flush_sentence();
             print $OUT ("\# $1\n");
             $odstavec++;
-            print $OUT ("\# newpar id = $docid-p$odstavec\n");
             $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
+            print $OUT ("\# newpar id = $sentid\n");
             $nopar = 0;
         }
         elsif(m/<(titul|nadpis|podnadpis|predmluva|incipit|explicit|impresum|adresat) continued="true">/)
@@ -277,8 +277,8 @@ sub process_file
         {
             flush_sentence();
             $odstavec++;
-            print $OUT ("\# newpar id = $docid-p$odstavec\n");
             $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
+            print $OUT ("\# newpar id = $sentid\n");
             $nopar = 0;
         }
         elsif(m/<odstavec( typ="rejstřík")? continued="true">/)
@@ -379,8 +379,8 @@ sub process_file
             {
                 flush_sentence();
                 $odstavec++;
-                print $OUT ("\# newpar id = $docid-p$odstavec\n");
                 $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
+                print $OUT ("\# newpar id = $sentid\n");
                 $nopar = 0;
             }
             # Depending on how the vertical was exported, there may be different positional attributes.
