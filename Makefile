@@ -3,28 +3,55 @@ VERT2CONLLU=../unidep/NonUD_Czech-HisTree/cestina-14-stoleti/vert2conllu.pl
 #VERT2CONLLU=../UD_Czech-HisTree/cestina-14-stoleti/vert2conllu.pl
 UDPIPE=$(PARSINGROOT)/udpipe-parser/scripts/parse.pl
 
-# Convert the ÚJČ vertical format to CoNLL-U.
-.PHONY: conllu
-conllu:
-	$(VERT2CONLLU) --srcdir vert_full --tgtdir conllu
+# Define the folders for each step.
+VERTDIR   := data/vert_full
+CONLLUDIR := data/conllu
+TEXTDIR   := data/text
+PARSEDDIR := data/parsed
 
-# Extract plain text from the CoNLL-U files. The script is in the UD tools repository.
+# Find all source files in the source folder.
+VERTFILES   := $(wildcard $(VERTDIR)/*/*.vert)
+CONLLUFILES := $(wildcard $(CONLLUDIR)/*/*.conllu)
+
+# Generate the target file names for each step.
+TEXTFILES   := $(addprefix $(TEXTDIR)/, $(addsuffix .txt, $(subst $(CONLLUDIR)/,,$(subst .conllu,,$(CONLLUFILES)))))
+PARSEDFILES := $(patsubst $(CONLLUDIR)/%, $(PARSEDDIR)/%, $(CONLLUFILES))
+
+all: conllu text parsed
+	echo $(VERTFILES) | wc -w
+
+# Phony targets for each step.
+# Convert the ÚJČ vertical format to CoNLL-U.
+# This is applied to the whole folder and the loop is inside the script because individual files get renamed in the process (CamelCase, diacritics etc.)
+.PHONY: conllu
+conllu: $(VERTFILES)
+	$(VERT2CONLLU) --srcdir vert_full --tgtdir conllu
 .PHONY: text
-text:
-	mkdir -p text/13_15_stol
-	for i in conllu/13_15_stol/*.conllu ; do conllu_to_text.pl --lang cs < $$i > text/13_15_stol/`basename $$i .conllu`.txt ; done
-	mkdir -p text/16_19_stol
-	for i in conllu/16_19_stol/*.conllu ; do conllu_to_text.pl --lang cs < $$i > text/16_19_stol/`basename $$i .conllu`.txt ; done
+text:   $(TEXTFILES)
+.PHONY: parsed
+parsed: $(PARSEDFILES)
+
+# Extract plain text from an individual CoNLL-U file (which was converted from the vertical).
+# The script resides in the UD tools repository.
+$(TEXTDIR)/%.txt: $(CONLLUDIR)/%.conllu
+	mkdir -p $(@D)
+	conllu_to_text.pl --lang cs < $< > $@
 
 # Parse the plain text with UDPipe 2.12. The script is in my parsing SVN repository.
-# The script accesses the web / REST API interface here:
-# https://lindat.mff.cuni.cz/services/udpipe/
-.PHONY: parsed
-parsed:
-	mkdir -p parsed/13_15_stol
-	for i in text/13_15_stol/*.txt ; do $(UDPIPE) cs_fictree by212 < $$i > parsed/13_15_stol/`basename $$i .txt`.conllu ; done
-	mkdir -p parsed/16_19_stol
-	for i in text/16_19_stol/*.txt ; do $(UDPIPE) cs_fictree by212 < $$i > parsed/16_19_stol/`basename $$i .txt`.conllu ; done
+# The script accesses the REST API at https://lindat.mff.cuni.cz/services/udpipe/.
+# The UDPipe Czech FicTree model does not know the Czech Unicode „quotes“ (typically
+# surrounded by spaces from both sides in the Old Czech data). It often moves
+# the closing quotation mark (looking like English opening mark) to the next sentence.
+# Move it back with the two subsequent Perl scripts.
+$(PARSEDDIR)/%.conllu: $(TEXTDIR)/%.txt
+	mkdir -p $(@D)
+	$(UDPIPE) cs_fictree by212 < $< | fix_sentence_segmentation_quotes.pl | fix_sentence_segmentation.pl > $@
+
+# Clean rule to remove all generated files
+clean:
+	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR)
+
+
 
 afterparse: quotes merge
 
