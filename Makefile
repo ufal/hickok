@@ -1,6 +1,4 @@
 SHELL=/bin/bash
-VERT2CONLLU=../unidep/NonUD_Czech-HisTree/cestina-14-stoleti/vert2conllu.pl
-#VERT2CONLLU=../UD_Czech-HisTree/cestina-14-stoleti/vert2conllu.pl
 UDPIPE=$(PARSINGROOT)/udpipe-parser/scripts/parse.pl
 
 # Define the folders for each step.
@@ -17,6 +15,9 @@ CONLLUFILES := $(wildcard $(CONLLUDIR)/*/*.conllu)
 TEXTFILES   := $(addprefix $(TEXTDIR)/, $(addsuffix .txt, $(subst $(CONLLUDIR)/,,$(subst .conllu,,$(CONLLUFILES)))))
 PARSEDFILES := $(patsubst $(CONLLUDIR)/%, $(PARSEDDIR)/%, $(CONLLUFILES))
 
+# If a command ends with ane error, delete its target file because it may be corrupt.
+.DELETE_ON_ERROR:
+
 all: conllu text parsed
 	echo $(VERTFILES) | wc -w
 
@@ -25,7 +26,7 @@ all: conllu text parsed
 # This is applied to the whole folder and the loop is inside the script because individual files get renamed in the process (CamelCase, diacritics etc.)
 .PHONY: conllu
 conllu: $(VERTFILES)
-	$(VERT2CONLLU) --srcdir vert_full --tgtdir conllu
+	./tools/vert2conllu.pl --srcdir vert_full --tgtdir conllu
 .PHONY: text
 text:   $(TEXTFILES)
 .PHONY: parsed
@@ -45,7 +46,7 @@ $(TEXTDIR)/%.txt: $(CONLLUDIR)/%.conllu
 # Move it back with the two subsequent Perl scripts.
 $(PARSEDDIR)/%.conllu: $(TEXTDIR)/%.txt
 	mkdir -p $(@D)
-	$(UDPIPE) cs_fictree by212 < $< | fix_sentence_segmentation_quotes.pl | fix_sentence_segmentation.pl > $@
+	$(UDPIPE) cs_fictree by212 < $< | ./tools/fix_sentence_segmentation_quotes.pl | ./tools/fix_sentence_segmentation.pl > $@
 
 # Clean rule to remove all generated files
 clean:
