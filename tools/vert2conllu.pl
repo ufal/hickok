@@ -160,6 +160,7 @@ sub process_file
     {
         $OUT = \*STDOUT;
     }
+    my $docid;
     my $kniha;
     my $kapitola;
     my $odstavec = 0;
@@ -185,7 +186,7 @@ sub process_file
             # Some documents have a long and unintuitive id, e.g., '1a7d2af9-23f4-493c-b2ca-2086be033765'.
             # Others do not have it. We will preferably use $sourceid, which may hold the file name.
             # Only if $sourceid is empty we will require that doc id exists and use it.
-            my $docid = $sourceid;
+            $docid = $sourceid;
             my @attributes;
             while($attributes =~ s/^(\w+)="(.*?)"\s*//)
             {
@@ -262,8 +263,8 @@ sub process_file
         {
             flush_sentence();
             print $OUT ("\# $1\n");
-            print $OUT ("\# newpar\n");
             $odstavec++;
+            print $OUT ("\# newpar id = $docid-p$odstavec\n");
             $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
             $nopar = 0;
         }
@@ -275,8 +276,8 @@ sub process_file
         elsif(m/<odstavec( typ="rejstřík")?>/)
         {
             flush_sentence();
-            print $OUT ("\# newpar\n");
             $odstavec++;
+            print $OUT ("\# newpar id = $docid-p$odstavec\n");
             $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
             $nopar = 0;
         }
@@ -377,8 +378,8 @@ sub process_file
             if($nopar)
             {
                 flush_sentence();
-                print $OUT ("\# newpar\n");
                 $odstavec++;
+                print $OUT ("\# newpar id = $docid-p$odstavec\n");
                 $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
                 $nopar = 0;
             }
