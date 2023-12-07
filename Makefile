@@ -6,6 +6,7 @@ VERTDIR   := data/vert_full
 CONLLUDIR := data/conllu
 TEXTDIR   := data/text
 PARSEDDIR := data/parsed
+MERGEDDIR := data/merged
 
 # Find all source files in the source folder.
 VERTFILES   := $(wildcard $(VERTDIR)/*/*.vert)
@@ -14,6 +15,7 @@ CONLLUFILES := $(wildcard $(CONLLUDIR)/*/*.conllu)
 # Generate the target file names for each step.
 TEXTFILES   := $(addprefix $(TEXTDIR)/, $(addsuffix .txt, $(subst $(CONLLUDIR)/,,$(subst .conllu,,$(CONLLUFILES)))))
 PARSEDFILES := $(patsubst $(CONLLUDIR)/%, $(PARSEDDIR)/%, $(CONLLUFILES))
+MERGEDFILES := $(patsubst $(CONLLUDIR)/%, $(MERGEDDIR)/%, $(CONLLUFILES))
 
 # If a command ends with ane error, delete its target file because it may be corrupt.
 .DELETE_ON_ERROR:
@@ -31,6 +33,8 @@ conllu: $(VERTFILES)
 text:   $(TEXTFILES)
 .PHONY: parsed
 parsed: $(PARSEDFILES)
+.PHONY: merged
+merged: $(MERGEDFILES)
 
 # Extract plain text from an individual CoNLL-U file (which was converted from the vertical).
 # The script resides in the UD tools repository.
@@ -48,39 +52,22 @@ $(PARSEDDIR)/%.conllu: $(TEXTDIR)/%.txt
 	mkdir -p $(@D)
 	$(UDPIPE) cs_fictree by212 < $< | ./tools/fix_sentence_segmentation_quotes.pl | ./tools/fix_sentence_segmentation.pl > $@
 
-# Clean rule to remove all generated files
-clean:
-	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR)
-
-
-
-afterparse: quotes merge
-
-# The UDPipe Czech-PDT model does not know the Czech Unicode „quotes“ (typically
-# surrounded by spaces from both sides in the Old Czech data). It often moves
-# the closing quotation mark (looking like English opening mark) to the next sentence.
-# Move it back.
-quotes:
-	fix_sentence_segmentation_quotes.pl < 02-bibl_dr_mt-processed-udpipe-pdt26.conllu | fix_sentence_segmentation.pl > 03-bibl_dr_mt-parsed.conllu
-	fix_sentence_segmentation_quotes.pl < 02-bibl_ol_mt-processed-udpipe-pdt26.conllu | fix_sentence_segmentation.pl > 03-bibl_ol_mt-parsed.conllu
-
-merge: tokenization_from_udpipe sentence_segmentation_from_udpipe merge_with_udpipe
-
 # After parsing the files with UDPipe, we want to make sure that our pre-annotated file has the same tokenization as UDPipe so we can compare annotation.
 # The script conllu_copy_tokenization.pl is in the UD tools repository.
-tokenization_from_udpipe:
-	conllu_copy_tokenization.pl 03-bibl_dr_mt-parsed.conllu 01-bibl_dr_mt.conllu > 04-bibl_dr_mt-retokenized.conllu
-	conllu_copy_tokenization.pl 03-bibl_ol_mt-parsed.conllu 01-bibl_ol_mt.conllu > 04-bibl_ol_mt-retokenized.conllu
-
 # Once the tokenization of the original file matches the output from UDPipe, we can also port the sentence segmentation.
 # The script conllu_copy_sentence_segmentation.pl is in the UD tools repository.
-sentence_segmentation_from_udpipe:
-	conllu_copy_sentence_segmentation.pl 03-bibl_dr_mt-parsed.conllu 04-bibl_dr_mt-retokenized.conllu > 05-bibl_dr_mt-resegmented.conllu
-	conllu_copy_sentence_segmentation.pl 03-bibl_ol_mt-parsed.conllu 04-bibl_ol_mt-retokenized.conllu > 05-bibl_ol_mt-resegmented.conllu
+# Then we can finally merge the UDPipe-generated morphosyntactic annotation with the other annotations inherited from the vertical.
+$(MERGEDDIR)/%.conllu: $(PARSEDDIR)/%.conllu $(CONLLUDIR)/%.conllu
+	mkdir -p $(@D)
+	conllu_copy_tokenization.pl $^ > $(MERGEDDIR)/$*-retokenized.conllu
+	conllu_copy_sentence_segmentation.pl $< $(MERGEDDIR)/$*-retokenized.conllu > $(MERGEDDIR)/$*-resegmented.conllu
+	./tools/merge_conllu.pl $(MERGEDDIR)/$*-resegmented.conllu $< > $@
 
-merge_with_udpipe:
-	merge_conllu.pl 05-bibl_dr_mt-resegmented.conllu 03-bibl_dr_mt-parsed.conllu > 06-bibl_dr_mt-merged.conllu
-	merge_conllu.pl 05-bibl_ol_mt-resegmented.conllu 03-bibl_ol_mt-parsed.conllu > 06-bibl_ol_mt-merged.conllu
+# Clean rule to remove all generated files.
+clean:
+	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR) $(MERGEDDIR)
+
+
 
 # Once everything has been merged with the output of UDPipe, we can afford to touch the tokenization again (and thus break the synchronization with UDPipe).
 # Things to fix:
