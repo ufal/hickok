@@ -28,7 +28,7 @@ all: conllu text parsed
 # This is applied to the whole folder and the loop is inside the script because individual files get renamed in the process (CamelCase, diacritics etc.)
 .PHONY: conllu
 conllu: $(VERTFILES)
-	./tools/vert2conllu.pl --srcdir vert_full --tgtdir conllu
+	./tools/vert2conllu.pl --srcdir $(VERTDIR) --tgtdir $(CONLLUDIR)
 .PHONY: text
 text:   $(TEXTFILES)
 .PHONY: parsed
