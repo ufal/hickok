@@ -60,7 +60,7 @@ $(PARSEDDIR)/%.conllu: $(TEXTDIR)/%.txt
 $(MERGEDDIR)/%.conllu: $(PARSEDDIR)/%.conllu $(CONLLUDIR)/%.conllu
 	mkdir -p $(@D)
 	conllu_copy_tokenization.pl $^ > $(MERGEDDIR)/$*-retokenized.conllu
-	conllu_copy_sentence_segmentation.pl $< $(MERGEDDIR)/$*-retokenized.conllu > $(MERGEDDIR)/$*-resegmented.conllu
+	conllu_copy_sentence_segmentation.pl --par2sentids $< $(MERGEDDIR)/$*-retokenized.conllu > $(MERGEDDIR)/$*-resegmented.conllu
 	./tools/merge_conllu.pl $(MERGEDDIR)/$*-resegmented.conllu $< > $@
 
 # Clean rule to remove all generated files.
