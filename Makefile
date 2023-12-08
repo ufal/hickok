@@ -79,7 +79,8 @@ $(MERGEDDIR)/%.conllu: $(PARSEDDIR)/%.conllu $(CONLLUDIR)/%.conllu
 # accusative.
 $(PREPRCDIR)/%.conllu: $(MERGEDDIR)/%.conllu
 	mkdir -p $(@D)
-	./tools/fix_tokenization.pl < $< | ./tools/fix_morphology.pl | udapy -s util.Eval node='if node.form.lower() == "u" and node.upos == "ADP" and re.match(r"(Acc|Loc)", node.parent.feats["Case"]): node.lemma = "v"; node.feats["Case"] = node.parent.feats["Case"]; node.xpos = "RV--6----------" if node.feats["Case"] == "Loc" else "RV--4----------"' > $@
+	./tools/fix_tokenization.pl < $< | ./tools/fix_morphology.pl > $(PREPRCDIR)/$*-forudapi.conllu
+	udapy -s util.Eval node='if node.form.lower() == "u" and node.upos == "ADP" and re.match(r"(Acc|Loc)", node.parent.feats["Case"]): node.lemma = "v"; node.feats["Case"] = node.parent.feats["Case"]; node.xpos = "RV--6----------" if node.feats["Case"] == "Loc" else "RV--4----------"' < $(PREPRCDIR)/$*-forudapi.conllu > $@
 
 # Clean rule to remove all generated files.
 clean:
