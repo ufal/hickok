@@ -7,6 +7,7 @@ CONLLUDIR := data/conllu
 TEXTDIR   := data/text
 PARSEDDIR := data/parsed
 MERGEDDIR := data/merged
+PREPRCDIR := data/preprocessed
 
 # Find all source files in the source folder.
 VERTFILES   := $(wildcard $(VERTDIR)/*/*.vert)
@@ -16,11 +17,12 @@ CONLLUFILES := $(wildcard $(CONLLUDIR)/*/*.conllu)
 TEXTFILES   := $(addprefix $(TEXTDIR)/, $(addsuffix .txt, $(subst $(CONLLUDIR)/,,$(subst .conllu,,$(CONLLUFILES)))))
 PARSEDFILES := $(patsubst $(CONLLUDIR)/%, $(PARSEDDIR)/%, $(CONLLUFILES))
 MERGEDFILES := $(patsubst $(CONLLUDIR)/%, $(MERGEDDIR)/%, $(CONLLUFILES))
+PREPRCFILES := $(patsubst $(CONLLUDIR)/%, $(PREPRCDIR)/%, $(CONLLUFILES))
 
 # If a command ends with ane error, delete its target file because it may be corrupt.
 .DELETE_ON_ERROR:
 
-all: conllu text parsed
+all: conllu preprc
 	echo $(VERTFILES) | wc -w
 
 # Phony targets for each step.
@@ -35,6 +37,8 @@ text:   $(TEXTFILES)
 parsed: $(PARSEDFILES)
 .PHONY: merged
 merged: $(MERGEDFILES)
+.PHONY: preprc
+preprc: $(PREPRCFILES)
 
 # Extract plain text from an individual CoNLL-U file (which was converted from the vertical).
 # The script resides in the UD tools repository.
@@ -63,25 +67,25 @@ $(MERGEDDIR)/%.conllu: $(PARSEDDIR)/%.conllu $(CONLLUDIR)/%.conllu
 	conllu_copy_sentence_segmentation.pl --par2sentids $< $(MERGEDDIR)/$*-retokenized.conllu > $(MERGEDDIR)/$*-resegmented.conllu
 	./tools/merge_conllu.pl $(MERGEDDIR)/$*-resegmented.conllu $< > $@
 
+# Once everything has been merged with the output of UDPipe, we can afford to touch the
+# tokenization again (and thus break the synchronization with UDPipe). Things to fix:
+# - Remove spaces next to quotation marks. Ondřej has confirmed that they are not deliberate.
+#   And we know the side of the quotation marks.
+# - Annotate "abyšte" as a multi-word token. (UDPipe does not recognize it because the modern
+#   spelling is "abyste".)
+# Furthermore, apply rule-based fixes of morphology to reduce the load of the annotators.
+# Explanation of the Udapi part: The preposition "u" normally requires genitive. But it can be also
+# realization of the preposition "v" before labials, and then it would go with locative or
+# accusative.
+$(PREPRCDIR)/%.conllu: $(MERGEDDIR)/%.conllu
+	mkdir -p $(@D)
+	./tools/fix_tokenization.pl < $< | ./tools/fix_morphology.pl | udapy -s util.Eval node='if node.form.lower() == "u" and node.upos == "ADP" and re.match(r"(Acc|Loc)", node.parent.feats["Case"]): node.lemma = "v"; node.feats["Case"] = node.parent.feats["Case"]; node.xpos = "RV--6----------" if node.feats["Case"] == "Loc" else "RV--4----------"' > $@
+
 # Clean rule to remove all generated files.
 clean:
-	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR) $(MERGEDDIR)
+	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR) $(MERGEDDIR) $(PREPRCDIR)
 
 
-
-# Once everything has been merged with the output of UDPipe, we can afford to touch the tokenization again (and thus break the synchronization with UDPipe).
-# Things to fix:
-# - Remove spaces next to quotation marks. Ondřej has confirmed that they are not deliberate. And we know the side of the quotation marks.
-# - Annotate "abyšte" as a multi-word token. (UDPipe does not recognize it because the modern spelling is "abyste".)
-fix_tokenization:
-	fix_tokenization.pl < 06-bibl_dr_mt-merged.conllu > 07-bibl_dr_mt-tokfixed.conllu
-	fix_tokenization.pl < 06-bibl_ol_mt-merged.conllu > 07-bibl_ol_mt-tokfixed.conllu
-
-fix_morphology:
-	fix_morphology.pl < 07-bibl_dr_mt-tokfixed.conllu > 08-bibl_dr_mt-morfixed.conllu
-	fix_morphology.pl < 07-bibl_ol_mt-tokfixed.conllu > 08-bibl_ol_mt-morfixed.conllu
-	# The preposition "u" normally requires genitive. But it can be also realization of the preposition "v" before labials, and then it would go with locative or accusative.
-	cat 08-bibl_dr_mt-morfixed.conllu 08-bibl_ol_mt-morfixed.conllu | udapy -s util.Eval node='if node.form.lower() == "u" and node.upos == "ADP" and re.match(r"(Acc|Loc)", node.parent.feats["Case"]): node.lemma = "v"; node.feats["Case"] = node.parent.feats["Case"]; node.xpos = "RV--6----------" if node.feats["Case"] == "Loc" else "RV--4----------"' > 08-bibl_dr_ol_mt-morfixed.conllu
 
 amblist:
 	cat 08-bibl_dr_ol_mt-morfixed.conllu | udapy util.Eval node='if re.match(r"^(PRON|DET)$$", node.upos): print(node.upos, node.feats["PronType"], node.lemma, node.feats["Poss"], node.feats["Reflex"], node.feats["Number"], node.feats["Person"], node.feats["Gender"], node.feats["Case"], node.form.lower())' | sort | uniq -c > zajmena.txt
