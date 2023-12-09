@@ -11,6 +11,7 @@ NMPléStem;
 NMkStem;
 NMlStem;
 NMiStem;
+NIyStem;
 NFaStem;
 NFeStem;
 NFtStem;
@@ -101,6 +102,13 @@ vodič+NM+Pl+Voc:vodičěvé #;
 vrabec:vrabEc NMi;
 žnec:žnEc NMi;
 žnec:ženc NMi;
+
+LEXICON NIyStem
+
+! Neživotná tvrdá maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
+
+chléb+NM+Sg+Nom:chléb #;
+chléb:chleb NIy;
 
 LEXICON NFaStem
 
@@ -260,6 +268,15 @@ NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního 
 +NM+Du+Voc:^ě    #;
 +NM+Pl+Acc:^e    #; ! kacieře kopáče muže otce tovařiše
 +NM+Pl+Ins:^i    #; ! kacieři kopáči muži otci tovařiši
+
+LEXICON NIy
+
+! Neživotná tvrdá maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
+
+NMy;
++NM+Sg+Acc:^λ #; ! Acc Sg bez koncovky jako Nom
++NM+Pl+Nom:^y #; ! Nom Pl jako Acc
++NM+Pl+Voc:^y #; ! Voc Pl jako Acc
 
 LEXICON NFa
 
