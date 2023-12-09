@@ -54,5 +54,5 @@ foreach my $f (@forms)
     #                 'cěstě'       => ['cesta',    'cěsta',    [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
     my $pad = ' ' x ($maxl-length($f));
     my $analyses = join(', ', map {$conversion{$_}} (@{$dict{$f}}));
-    print("                 '$f'$pad => ['$lemma', '$lemma', [$analyses]],\n");
+    print("                '$f'$pad => ['$lemma', '$lemma', [$analyses]],\n");
 }
