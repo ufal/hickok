@@ -1,0 +1,472 @@
+Multichar_Symbols +NM +NF +Masc +Mina +Fem +Neut +Sg +Du +Pl +Nom +Gen +Dat +Acc +Voc +Loc +Ins Sup+ +Pos +Comp @P.SUP.ON@ @D.SUP@
+
+LEXICON Root
+
+Noun;
+
+LEXICON Noun
+
+NMyStem;
+NMPléStem;
+NMkStem;
+NMlStem;
+NMiStem;
+NFaStem;
+NFeStem;
+NFtStem;
+
+LEXICON NMyStem
+
+běs NMy;
+bratr NMy;
+bratr+NM+Du+Gen:bratřú #;
+bratr+NM+Pl+Nom:bratřie #;
+bratr+NM+Pl+Gen:bratří #;
+bratr+NM+Pl+Dat:bratří #;
+bratr+NM+Pl+Acc:bratřie #;
+črv NMy;
+ďábel:diábEl NMy;
+had NMy;
+hospodin NMy;
+kokot NMy;
+kozel:kozEl NMy;
+krajan+NM+Sg+Nom:krajěnín NMy;
+krajan+NM+Pl+Nom:krajěné #;
+krajan:krajěn NMy; ! ne Nom
+mistr NMy;
+pán NMy;
+pes:pEs NMy;
+pop NMy;
+satan NMy;
+satan+NM+Sg+Voc:satanas #;
+satan+NM+Sg+Voc:sathana #;
+syn NMy;
+velbloud:velblúd NMy;
+
+LEXICON NMPléStem
+
+pohan NMPlé;
+žid NMPlé;
+
+LEXICON NMkStem
+
+bůh+NM+Sg+Nom:bóh #;
+bůh:boh NMk;
+bůh:buoh NMk;
+býk NMk;
+člověk NMk;
+dělník NMk;
+dlužník NMk;
+duch NMk;
+duchovník NMk;
+hříšník:hřiešník NMk;
+kozel:kozelEc NMi;
+licoměrník NMk;
+mládeneček:mládenečEk NMk;
+mudrák NMk;
+prorok NMk;
+svědek:svědEk NMk;
+učedník:učedlník NMk;
+učedník:učenník NMk;
+zjevník:zjěvník NMk;
+
+LEXICON NMlStem
+
+anděl NMl;
+anděl:anjel NMl;
+apoštol NMl;
+přítel:přietel NMl;
+
+LEXICON NMiStem
+
+kacíř:kacieř NMi;
+kopáč NMi;
+muž NMi;
+muž+NM+Pl+Gen:muží #;
+otec:otEc NMi;
+panoš NMi;
+panoš+NM+Sg+Nom:panošicě #;
+panoš+NM+Pl+Nom:panošicě #;
+panoš+NM+Sg+Ins:panoší #;
+panoš+NM+Pl+Gen:panoší #;
+panoš+NM+Pl+Ins:panošěmi #;
+pisec:pisEc NMi;
+rybář NMi;
+rytíř:rytieř NMi;
+šílenec:šielenEc NMi;
+tovaryš:tovařiš NMi;
+vodič NMi;
+vodič+NM+Pl+Nom:vodičěvé #;
+vodič+NM+Pl+Voc:vodičěvé #;
+vrabec:vrabEc NMi;
+žnec:žnEc NMi;
+žnec:ženc NMi;
+
+LEXICON NFaStem
+
+cesta:cěst   NFa;
+dna:dn       NFa;
+hora:hor     NFa;
+hora:huor    NFa;
+libra:libr   NFa;
+lichva:lichv NFa;
+matka:matk   NFa;
+mísa:mís     NFa;
+modlitba:modlitv NFa;
+noha:noh         NFa;
+noha+NF+Pl+Gen:nóh #;
+potopa:potop     NFa;
+přísaha:přísah   NFa;
+ruka:ruk     NFa;
+škola:škuol  NFa;
+trúba:trúb   NFa;
+vina:vinn    NFa;
+víra:vier    NFa;
+voda:vuod    NFa;
+žena:žen     NFa;
+! Zřejmě se velmi podobně skloňovala i mužská jména podle dnešního vzoru předseda.
+sluha:sluh NFa;
+starosta:starost NFa;
+tetrarcha:tetrarch NFa;
+
+LEXICON NFeStem
+
+božnice:buožnic       NFe;
+duše:duš              NFe;
+dcera+NF+Sg+Nom:dci   #;
+dcera+NF+Sg+Voc:dci   #;
+máti+NF+Sg+Nom:mátě   #;
+máti+NF+Sg+Acc:máteř  #;
+máti+NF+Sg+Gen:mateře #;
+máti+NF+Sg+Gen:mateřě #;
+máti+NF+Sg+Dat:mateři #;
+máti+NF+Sg+Ins:mateří #;
+měřice:měřic          NFe;
+ovce:ovc              NFe;
+ovce:uovc             NFe;
+světelnice:světedlnic NFe;
+ulice:ulic            NFe;
+vesnice:vesnic        NFe;
+! Zřejmě se velmi podobně skloňovala i mužská jména podle vzoru súdcě.
+soudce:súdc           NFe;
+
+LEXICON NFtStem
+
+poušť:púšč NFt;
+poušť:púšť NFt;
+rez        NFt;
+síť:sieť   NFt;
+sůl:sól    NFt;
+sůl:suol   NFt;
+stred      NFt;
+
+LEXICON NM
+
+! Zdá se, že základní mužské skloňování je tvrdé a jde ho použít pro všechna podstatná jména,
+! jejichž nominativ končí na souhlásku. Některé lexémy navíc umožňují další měkké koncovky,
+! které se pro ně v pozdějších fázích češtiny stanou povinné. Ale ve staročeských textech se
+! u nich, byť ne často, objevují i tvrdé koncovky, třeba dativ "mužu". Zde uvedené se nevztahuje
+! na podstatná jména, jejichž nominativ končí samohláskou. Našel jsem nicméně dvě tvrdé koncovky,
+! které zřejmě pro měkká jména použít nejde Acc a Ins Pl -y.
+
++NM+Sg+Nom:^λ    #; ! anděl přietel běs bóh dělník duch had hospodin kacieř kopáč kokot muž otec pán pop tovařiš
+! Gen a Acc Sg jsou vždy stejné.
++NM+Sg+Gen:^a    #; ! anděla přietela běsa boha dělníka ducha hada hospodina kacieřa kopáča kokota muža otca pána popa tovařiša
++NM+Sg+Acc:^a    #;
+! Dat a Loc Sg jsou vždy stejné.
++NM+Sg+Dat:^u    #; ! andělu   přietelu   běsu   bohu   dělníku   duchu   hadu   hospodinu   kacieřu   kopáču   kokotu   mužu   otcu   pánu   popu   tovařišu
++NM+Sg+Dat:^ovi  #; ! andělovi přietelovi běsovi bohovi dělníkovi duchovi hadovi hospodinovi kacieřovi kopáčovi kokotovi mužovi otcovi pánovi popovi tovařišovi
++NM+Sg+Loc:^u    #;
++NM+Sg+Loc:^ovi  #;
+! Ale narazil jsem i na Loc "hospodině", "velblúdě" (Dat zatím nedávám, dokud ho taky nepotkám).
+! A pravděpodobně se nebude vyskytovat po některých souhláskách, např. "bohě" by nejspíš bylo "bozě", pokud vůbec.
++NM+Sg+Loc:^ě    #;
+! Voc se zřejmě liší podle kmene. Koncovka -e vypadá relativně nejrozšířenější, ale u měkkých jmen je problematická kvůli kolizi s genitivem.
+! Musíme rozpoznat vokativní ^e (měkčí kmenovou souhlásku, otec-otče) od genitivního ^e (neměkčí, otec-otce).
++NM+Sg+Voc:^E    #; ! anděle přietele běse bože dělníče duše  hade hospodine kacieře kopáče kokote muže otče páne pope tovařiše
++NM+Sg+Ins:^em   #; ! andělem přietelem běsem bohem dělníkem duchem hadem hospodinem kacieřem kopáčem kokotem mužem otcem pánem popem tovařišem
+! Duál je vzácný a jeho koncovky zatím nemám dostatečně prozkoumané.
++NM+Du+Gen:^ú    #;
++NM+Du+Loc:^ú    #;
++NM+Du+Dat:^oma  #;
++NM+Du+Ins:^oma  #;
+! Nom a Voc Pl jsou vždy stejné.
++NM+Pl+Nom:^i    #; ! anděli   přietel?   běsi   bozi   dělníci   duši    hadi   hospodini   kacieři   kopáči   kokoti   muži   otci   páni   popi   tovařiši
++NM+Pl+Nom:^ové  #; ! andělové přietelové běsové bohové dělníkové duchové hadové hospodinové kacieřové kopáčové kokotové mužové otcové pánové popové tovařišové
++NM+Pl+Voc:^i    #;
++NM+Pl+Voc:^ové  #;
++NM+Pl+Nom:^ie   #; ! attested: bratřie črvie mužie tovařišie židie
++NM+Pl+Voc:^ie   #;
+! Gen a Dat Pl mají jednoznačné koncovky (-ó- vs. -uo- je jen starší vs. mladší varianta) pro všechna mužská jména.
+! Gen Pl se často používal v přímém předmětu místo Acc, ale to nehodnotím jako alternativní tvar akuzativu, nýbrž jako partitivní konstrukci (nejsem si jist, že je to OK).
++NM+Pl+Gen:^óv   #; ! andělóv  přietelóv  běsóv  bohóv  dělníkóv  duchóv  hadóv  hospodinóv  kacieřóv  kopáčóv  kokotóv  mužóv  otcóv  pánóv  popóv  tovařišóv
++NM+Pl+Gen:^uov  #; ! anděluov přieteluov běsuov bohuov dělníkuov duchuov haduov hospodinuov kacieřuov kopáčuov kokotuov mužuov otcuov pánuov popuov tovařišuov
++NM+Pl+Dat:^óm   #; ! andělóm  přietelóm  běsóm  bohóm  dělníkóm  duchóm  hadóm  hospodinóm  kacieřóm  kopáčóm  kokotóm  mužóm  otcóm  pánóm  popóm  tovařišóm
++NM+Pl+Dat:^uom  #; ! anděluom přieteluom běsuom bohuom dělníkuom duchuom haduom hospodinuom kacieřuom kopáčuom kokotuom mužuom otcuom pánuom popuom tovařišuom
++NM+Pl+Loc:^iech #;
+
+LEXICON NMy
+
+! Mužské tvrdé skloňování.
+
+NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního slovníku NM.
++NM+Du+Nom:^y    #;
++NM+Du+Acc:^y    #;
++NM+Du+Voc:^y    #;
++NM+Pl+Acc:^y    #; ! anděly běsy bohy dělníky duchy hady hospodiny kokoty pány popy
++NM+Pl+Ins:^y    #;
+
+LEXICON NMPlé
+
+! Mužské tvrdé skloňování s alternativním plurálem na -é.
+! (Zde nejsou "andělé", protože "anděl" má ještě navíc alternativní vokativ na -i.)
+
+NMy; ! Kromě níže uvedených lze použít i všechny koncovky ostatních tvrdých jmen.
++NM+Pl+Nom:^é    #; ! pohané židé
++NM+Pl+Voc:^é    #; ! pohané židé
+
+LEXICON NMk
+
+! Mužské tvrdé skloňování jmen končících na -h, -ch, -k.
+
+NMy; ! Kromě níže uvedených lze použít i všechny koncovky ostatních tvrdých jmen.
+! Voc se zřejmě liší podle kmene.
++NM+Sg+Voc:^u    #; ! bohu dělníku duchu
+
+LEXICON NMl
+
+! Mužské obojetné skloňování některých jmen končících na -l.
+
+NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního slovníku NM.
+! Voc se zřejmě liší podle kmene.
++NM+Sg+Voc:^i    #; ! anděli přieteli běs? boh? dělník? duch? had? hospodin? kacieři kopáči kokot? muži otc? pán? pop? tovařiši
++NM+Pl+Nom:^é    #; ! andělé   přietelé   běs?   boh?   dělník?   duch?   had?
++NM+Pl+Voc:^é    #;
+
+LEXICON NMi
+
+! Mužské měkké skloňování.
+
+NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního slovníku NM.
+! Gen a Acc Sg jsou vždy stejné.
++NM+Sg+Gen:^e    #; ! anděle přietele běse bož? dělní?? du??? hadě hospodině kacieře kopáče kokot? muže otce páně pop? tovařiše
++NM+Sg+Acc:^e    #;
+! Dat a Loc Sg jsou vždy stejné.
++NM+Sg+Dat:^i    #; ! anděli   přieteli   běs?   boh?   dělník?   duch?   had?   hospodin?   kacieři   kopáči   kokot?   muži   otci   pán?   pop?   tovařiši
++NM+Sg+Loc:^i    #;
++NM+Sg+Ins:^iem  #; ! Není mi jasné, která jména umožňují koncovku -iem. Doloženo je kopáčiem, rytieřiem.
++NM+Du+Nom:^ě    #; ! rybářě
++NM+Du+Acc:^ě    #;
++NM+Du+Voc:^ě    #;
++NM+Pl+Acc:^e    #; ! kacieře kopáče muže otce tovařiše
++NM+Pl+Ins:^i    #; ! kacieři kopáči muži otci tovařiši
+
+LEXICON NFa
+
++NF+Sg+Nom:^a   #;
++NF+Sg+Gen:^y   #;
++NF+Sg+Dat:^e   #;
++NF+Sg+Dat:^ě   #; ! Ve staré češtině se vyskytuje i po měkkých souhláskách, takže nestačí měnit -e na -ě pomocí fonologických pravidel.
++NF+Sg+Acc:^u   #;
++NF+Sg+Voc:^o   #;
++NF+Sg+Loc:^e   #;
++NF+Sg+Loc:^ě   #; ! Ve staré češtině se vyskytuje i po měkkých souhláskách, takže nestačí měnit -e na -ě pomocí fonologických pravidel.
++NF+Sg+Ins:^ú   #;
++NF+Sg+Ins:^ou  #;
++NF+Du+Nom:^ě   #;
++NF+Du+Acc:^ě   #;
++NF+Du+Voc:^ě   #;
++NF+Pl+Nom:^y   #;
++NF+Pl+Gen:^λ   #;
++NF+Pl+Dat:^ám  #;
++NF+Pl+Acc:^y   #;
++NF+Pl+Voc:^y   #;
++NF+Pl+Loc:^ách #;
++NF+Pl+Ins:^ami #;
+
+LEXICON NFe
+
++NF+Sg+Nom:^ě    #;
++NF+Sg+Gen:^ě    #;
++NF+Sg+Dat:^i    #;
++NF+Sg+Acc:^i    #;
++NF+Sg+Acc:^u    #; ! Doložen tvar "dušu".
++NF+Sg+Voc:^ě    #;
++NF+Sg+Loc:^i    #;
++NF+Sg+Ins:^í    #;
++NF+Pl+Nom:^ě    #;
++NF+Pl+Gen:^λ    #;
++NF+Pl+Dat:^iem  #;
++NF+Pl+Acc:^ě    #;
++NF+Pl+Voc:^ě    #;
++NF+Pl+Loc:^iech #;
++NF+Pl+Ins:^ěmi  #;
+
+LEXICON NFt
+
++NF+Sg+Nom:^λ    #; ! púšč púšť
++NF+Sg+Nom:^ě    #; ! púščě
++NF+Sg+Gen:^ě    #; ! púščě
++NF+Sg+Dat:^i    #;
++NF+Sg+Acc:^λ    #; ! púšč púšť
++NF+Sg+Acc:^i    #; ! púšči
++NF+Sg+Acc:^u    #; ! púšťu
++NF+Sg+Voc:^ě    #;
++NF+Sg+Loc:^i    #; ! púšči púšti
++NF+Sg+Ins:^í    #;
++NF+Pl+Nom:^ě    #;
++NF+Pl+Gen:^í    #;
++NF+Pl+Dat:^iem  #;
++NF+Pl+Acc:^ě    #;
++NF+Pl+Voc:^ě    #;
++NF+Pl+Loc:^iech #;
++NF+Pl+Ins:^ěmi  #;
+
+LEXICON AdjSup
+
+@P.SUP.ON@Sup+:@P.SUP.ON@nej Adj;
+
+LEXICON Adj
+
+zelený:zelen AhardDeg;
+mladý:mlad   Ahard1Deg;
+jarní:jarn   AsoftDeg;
+
+LEXICON AhardDeg
+
+@D.SUP@+Pos:@D.SUP@     Ahard;
++Comp:^ejš Asoft;
+
+LEXICON Ahard1Deg
+
+@D.SUP@+Pos:@D.SUP@     Ahard;
++Comp:^š   Asoft;
+
+LEXICON AsoftDeg
+
+@D.SUP@+Pos:@D.SUP@     Asoft;
++Comp:^ejš Asoft;
+
+LEXICON Ahard
+
++A+Masc+Sg+Nom:^ý   #;
++A+Masc+Sg+Gen:^ého #;
++A+Masc+Sg+Dat:^ému #;
++A+Masc+Sg+Acc:^ého #;
++A+Masc+Sg+Voc:^ý   #;
++A+Masc+Sg+Loc:^ém  #;
++A+Masc+Sg+Ins:^ým  #;
++A+Masc+Pl+Nom:^í   #;
++A+Masc+Pl+Gen:^ých #;
++A+Masc+Pl+Dat:^ým  #;
++A+Masc+Pl+Acc:^é   #;
++A+Masc+Pl+Voc:^í   #;
++A+Masc+Pl+Loc:^ých #;
++A+Masc+Pl+Ins:^ými #;
+
++A+Mina+Sg+Nom:^ý   #;
++A+Mina+Sg+Gen:^ého #;
++A+Mina+Sg+Dat:^ému #;
++A+Mina+Sg+Acc:^ý   #;
++A+Mina+Sg+Voc:^ý   #;
++A+Mina+Sg+Loc:^ém  #;
++A+Mina+Sg+Ins:^ým  #;
++A+Mina+Pl+Nom:^é   #;
++A+Mina+Pl+Gen:^ých #;
++A+Mina+Pl+Dat:^ým  #;
++A+Mina+Pl+Acc:^é   #;
++A+Mina+Pl+Voc:^é   #;
++A+Mina+Pl+Loc:^ých #;
++A+Mina+Pl+Ins:^ými #;
+
++A+Fem+Sg+Nom:^á   #;
++A+Fem+Sg+Gen:^é   #;
++A+Fem+Sg+Dat:^é   #;
++A+Fem+Sg+Acc:^ou  #;
++A+Fem+Sg+Voc:^á   #;
++A+Fem+Sg+Loc:^é   #;
++A+Fem+Sg+Ins:^ou  #;
++A+Fem+Pl+Nom:^é   #;
++A+Fem+Pl+Gen:^ých #;
++A+Fem+Pl+Dat:^ým  #;
++A+Fem+Pl+Acc:^é   #;
++A+Fem+Pl+Voc:^é   #;
++A+Fem+Pl+Loc:^ých #;
++A+Fem+Pl+Ins:^ými #;
+
++A+Neut+Sg+Nom:^é   #;
++A+Neut+Sg+Gen:^ého #;
++A+Neut+Sg+Dat:^ému #;
++A+Neut+Sg+Acc:^é   #;
++A+Neut+Sg+Voc:^é   #;
++A+Neut+Sg+Loc:^ém  #;
++A+Neut+Sg+Ins:^ým  #;
++A+Neut+Pl+Nom:^é   #;
++A+Neut+Pl+Gen:^ých #;
++A+Neut+Pl+Dat:^ým  #;
++A+Neut+Pl+Acc:^é   #;
++A+Neut+Pl+Voc:^é   #;
++A+Neut+Pl+Loc:^ých #;
++A+Neut+Pl+Ins:^ými #;
+
+LEXICON Asoft
+
++A+Masc+Sg+Nom:^í   #;
++A+Masc+Sg+Gen:^ího #;
++A+Masc+Sg+Dat:^ímu #;
++A+Masc+Sg+Acc:^ího #;
++A+Masc+Sg+Voc:^í   #;
++A+Masc+Sg+Loc:^ím  #;
++A+Masc+Sg+Ins:^ím  #;
++A+Masc+Pl+Nom:^í   #;
++A+Masc+Pl+Gen:^ích #;
++A+Masc+Pl+Dat:^ím  #;
++A+Masc+Pl+Acc:^í   #;
++A+Masc+Pl+Voc:^í   #;
++A+Masc+Pl+Loc:^ích #;
++A+Masc+Pl+Ins:^ími #;
+
++A+Mina+Sg+Nom:^í   #;
++A+Mina+Sg+Gen:^ího #;
++A+Mina+Sg+Dat:^ímu #;
++A+Mina+Sg+Acc:^í   #;
++A+Mina+Sg+Voc:^í   #;
++A+Mina+Sg+Loc:^ím  #;
++A+Mina+Sg+Ins:^ím  #;
++A+Mina+Pl+Nom:^í   #;
++A+Mina+Pl+Gen:^ích #;
++A+Mina+Pl+Dat:^ím  #;
++A+Mina+Pl+Acc:^í   #;
++A+Mina+Pl+Voc:^í   #;
++A+Mina+Pl+Loc:^ích #;
++A+Mina+Pl+Ins:^ími #;
+
++A+Fem+Sg+Nom:^í   #;
++A+Fem+Sg+Gen:^í   #;
++A+Fem+Sg+Dat:^í   #;
++A+Fem+Sg+Acc:^í   #;
++A+Fem+Sg+Voc:^í   #;
++A+Fem+Sg+Loc:^í   #;
++A+Fem+Sg+Ins:^í   #;
++A+Fem+Pl+Nom:^í   #;
++A+Fem+Pl+Gen:^ích #;
++A+Fem+Pl+Dat:^ím  #;
++A+Fem+Pl+Acc:^í   #;
++A+Fem+Pl+Voc:^í   #;
++A+Fem+Pl+Loc:^ích #;
++A+Fem+Pl+Ins:^ími #;
+
++A+Neut+Sg+Nom:^í   #;
++A+Neut+Sg+Gen:^ího #;
++A+Neut+Sg+Dat:^ímu #;
++A+Neut+Sg+Acc:^í   #;
++A+Neut+Sg+Voc:^í   #;
++A+Neut+Sg+Loc:^ím  #;
++A+Neut+Sg+Ins:^ím  #;
++A+Neut+Pl+Nom:^í   #;
++A+Neut+Pl+Gen:^ích #;
++A+Neut+Pl+Dat:^ím  #;
++A+Neut+Pl+Acc:^í   #;
++A+Neut+Pl+Voc:^í   #;
++A+Neut+Pl+Loc:^ích #;
++A+Neut+Pl+Ins:^ími #;

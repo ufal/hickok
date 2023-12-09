@@ -9,6 +9,7 @@ use open ':utf8';
 binmode(STDIN, ':utf8');
 binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
+use Carp;
 use Lingua::Interset;
 
 # Některá lemmata nezná ani UDPipe, ani morfologická analýza ze Staročeské banky,
@@ -1031,7 +1032,7 @@ while(<>)
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
         # "Miesto" je předložka v 2.21 resp. 2.22, všude jinde je to podstatné jméno.
         elsif(!($f[1] =~ m/^miesto$/i && get_ref($f[9]) =~ m/^MATT_2\.(21|22)$/) &&
-              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|líc|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|trn|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[ei]|hoř|hořěti|jm[eiu]?|jmie|letie|nebo?|nebiech)$/i)
+              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|líc|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|trn|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[ei]|hoř|hořěti|jm[eiu]?|jmie|letie|letí|nebo?|nebiech)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -1104,6 +1105,7 @@ while(<>)
                 'ocě'         => ['oko',      'oko',      [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Acc', '4', 'MATT_18\\.9']]],
                 'oslíčě'      => ['oslíče',   'oslíčě',   [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
                 'písemce'     => ['písmeno',  'písemce',  [['Sing', 'S', 'Nom', '1']]],
+                'práv'        => ['právo',    'právo',    [['Plur', 'P', 'Gen', '2']]],
                 'práva'       => ['právo',    'právo',    [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4']]],
                 'právě'       => ['právo',    'právo',    [['Sing', 'S', 'Dat', '3']]],
                 'právem'      => ['právo',    'právo',    [['Plur', 'P', 'Ins', '7']]],
@@ -1316,6 +1318,7 @@ while(<>)
                 'náměséčny' => ['náměsíčný', 'náměsíčný', [['Anim', 'M', 'Plur', 'P', 'Acc', '4']]],
                 'nemocen'   => ['nemocný',   'nemocný',   [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
                 'nemocna'   => ['nemocný',   'nemocný',   [['Anim', 'M', 'Sing', 'S', 'Acc', '4']]],
+                'nemocni'   => ['nemocný',   'nemocný',   [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
                 'nemocno'   => ['nemocný',   'nemocný',   [['Neut', 'N', 'Sing', 'S', 'Nom', '1']]],
                 'nici'      => ['nicí',      'nicí',      [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]], # https://vokabular.ujc.cas.cz/hledani.aspx?hw=nic%C3%AD
                 'pln'       => ['plný',      'plný',      [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Anim', 'M', 'Sing', 'S', 'Acc', '4']]],
@@ -1690,6 +1693,7 @@ while(<>)
                 'izákóv'        => ['Izákův',     'Izákóv',     [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
                 'jakubóv'       => ['Jakubův',    'Jakubóv',    [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
                 'jakubova'      => ['Jakubův',    'Jakubóv',    [['Fem',  'F', 'Sing', 'S', 'Nom', '1']]],
+                'jakubovo'      => ['Jakubův',    'Jakubóv',    [['Neut', 'N', 'Sing', 'S', 'Nom', '1']]],
                 'jakubovu'      => ['Jakubův',    'Jakubóv',    [['Anim', 'M', 'Sing', 'S', 'Acc', '4']]],
                 'janóv'         => ['Janův',      'Janóv',      [['Inan', 'I', 'Sing', 'S', 'Nom', '1']]],
                 'janovu'        => ['Janův',      'Janóv',      [['Fem',  'F', 'Sing', 'S', 'Acc', '4']]],
@@ -2593,7 +2597,7 @@ while(<>)
         # Sloveso "neroditi" je sice negativní a bude mít Polarity=Neg, ale jeho lemma je "nerodit" a kladný tvar neexistuje.
         # Od slovesa "rodit" se liší významem i valencí, odpovídá spíš slovesu "neráčit".
         # Sloveso "rodit" se ovšem v našich datech nevyskytuje, takže záměna nehrozí (jsou tam pouze odvozená "narodit", "porodit", "urodit" a "zarodit"(?)).
-        elsif($f[1] =~ m/^(ne)?ro(die|di|ď|ďte|dil|dieci)$/i)
+        elsif($f[1] =~ m/^(ne)ro(die|di|ď|ďte|dil|dieci)$/i)
         {
             my $negprefix = lc($1);
             my $suffix = lc($2);
@@ -4689,7 +4693,7 @@ sub opravit_sloveso_nerodit
     my $p = 'N';
     if(!$negprefix)
     {
-        die("U slovesa 'nerodit' očekávám negativní prefix");
+        confess("U slovesa 'nerodit' očekávám negativní prefix");
     }
     $f[2] = 'nerodit';
     $f[9] = set_lemma1300($f[9], 'neroditi');
