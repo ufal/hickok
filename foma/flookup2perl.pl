@@ -10,6 +10,8 @@ binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
 use csort;
 
+my $oldlemma = shift(@ARGV);
+
 my %dict;
 my $lemma;
 my $maxl = 0;
@@ -27,6 +29,7 @@ while(<>)
     my $l = length($output);
     $maxl = $l if($l > $maxl);
 }
+$oldlemma = $lemma if(!defined($oldlemma));
 my %th; map {$th{$_} = csort::zjistit_tridici_hodnoty($_, 'cs')} (keys(%dict));
 my @forms = sort {$th{$a} cmp $th{$b}} (keys(%dict));
 my @genders = qw(NM NF NN);
@@ -54,5 +57,5 @@ foreach my $f (@forms)
     #                 'cěstě'       => ['cesta',    'cěsta',    [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
     my $pad = ' ' x ($maxl-length($f));
     my $analyses = join(', ', map {$conversion{$_}} (@{$dict{$f}}));
-    print("                '$f'$pad => ['$lemma', '$lemma', [$analyses]],\n");
+    print("                '$f'$pad => ['$lemma', '$oldlemma', [$analyses]],\n");
 }
