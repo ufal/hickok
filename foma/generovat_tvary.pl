@@ -8,7 +8,6 @@ use open ':utf8';
 binmode(STDIN, ':utf8');
 binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
-use Encode;
 
 my $lemma = shift(@ARGV);  # e.g. "cesta"
 my $gender = shift(@ARGV); # e.g. "NF"
@@ -24,12 +23,11 @@ foreach my $n (@numbers)
 }
 # Give it as input to flookup. Assume that flookup is in PATH and fst.bin exists in the current folder.
 open(FOMA, "| flookup -i fst.bin") or die("Cannot pipe to foma: $!");
-# In Windows, flookup does not expect UTF-8 on input, although it can generate it on output.
-# Perhaps it expects ANSI?
+###!!! If fst.bin was created on Linux with locale cs_CZ.UTF-8, fslookup will digest UTF-8 input but I must send it as raw bytes (not sure what is the difference from binmode ':utf8' though).
+###!!! It does not work on Windows.
 binmode(FOMA, ':raw');
 foreach my $p (@paradigm)
 {
-    print FOMA (encode('utf8', "$p\n"));
-    #print FOMA ("$p\n");
+    print FOMA ("$p\n");
 }
 close(FOMA);
