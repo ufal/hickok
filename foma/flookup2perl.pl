@@ -12,6 +12,7 @@ use csort;
 
 my %dict;
 my $lemma;
+my $maxl = 0;
 while(<>)
 {
     chomp();
@@ -23,11 +24,14 @@ while(<>)
     $input =~ s/^(.+?)\+//;
     $lemma = $1;
     push(@{$dict{$output}}, $input);
+    my $l = length($output);
+    $maxl = $l if($l > $maxl);
 }
 my %th; map {$th{$_} = csort::zjistit_tridici_hodnoty($_, 'cs')} (keys(%dict));
 my @forms = sort {$th{$a} cmp $th{$b}} (keys(%dict));
 my @genders = qw(NM NF NN);
 my @numbers = qw(Sg Du Pl);
+my %longnum = ('Sg'=>'Sing', 'Du'=>'Dual', 'Pl'=>'Plur');
 my @cases = qw(Nom Gen Dat Acc Voc Loc Ins);
 my %conversion;
 foreach my $g (@genders)
@@ -40,7 +44,7 @@ foreach my $g (@genders)
             my $c = $cases[$i];
             my $cn = $i+1;
             my $src = "$g+$n+$c";
-            my $tgt = "['$n', '$nc', '$c', '$cn']";
+            my $tgt = "['$longnum{$n}', '$nc', '$c', '$cn']";
             $conversion{$src} = $tgt;
         }
     }
@@ -48,6 +52,7 @@ foreach my $g (@genders)
 foreach my $f (@forms)
 {
     #                 'cěstě'       => ['cesta',    'cěsta',    [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
+    my $pad = ' ' x ($maxl-length($f));
     my $analyses = join(', ', map {$conversion{$_}} (@{$dict{$f}}));
-    print("                 '$f' => ['$lemma', '$lemma', [$analyses]]\n");
+    print("                 '$f'$pad => ['$lemma', '$lemma', [$analyses]],\n");
 }
