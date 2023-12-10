@@ -55,6 +55,18 @@ satan+NM+Sg+Voc:sathana #;
 syn NMy;
 velbloud:velblúd NMy;
 
+! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+belzebub         NMy;
+david            NMy;
+jakub            NMy;
+jan              NMy;
+josef            NMy;
+josef:jozef      NMy;
+josef:ozěp       NMy;
+petr             NMy;
+šalamoun         NMy;
+šalamoun:šalomún NMy;
+
 LEXICON NMPléStem
 
 pohan NMPlé;

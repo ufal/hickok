@@ -36,9 +36,16 @@ if(lc($oldlemma) ne $oldlemma)
 {
     $lemma = ucfirst($lemma);
 }
+# K přivlastňovacím adjektivům má Foma lemma zdrojového substantiva. Upravit podle starého lemmatu.
+if($oldlemma =~ m/óv$/ && $lemma !~ m/ův$/)
+{
+    $lemma .= 'ův';
+}
 my %th; map {$th{$_} = csort::zjistit_tridici_hodnoty($_, 'cs')} (keys(%dict));
 my @forms = sort {$th{$a} cmp $th{$b}} (keys(%dict));
 my @genders = qw(NM NF NN);
+my %perlgen = ('Masc' => 'Anim', 'Mina' => 'Inan', 'Fem' => 'Fem', 'Neut' => 'Neut');
+my %shortgen = ('Masc' => 'M', 'Mina' => 'I', 'Fem' => 'F', 'Neut' => 'N');
 my @numbers = qw(Sg Du Pl);
 my %longnum = ('Sg'=>'Sing', 'Du'=>'Dual', 'Pl'=>'Plur');
 my @cases = qw(Nom Gen Dat Acc Voc Loc Ins);
@@ -59,10 +66,27 @@ foreach my $g (@genders)
         }
     }
 }
+# Conversions of possessive adjective strings.
+@genders = qw(Masc Mina Fem Neut);
+foreach my $g (@genders)
+{
+    my $gp = $perlgen{$g};
+    my $gc = $shortgen{$g};
+    foreach my $n (@numbers)
+    {
+        my $nc = substr($n, 0, 1);
+        for(my $i = 0; $i < 7; $i++)
+        {
+            my $c = $cases[$i];
+            my $cn = $i+1;
+            my $src = "AMposs+$g+$n+$c";
+            my $tgt = "['$gp', '$gc', '$longnum{$n}', '$nc', '$c', '$cn']";
+            $conversion{$src} = $tgt;
+        }
+    }
+}
 # Conversions of non-possessive adjective strings.
 @genders = qw(Masc Mina Fem Neut);
-my %perlgen = ('Masc' => 'Anim', 'Mina' => 'Inan', 'Fem' => 'Fem', 'Neut' => 'Neut');
-my %shortgen = ('Masc' => 'M', 'Mina' => 'I', 'Fem' => 'F', 'Neut' => 'N');
 foreach my $g (@genders)
 {
     my $gp = $perlgen{$g};
