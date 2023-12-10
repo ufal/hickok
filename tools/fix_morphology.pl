@@ -1788,7 +1788,7 @@ while(<>)
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
         # "Miesto" je předložka v 2.21 resp. 2.22, všude jinde je to podstatné jméno.
         elsif(!($f[1] =~ m/^miesto$/i && get_ref($f[9]) =~ m/^MATT_2\.(21|22)$/) &&
-              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|líc|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|trn|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[ei]|hniezdie|hoř|hořěti|jm[eiu]?|jmie|letie|letí|násil|nebo?|nebiech|nebích)$/i)
+              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|trn|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[ei]|hniezdie|hoř|hořěti|jm[eiu]?|jmie|letie|letí|násil|nebo?|nebiech|nebích)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -1832,10 +1832,6 @@ while(<>)
                 'ledvích'     => ['ledví',    'ledvie',   [['Plur', 'P', 'Loc', '6']]],
                 'let'         => ['rok',      'rok',      [['Plur', 'P', 'Gen', '2']]],
                 'letú'        => ['rok',      'rok',      [['Dual', 'D', 'Gen', '2']]],
-                'líce'        => ['líce',     'líce',     [['Sing', 'S', 'Acc', '4']]],
-                'lícě'        => ['líce',     'líce',     [['Sing', 'S', 'Gen', '2']]],
-                'líci'        => ['líce',     'líce',     [['Sing', 'S', 'Loc', '6']]],
-                'lícu'        => ['líce',     'líce',     [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'měst'        => ['město',    'město',    [['Plur', 'P', 'Gen', '2']]],
                 'města'       => ['město',    'město',    [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Acc', '4']]],
                 'městě'       => ['město',    'město',    [['Sing', 'S', 'Loc', '6']]],
