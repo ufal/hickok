@@ -121,6 +121,13 @@ LEXICON NIyStem
 
 ! Neživotná tvrdá maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
 
+balšám                NIy;
+čas                   NIy;
+čin                   NIy;
+den:dEn               NIy;
+den+NM+Sg+Gen:dne     #;
+den+NM+Pl+Gen:dní     #;
+div                   NIy;
 dům+NM+Sg+Nom:dóm     #;
 dům:dom               NIy;
 dům:duom              NIy;
