@@ -167,11 +167,13 @@ div                   NIy;
 dům+NM+Sg+Nom:dóm     #;
 dům:dom               NIy;
 dům:duom              NIy;
+hrob                  NIy;
 chléb+NM+Sg+Nom:chléb #;
 chléb:chleb           NIy;
 kout                  NIy;
 kout:kút              NIy;
 národ                 NIy;
+pas                   NIy;
 poklad                NIy;
 příklad               NIy;
 rov                   NIy;
@@ -187,6 +189,7 @@ soud:súd              NIy;
 vítr:větr             NIy;
 vítr:vietr            NIy;
 vlas                  NIy;
+zub                   NIy;
 
 ! Vlastní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
 betlém           NIy;
@@ -200,6 +203,7 @@ nazaret:nazareth NIy;
 LEXICON NIkStem
 
 fík              NIk;
+hřích:hřiech     NIk;
 okrajek:okrajEk  NIk;
 ostatek:ostatEk  NIk;
 ostatek:uostatEk NIk;
@@ -218,11 +222,16 @@ LEXICON NIiStem
 
 ! Neživotná měkká maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
 
+kořen       NIi;
 koš         NIi;
 koš:kuoš    NIi;
+oheň:ohEň   NIi;
+oheň:uohEň  NIi;
 pláč        NIi;
+plamen      NIi;
 plášť       NIi;
 plášť:plášč NIi;
+tisíc       NIi;
 
 LEXICON NFaStem
 

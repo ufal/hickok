@@ -13,6 +13,9 @@ define NMEla [E l]->l     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
 # dEn^λ -> den, dEn^e -> dne
 define NMEn  [E n]->[e n] || _ "^" λ;
 define NMEna [E n]->n     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# ohEň^λ -> oheň, ohEň^e -> ohňe
+define NMEň  [E ň]->[e ň] || _ "^" λ;
+define NMEňa [E ň]->ň     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
 # pEs^λ -> pes, pEs^a -> psa
 define NMEs  [E s]->[e s] || _ "^" λ;
 define NMEsa [E s]->s     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
@@ -48,7 +51,7 @@ define Surface "^" -> 0, λ -> 0, E -> e;
 
 read lexc csold.lexc
 define Lexicon;
-regex Lexicon .o. NMEc .o. NMEce .o. NMEk .o. NMEka .o. NMEl .o. NMEla .o. NMEn .o. NMEna .o. NMEs .o. NMEsa .o. NFPlGenEInsertion
+regex Lexicon .o. NMEc .o. NMEce .o. NMEk .o. NMEka .o. NMEl .o. NMEla .o. NMEn .o. NMEna .o. NMEň .o. NMEňa .o. NMEs .o. NMEsa .o. NFPlGenEInsertion
     .o. NMSgVocPalatalization .o. NMPlNomPalatalization .o. NFSgDatPalatalization .o. APlNomPalatalization .o. DeTeNe .o. Surface;
 
 print dot > fst.dot
