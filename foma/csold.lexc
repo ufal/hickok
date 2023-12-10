@@ -257,6 +257,8 @@ nebe:nebes    NNo;
 LEXICON NNeStem
 
 nebe:neb      NNe;
+slovo:slovEc  NNe; ! slovce
+srdce:srdEc   NNe;
 
 LEXICON AyStem
 
@@ -519,15 +521,18 @@ LEXICON NNe
 +NN+Sg+Gen:^e   #;
 +NN+Sg+Gen:^ě   #;
 +NN+Sg+Dat:^i   #;
++NN+Sg+Dat:^u   #; ! Doloženo srdcu
 +NN+Sg+Acc:^e   #;
 +NN+Sg+Acc:^ě   #;
 +NN+Sg+Voc:^e   #;
 +NN+Sg+Voc:^ě   #;
 +NN+Sg+Loc:^i   #;
++NN+Sg+Loc:^u   #; ! Doloženo srdcu
 +NN+Sg+Ins:^em  #;
 +NN+Pl+Nom:^e   #;
 +NN+Pl+Nom:^ě   #;
 +NN+Pl+Gen:^í   #;
++NN+Pl+Gen:^λ   #; ! Doloženo srdec
 +NN+Pl+Dat:^ím  #;
 +NN+Pl+Acc:^e   #;
 +NN+Pl+Acc:^ě   #;
