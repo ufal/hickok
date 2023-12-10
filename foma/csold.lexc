@@ -17,6 +17,7 @@ NIiStem;
 NFaStem;
 NFeStem;
 NFtStem;
+NNoStem;
 
 LEXICON NMyStem
 
@@ -196,6 +197,10 @@ síť:sieť   NFt;
 sůl:sól    NFt;
 sůl:suol   NFt;
 stred      NFt;
+
+LEXICON NNoStem
+
+hnízdo:hniezd NNo;
 
 LEXICON NM
 
@@ -395,6 +400,26 @@ LEXICON NFt
 +NF+Pl+Voc:^ě    #;
 +NF+Pl+Loc:^iech #;
 +NF+Pl+Ins:^ěmi  #;
+
+LEXICON NNo
+
++NF+Sg+Nom:^o   #;
++NF+Sg+Gen:^a   #;
++NF+Sg+Dat:^u   #;
++NF+Sg+Acc:^o   #;
++NF+Sg+Voc:^o   #;
++NF+Sg+Loc:^u   #;
++NF+Sg+Ins:^em  #;
++NF+Pl+Nom:^a   #;
++NF+Pl+Gen:^λ   #;
++NF+Pl+Dat:^óm  #;
++NF+Pl+Dat:^uom #;
++NF+Pl+Dat:^ům  #;
++NF+Pl+Acc:^a   #;
++NF+Pl+Voc:^a   #;
++NF+Pl+Loc:^ách #;
++NF+Pl+Ins:^y   #;
++NF+Pl+Ins:^ami #;
 
 LEXICON AdjSup
 
