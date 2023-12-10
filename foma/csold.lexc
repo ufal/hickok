@@ -1,4 +1,4 @@
-Multichar_Symbols +NM +NF +NN +AMposs +AFposs +Masc +Mina +Fem +Neut +Sg +Du +Pl +Nom +Gen +Dat +Acc +Voc +Loc +Ins Sup+ +Pos +Comp @P.SUP.ON@ @D.SUP@
+Multichar_Symbols +NM +NF +NN +A +AMposs +AFposs +Masc +Mina +Fem +Neut +Sg +Du +Pl +Nom +Gen +Dat +Acc +Voc +Loc +Ins Sup+ +Pos +Comp @P.SUP.ON@ @D.SUP@
 
 LEXICON Root
 
@@ -18,6 +18,8 @@ NFaStem;
 NFeStem;
 NFtStem;
 NNoStem;
+AyStem;
+AiStem;
 
 LEXICON NMyStem
 
@@ -218,6 +220,21 @@ stred      NFt;
 LEXICON NNoStem
 
 hnízdo:hniezd NNo;
+
+LEXICON AyStem
+
+dobrý:dobr Ay;
+mladý:mlad   Ay1Deg;
+zelený:zelen AyDeg;
+
+LEXICON AiStem
+
+bližní:bližn Ai;
+jarní:jarn   AiDeg;
+
+!------------------------------------------------------------------------------
+! Konec kmenů, začátek koncovek.
+!------------------------------------------------------------------------------
 
 LEXICON NM
 
@@ -497,28 +514,22 @@ LEXICON AdjSup
 
 @P.SUP.ON@Sup+:@P.SUP.ON@nej Adj;
 
-LEXICON Adj
+LEXICON AyDeg
 
-zelený:zelen AhardDeg;
-mladý:mlad   Ahard1Deg;
-jarní:jarn   AsoftDeg;
+@D.SUP@+Pos:@D.SUP@     Ay;
++Comp:^ejš Ai;
 
-LEXICON AhardDeg
+LEXICON Ay1Deg
 
-@D.SUP@+Pos:@D.SUP@     Ahard;
-+Comp:^ejš Asoft;
+@D.SUP@+Pos:@D.SUP@     Ay;
++Comp:^š   Ai;
 
-LEXICON Ahard1Deg
+LEXICON AiDeg
 
-@D.SUP@+Pos:@D.SUP@     Ahard;
-+Comp:^š   Asoft;
+@D.SUP@+Pos:@D.SUP@     Ai;
++Comp:^ejš Ai;
 
-LEXICON AsoftDeg
-
-@D.SUP@+Pos:@D.SUP@     Asoft;
-+Comp:^ejš Asoft;
-
-LEXICON Ahard
+LEXICON Ay
 
 +A+Masc+Sg+Nom:^ý   #;
 +A+Masc+Sg+Gen:^ého #;
@@ -580,37 +591,42 @@ LEXICON Ahard
 +A+Neut+Pl+Loc:^ých #;
 +A+Neut+Pl+Ins:^ými #;
 
-LEXICON Asoft
+LEXICON Ai
 
-+A+Masc+Sg+Nom:^í   #;
-+A+Masc+Sg+Gen:^ího #;
-+A+Masc+Sg+Dat:^ímu #;
-+A+Masc+Sg+Acc:^ího #;
-+A+Masc+Sg+Voc:^í   #;
-+A+Masc+Sg+Loc:^ím  #;
-+A+Masc+Sg+Ins:^ím  #;
-+A+Masc+Pl+Nom:^í   #;
-+A+Masc+Pl+Gen:^ích #;
-+A+Masc+Pl+Dat:^ím  #;
-+A+Masc+Pl+Acc:^í   #;
-+A+Masc+Pl+Voc:^í   #;
-+A+Masc+Pl+Loc:^ích #;
-+A+Masc+Pl+Ins:^ími #;
++A+Masc+Sg+Nom:^í    #;
++A+Masc+Sg+Gen:^ího  #;
++A+Masc+Sg+Gen:^ieho #;
++A+Masc+Sg+Dat:^ímu  #;
++A+Masc+Sg+Dat:^iemu #;
++A+Masc+Sg+Acc:^ího  #;
++A+Masc+Sg+Acc:^ieho #;
++A+Masc+Sg+Voc:^í    #;
++A+Masc+Sg+Loc:^ím   #;
++A+Masc+Sg+Ins:^ím   #;
++A+Masc+Pl+Nom:^í    #;
++A+Masc+Pl+Gen:^ích  #;
++A+Masc+Pl+Dat:^ím   #;
++A+Masc+Pl+Acc:^í    #;
++A+Masc+Pl+Voc:^í    #;
++A+Masc+Pl+Loc:^ích  #;
++A+Masc+Pl+Ins:^ími  #;
 
-+A+Mina+Sg+Nom:^í   #;
-+A+Mina+Sg+Gen:^ího #;
-+A+Mina+Sg+Dat:^ímu #;
-+A+Mina+Sg+Acc:^í   #;
-+A+Mina+Sg+Voc:^í   #;
-+A+Mina+Sg+Loc:^ím  #;
-+A+Mina+Sg+Ins:^ím  #;
-+A+Mina+Pl+Nom:^í   #;
-+A+Mina+Pl+Gen:^ích #;
-+A+Mina+Pl+Dat:^ím  #;
-+A+Mina+Pl+Acc:^í   #;
-+A+Mina+Pl+Voc:^í   #;
-+A+Mina+Pl+Loc:^ích #;
-+A+Mina+Pl+Ins:^ími #;
++A+Mina+Sg+Nom:^í    #;
++A+Mina+Sg+Gen:^ího  #;
++A+Mina+Sg+Gen:^ieho #;
++A+Mina+Sg+Dat:^ímu  #;
++A+Mina+Sg+Dat:^iemu #;
++A+Mina+Sg+Acc:^í    #;
++A+Mina+Sg+Voc:^í    #;
++A+Mina+Sg+Loc:^ím   #;
++A+Mina+Sg+Ins:^ím   #;
++A+Mina+Pl+Nom:^í    #;
++A+Mina+Pl+Gen:^ích  #;
++A+Mina+Pl+Dat:^ím   #;
++A+Mina+Pl+Acc:^í    #;
++A+Mina+Pl+Voc:^í    #;
++A+Mina+Pl+Loc:^ích  #;
++A+Mina+Pl+Ins:^ími  #;
 
 +A+Fem+Sg+Nom:^í   #;
 +A+Fem+Sg+Gen:^í   #;
@@ -627,17 +643,19 @@ LEXICON Asoft
 +A+Fem+Pl+Loc:^ích #;
 +A+Fem+Pl+Ins:^ími #;
 
-+A+Neut+Sg+Nom:^í   #;
-+A+Neut+Sg+Gen:^ího #;
-+A+Neut+Sg+Dat:^ímu #;
-+A+Neut+Sg+Acc:^í   #;
-+A+Neut+Sg+Voc:^í   #;
-+A+Neut+Sg+Loc:^ím  #;
-+A+Neut+Sg+Ins:^ím  #;
-+A+Neut+Pl+Nom:^í   #;
-+A+Neut+Pl+Gen:^ích #;
-+A+Neut+Pl+Dat:^ím  #;
-+A+Neut+Pl+Acc:^í   #;
-+A+Neut+Pl+Voc:^í   #;
-+A+Neut+Pl+Loc:^ích #;
-+A+Neut+Pl+Ins:^ími #;
++A+Neut+Sg+Nom:^í    #;
++A+Neut+Sg+Gen:^ího  #;
++A+Neut+Sg+Gen:^ieho #;
++A+Neut+Sg+Dat:^ímu  #;
++A+Neut+Sg+Dat:^iemu #;
++A+Neut+Sg+Acc:^í    #;
++A+Neut+Sg+Voc:^í    #;
++A+Neut+Sg+Loc:^ím   #;
++A+Neut+Sg+Ins:^ím   #;
++A+Neut+Pl+Nom:^í    #;
++A+Neut+Pl+Gen:^ích  #;
++A+Neut+Pl+Dat:^ím   #;
++A+Neut+Pl+Acc:^í    #;
++A+Neut+Pl+Voc:^í    #;
++A+Neut+Pl+Loc:^ích  #;
++A+Neut+Pl+Ins:^ími  #;

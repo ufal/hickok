@@ -11,7 +11,7 @@ binmode(STDERR, ':utf8');
 
 my $lemma = shift(@ARGV);  # e.g. "cesta"
 my $category = shift(@ARGV); # e.g. "NF"
-my @genders = qw(Masc Fem Neut);
+my @genders = qw(Masc Mina Fem Neut);
 my @numbers = qw(Sg Du Pl);
 my @cases = qw(Nom Gen Dat Acc Voc Loc Ins);
 my @paradigm;
@@ -25,10 +25,11 @@ if($category =~ m/^N/)
         }
     }
 }
-elsif($category =~ m/^AMposs$/)
+elsif($category =~ m/^A(Mposs)?$/)
 {
     foreach my $g (@genders)
     {
+        next if($g eq 'Mina' && $category eq 'AMposs');
         foreach my $n (@numbers)
         {
             foreach my $c (@cases)

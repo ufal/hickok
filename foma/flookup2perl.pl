@@ -43,6 +43,7 @@ my @numbers = qw(Sg Du Pl);
 my %longnum = ('Sg'=>'Sing', 'Du'=>'Dual', 'Pl'=>'Plur');
 my @cases = qw(Nom Gen Dat Acc Voc Loc Ins);
 my %conversion;
+# Conversions of noun strings.
 foreach my $g (@genders)
 {
     foreach my $n (@numbers)
@@ -54,6 +55,27 @@ foreach my $g (@genders)
             my $cn = $i+1;
             my $src = "$g+$n+$c";
             my $tgt = "['$longnum{$n}', '$nc', '$c', '$cn']";
+            $conversion{$src} = $tgt;
+        }
+    }
+}
+# Conversions of non-possessive adjective strings.
+@genders = qw(Masc Mina Fem Neut);
+my %perlgen = ('Masc' => 'Anim', 'Mina' => 'Inan', 'Fem' => 'Fem', 'Neut' => 'Neut');
+my %shortgen = ('Masc' => 'M', 'Mina' => 'I', 'Fem' => 'F', 'Neut' => 'N');
+foreach my $g (@genders)
+{
+    my $gp = $perlgen{$g};
+    my $gc = $shortgen{$g};
+    foreach my $n (@numbers)
+    {
+        my $nc = substr($n, 0, 1);
+        for(my $i = 0; $i < 7; $i++)
+        {
+            my $c = $cases[$i];
+            my $cn = $i+1;
+            my $src = "A+$g+$n+$c";
+            my $tgt = "['$gp', '$gc', '$longnum{$n}', '$nc', '$c', '$cn']";
             $conversion{$src} = $tgt;
         }
     }
