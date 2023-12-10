@@ -255,6 +255,15 @@ vesnice:vesnic        NFe;
 ! Zřejmě se velmi podobně skloňovala i mužská jména podle vzoru súdcě.
 soudce:súdc           NFe;
 
+! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+marie:mari             NFe;
+marie+NF+Sg+Nom:maria  #;
+marie+NF+Sg+Nom:máří   #;
+marie+NF+Sg+Ins:marijí #;
+marie+NF+Sg+Ins:maří   #;
+marie:maři             NFe;
+marie:máři             NFe;
+
 LEXICON NFtStem
 
 poušť:púšč NFt;
