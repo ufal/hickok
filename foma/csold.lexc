@@ -12,6 +12,7 @@ NMkStem;
 NMlStem;
 NMiStem;
 NIyStem;
+NIkStem;
 NFaStem;
 NFeStem;
 NFtStem;
@@ -108,7 +109,11 @@ LEXICON NIyStem
 ! Neživotná tvrdá maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
 
 chléb+NM+Sg+Nom:chléb #;
-chléb:chleb NIy;
+chléb:chleb   NIy;
+
+LEXICON NIkStem
+
+zbytek:zbytEk NIk;
 
 LEXICON NFaStem
 
@@ -274,6 +279,15 @@ LEXICON NIy
 ! Neživotná tvrdá maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
 
 NMy;
++NM+Sg+Acc:^λ #; ! Acc Sg bez koncovky jako Nom
++NM+Pl+Nom:^y #; ! Nom Pl jako Acc
++NM+Pl+Voc:^y #; ! Voc Pl jako Acc
+
+LEXICON NIk
+
+! Neživotná tvrdá maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
+
+NMk;
 +NM+Sg+Acc:^λ #; ! Acc Sg bez koncovky jako Nom
 +NM+Pl+Nom:^y #; ! Nom Pl jako Acc
 +NM+Pl+Voc:^y #; ! Voc Pl jako Acc
