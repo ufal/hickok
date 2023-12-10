@@ -67,6 +67,12 @@ jezukristus:jezukrist NMy;
 josef            NMy;
 josef:jozef      NMy;
 josef:ozěp       NMy;
+kristus+NM+Sg+Nom:kristus #;
+kristus:krist    NMy;
+nazareus+NM+Sg+Nom:nazareus #;
+nazareus:nazare  NMy;
+nazareus+NM+Sg+Nom:nazarenus #;
+nazareus:nazaren NMy;
 petr             NMy;
 pilát            NMy;
 šalamoun         NMy;
@@ -106,6 +112,11 @@ anděl NMl;
 anděl:anjel NMl;
 apoštol NMl;
 přítel:přietel NMl;
+
+! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+křtitel          NMl;
+křtitel:krstitel NMl;
+křtitel:křstitel NMl;
 
 LEXICON NMiStem
 
