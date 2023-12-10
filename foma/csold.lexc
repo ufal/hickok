@@ -624,6 +624,7 @@ LEXICON NFt
 +NF+Sg+Nom:^λ    #; ! púšč púšť
 +NF+Sg+Nom:^ě    #; ! púščě
 +NF+Sg+Gen:^ě    #; ! púščě
++NF+Sg+Gen:^e    #; ! púšče
 +NF+Sg+Dat:^i    #;
 +NF+Sg+Acc:^λ    #; ! púšč púšť
 +NF+Sg+Acc:^i    #; ! púšči
