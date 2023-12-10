@@ -188,6 +188,15 @@ vítr:větr             NIy;
 vítr:vietr            NIy;
 vlas                  NIy;
 
+! Vlastní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+betlém           NIy;
+betlém:bethlem   NIy;
+betlém:bethleem  NIy;
+jeruzalém        NIy;
+jordán           NIy;
+nazaret          NIy;
+nazaret:nazareth NIy;
+
 LEXICON NIkStem
 
 fík              NIk;
