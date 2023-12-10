@@ -123,12 +123,13 @@ křtitel:křstitel NMl;
 
 LEXICON NMiStem
 
+císař:ciesař NMi;
 kacíř:kacieř NMi;
-kopáč NMi;
-muž NMi;
+kopáč        NMi;
+muž          NMi;
 muž+NM+Pl+Gen:muží #;
-otec:otEc NMi;
-panoš NMi;
+otec:otEc    NMi;
+panoš        NMi;
 panoš+NM+Sg+Nom:panošicě #;
 panoš+NM+Pl+Nom:panošicě #;
 panoš+NM+Sg+Ins:panoší #;
