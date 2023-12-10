@@ -323,6 +323,10 @@ znamení:znameň            NNí; ! Kmen je měkký. Většinou "ň" zase zmizí
 LEXICON AyStem
 
 dobrý@D.SUP@+Pos:dobr@D.SUP@ Ay;
+dobrý@D.SUP@+Pos:dobreh@D.SUP@ Ay;
+důstojný:důstojn     AyDeg;
+důstojný:dóstojn     AyDeg;
+důstojný:duostojn    AyDeg;
 lesní:lesk           AyDeg;
 lidský:lidsk         AyDeg;
 mladý:mlad           Ay1Deg;
