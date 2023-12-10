@@ -34,8 +34,8 @@ define NFSgDatPalatalization h->z, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|
 # Nejsem si jist, co dělat s příznakovou diakritikou. Kazí mi kontext.
 define APlNomPalatalization r->ř, [s k]->[š t] || _ ("@D.SUP@") "^" í .#.;
 
-# ďe ťe ňe -> dě tě ně
-define DeTeNe [ď "^" e]->[d "^" ě], [ď "^" ě]->[d "^" ě], [ť "^" e]->[t "^" ě], [ť "^" ě]->[t "^" ě], [ň "^" e]->[n "^" ě], [ň "^" ě]->[n "^" ě];
+# ďe ťe ňe -> dě tě ně, ďi ťi ňi -> di ti ni
+define DeTeNe [ď "^" e]->[d "^" ě], [ď "^" ě]->[d "^" ě], [ť "^" e]->[t "^" ě], [ť "^" ě]->[t "^" ě], [ň "^" e]->[n "^" ě], [ň "^" ě]->[n "^" ě], [ď "^" i]->[d "^" i], [ď "^" í]->[d "^" í], [ť "^" i]->[t "^" i], [ť "^" í]->[t "^" í], [ň "^" i]->[n "^" i], [ň "^" í]->[n "^" í];
 
 # Finally erase temporary symbols.
 define Surface "^" -> 0, λ -> 0, E -> e;
