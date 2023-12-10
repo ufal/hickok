@@ -3282,6 +3282,7 @@ while(<>)
             my $lform = lc($f[1]);
             my %ma =
             (
+                'betania'     => ['Betanie',   'Betanie',   [['Sing', 'S', 'Nom', '1']]],
                 'betaní'      => ['Betanie',   'Betanie',   [['Sing', 'S', 'Loc', '6']]],
                 'betanie'     => ['Betanie',   'Betanie',   [['Sing', 'S', 'Gen', '2']]],
                 'dekapoli'    => ['Dekapolis', 'Dekapolis', [['Sing', 'S', 'Gen', '2']]],
