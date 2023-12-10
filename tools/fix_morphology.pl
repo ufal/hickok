@@ -162,6 +162,7 @@ while(<>)
                 'apoštolú'    => ['apoštol', 'apoštol', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
                 'apoštoluom'  => ['apoštol', 'apoštol', [['Plur', 'P', 'Dat', '3']]],
                 'apoštoluov'  => ['apoštol', 'apoštol', [['Plur', 'P', 'Gen', '2']]],
+                'apoštoly'    => ['apoštol', 'apoštol', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Ins', '7']]],
                 'běs'     => ['běs', 'běs', [['Sing', 'S', 'Nom', '1']]],
                 'běsa'    => ['běs', 'běs', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
                 'běse'    => ['běs', 'běs', [['Sing', 'S', 'Voc', '5']]],
