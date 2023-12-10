@@ -3634,7 +3634,7 @@ while(<>)
         }
         # 'popové' není plurál od substantiva 'pop'. Je to adjektivum ve spojení 'kniežě popové' ('velekněz').
         # Měli bychom zavést samostatnou kategorii trpných příčestí dlouhých a "propuščenú" přestěhovat tam.
-        elsif($f[1] =~ m/^(dobreh|d(?:ó|uo)stojn|jin|lesk|lidsk|nebe(?:sk|št)|neptalimov(?:sk)?|ohněv|popov|propuščen|smrtedln|velik|vysok|židov(?:sk|št)?)(ý|á|é|ého|ém|ým|ú|éj|ie|í|ých|ými)$/i)
+        elsif($f[1] =~ m/^(dobreh|d(?:ó|uo)stojn|jin|lesk|lidsk|nebe(?:sk|št)|neptalimov(?:sk)?|ohněv|popov|propuščen|smrtedln|velik|vysok|židov(?:sk|št)?)(ý|á|é|ého|ém|ým|ú|éj|ie|í|ých|ými)$/i && $f[1] !~ m/^(židového)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
