@@ -320,6 +320,9 @@ důstojenství:důstojenstv  NNo;
 důstojenství:dóstojenstv  NNo;
 důstojenství:duostojenstv NNo;
 hnízdo:hniezd NNo;
+město:měst    NNo;
+místo:míst    NNo;
+místo:miest   NNo;
 nebe:nebes    NNo;
 rok:let       NNo; ! Chtělo by to zablokovat singulár.
 
