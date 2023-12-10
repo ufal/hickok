@@ -2544,7 +2544,7 @@ while(<>)
         # "hora" se to píše "huořě" a pouze jednou, v Olomoucké bibli 24.3, se objevuje
         # "hoře" ("na hoře Olivetské").
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
-        elsif(!($f[1] =~ m/^hoře$/i && get_ref($f[9]) !~ m/^MATT_24\.3$/ || $f[1] =~ m/^(duše|hoř[ií]?)$/) &&
+        elsif(!($f[1] =~ m/^hoře$/i && get_ref($f[9]) !~ m/^MATT_24\.3$/ || $f[1] =~ m/^(duše|hoř[ií]?|vinni)$/) &&
               $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|hu?o[rř]|libř|lichv|mátě|m[aá]teř|matk|měřic|mís|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|trúb|ulic|u?ovc|vesnic|vier|vinn|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
