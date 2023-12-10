@@ -21,6 +21,7 @@ NFtStem;
 NNoStem;
 NNeStem;
 NNteStem;
+NNíStem;
 
 LEXICON Adj
 
@@ -254,6 +255,9 @@ stred      NFt;
 
 LEXICON NNoStem
 
+důstojenství:důstojenstv  NNo;
+důstojenství:dóstojenstv  NNo;
+důstojenství:duostojenstv NNo;
 hnízdo:hniezd NNo;
 nebe:nebes    NNo;
 
@@ -266,6 +270,13 @@ srdce:srdEc   NNe;
 LEXICON NNteStem
 
 robě:rob      NNte;
+
+LEXICON NNíStem
+
+důstojenství:důstojenstv  NNí;
+důstojenství:dóstojenstv  NNí;
+důstojenství:duostojenstv NNí;
+znamení:znameň            NNí; ! Kmen je měkký. Většinou "ň" zase zmizí díky "í". Ale Gen/Loc duálu je "znameňú".
 
 LEXICON AyStem
 
@@ -515,6 +526,16 @@ LEXICON NNo
 +NN+Sg+Voc:^o    #;
 +NN+Sg+Loc:^u    #;
 +NN+Sg+Ins:^em   #;
++NN+Du+Nom:^ě    #;
++NN+Du+Nom:^e    #;
++NN+Du+Gen:^ú    #;
++NN+Du+Dat:^oma  #;
++NN+Du+Acc:^ě    #;
++NN+Du+Acc:^e    #;
++NN+Du+Voc:^ě    #;
++NN+Du+Voc:^e    #;
++NN+Du+Loc:^ú    #;
++NN+Du+Ins:^oma  #;
 +NN+Pl+Nom:^a    #;
 +NN+Pl+Gen:^λ    #;
 +NN+Pl+Dat:^óm   #;
@@ -542,6 +563,16 @@ LEXICON NNe
 +NN+Sg+Loc:^i   #;
 +NN+Sg+Loc:^u   #; ! Doloženo srdcu
 +NN+Sg+Ins:^em  #;
++NN+Du+Nom:^ě   #;
++NN+Du+Nom:^e   #;
++NN+Du+Gen:^ú   #;
++NN+Du+Dat:^oma #;
++NN+Du+Acc:^ě   #;
++NN+Du+Acc:^e   #;
++NN+Du+Voc:^ě   #;
++NN+Du+Voc:^e   #;
++NN+Du+Loc:^ú   #;
++NN+Du+Ins:^oma #;
 +NN+Pl+Nom:^e   #;
 +NN+Pl+Nom:^ě   #;
 +NN+Pl+Gen:^í   #;
@@ -579,6 +610,33 @@ LEXICON NNte
 +NN+Pl+Voc:^ata   #;
 +NN+Pl+Loc:^atech #;
 +NN+Pl+Ins:^aty   #;
+
+LEXICON NNí
+
++NN+Sg+Nom:^í   #;
++NN+Sg+Nom:^ie  #;
++NN+Sg+Gen:^í   #;
++NN+Sg+Dat:^í   #;
++NN+Sg+Acc:^í   #;
++NN+Sg+Acc:^ie  #;
++NN+Sg+Voc:^í   #;
++NN+Sg+Voc:^ie  #;
++NN+Sg+Loc:^í   #;
++NN+Sg+Ins:^ím  #;
++NN+Du+Nom:^í   #;
++NN+Du+Gen:^ú   #; ! znameňú
++NN+Du+Dat:^íma #; ! znameníma
++NN+Du+Acc:^í   #;
++NN+Du+Voc:^í   #;
++NN+Du+Loc:^ú   #; ! znameňú
++NN+Du+Ins:^íma #; ! znameníma
++NN+Pl+Nom:^í   #;
++NN+Pl+Gen:^í   #;
++NN+Pl+Dat:^ím  #;
++NN+Pl+Acc:^í   #;
++NN+Pl+Voc:^í   #;
++NN+Pl+Loc:^ích #;
++NN+Pl+Ins:^ími #;
 
 LEXICON AdjMposs
 
