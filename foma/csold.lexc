@@ -338,6 +338,7 @@ město:měst    NNo;
 místo:míst    NNo;
 místo:miest   NNo;
 nebe:nebes    NNo;
+robátko:robátEk NNo;
 rok:let       NNo; ! Chtělo by to zablokovat singulár.
 roucho:rouch  NNo;
 roucho:rúch   NNo;
