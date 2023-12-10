@@ -75,6 +75,7 @@ pohan NMPlé;
 LEXICON NMkStem
 
 bůh+NM+Sg+Nom:bóh #;
+bůh+NM+Sg+Gen:božé #; ! Doloženo jako alternativa k "boha".
 bůh:boh NMk;
 bůh:buoh NMk;
 býk NMk;
