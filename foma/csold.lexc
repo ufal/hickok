@@ -294,16 +294,22 @@ znamení:znameň            NNí; ! Kmen je měkký. Většinou "ň" zase zmizí
 LEXICON AyStem
 
 dobrý@D.SUP@+Pos:dobr@D.SUP@ Ay;
-lesní:lesk     AyDeg;
-lidský:lidsk   AyDeg;
-mladý:mlad     Ay1Deg;
-nebeský:nebesk AyDeg;
-starý:star     Ay1Deg;
+lesní:lesk           AyDeg;
+lidský:lidsk         AyDeg;
+mladý:mlad           Ay1Deg;
+nebeský:nebesk       AyDeg;
+ohnivý:ohniv         AyDeg;
+ohnivý:ohněv         AyDeg;
+popový:popov         AyDeg;
+propuštěný:propuščen AyDeg;
+smrtelný:smrtedln    AyDeg;
+starý:star           Ay1Deg;
 veliký@D.SUP@+Pos:velik@D.SUP@ Ay;
-veliký+Comp:větš Ai;
+veliký+Comp:větš     Ai;
 vysoký@D.SUP@+Pos:vysok@D.SUP@ Ay;
-vysoký+Comp:vyšš Ai;
-zelený:zelen   AyDeg;
+vysoký+Comp:vyšš     Ai;
+zelený:zelen         AyDeg;
+židovský:židovsk     AyDeg;
 
 ! Co se jmennými tvary adjektiv?
 bílý:biel          Ax;
@@ -787,11 +793,11 @@ LEXICON Ay
 +A+Neut+Sg+Voc:^é   #;
 +A+Neut+Sg+Loc:^ém  #;
 +A+Neut+Sg+Ins:^ým  #;
-+A+Neut+Pl+Nom:^é   #;
++A+Neut+Pl+Nom:^á   #;
 +A+Neut+Pl+Gen:^ých #;
 +A+Neut+Pl+Dat:^ým  #;
-+A+Neut+Pl+Acc:^é   #;
-+A+Neut+Pl+Voc:^é   #;
++A+Neut+Pl+Acc:^á   #;
++A+Neut+Pl+Voc:^á   #;
 +A+Neut+Pl+Loc:^ých #;
 +A+Neut+Pl+Ins:^ými #;
 
