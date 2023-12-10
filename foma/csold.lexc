@@ -113,7 +113,18 @@ chléb:chleb   NIy;
 
 LEXICON NIkStem
 
-zbytek:zbytEk NIk;
+fík              NIk;
+okrajek:okrajEk  NIk;
+ostatek:ostatEk  NIk;
+ostatek:uostatEk NIk;
+otrusek:otrusEk  NIk;
+podhrdlek:podhrdlEk NIk;
+podolek:podolEk  NIk;
+skutek:skutEk    NIk;
+šťovík:ščěvík    NIk;
+uzlík            NIk;
+užitek:užitEk    NIk;
+zbytek:zbytEk    NIk;
 
 LEXICON NFaStem
 
