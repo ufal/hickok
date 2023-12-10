@@ -136,6 +136,11 @@ dům:dom               NIy;
 dům:duom              NIy;
 chléb+NM+Sg+Nom:chléb #;
 chléb:chleb           NIy;
+sen:sEn               NIy;
+sen+NM+Pl+Loc:snách   #;
+stín:stien            NIy;
+stůl+NM+Sg+Nom:stól   #;
+stůl:stol             NIy;
 
 LEXICON NIkStem
 
