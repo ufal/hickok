@@ -3427,7 +3427,7 @@ while(<>)
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
         # "Miesto" je předložka v 2.21 resp. 2.22, všude jinde je to podstatné jméno.
         elsif(!($f[1] =~ m/^miesto$/i && get_ref($f[9]) =~ m/^MATT_2\.(21|22)$/) &&
-              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|trn|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[ei]|hniezdie|hoří?|hořie|hořěti|jm[eiu]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
+              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|trn|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[ei]|hniezdie|hoří?|hořie|hořěti|jm[aeiu]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
