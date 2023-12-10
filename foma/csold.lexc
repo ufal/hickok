@@ -403,7 +403,7 @@ LEXICON NMl
 
 ! Mužské obojetné skloňování některých jmen končících na -l.
 
-NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního slovníku NM.
+NMy; ! Kromě níže uvedených lze použít i všechny koncovky ze základního slovníku NM a z tvrdého NMy.
 ! Voc se zřejmě liší podle kmene.
 +NM+Sg+Voc:^i    #; ! anděli přieteli běs? boh? dělník? duch? had? hospodin? kacieři kopáči kokot? muži otc? pán? pop? tovařiši
 +NM+Pl+Nom:^é    #; ! andělé   přietelé   běs?   boh?   dělník?   duch?   had?
