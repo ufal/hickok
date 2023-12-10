@@ -2617,9 +2617,18 @@ while(<>)
             my %ma =
             (
                 # "Nemóžeš jediného vlasa učiniti biela nebo črna."
-                'biela'     => ['bílý',      'bielý',     [['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
-                'bielo'     => ['bílý',      'bielý',     [['Neut', 'N', 'Sing', 'S', 'Nom', '1']]],
-                'črna'      => ['černý',     'črný',      [['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
+                'biel'  => ['bílý', 'bielý', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
+                'biela' => ['bílý', 'bielý', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
+                'bieli' => ['bílý', 'bielý', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
+                'bielo' => ['bílý', 'bielý', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4']]],
+                'bielu' => ['bílý', 'bielý', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
+                'biely' => ['bílý', 'bielý', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]],
+                'črn'  => ['černý', 'črný', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
+                'črna' => ['černý', 'črný', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
+                'črni' => ['černý', 'črný', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
+                'črno' => ['černý', 'črný', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4']]],
+                'črnu' => ['černý', 'črný', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
+                'črny' => ['černý', 'črný', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]],
                 'dóstojen'  => ['důstojný', 'dóstojný', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
                 'dóstojna'  => ['důstojný', 'dóstojný', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
                 'dóstojni'  => ['důstojný', 'dóstojný', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
