@@ -1,4 +1,4 @@
-Multichar_Symbols +NM +NF +Masc +Mina +Fem +Neut +Sg +Du +Pl +Nom +Gen +Dat +Acc +Voc +Loc +Ins Sup+ +Pos +Comp @P.SUP.ON@ @D.SUP@
+Multichar_Symbols +NM +NF +NN +AMposs +AFposs +Masc +Mina +Fem +Neut +Sg +Du +Pl +Nom +Gen +Dat +Acc +Voc +Loc +Ins Sup+ +Pos +Comp @P.SUP.ON@ @D.SUP@
 
 LEXICON Root
 
@@ -106,6 +106,16 @@ vodič+NM+Pl+Voc:vodičěvé #;
 vrabec:vrabEc NMi;
 žnec:žnEc NMi;
 žnec:ženc NMi;
+
+! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+barnabáš          NMi;
+barnabáš:barrabáš NMi;
+eliáš             NMi;
+eliáš:heliáš      NMi;
+izaiáš            NMi;
+ježíš             NMi;
+mojžíš            NMi;
+mojžíš:mojžieš    NMi;
 
 LEXICON NIyStem
 
@@ -246,6 +256,9 @@ LEXICON NM
 +NM+Pl+Dat:^óm   #; ! andělóm  přietelóm  běsóm  bohóm  dělníkóm  duchóm  hadóm  hospodinóm  kacieřóm  kopáčóm  kokotóm  mužóm  otcóm  pánóm  popóm  tovařišóm
 +NM+Pl+Dat:^uom  #; ! anděluom přieteluom běsuom bohuom dělníkuom duchuom haduom hospodinuom kacieřuom kopáčuom kokotuom mužuom otcuom pánuom popuom tovařišuom
 +NM+Pl+Loc:^iech #;
+
+! Dále lze vytvořit přivlastňovací přídavné jméno (hlavně od životných, ale nemusíme to omezovat).
+AdjMposs;
 
 LEXICON NMy
 
@@ -420,6 +433,58 @@ LEXICON NNo
 +NF+Pl+Loc:^ách #;
 +NF+Pl+Ins:^y   #;
 +NF+Pl+Ins:^ami #;
+
+LEXICON AdjMposs
+
++AMposs+Masc+Sg+Nom:^óv    #;
++AMposs+Masc+Sg+Nom:^uov   #;
++AMposs+Masc+Sg+Nom:^ův    #;
++AMposs+Masc+Sg+Gen:^ova   #;
++AMposs+Masc+Sg+Dat:^ovu   #;
++AMposs+Masc+Sg+Acc:^ova   #;
++AMposs+Masc+Sg+Voc:^óv    #;
++AMposs+Masc+Sg+Voc:^uov   #;
++AMposs+Masc+Sg+Voc:^ův    #;
++AMposs+Masc+Sg+Loc:^ově   #;
++AMposs+Masc+Sg+Ins:^ovým  #;
++AMposs+Masc+Pl+Nom:^ovi   #;
++AMposs+Masc+Pl+Gen:^ových #;
++AMposs+Masc+Pl+Dat:^ovým  #;
++AMposs+Masc+Pl+Acc:^ovy   #;
++AMposs+Masc+Pl+Voc:^ovi   #;
++AMposs+Masc+Pl+Loc:^ových #;
++AMposs+Masc+Pl+Ins:^ovými #;
+
++AMposs+Fem+Sg+Nom:^ova    #;
++AMposs+Fem+Sg+Gen:^ovy    #;
++AMposs+Fem+Sg+Dat:^ově    #;
++AMposs+Fem+Sg+Acc:^ovu    #;
++AMposs+Fem+Sg+Voc:^ova    #;
++AMposs+Fem+Sg+Loc:^ově    #;
++AMposs+Fem+Sg+Ins:^ovú    #;
++AMposs+Fem+Sg+Ins:^ovou   #;
++AMposs+Fem+Pl+Nom:^ovy    #;
++AMposs+Fem+Pl+Gen:^ových  #;
++AMposs+Fem+Pl+Dat:^ovým   #;
++AMposs+Fem+Pl+Acc:^ovy    #;
++AMposs+Fem+Pl+Voc:^ovy    #;
++AMposs+Fem+Pl+Loc:^ových  #;
++AMposs+Fem+Pl+Ins:^ovými  #;
+
++AMposs+Neut+Sg+Nom:^ovo   #;
++AMposs+Neut+Sg+Gen:^ova   #;
++AMposs+Neut+Sg+Dat:^ovu   #;
++AMposs+Neut+Sg+Acc:^ovo   #;
++AMposs+Neut+Sg+Voc:^ovo   #;
++AMposs+Neut+Sg+Loc:^ově   #;
++AMposs+Neut+Sg+Ins:^ovým  #;
++AMposs+Neut+Pl+Nom:^ova   #;
++AMposs+Neut+Pl+Gen:^ových #;
++AMposs+Neut+Pl+Dat:^ovým  #;
++AMposs+Neut+Pl+Acc:^ova   #;
++AMposs+Neut+Pl+Voc:^ova   #;
++AMposs+Neut+Pl+Loc:^ových #;
++AMposs+Neut+Pl+Ins:^ovými #;
 
 LEXICON AdjSup
 

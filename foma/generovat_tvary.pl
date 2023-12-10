@@ -10,16 +10,37 @@ binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
 
 my $lemma = shift(@ARGV);  # e.g. "cesta"
-my $gender = shift(@ARGV); # e.g. "NF"
+my $category = shift(@ARGV); # e.g. "NF"
+my @genders = qw(Masc Fem Neut);
 my @numbers = qw(Sg Du Pl);
 my @cases = qw(Nom Gen Dat Acc Voc Loc Ins);
 my @paradigm;
-foreach my $n (@numbers)
+if($category =~ m/^N/)
 {
-    foreach my $c (@cases)
+    foreach my $n (@numbers)
     {
-        push(@paradigm, "$lemma+$gender+$n+$c");
+        foreach my $c (@cases)
+        {
+            push(@paradigm, "$lemma+$category+$n+$c");
+        }
     }
+}
+elsif($category =~ m/^AMposs$/)
+{
+    foreach my $g (@genders)
+    {
+        foreach my $n (@numbers)
+        {
+            foreach my $c (@cases)
+            {
+                push(@paradigm, "$lemma+$category+$g+$n+$c");
+            }
+        }
+    }
+}
+else
+{
+    die("Unknown category '$category'");
 }
 # Give it as input to flookup. Assume that flookup is in PATH and fst.bin exists in the current folder.
 open(FOMA, "| flookup -i fst.bin") or die("Cannot pipe to foma: $!");
