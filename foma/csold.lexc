@@ -110,8 +110,11 @@ LEXICON NIyStem
 
 ! Neživotná tvrdá maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
 
+dům+NM+Sg+Nom:dóm     #;
+dům:dom               NIy;
+dům:duom              NIy;
 chléb+NM+Sg+Nom:chléb #;
-chléb:chleb   NIy;
+chléb:chleb           NIy;
 
 LEXICON NIkStem
 
