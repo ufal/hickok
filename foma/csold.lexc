@@ -275,6 +275,10 @@ lidský:lidsk   AyDeg;
 mladý:mlad     Ay1Deg;
 nebeský:nebesk AyDeg;
 starý:star     Ay1Deg;
+veliký@D.SUP@+Pos:velik@D.SUP@ Ay;
+veliký+Comp:větš Ai;
+vysoký@D.SUP@+Pos:vysok@D.SUP@ Ay;
+vysoký+Comp:vyšš Ai;
 zelený:zelen   AyDeg;
 
 ! Co se jmennými tvary adjektiv?

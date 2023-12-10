@@ -30,9 +30,9 @@ define NMPlNomPalatalization h->z, [c h]->š, k->c, r->ř || [a|á|e|é|ě|i|í|
 # duhe -> duze, matke -> matce, hore -> hoře, pravde -> pravďe, ceste -> cesťe, žene -> žeňe
 define NFSgDatPalatalization h->z, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|ě] .#.;
 
-# dobrí -> dobří, nebeskí -> nebeští
+# vysoký -> vysocí, dobrí -> dobří, nebeskí -> nebeští
 # Nejsem si jist, co dělat s příznakovou diakritikou. Kazí mi kontext.
-define APlNomPalatalization r->ř, [s k]->[š t] || _ ("@D.SUP@") "^" í .#.;
+define APlNomPalatalization k->c, r->ř, [s k]->[š t] || _ ("@D.SUP@") "^" í .#.;
 
 # ďe ťe ňe -> dě tě ně, ďi ťi ňi -> di ti ni
 define DeTeNe [ď "^" e]->[d "^" ě], [ď "^" ě]->[d "^" ě], [ť "^" e]->[t "^" ě], [ť "^" ě]->[t "^" ě], [ň "^" e]->[n "^" ě], [ň "^" ě]->[n "^" ě], [ď "^" i]->[d "^" i], [ď "^" í]->[d "^" í], [ť "^" i]->[t "^" i], [ť "^" í]->[t "^" í], [ň "^" i]->[n "^" i], [ň "^" í]->[n "^" í];
