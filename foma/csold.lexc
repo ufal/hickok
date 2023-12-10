@@ -363,6 +363,10 @@ poslušný:poslušEn  Ax;
 povinný:povinEn    Ax;
 smutný:smutEn      Ax;
 vinný:vinEn        Ax;
+známý:znám         Ax;
+živý:živ           Ax;
+žíznivý:žiezniv    Ax;
+žíznivý:žiezliv    Ax;
 
 LEXICON AiStem
 
