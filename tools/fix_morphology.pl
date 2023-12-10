@@ -4074,11 +4074,17 @@ while(<>)
                 'žieznivu' => ['žíznivý', 'žieznivý', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
                 'žieznivy' => ['žíznivý', 'žieznivý', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]],
                 'živ'  => ['živý', 'živý', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
+                'žív'  => ['živý', 'živý', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
                 'živa' => ['živý', 'živý', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
+                'žíva' => ['živý', 'živý', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
                 'živi' => ['živý', 'živý', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
+                'žívi' => ['živý', 'živý', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
                 'živo' => ['živý', 'živý', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4']]],
+                'žívo' => ['živý', 'živý', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4']]],
                 'živu' => ['živý', 'živý', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
-                'živy' => ['živý', 'živý', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]]
+                'žívu' => ['živý', 'živý', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
+                'živy' => ['živý', 'živý', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]],
+                'žívy' => ['živý', 'živý', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]]
             );
             my $ma = $ma{$lform}; die("Something is wrong: '$lform'") if(!defined($ma));
             $f[2] = $ma->[0];
