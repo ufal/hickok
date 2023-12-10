@@ -59,6 +59,10 @@ velbloud:velblúd NMy;
 
 ! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
 abraham          NMy;
+alfeus+NM+Sg+Nom:alfeus #;
+alfeus+NM+Sg+Nom:alpheus #;
+alfeus:alfe      NMy;
+alfeus:alphe     NMy;
 belzebub         NMy;
 david            NMy;
 herodes:herodes  NMy; ! Neděláme výjimku jen pro Nom Sg, protože je doloženo i "Herodesovi".
