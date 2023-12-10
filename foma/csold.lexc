@@ -193,8 +193,11 @@ LEXICON NIiStem
 
 ! Neživotná měkká maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
 
-koš      NIi;
-koš:kuoš NIi;
+koš         NIi;
+koš:kuoš    NIi;
+pláč        NIi;
+plášť       NIi;
+plášť:plášč NIi;
 
 LEXICON NFaStem
 
