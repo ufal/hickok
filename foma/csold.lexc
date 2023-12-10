@@ -252,6 +252,8 @@ nebe:neb      NNe;
 LEXICON AyStem
 
 dobrý@D.SUP@+Pos:dobr@D.SUP@ Ay;
+lesní:lesk     AyDeg;
+lidský:lidsk   AyDeg;
 mladý:mlad     Ay1Deg;
 nebeský:nebesk AyDeg;
 starý:star     Ay1Deg;
