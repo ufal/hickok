@@ -32,7 +32,7 @@ define NMPlNomPalatalization h->z, [c h]->š, k->c, r->ř || [a|á|e|é|ě|i|í|
 
 # duhe -> duze, archa -> arše, matke -> matce, hore -> hoře, pravde -> pravďe, ceste -> cesťe, žene -> žeňe
 # "h" nesmí následovat po "c" (protože pak je to "ch")
-define NFSgDatPalatalizationX [c h]->š, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|ě] .#.;
+define NFSgDatPalatalizationX [c h]->š, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|ě] .#., _ "^" [e|ě] j š;
 define NFSgDatPalatalizationH h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" [e|ě] .#.;
 define NFSgDatPalatalization NFSgDatPalatalizationX .o. NFSgDatPalatalizationH;
 

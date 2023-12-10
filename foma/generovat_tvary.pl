@@ -25,7 +25,7 @@ if($category =~ m/^N/)
         }
     }
 }
-elsif($category =~ m/^(Pos\+)?Ax?(Mposs)?$/)
+elsif($category =~ m/^(Pos\+|Comp\+)?Ax?(Mposs)?$/)
 {
     foreach my $g (@genders)
     {
