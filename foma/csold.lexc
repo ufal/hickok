@@ -380,7 +380,13 @@ známý:znám         Ax;
 LEXICON AiStem
 
 bližní@D.SUP@+Pos:bližn@D.SUP@ Ai;
-jarní:jarn       AiDeg;
+boží:bož          AiDeg;
+boží:buož         AiDeg;
+člověčí:člověč    AiDeg;
+jarní:jarn        AiDeg;
+ještěrčí:ještěrč  AiDeg;
+ještěrčí:ješčerč  AiDeg;
+ještěrčí:ješčeřič AiDeg;
 
 !------------------------------------------------------------------------------
 ! Konec kmenů, začátek koncovek.
@@ -909,25 +915,32 @@ LEXICON Ai
 
 +A+Fem+Sg+Nom:^í   #;
 +A+Fem+Sg+Gen:^í   #;
++A+Fem+Sg+Gen:^ie  #;
 +A+Fem+Sg+Dat:^í   #;
++A+Fem+Sg+Dat:^iej #;
 +A+Fem+Sg+Acc:^í   #;
++A+Fem+Sg+Acc:^ú   #; ! Doloženo "božú" když je jinak "boží"
 +A+Fem+Sg+Voc:^í   #;
 +A+Fem+Sg+Loc:^í   #;
++A+Fem+Sg+Loc:^iej #;
 +A+Fem+Sg+Ins:^í   #;
 +A+Fem+Pl+Nom:^í   #;
 +A+Fem+Pl+Gen:^ích #;
 +A+Fem+Pl+Dat:^ím  #;
 +A+Fem+Pl+Acc:^í   #;
++A+Fem+Pl+Acc:^ie  #;
 +A+Fem+Pl+Voc:^í   #;
 +A+Fem+Pl+Loc:^ích #;
 +A+Fem+Pl+Ins:^ími #;
 
 +A+Neut+Sg+Nom:^í    #;
++A+Neut+Sg+Nom:^ie   #;
 +A+Neut+Sg+Gen:^ího  #;
 +A+Neut+Sg+Gen:^ieho #;
 +A+Neut+Sg+Dat:^ímu  #;
 +A+Neut+Sg+Dat:^iemu #;
 +A+Neut+Sg+Acc:^í    #;
++A+Neut+Sg+Acc:^ie   #;
 +A+Neut+Sg+Voc:^í    #;
 +A+Neut+Sg+Loc:^ím   #;
 +A+Neut+Sg+Ins:^ím   #;
