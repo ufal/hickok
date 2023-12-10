@@ -325,6 +325,10 @@ místo:míst    NNo;
 místo:miest   NNo;
 nebe:nebes    NNo;
 rok:let       NNo; ! Chtělo by to zablokovat singulár.
+roucho:rouch  NNo;
+roucho:rúch   NNo;
+seno:sen      NNo;
+seno:sěn      NNo;
 
 LEXICON NNeStem
 
