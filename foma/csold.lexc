@@ -538,6 +538,7 @@ NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního 
 +NM+Sg+Loc:^i    #;
 +NM+Sg+Ins:^iem  #; ! Není mi jasné, která jména umožňují koncovku -iem. Doloženo je kopáčiem, rytieřiem.
 +NM+Du+Nom:^ě    #; ! rybářě
++NM+Du+Gen:^í    #; ! pod stráži dvú rytieří
 +NM+Du+Acc:^ě    #;
 +NM+Du+Voc:^ě    #;
 +NM+Pl+Gen:^iev  #; ! kacieřiev kopáčiev tovařišiev ; košiev kuošiev (doloženo)
