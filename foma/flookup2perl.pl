@@ -30,6 +30,12 @@ while(<>)
     $maxl = $l if($l > $maxl);
 }
 $oldlemma = $lemma if(!defined($oldlemma));
+# Vlastní jména jsou ve Fomě uvedena malými písmeny, protože velká se tam používají na kódování fonologických změn.
+# My ale chceme v Perlu lemma s velkým písmenem na začátku. Pokud tedy $oldlemma začíná velkým písmenem, uděláme totéž i s hlavním lemmatem.
+if(lc($oldlemma) ne $oldlemma)
+{
+    $lemma = ucfirst($lemma);
+}
 my %th; map {$th{$_} = csort::zjistit_tridici_hodnoty($_, 'cs')} (keys(%dict));
 my @forms = sort {$th{$a} cmp $th{$b}} (keys(%dict));
 my @genders = qw(NM NF NN);
