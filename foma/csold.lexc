@@ -945,6 +945,7 @@ LEXICON Ai
 +A+Neut+Sg+Acc:^ie   #;
 +A+Neut+Sg+Voc:^í    #;
 +A+Neut+Sg+Loc:^ím   #;
++A+Neut+Sg+Loc:^iem  #; ! "o božiem umučení"
 +A+Neut+Sg+Ins:^ím   #;
 +A+Neut+Pl+Nom:^í    #;
 +A+Neut+Pl+Gen:^ích  #;
