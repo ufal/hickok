@@ -77,6 +77,7 @@ foreach my $g (@genders)
             my $src = "A+$g+$n+$c";
             my $tgt = "['$gp', '$gc', '$longnum{$n}', '$nc', '$c', '$cn']";
             $conversion{$src} = $tgt;
+            $conversion{"Pos+$src"} = $tgt;
         }
     }
 }

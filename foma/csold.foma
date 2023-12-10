@@ -30,6 +30,10 @@ define NMPlNomPalatalization h->z, [c h]->š, k->c, r->ř || [a|á|e|é|ě|i|í|
 # duhe -> duze, matke -> matce, hore -> hoře, pravde -> pravďe, ceste -> cesťe, žene -> žeňe
 define NFSgDatPalatalization h->z, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|ě] .#.;
 
+# dobrí -> dobří, nebeskí -> nebeští
+# Nejsem si jist, co dělat s příznakovou diakritikou. Kazí mi kontext.
+define APlNomPalatalization r->ř, [s k]->[š t] || _ ("@D.SUP@") "^" í .#.;
+
 # ďe ťe ňe -> dě tě ně
 define DeTeNe [ď "^" e]->[d "^" ě], [ď "^" ě]->[d "^" ě], [ť "^" e]->[t "^" ě], [ť "^" ě]->[t "^" ě], [ň "^" e]->[n "^" ě], [ň "^" ě]->[n "^" ě];
 
@@ -38,7 +42,8 @@ define Surface "^" -> 0, λ -> 0, E -> e;
 
 read lexc csold.lexc
 define Lexicon;
-regex Lexicon .o. NMEc .o. NMEce .o. NMEk .o. NMEka .o. NMEl .o. NMEla .o. NMEn .o. NMEna .o. NMEs .o. NMEsa .o. NFPlGenEInsertion .o. NMSgVocPalatalization .o. NMPlNomPalatalization .o. NFSgDatPalatalization .o. DeTeNe .o. Surface;
+regex Lexicon .o. NMEc .o. NMEce .o. NMEk .o. NMEka .o. NMEl .o. NMEla .o. NMEn .o. NMEna .o. NMEs .o. NMEsa .o. NFPlGenEInsertion
+    .o. NMSgVocPalatalization .o. NMPlNomPalatalization .o. NFSgDatPalatalization .o. APlNomPalatalization .o. DeTeNe .o. Surface;
 
 print dot > fst.dot
 save stack > fst.bin

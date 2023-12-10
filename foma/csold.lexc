@@ -3,6 +3,7 @@ Multichar_Symbols +NM +NF +NN +A +AMposs +AFposs +Masc +Mina +Fem +Neut +Sg +Du 
 LEXICON Root
 
 Noun;
+Adj;
 
 LEXICON Noun
 
@@ -19,6 +20,9 @@ NFeStem;
 NFtStem;
 NNoStem;
 NNeStem;
+
+LEXICON Adj
+
 AyStem;
 AiStem;
 
@@ -235,14 +239,16 @@ nebe:neb      NNe;
 
 LEXICON AyStem
 
-dobrý:dobr Ay;
-mladý:mlad   Ay1Deg;
-zelený:zelen AyDeg;
+dobrý@D.SUP@+Pos:dobr@D.SUP@ Ay;
+mladý:mlad     Ay1Deg;
+nebeský:nebesk AyDeg;
+starý:star     Ay1Deg;
+zelený:zelen   AyDeg;
 
 LEXICON AiStem
 
-bližní:bližn Ai;
-jarní:jarn   AiDeg;
+bližní@D.SUP@+Pos:bližn@D.SUP@ Ai;
+jarní:jarn       AiDeg;
 
 !------------------------------------------------------------------------------
 ! Konec kmenů, začátek koncovek.
@@ -600,11 +606,16 @@ LEXICON Ay
 
 +A+Fem+Sg+Nom:^á   #;
 +A+Fem+Sg+Gen:^é   #;
++A+Fem+Sg+Gen:^éj  #;
 +A+Fem+Sg+Dat:^é   #;
++A+Fem+Sg+Dat:^éj  #;
 +A+Fem+Sg+Acc:^ou  #;
++A+Fem+Sg+Acc:^ú   #;
 +A+Fem+Sg+Voc:^á   #;
 +A+Fem+Sg+Loc:^é   #;
++A+Fem+Sg+Loc:^éj  #;
 +A+Fem+Sg+Ins:^ou  #;
++A+Fem+Sg+Ins:^ú   #;
 +A+Fem+Pl+Nom:^é   #;
 +A+Fem+Pl+Gen:^ých #;
 +A+Fem+Pl+Dat:^ým  #;
