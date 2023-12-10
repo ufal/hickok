@@ -2996,6 +2996,7 @@ while(<>)
                 'lichvú'   => ['lichva', 'lichva', [['Sing', 'S', 'Ins', '7']]],
                 'lichvy'   => ['lichva', 'lichva', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'mátě'   => ['máti', 'máti', [['Sing', 'S', 'Nom', '1']]],
+                'mateř'  => ['máti', 'máti', [['Sing', 'S', 'Acc', '4']]],
                 'máteř'  => ['máti', 'máti', [['Sing', 'S', 'Acc', '4']]],
                 'mateře' => ['máti', 'máti', [['Sing', 'S', 'Gen', '2']]],
                 'mateřě' => ['máti', 'máti', [['Sing', 'S', 'Gen', '2']]],

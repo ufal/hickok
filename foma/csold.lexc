@@ -291,6 +291,7 @@ dcera+NF+Sg+Nom:dci   #;
 dcera+NF+Sg+Voc:dci   #;
 máti+NF+Sg+Nom:mátě   #;
 máti+NF+Sg+Acc:máteř  #;
+máti+NF+Sg+Acc:mateř  #;
 máti+NF+Sg+Gen:mateře #;
 máti+NF+Sg+Gen:mateřě #;
 máti+NF+Sg+Dat:mateři #;
