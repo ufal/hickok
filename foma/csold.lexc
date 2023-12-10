@@ -114,6 +114,7 @@ apoštol NMl;
 přítel:přietel NMl;
 
 ! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+daniel           NMl;
 křtitel          NMl;
 křtitel:krstitel NMl;
 křtitel:křstitel NMl;
