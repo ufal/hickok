@@ -204,8 +204,9 @@ víra:vier    NFa;
 voda:vuod    NFa;
 žena:žen     NFa;
 ! Zřejmě se velmi podobně skloňovala i mužská jména podle dnešního vzoru předseda.
-sluha:sluh NFa;
-starosta:starost NFa;
+sluha:sluh         NFa;
+sluha:slúh         NFa;
+starosta:starost   NFa;
 tetrarcha:tetrarch NFa;
 
 LEXICON NFeStem
