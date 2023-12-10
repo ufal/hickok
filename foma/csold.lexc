@@ -20,6 +20,7 @@ NFeStem;
 NFtStem;
 NNoStem;
 NNeStem;
+NNteStem;
 
 LEXICON Adj
 
@@ -260,6 +261,10 @@ LEXICON NNeStem
 nebe:neb      NNe;
 slovo:slovEc  NNe; ! slovce
 srdce:srdEc   NNe;
+
+LEXICON NNteStem
+
+robě:rob      NNte;
 
 LEXICON AyStem
 
@@ -541,6 +546,32 @@ LEXICON NNe
 +NN+Pl+Voc:^ě   #;
 +NN+Pl+Loc:^ích #;
 +NN+Pl+Ins:^i   #;
+
+LEXICON NNte
+
++NN+Sg+Nom:^e     #;
++NN+Sg+Nom:^ě     #;
++NN+Sg+Gen:^ete   #;
++NN+Sg+Gen:^ěte   #;
++NN+Sg+Dat:^eti   #;
++NN+Sg+Dat:^ěti   #;
++NN+Sg+Acc:^e     #;
++NN+Sg+Acc:^ě     #;
++NN+Sg+Voc:^e     #;
++NN+Sg+Voc:^ě     #;
++NN+Sg+Loc:^eti   #;
++NN+Sg+Loc:^ěti   #;
++NN+Sg+Ins:^etem  #;
++NN+Sg+Ins:^ětem  #;
++NN+Pl+Nom:^ata   #;
++NN+Pl+Gen:^at    #;
++NN+Pl+Dat:^atům  #;
++NN+Pl+Dat:^atóm  #;
++NN+Pl+Dat:^atuom #;
++NN+Pl+Acc:^ata   #;
++NN+Pl+Voc:^ata   #;
++NN+Pl+Loc:^atech #;
++NN+Pl+Ins:^aty   #;
 
 LEXICON AdjMposs
 
