@@ -7343,9 +7343,14 @@ sub set_lemma1300
 {
     my $misc = shift;
     my $lemma = shift;
+    # Hodnota atributu v MISC nemůže obsahovat svislítko. Museli bychom ho
+    # zneškodnit třeba jako "\p" nebo "&pipe;", ale žádný standardní způsob
+    # stanovený není. Vyřešíme to tím, že lemma1300 prostě nenastavíme.
+    # (Svislítka se vyskytují vzácně, např. ve slovníku 020_slov_uka.conllu.)
     if($lemma =~ m/\|/)
     {
-        die("Hodnota atributu v MISC nemůže obsahovat svislítko");
+        return;
+        #die("Hodnota atributu v MISC nemůže obsahovat svislítko");
     }
     my @misc = $misc eq '_' ? () : split(/\|/, $misc);
     # Pokud už tam tento atribut byl, vyhodit ho.
