@@ -2081,6 +2081,7 @@ while(<>)
                 'břišě'       => ['břicho',   'břicho',   [['Sing', 'S', 'Loc', '6']]],
                 'dietě'       => ['dítě',     'dietě',    [['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Nom', '1']]],
                 'dietek'      => ['dítě',     'dietě',    [['Plur', 'P', 'Gen', '2']]],
+                'dietete'     => ['dítě',     'dietě',    [['Sing', 'S', 'Gen', '2']]],
                 'dietěte'     => ['dítě',     'dietě',    [['Sing', 'S', 'Gen', '2']]],
                 'dietěti'     => ['dítě',     'dietě',    [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'dietky'      => ['dítě',     'dietě',    [['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Nom', '1']]],
