@@ -332,12 +332,18 @@ roucho:rouch  NNo;
 roucho:rúch   NNo;
 seno:sen      NNo;
 seno:sěn      NNo;
+ústa:úst      NNo; ! Chtělo by to zablokovat singulár.
+ústa:ust      NNo;
+zábradlí:zábradl NNo;
 
 LEXICON NNeStem
 
-nebe:neb      NNe;
-slovo:slovEc  NNe; ! slovce
-srdce:srdEc   NNe;
+nebe:neb       NNe;
+slovo:slovEc   NNe; ! slovce
+srdce:srdEc    NNe;
+tržiště:tržišť NNe;
+tržiště:tržišč NNe;
+vejce:vajEc    NNe;
 
 LEXICON NNteStem
 
