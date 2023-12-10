@@ -2035,6 +2035,7 @@ while(<>)
                 'jakubova'      => ['Jakubův',    'Jakubóv',    [['Fem',  'F', 'Sing', 'S', 'Nom', '1']]],
                 'jakubovo'      => ['Jakubův',    'Jakubóv',    [['Neut', 'N', 'Sing', 'S', 'Nom', '1']]],
                 'jakubovu'      => ['Jakubův',    'Jakubóv',    [['Anim', 'M', 'Sing', 'S', 'Acc', '4']]],
+                'jakubovy'      => ['Jakubův',    'Jakubóv',    [['Fem',  'F', 'Plur', 'P', 'Nom', '1']]],
                 'janóv'         => ['Janův',      'Janóv',      [['Inan', 'I', 'Sing', 'S', 'Nom', '1']]],
                 'janovu'        => ['Janův',      'Janóv',      [['Fem',  'F', 'Sing', 'S', 'Acc', '4']]],
                 'ježíšóv'       => ['Ježíšův',    'Ježíšóv',    [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
