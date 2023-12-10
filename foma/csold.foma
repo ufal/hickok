@@ -27,8 +27,11 @@ define NMSgVocPalatalization h->ž, [c h]->š, k->č, r->ř, c->č || [a|á|e|é
 # "h" nesmí následovat po "c" (protože pak je to "ch")
 define NMPlNomPalatalization h->z, [c h]->š, k->c, r->ř || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" i;
 
-# duhe -> duze, matke -> matce, hore -> hoře, pravde -> pravďe, ceste -> cesťe, žene -> žeňe
-define NFSgDatPalatalization h->z, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|ě] .#.;
+# duhe -> duze, archa -> arše, matke -> matce, hore -> hoře, pravde -> pravďe, ceste -> cesťe, žene -> žeňe
+# "h" nesmí následovat po "c" (protože pak je to "ch")
+define NFSgDatPalatalizationX [c h]->š, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|ě] .#.;
+define NFSgDatPalatalizationH h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" [e|ě] .#.;
+define NFSgDatPalatalization NFSgDatPalatalizationX .o. NFSgDatPalatalizationH;
 
 # vysoký -> vysocí, dobrí -> dobří, nebeskí -> nebeští
 # Nejsem si jist, co dělat s příznakovou diakritikou. Kazí mi kontext.

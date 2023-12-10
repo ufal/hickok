@@ -517,6 +517,7 @@ LEXICON NFe
 +NF+Pl+Acc:^e    #;
 +NF+Pl+Voc:^ě    #;
 +NF+Pl+Voc:^e    #;
++NF+Pl+Voc:^ie   #; ! Doložen vokativ "súdcie".
 +NF+Pl+Loc:^iech #;
 +NF+Pl+Loc:^ích  #;
 +NF+Pl+Ins:^ěmi  #;
