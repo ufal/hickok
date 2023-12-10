@@ -266,13 +266,16 @@ starý:star     Ay1Deg;
 zelený:zelen   AyDeg;
 
 ! Co se jmennými tvary adjektiv?
-mocný:mocEn       Ax;
-nemocný:nemocEn   Ax;
-podobný:podobEn   Ax;
-poslušný:poslušEn Ax;
-povinný:povinEn   Ax;
-smutný:smutEn     Ax;
-vinný:vinEn       Ax;
+důstojný:důstojEn  Ax;
+důstojný:dóstojEn  Ax;
+důstojný:duostojEn Ax;
+mocný:mocEn        Ax;
+nemocný:nemocEn    Ax;
+podobný:podobEn    Ax;
+poslušný:poslušEn  Ax;
+povinný:povinEn    Ax;
+smutný:smutEn      Ax;
+vinný:vinEn        Ax;
 
 LEXICON AiStem
 
