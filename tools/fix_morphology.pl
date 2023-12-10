@@ -1941,6 +1941,7 @@ while(<>)
                 'mísu'   => ['mísa', 'mísa', [['Sing', 'S', 'Acc', '4']]],
                 'mísú'   => ['mísa', 'mísa', [['Sing', 'S', 'Ins', '7']]],
                 'mísy'   => ['mísa', 'mísa', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
+                'modlitv'    => ['modlitba', 'modlitva', [['Plur', 'P', 'Gen', '2']]],
                 'modlitev'   => ['modlitba', 'modlitva', [['Plur', 'P', 'Gen', '2']]],
                 'modlitva'   => ['modlitba', 'modlitva', [['Sing', 'S', 'Nom', '1']]],
                 'modlitvách' => ['modlitba', 'modlitva', [['Plur', 'P', 'Loc', '6']]],

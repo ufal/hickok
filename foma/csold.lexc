@@ -201,6 +201,7 @@ lichva:lichv NFa;
 matka:matk   NFa;
 mísa:mís     NFa;
 modlitba:modlitv NFa;
+modlitba+NF+Pl+Gen:modlitv #; ! Doloženo i bez vloženého "e"
 noha:noh         NFa;
 noha+NF+Pl+Gen:nóh #;
 potopa:potop     NFa;
