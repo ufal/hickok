@@ -279,6 +279,9 @@ sluha:slúh         NFa;
 starosta:starost   NFa;
 tetrarcha:tetrarch NFa;
 
+! Vlastní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+sodoma:sodom       NFa;
+
 LEXICON NFeStem
 
 božnice:buožnic       NFe;
@@ -301,7 +304,8 @@ vesnice:vesnic        NFe;
 ! Zřejmě se velmi podobně skloňovala i mužská jména podle vzoru súdcě.
 soudce:súdc           NFe;
 
-! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+! Vlastní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+dekapolis:dekapol      NFe;
 marie:mari             NFe;
 marie+NF+Sg+Nom:maria  #;
 marie+NF+Sg+Nom:máří   #;
