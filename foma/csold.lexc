@@ -77,6 +77,8 @@ petr             NMy;
 pilát            NMy;
 šalamoun         NMy;
 šalamoun:šalomún NMy;
+zebedeus+NM+Sg+Nom:zebedeus #;
+zebedeus:zebede  NMy;
 
 LEXICON NMPléStem
 
@@ -153,6 +155,8 @@ izaiáš            NMi;
 ježíš             NMi;
 mojžíš            NMi;
 mojžíš:mojžieš    NMi;
+zachař            NMi;
+zebedeus:zebedeáš NMi;
 
 LEXICON NIyStem
 
