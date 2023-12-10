@@ -3289,6 +3289,7 @@ while(<>)
                 'galilea'     => ['Galilea',   'Galilea',   [['Sing', 'S', 'Nom', '1']]],
                 'galilee'     => ['Galilea',   'Galilea',   [['Sing', 'S', 'Gen', '2']]],
                 'galilei'     => ['Galilea',   'Galilea',   [['Sing', 'S', 'Loc', '6']]],
+                'galileí'     => ['Galilea',   'Galilea',   [['Sing', 'S', 'Acc', '4']]],
                 'golgata'     => ['Golgata',   'Golgata',   [['Sing', 'S', 'Nom', '1']]],
                 'sodomě'      => ['Sodoma',    'Sodoma',    [['Sing', 'S', 'Loc', '6']]], # oba výskyty jsou lokativ
                 'syrí'        => ['Sýrie',     'Syří',      [['Sing', 'S', 'Loc', '6']]],
