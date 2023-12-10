@@ -1716,7 +1716,7 @@ while(<>)
         # Výjimka: 'čině' může být sloveso, 'činiech' možná taky?
         # Výjimka: 'dna' a 'dny' je ve všech výskytech nemoc, nikoli tvar slova 'den'.
         # Výjimka: "pláče" je v dotyčném výskytu sloveso "plakat", nikoli tvar slova "pláč".
-        elsif($f[1] =~ m/^(balšám|buochenc|čas|čin|déšč|div|dn|dóm|du?om|fík|hrob|hřie(ch|š)|chleb|kořen|ku?oš|kút|národ|neduh|okrajk|otrusk|pas|peniez|pláč|plamen|plášč|podhrdlk|podolk|poklad|příklad|rov|sbuor|skutk|sn|stien|stol|súd|ščěvík|tisíc|úd|u?oheň|u?ohn|u?ostatk|uzlíc|užitk|větr|vlas|zárodc|zástup|zbytk|zub)(a|e|ě|i|u|ové|óv|uov|iev|í|óm|uom|y|ách|iech)?$/i && $f[1] !~ m/^(dn[ay]|čin[ěí]|činiech|fíkové|pas[ae]?|pláče|súdí)$/i)
+        elsif($f[1] =~ m/^(balšám|buochenc|čas|čin|déšč|div|dn|dóm|du?om|fík|hrob|hřie(ch|š)|chleb|kořen|ku?oš|kút|národ|neduh|okrajk|otrusk|pas|peniez|pláč|plamen|plášč|podhrdlk|podolk|poklad|příklad|rov|sbuor|skutk|sn|stien|stol|súd|ščěvík|tisíc|úd|u?oheň|u?ohn|u?ostatk|uzlíc|užitk|větr|vlas|zárodc|zástup|zbytk|zub)(a|e|ě|i|u|ové|óv|uov|iev|í|óm|uom|y|ách|iech)?$/i && $f[1] !~ m/^(dn[ay]|čin[ěí]|činiech|fíkové|pas[ae]?|pláče|súdí|tisící)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
