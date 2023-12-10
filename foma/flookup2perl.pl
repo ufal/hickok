@@ -102,6 +102,9 @@ foreach my $g (@genders)
             my $tgt = "['$gp', '$gc', '$longnum{$n}', '$nc', '$c', '$cn']";
             $conversion{$src} = $tgt;
             $conversion{"Pos+$src"} = $tgt;
+            # Short forms of adjectives.
+            $src = "Ax+$g+$n+$c";
+            $conversion{$src} = $tgt;
         }
     }
 }

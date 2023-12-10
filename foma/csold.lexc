@@ -260,6 +260,15 @@ nebeský:nebesk AyDeg;
 starý:star     Ay1Deg;
 zelený:zelen   AyDeg;
 
+! Co se jmennými tvary adjektiv?
+mocný:mocEn       Ax;
+nemocný:nemocEn   Ax;
+podobný:podobEn   Ax;
+poslušný:poslušEn Ax;
+povinný:povinEn   Ax;
+smutný:smutEn     Ax;
+vinný:vinEn       Ax;
+
 LEXICON AiStem
 
 bližní@D.SUP@+Pos:bližn@D.SUP@ Ai;
@@ -653,6 +662,28 @@ LEXICON Ay
 +A+Neut+Pl+Voc:^é   #;
 +A+Neut+Pl+Loc:^ých #;
 +A+Neut+Pl+Ins:^ými #;
+
+LEXICON Ax
+
++Ax+Masc+Sg+Nom:^λ #;
++Ax+Masc+Sg+Acc:^a #;
++Ax+Masc+Pl+Nom:^i #;
++Ax+Masc+Pl+Acc:^y #;
+
++Ax+Mina+Sg+Nom:^λ #;
++Ax+Mina+Sg+Acc:^λ #;
++Ax+Mina+Pl+Nom:^y #;
++Ax+Mina+Pl+Acc:^y #;
+
++Ax+Fem+Sg+Nom:^a #;
++Ax+Fem+Sg+Acc:^u #;
++Ax+Fem+Pl+Nom:^y #;
++Ax+Fem+Pl+Acc:^y #;
+
++Ax+Neut+Sg+Nom:^o #;
++Ax+Neut+Sg+Acc:^o #;
++Ax+Neut+Pl+Nom:^a #;
++Ax+Neut+Pl+Acc:^a #;
 
 LEXICON Ai
 
