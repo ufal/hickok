@@ -2249,6 +2249,7 @@ while(<>)
             my %ma =
             (
                 'abrahamóv'     => ['Abrahamův',  'Abrahamóv',  [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
+                'abrahamovo'    => ['Abrahamův',  'Abrahamóv',  [['Neut', 'N', 'Sing', 'S', 'Nom', '1']]],
                 'abrahamovy'    => ['Abrahamův',  'Abrahamóv',  [['Anim', 'M', 'Plur', 'P', 'Acc', '4']]],
                 'alfeóv'        => ['Alfeův',     'Alfeóv',     [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
                 'alpheóv'       => ['Alfeův',     'Alfeóv',     [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
