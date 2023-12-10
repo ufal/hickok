@@ -13,6 +13,7 @@ NMlStem;
 NMiStem;
 NIyStem;
 NIkStem;
+NIiStem;
 NFaStem;
 NFeStem;
 NFtStem;
@@ -127,6 +128,13 @@ uzlík            NIk;
 užitek:užitEk    NIk;
 zárodek:zárodEk  NIk;
 zbytek:zbytEk    NIk;
+
+LEXICON NIiStem
+
+! Neživotná měkká maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
+
+koš      NIi;
+koš:kuoš NIi;
 
 LEXICON NFaStem
 
@@ -284,6 +292,7 @@ NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního 
 +NM+Du+Nom:^ě    #; ! rybářě
 +NM+Du+Acc:^ě    #;
 +NM+Du+Voc:^ě    #;
++NM+Pl+Gen:^iev  #; ! kacieřiev kopáčiev tovařišiev ; košiev kuošiev (doloženo)
 +NM+Pl+Acc:^e    #; ! kacieře kopáče muže otce tovařiše
 +NM+Pl+Ins:^i    #; ! kacieři kopáči muži otci tovařiši
 
@@ -304,6 +313,15 @@ NMk;
 +NM+Sg+Acc:^λ #; ! Acc Sg bez koncovky jako Nom
 +NM+Pl+Nom:^y #; ! Nom Pl jako Acc
 +NM+Pl+Voc:^y #; ! Voc Pl jako Acc
+
+LEXICON NIi
+
+! Neživotná měkká maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
+
+NMi;
++NM+Sg+Acc:^λ #; ! Acc Sg bez koncovky jako Nom
++NM+Pl+Nom:^e #; ! Nom Pl jako Acc
++NM+Pl+Voc:^e #; ! Voc Pl jako Acc
 
 LEXICON NFa
 
