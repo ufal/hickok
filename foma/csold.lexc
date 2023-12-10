@@ -18,6 +18,7 @@ NFaStem;
 NFeStem;
 NFtStem;
 NNoStem;
+NNeStem;
 AyStem;
 AiStem;
 
@@ -220,6 +221,11 @@ stred      NFt;
 LEXICON NNoStem
 
 hnízdo:hniezd NNo;
+nebe:nebes    NNo;
+
+LEXICON NNeStem
+
+nebe:neb      NNe;
 
 LEXICON AyStem
 
@@ -440,23 +446,48 @@ LEXICON NFt
 
 LEXICON NNo
 
-+NF+Sg+Nom:^o   #;
-+NF+Sg+Gen:^a   #;
-+NF+Sg+Dat:^u   #;
-+NF+Sg+Acc:^o   #;
-+NF+Sg+Voc:^o   #;
-+NF+Sg+Loc:^u   #;
-+NF+Sg+Ins:^em  #;
-+NF+Pl+Nom:^a   #;
-+NF+Pl+Gen:^λ   #;
-+NF+Pl+Dat:^óm  #;
-+NF+Pl+Dat:^uom #;
-+NF+Pl+Dat:^ům  #;
-+NF+Pl+Acc:^a   #;
-+NF+Pl+Voc:^a   #;
-+NF+Pl+Loc:^ách #;
-+NF+Pl+Ins:^y   #;
-+NF+Pl+Ins:^ami #;
++NN+Sg+Nom:^o    #;
++NN+Sg+Gen:^a    #;
++NN+Sg+Dat:^u    #;
++NN+Sg+Acc:^o    #;
++NN+Sg+Voc:^o    #;
++NN+Sg+Loc:^u    #;
++NN+Sg+Ins:^em   #;
++NN+Pl+Nom:^a    #;
++NN+Pl+Gen:^λ    #;
++NN+Pl+Dat:^óm   #;
++NN+Pl+Dat:^uom  #;
++NN+Pl+Dat:^ům   #;
++NN+Pl+Acc:^a    #;
++NN+Pl+Voc:^a    #;
++NN+Pl+Loc:^ách  #;
++NN+Pl+Loc:^iech #;
++NN+Pl+Ins:^y    #;
++NN+Pl+Ins:^ami  #;
+
+LEXICON NNe
+
++NN+Sg+Nom:^e   #;
++NN+Sg+Nom:^ě   #;
++NN+Sg+Gen:^e   #;
++NN+Sg+Gen:^ě   #;
++NN+Sg+Dat:^i   #;
++NN+Sg+Acc:^e   #;
++NN+Sg+Acc:^ě   #;
++NN+Sg+Voc:^e   #;
++NN+Sg+Voc:^ě   #;
++NN+Sg+Loc:^i   #;
++NN+Sg+Ins:^em  #;
++NN+Pl+Nom:^e   #;
++NN+Pl+Nom:^ě   #;
++NN+Pl+Gen:^í   #;
++NN+Pl+Dat:^ím  #;
++NN+Pl+Acc:^e   #;
++NN+Pl+Acc:^ě   #;
++NN+Pl+Voc:^e   #;
++NN+Pl+Voc:^ě   #;
++NN+Pl+Loc:^ích #;
++NN+Pl+Ins:^i   #;
 
 LEXICON AdjMposs
 
