@@ -4510,9 +4510,20 @@ while(<>)
             my $lform = lc($f[1]);
             my %ma =
             (
-                'abrahamóv'     => ['Abrahamův',  'Abrahamóv',  [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
-                'abrahamovo'    => ['Abrahamův',  'Abrahamóv',  [['Neut', 'N', 'Sing', 'S', 'Nom', '1']]],
-                'abrahamovy'    => ['Abrahamův',  'Abrahamóv',  [['Anim', 'M', 'Plur', 'P', 'Acc', '4']]],
+                'abrahamóv'    => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Anim', 'M', 'Sing', 'S', 'Voc', '5']]],
+                'abrahamova'   => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Sing', 'S', 'Gen', '2'], ['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Fem', 'F', 'Sing', 'S', 'Voc', '5'], ['Neut', 'N', 'Sing', 'S', 'Gen', '2'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4'], ['Neut', 'N', 'Plur', 'P', 'Voc', '5']]],
+                'abrahamově'   => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Sing', 'S', 'Loc', '6'], ['Fem', 'F', 'Sing', 'S', 'Dat', '3'], ['Fem', 'F', 'Sing', 'S', 'Loc', '6'], ['Neut', 'N', 'Sing', 'S', 'Loc', '6']]],
+                'abrahamovi'   => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Plur', 'P', 'Nom', '1'], ['Anim', 'M', 'Plur', 'P', 'Voc', '5']]],
+                'abrahamovo'   => ['Abrahamův', 'Abrahamóv', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4'], ['Neut', 'N', 'Sing', 'S', 'Voc', '5']]],
+                'abrahamovou'  => ['Abrahamův', 'Abrahamóv', [['Fem', 'F', 'Sing', 'S', 'Ins', '7']]],
+                'abrahamovu'   => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Sing', 'S', 'Dat', '3'], ['Fem', 'F', 'Sing', 'S', 'Acc', '4'], ['Neut', 'N', 'Sing', 'S', 'Dat', '3']]],
+                'abrahamovú'   => ['Abrahamův', 'Abrahamóv', [['Fem', 'F', 'Sing', 'S', 'Ins', '7']]],
+                'abrahamovy'   => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Gen', '2'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Voc', '5']]],
+                'abrahamových' => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Plur', 'P', 'Gen', '2'], ['Anim', 'M', 'Plur', 'P', 'Loc', '6'], ['Fem', 'F', 'Plur', 'P', 'Gen', '2'], ['Fem', 'F', 'Plur', 'P', 'Loc', '6'], ['Neut', 'N', 'Plur', 'P', 'Gen', '2'], ['Neut', 'N', 'Plur', 'P', 'Loc', '6']]],
+                'abrahamovým'  => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Sing', 'S', 'Ins', '7'], ['Anim', 'M', 'Plur', 'P', 'Dat', '3'], ['Fem', 'F', 'Plur', 'P', 'Dat', '3'], ['Neut', 'N', 'Sing', 'S', 'Ins', '7'], ['Neut', 'N', 'Plur', 'P', 'Dat', '3']]],
+                'abrahamovými' => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Plur', 'P', 'Ins', '7'], ['Fem', 'F', 'Plur', 'P', 'Ins', '7'], ['Neut', 'N', 'Plur', 'P', 'Ins', '7']]],
+                'abrahamuov'   => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Anim', 'M', 'Sing', 'S', 'Voc', '5']]],
+                'abrahamův'    => ['Abrahamův', 'Abrahamóv', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Anim', 'M', 'Sing', 'S', 'Voc', '5']]],
                 'alfeóv'        => ['Alfeův',     'Alfeóv',     [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
                 'alpheóv'       => ['Alfeův',     'Alfeóv',     [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
                 'belzebubovú'   => ['Belzebubův', 'Belzebubóv', [['Fem',  'F', 'Sing', 'S', 'Ins', '7']]],
