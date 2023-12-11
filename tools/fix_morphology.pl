@@ -613,6 +613,7 @@ while(<>)
                 'otcě'    => ['otec', 'otec', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'otcem'   => ['otec', 'otec', [['Sing', 'S', 'Ins', '7']]],
                 'otci'    => ['otec', 'otec', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5'], ['Plur', 'P', 'Ins', '7']]],
+                'otcí'    => ['otec', 'otec', [['Dual', 'D', 'Gen', '2']]],
                 'otcie'   => ['otec', 'otec', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
                 'otciech' => ['otec', 'otec', [['Plur', 'P', 'Loc', '6']]],
                 'otciem'  => ['otec', 'otec', [['Sing', 'S', 'Ins', '7']]],
