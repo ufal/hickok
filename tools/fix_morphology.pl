@@ -3548,8 +3548,7 @@ while(<>)
         #----------------------------------------------------------------------
         # Střední rod.
         #----------------------------------------------------------------------
-        # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
-        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|neb|nebes|oc|oslíč|písemc|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|neb[ou]?|nebiech|nebích|oc[ií])$/i)
+        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|neb|nebes|oc|oslíč|písemc|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|letě|letěti|letie|letí|neb[ou]?|nebiech|nebích|oc[ií])$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3740,41 +3739,6 @@ while(<>)
                 'hnízdům'    => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Dat', '3']]],
                 'hnízduom'   => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Dat', '3']]],
                 'hnízdy'     => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Ins', '7']]],
-                'jmě'      => ['jméno', 'jmě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'jmen'     => ['jméno', 'jmě', [['Plur', 'P', 'Gen', '2']]],
-                'jmén'     => ['jméno', 'jmě', [['Plur', 'P', 'Gen', '2']]],
-                'jmena'    => ['jméno', 'jmě', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'jména'    => ['jméno', 'jmě', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'jmenách'  => ['jméno', 'jmě', [['Plur', 'P', 'Loc', '6']]],
-                'jménách'  => ['jméno', 'jmě', [['Plur', 'P', 'Loc', '6']]],
-                'jmenami'  => ['jméno', 'jmě', [['Plur', 'P', 'Ins', '7']]],
-                'jménami'  => ['jméno', 'jmě', [['Plur', 'P', 'Ins', '7']]],
-                'jmene'    => ['jméno', 'jmě', [['Sing', 'S', 'Gen', '2']]],
-                'jmeně'    => ['jméno', 'jmě', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'jméně'    => ['jméno', 'jmě', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'jmenech'  => ['jméno', 'jmě', [['Plur', 'P', 'Loc', '6']]],
-                'jménech'  => ['jméno', 'jmě', [['Plur', 'P', 'Loc', '6']]],
-                'jmenem'   => ['jméno', 'jmě', [['Sing', 'S', 'Ins', '7']]],
-                'jménem'   => ['jméno', 'jmě', [['Sing', 'S', 'Ins', '7']]],
-                'jmeni'    => ['jméno', 'jmě', [['Sing', 'S', 'Gen', '2']]],
-                'jmeniech' => ['jméno', 'jmě', [['Plur', 'P', 'Loc', '6']]],
-                'jméniech' => ['jméno', 'jmě', [['Plur', 'P', 'Loc', '6']]],
-                'jmeno'    => ['jméno', 'jmě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'jméno'    => ['jméno', 'jmě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'jmenóm'   => ['jméno', 'jmě', [['Plur', 'P', 'Dat', '3']]],
-                'jménóm'   => ['jméno', 'jmě', [['Plur', 'P', 'Dat', '3']]],
-                'jmenoma'  => ['jméno', 'jmě', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'jménoma'  => ['jméno', 'jmě', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'jmenu'    => ['jméno', 'jmě', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'jmenú'    => ['jméno', 'jmě', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'jménu'    => ['jméno', 'jmě', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'jménú'    => ['jméno', 'jmě', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'jmenům'   => ['jméno', 'jmě', [['Plur', 'P', 'Dat', '3']]],
-                'jménům'   => ['jméno', 'jmě', [['Plur', 'P', 'Dat', '3']]],
-                'jmenuom'  => ['jméno', 'jmě', [['Plur', 'P', 'Dat', '3']]],
-                'jménuom'  => ['jméno', 'jmě', [['Plur', 'P', 'Dat', '3']]],
-                'jmeny'    => ['jméno', 'jmě', [['Plur', 'P', 'Ins', '7']]],
-                'jmény'    => ['jméno', 'jmě', [['Plur', 'P', 'Ins', '7']]],
                 'kniež'      => ['kníže', 'kniežě', [['Plur', 'P', 'Gen', '2']]],
                 'kniežat'    => ['kníže', 'kniežě', [['Plur', 'P', 'Gen', '2']]],
                 'kniežata'   => ['kníže', 'kniežě', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
