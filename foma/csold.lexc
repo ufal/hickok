@@ -322,15 +322,7 @@ božnice:buožnic       NFe;
 duše:duš              NFe;
 dcera+NF+Sg+Nom:dci   #;
 dcera+NF+Sg+Voc:dci   #;
-máti+NF+Sg+Nom:mátě   #;
-máti+NF+Sg+Acc:máteř  #;
-máti+NF+Sg+Acc:mateř  #;
-máti+NF+Sg+Gen:mateře #;
-máti+NF+Sg+Gen:mateřě #;
-máti+NF+Sg+Dat:mateři #;
-máti+NF+Sg+Ins:mateří #;
-máti+NF+Sg+Ins:mateřú #;
-máti+NF+Pl+Loc:mateřiech #;
+máti+NF+Sg+Nom:mátě   #; ! viz též mateř/máteř NFt
 měřice:měřic          NFe;
 ovce:ovc              NFe;
 ovce:uovc             NFe;
@@ -354,6 +346,8 @@ marie:máři             NFe;
 !------------------------------------------------------------------------------
 LEXICON NFtStem
 
+máti:mateř NFt;
+máti:máteř NFt;
 poušť:púšč NFt;
 poušť:púšť NFt;
 poušť:púšt NFt;
@@ -725,6 +719,8 @@ LEXICON NFt
 +NF+Sg+Voc:^ě    #;
 +NF+Sg+Loc:^i    #; ! púšči púšti
 +NF+Sg+Ins:^í    #;
++NF+Du+Gen:^ú    #; ! mateřú
++NF+Du+Loc:^ú    #;
 +NF+Pl+Nom:^ě    #;
 +NF+Pl+Gen:^í    #;
 +NF+Pl+Dat:^iem  #;
