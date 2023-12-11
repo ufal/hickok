@@ -3272,7 +3272,7 @@ while(<>)
                 'rez'         => ['rez',      'rez',      [['Sing', 'S', 'Nom', '1']]],
                 'ruce'   => ['ruka', 'ruka', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'rucě'   => ['ruka', 'ruka', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'ruci'   => ['ruka', 'ruka', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
+                'rucí'   => ['ruka', 'ruka', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
                 'ruk'    => ['ruka', 'ruka', [['Plur', 'P', 'Gen', '2']]],
                 'ruka'   => ['ruka', 'ruka', [['Sing', 'S', 'Nom', '1']]],
                 'rukách' => ['ruka', 'ruka', [['Plur', 'P', 'Loc', '6']]],

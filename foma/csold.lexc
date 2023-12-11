@@ -668,8 +668,10 @@ LEXICON NFa
 +NF+Sg+Ins:^ú   #;
 +NF+Sg+Ins:^ou  #;
 +NF+Du+Nom:^ě   #;
++NF+Du+Gen:^í   #; ! rucí
 +NF+Du+Acc:^ě   #;
 +NF+Du+Voc:^ě   #;
++NF+Du+Loc:^í   #; ! rucí
 +NF+Pl+Nom:^y   #;
 +NF+Pl+Gen:^λ   #;
 +NF+Pl+Dat:^ám  #;
