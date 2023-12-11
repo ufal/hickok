@@ -1790,7 +1790,7 @@ while(<>)
         # Výjimka: 'čině' může být sloveso, 'činiech' možná taky?
         # Výjimka: 'dna' a 'dny' je ve všech výskytech nemoc, nikoli tvar slova 'den'.
         # Výjimka: "pláče" je v dotyčném výskytu sloveso "plakat", nikoli tvar slova "pláč".
-        elsif($f[1] =~ m/^(balšám|buochenc|čas|čin|déšč|div|dn|dóm|du?om|fík|hrob|hřie(ch|š)|chleb|kořen|ku?oš|kút|národ|neduh|okrajk|otrusk|pas|peniez|pláč|plamen|plášč|podhrdlk|podolk|poklad|příklad|rov|sbuor|skutk|sn|stien|stol|súd|ščěvík|tisíc|úd|u?oheň|u?ohn|u?ostatk|uzlíc|užitk|větr|vlas|zárodc|zástup|zbytk|zub)(a|e|ě|i|u|ové|óv|uov|iev|í|óm|uom|y|ách|iech)?$/i && $f[1] !~ m/^(dn[ay]|diví|čin[ěí]|činiech|fíkové|pas[ae]?|pláč[eí]|súdí|tisící)$/i)
+        elsif($f[1] =~ m/^(balšám|buochenc|čas|čin|déšč|div|dn|dóm|du?om|fík|hrob|hřie(ch|š)|chleb|ku?oš|kút|národ|neduh|okrajk|otrusk|pas|peniez|pláč|plamen|plášč|podhrdlk|podolk|poklad|příklad|rov|sbuor|skutk|sn|stien|stol|súd|ščěvík|tisíc|úd|u?oheň|u?ohn|u?ostatk|uzlíc|užitk|větr|vlas|zárodc|zástup|zbytk|zub)(a|e|ě|i|u|ové|óv|uov|iev|í|óm|uom|y|ách|iech)?$/i && $f[1] !~ m/^(dn[ay]|diví|čin[ěí]|činiech|fíkové|pas[ae]?|pláč[eí]|súdí|tisící)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -2017,25 +2017,6 @@ while(<>)
                 'chlebuom'  => ['chléb', 'chléb', [['Plur', 'P', 'Dat', '3']]],
                 'chlebuov'  => ['chléb', 'chléb', [['Plur', 'P', 'Gen', '2']]],
                 'chleby'    => ['chléb', 'chléb', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5'], ['Plur', 'P', 'Ins', '7']]],
-                'kořen'     => ['kořen', 'kořen', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
-                'kořena'    => ['kořen', 'kořen', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
-                'kořene'    => ['kořen', 'kořen', [['Sing', 'S', 'Voc', '5']]],
-                'kořeně'    => ['kořen', 'kořen', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'kořenem'   => ['kořen', 'kořen', [['Sing', 'S', 'Ins', '7']]],
-                'kořeni'    => ['kořen', 'kořen', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5'], ['Plur', 'P', 'Ins', '7']]],
-                'kořenie'   => ['kořen', 'kořen', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'kořeniech' => ['kořen', 'kořen', [['Plur', 'P', 'Loc', '6']]],
-                'kořeniem'  => ['kořen', 'kořen', [['Sing', 'S', 'Ins', '7']]],
-                'kořeniev'  => ['kořen', 'kořen', [['Plur', 'P', 'Gen', '2']]],
-                'kořenóm'   => ['kořen', 'kořen', [['Plur', 'P', 'Dat', '3']]],
-                'kořenoma'  => ['kořen', 'kořen', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'kořenóv'   => ['kořen', 'kořen', [['Plur', 'P', 'Gen', '2']]],
-                'kořenové'  => ['kořen', 'kořen', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'kořenovi'  => ['kořen', 'kořen', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'kořenu'    => ['kořen', 'kořen', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'kořenú'    => ['kořen', 'kořen', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'kořenuom'  => ['kořen', 'kořen', [['Plur', 'P', 'Dat', '3']]],
-                'kořenuov'  => ['kořen', 'kořen', [['Plur', 'P', 'Gen', '2']]],
                 'koš'      => ['koš', 'koš', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
                 'koša'     => ['koš', 'koš', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
                 'koše'     => ['koš', 'koš', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
