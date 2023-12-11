@@ -3512,14 +3512,11 @@ while(<>)
                 }
             }
         }
-        elsif($f[1] =~ m/^(Betani?|Dekapol|Galile?|Golgat|Sodom)(a|e|é|ě|i|í|jí)$/i)
+        elsif($f[1] =~ m/^(Dekapol|Galile?|Golgat|Sodom)(a|e|é|ě|i|í|jí)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
             (
-                'betania'     => ['Betanie',   'Betanie',   [['Sing', 'S', 'Nom', '1']]],
-                'betaní'      => ['Betanie',   'Betanie',   [['Sing', 'S', 'Loc', '6']]],
-                'betanie'     => ['Betanie',   'Betanie',   [['Sing', 'S', 'Gen', '2']]],
                 'dekapol'     => ['Dekapolis', 'Dekapolis', [['Plur', 'P', 'Gen', '2']]],
                 'dekapole'    => ['Dekapolis', 'Dekapolis', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'dekapolě'    => ['Dekapolis', 'Dekapolis', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
