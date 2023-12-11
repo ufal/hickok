@@ -123,6 +123,9 @@ učedník:učedlník NMk;
 učedník:učenník NMk;
 zjevník:zjěvník NMk;
 
+! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+izák            NMk;
+
 LEXICON NMlStem
 
 anděl NMl;
