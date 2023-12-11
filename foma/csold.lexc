@@ -285,6 +285,7 @@ modlitba:modlitv NFa;
 modlitba+NF+Pl+Gen:modlitv #; ! Doloženo i bez vloženého "e"
 noha:noh         NFa;
 noha+NF+Pl+Gen:nóh #;
+noha+NF+Pl+Loc:noziech #; ! Tvar doložen, Loc Pl je jistý, ale nejsem si jist významem "noha".
 potopa:potop     NFa;
 přísaha:přísah   NFa;
 ruka:ruk      NFa;
