@@ -503,6 +503,7 @@ LEXICON NM
 +NM+Pl+Gen:^ů    #;
 +NM+Pl+Gen:^óv   #; ! andělóv  přietelóv  běsóv  bohóv  dělníkóv  duchóv  hadóv  hospodinóv  kacieřóv  kopáčóv  kokotóv  mužóv  otcóv  pánóv  popóv  tovařišóv
 +NM+Pl+Gen:^uov  #; ! anděluov přieteluov běsuov bohuov dělníkuov duchuov haduov hospodinuov kacieřuov kopáčuov kokotuov mužuov otcuov pánuov popuov tovařišuov
++NM+Pl+Gen:^iev  #; ! dniev
 +NM+Pl+Dat:^ům   #;
 +NM+Pl+Dat:^óm   #; ! andělóm  přietelóm  běsóm  bohóm  dělníkóm  duchóm  hadóm  hospodinóm  kacieřóm  kopáčóm  kokotóm  mužóm  otcóm  pánóm  popóm  tovařišóm
 +NM+Pl+Dat:^uom  #; ! anděluom přieteluom běsuom bohuom dělníkuom duchuom haduom hospodinuom kacieřuom kopáčuom kokotuom mužuom otcuom pánuom popuom tovařišuom
