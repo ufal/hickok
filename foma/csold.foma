@@ -46,11 +46,15 @@ define NFSgDatPalatalizationH h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|
 define NFSgDatPalatalization NFSgDatPalatalizationX .o. NFSgDatPalatalizationH;
 
 # nahí -> nazí, plachí -> plaší, vysokí -> vysocí, dobrí -> dobří, nebeskí -> nebeští
+# vrhích -> vrzích, vrchích -> vrších, fíkích -> fících, bratrích -> bratřích, pyskích -> pyscích (ne pyštích!)
 # Nejsem si jist, co dělat s příznakovou diakritikou. Kazí mi kontext.
-define APlNomPalatalizationX [c h]->š, k->c, r->ř, [s k]->[š t] || _ ("@D.SUP@") "^" í .#.;
-define APlNomPalatalizationH h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ ("@D.SUP@") "^" í .#.;
-define APlNomPalatalizationK k->c || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|c|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|š|t|ť|v|w|x|z|ž] _ ("@D.SUP@") "^" í .#.;
-define APlNomPalatalization APlNomPalatalizationX .o. APlNomPalatalizationH .o. APlNomPalatalizationK;
+define APlNomPalatalizationX [c h]->š, r->ř, [s k]->[š t] || _ ("@D.SUP@") "^" í .#.;
+define NPlLocPalatalizationX [c h]->š, r->ř               || _             "^" í c h .#.;
+define APlNomPalatalizationH h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ ("@D.SUP@") "^" í .#.,
+                                     [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" í c h .#.;
+define APlNomPalatalizationK k->c || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|c|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|š|t|ť|v|w|x|z|ž] _ ("@D.SUP@") "^" í .#.,
+                                                                                                                       _ "^" í c h .#.;
+define APlNomPalatalization APlNomPalatalizationX .o. APlNomPalatalizationH .o. APlNomPalatalizationK .o. NPlLocPalatalizationX;
 
 # ďe ťe ňe -> dě tě ně, ďi ťi ňi -> di ti ni
 define DeTeNe [ď "^" e]->[d "^" ě], [ď "^" ě]->[d "^" ě], [ť "^" e]->[t "^" ě], [ť "^" ě]->[t "^" ě], [ň "^" e]->[n "^" ě], [ň "^" ě]->[n "^" ě], [ď "^" i]->[d "^" i], [ď "^" í]->[d "^" í], [ť "^" i]->[t "^" i], [ť "^" í]->[t "^" í], [ň "^" i]->[n "^" i], [ň "^" í]->[n "^" í];

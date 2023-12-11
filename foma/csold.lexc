@@ -762,6 +762,7 @@ LEXICON NNo
 +NN+Pl+Voc:^a    #;
 +NN+Pl+Loc:^ách  #;
 +NN+Pl+Loc:^iech #;
++NN+Pl+Loc:^ích  #; ! břiších
 +NN+Pl+Loc:^ech  #;
 +NN+Pl+Ins:^y    #;
 +NN+Pl+Ins:^ami  #;
