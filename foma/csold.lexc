@@ -330,6 +330,7 @@ stred      NFt;
 
 LEXICON NNoStem
 
+břicho:břich  NNo;
 důstojenství:důstojenstv  NNo;
 důstojenství:dóstojenstv  NNo;
 důstojenství:duostojenstv NNo;
@@ -344,21 +345,29 @@ roucho:rouch  NNo;
 roucho:rúch   NNo;
 seno:sen      NNo;
 seno:sěn      NNo;
+slovo:slov    NNo;
 ústa:úst      NNo; ! Chtělo by to zablokovat singulár.
 ústa:ust      NNo;
 zábradlí:zábradl NNo;
 
 LEXICON NNeStem
 
+břímě:břím     NNe;
+břímě:břiem    NNe;
+dítě:dět       NNe;
+dítě:diet      NNe;
 nebe:neb       NNe;
 slovo:slovEc   NNe; ! slovce
 srdce:srdEc    NNe;
 tržiště:tržišť NNe;
 tržiště:tržišč NNe;
+vejce:vejc     NNe;
 vejce:vajEc    NNe;
 
 LEXICON NNteStem
 
+dítě:dít      NNte;
+dítě:diet     NNte;
 robě:rob      NNte;
 
 LEXICON NNíStem
@@ -654,6 +663,8 @@ LEXICON NNo
 +NN+Sg+Acc:^o    #;
 +NN+Sg+Voc:^o    #;
 +NN+Sg+Loc:^u    #;
++NN+Sg+Loc:^e    #;
++NN+Sg+Loc:^ě    #;
 +NN+Sg+Ins:^em   #;
 +NN+Du+Nom:^ě    #;
 +NN+Du+Nom:^e    #;
