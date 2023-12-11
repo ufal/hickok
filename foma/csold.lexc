@@ -608,9 +608,11 @@ LEXICON NFe
 +NF+Sg+Voc:^e    #;
 +NF+Sg+Loc:^i    #;
 +NF+Sg+Ins:^í    #;
++NF+Sg+Ins:^ú    #; ! Doložen tvar "dušú".
 +NF+Pl+Nom:^ě    #;
 +NF+Pl+Nom:^e    #;
-+NF+Pl+Gen:^λ    #;
++NF+Pl+Gen:^í    #;
++NF+Pl+Gen:^λ    #; ! Je to doloženo?
 +NF+Pl+Dat:^iem  #;
 +NF+Pl+Dat:^ím   #;
 +NF+Pl+Acc:^ě    #;
