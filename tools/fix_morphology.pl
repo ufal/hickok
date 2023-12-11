@@ -2900,7 +2900,7 @@ while(<>)
                 }
             }
         }
-        elsif($f[1] =~ m/^(Acheldemach|Bethlee?m|Jeruzalém|Jordán|Korozaim|Nazareth?)(a|e|ě|i|em)?$/i)
+        elsif($f[1] =~ m/^(Acheldemach|Bethlee?m|Jeruzalém|Jordán|Nazareth?)(a|e|ě|i|em)?$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -2996,7 +2996,6 @@ while(<>)
                 'jordánuom'  => ['Jordán', 'Jordán', [['Plur', 'P', 'Dat', '3']]],
                 'jordánuov'  => ['Jordán', 'Jordán', [['Plur', 'P', 'Gen', '2']]],
                 'jordány'    => ['Jordán', 'Jordán', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5'], ['Plur', 'P', 'Ins', '7']]],
-                'korozaim'    => ['Korozaim',    'Korozaim',    [['Sing', 'S', 'Voc', '5']]],
                 'nazaret'      => ['Nazaret', 'Nazareth', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
                 'nazareta'     => ['Nazaret', 'Nazareth', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
                 'nazarete'     => ['Nazaret', 'Nazareth', [['Sing', 'S', 'Voc', '5']]],
