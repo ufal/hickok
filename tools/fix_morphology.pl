@@ -3613,7 +3613,7 @@ while(<>)
         # Střední rod.
         #----------------------------------------------------------------------
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
-        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|násil|neb|nebes|oc|oslíč|písemc|rob|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|oc[ií]|roba)$/i)
+        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|násil|neb|nebes|oc|oslíč|písemc|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|oc[ií])$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3966,21 +3966,6 @@ while(<>)
                 'písmenům'   => ['písmeno', 'písemce', [['Plur', 'P', 'Dat', '3']]],
                 'písmenuom'  => ['písmeno', 'písemce', [['Plur', 'P', 'Dat', '3']]],
                 'písmeny'    => ['písmeno', 'písemce', [['Plur', 'P', 'Ins', '7']]],
-                'robat'    => ['robě', 'robě', [['Plur', 'P', 'Gen', '2']]],
-                'robata'   => ['robě', 'robě', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'robatech' => ['robě', 'robě', [['Plur', 'P', 'Loc', '6']]],
-                'robatóm'  => ['robě', 'robě', [['Plur', 'P', 'Dat', '3']]],
-                'robatům'  => ['robě', 'robě', [['Plur', 'P', 'Dat', '3']]],
-                'robatuom' => ['robě', 'robě', [['Plur', 'P', 'Dat', '3']]],
-                'robaty'   => ['robě', 'robě', [['Plur', 'P', 'Ins', '7']]],
-                'robe'     => ['robě', 'robě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'robě'     => ['robě', 'robě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'robete'   => ['robě', 'robě', [['Sing', 'S', 'Gen', '2']]],
-                'roběte'   => ['robě', 'robě', [['Sing', 'S', 'Gen', '2']]],
-                'robetem'  => ['robě', 'robě', [['Sing', 'S', 'Ins', '7']]],
-                'robětem'  => ['robě', 'robě', [['Sing', 'S', 'Ins', '7']]],
-                'robeti'   => ['robě', 'robě', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'roběti'   => ['robě', 'robě', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'robátce'    => ['robátko', 'robátko', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'robátcě'    => ['robátko', 'robátko', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'robátciech' => ['robátko', 'robátko', [['Plur', 'P', 'Loc', '6']]],
