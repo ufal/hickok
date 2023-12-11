@@ -3585,9 +3585,7 @@ while(<>)
                 'sodomou'  => ['Sodoma', 'Sodoma', [['Sing', 'S', 'Ins', '7']]],
                 'sodomu'   => ['Sodoma', 'Sodoma', [['Sing', 'S', 'Acc', '4']]],
                 'sodomú'   => ['Sodoma', 'Sodoma', [['Sing', 'S', 'Ins', '7']]],
-                'sodomy'   => ['Sodoma', 'Sodoma', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'syrí'        => ['Sýrie',     'Syří',      [['Sing', 'S', 'Loc', '6']]],
-                'syří'        => ['Sýrie',     'Syří',      [['Sing', 'S', 'Loc', '6']]]
+                'sodomy'   => ['Sodoma', 'Sodoma', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]]
             );
             my $ma = $ma{$lform}; die("Something is wrong: '$lform'") if(!defined($ma));
             $f[2] = $ma->[0];
