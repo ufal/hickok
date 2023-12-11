@@ -3053,7 +3053,7 @@ while(<>)
         # "hoře" ("na hoře Olivetské").
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
         elsif(!($f[1] =~ m/^(duše|potopi|vinni)$/) &&
-              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|lichv|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
+              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3121,18 +3121,6 @@ while(<>)
                 'libry'   => ['libra', 'libra', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'libře'   => ['libra', 'libra', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'libřě'   => ['libra', 'libra', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'lichev'   => ['lichva', 'lichva', [['Plur', 'P', 'Gen', '2']]],
-                'lichva'   => ['lichva', 'lichva', [['Sing', 'S', 'Nom', '1']]],
-                'lichvách' => ['lichva', 'lichva', [['Plur', 'P', 'Loc', '6']]],
-                'lichvám'  => ['lichva', 'lichva', [['Plur', 'P', 'Dat', '3']]],
-                'lichvami' => ['lichva', 'lichva', [['Plur', 'P', 'Ins', '7']]],
-                'lichve'   => ['lichva', 'lichva', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'lichvě'   => ['lichva', 'lichva', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'lichvo'   => ['lichva', 'lichva', [['Sing', 'S', 'Voc', '5']]],
-                'lichvou'  => ['lichva', 'lichva', [['Sing', 'S', 'Ins', '7']]],
-                'lichvu'   => ['lichva', 'lichva', [['Sing', 'S', 'Acc', '4']]],
-                'lichvú'   => ['lichva', 'lichva', [['Sing', 'S', 'Ins', '7']]],
-                'lichvy'   => ['lichva', 'lichva', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'mátě'      => ['máti', 'máti', [['Sing', 'S', 'Nom', '1']]],
                 'mateř'     => ['máti', 'máti', [['Sing', 'S', 'Acc', '4']]],
                 'máteř'     => ['máti', 'máti', [['Sing', 'S', 'Acc', '4']]],
