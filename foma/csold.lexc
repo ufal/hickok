@@ -636,6 +636,8 @@ LEXICON NFe
 +NF+Sg+Loc:^i    #;
 +NF+Sg+Ins:^í    #;
 +NF+Sg+Ins:^ú    #; ! Doložen tvar "dušú".
++NF+Du+Dat:^oma  #; ! Doložen tvar "súdcoma".
++NF+Du+Ins:^oma  #;
 +NF+Pl+Nom:^ě    #;
 +NF+Pl+Nom:^e    #;
 +NF+Pl+Gen:^í    #;
