@@ -335,6 +335,10 @@ sůl:sol    NFt;
 sůl:suol   NFt;
 stred      NFt;
 
+! Vlastní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+ráchel        NFt;
+ráchel:rachel NFt;
+
 LEXICON NNoStem
 
 břicho:břich     NNo;

@@ -3470,7 +3470,24 @@ while(<>)
                 'mářiím'   => ['Marie', 'Maria', [['Plur', 'P', 'Dat', '3']]],
                 'mařiu'    => ['Marie', 'Maria', [['Sing', 'S', 'Acc', '4']]],
                 'mářiu'    => ['Marie', 'Maria', [['Sing', 'S', 'Acc', '4']]],
-                'rachel'   => ['Ráchel',  'Rachel',  [['Sing', 'S', 'Nom', '1']]]
+                'rachel'     => ['Ráchel', 'Rachel', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
+                'ráchel'     => ['Ráchel', 'Rachel', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
+                'rachele'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Gen', '2']]],
+                'rachelě'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
+                'ráchele'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Gen', '2']]],
+                'ráchelě'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
+                'rachelěmi'  => ['Ráchel', 'Rachel', [['Plur', 'P', 'Ins', '7']]],
+                'ráchelěmi'  => ['Ráchel', 'Rachel', [['Plur', 'P', 'Ins', '7']]],
+                'racheli'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Loc', '6']]],
+                'rachelí'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Ins', '7'], ['Plur', 'P', 'Gen', '2']]],
+                'rácheli'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Loc', '6']]],
+                'ráchelí'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Ins', '7'], ['Plur', 'P', 'Gen', '2']]],
+                'racheliech' => ['Ráchel', 'Rachel', [['Plur', 'P', 'Loc', '6']]],
+                'rácheliech' => ['Ráchel', 'Rachel', [['Plur', 'P', 'Loc', '6']]],
+                'racheliem'  => ['Ráchel', 'Rachel', [['Plur', 'P', 'Dat', '3']]],
+                'rácheliem'  => ['Ráchel', 'Rachel', [['Plur', 'P', 'Dat', '3']]],
+                'rachelu'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Acc', '4']]],
+                'ráchelu'    => ['Ráchel', 'Rachel', [['Sing', 'S', 'Acc', '4']]]
             );
             my $ma = $ma{$lform}; die("Something is wrong: '$lform'") if(!defined($ma));
             $f[2] = $ma->[0];
