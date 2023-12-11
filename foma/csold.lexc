@@ -592,6 +592,8 @@ LEXICON NMk
 
 NMy; ! Kromě níže uvedených lze použít i všechny koncovky ostatních tvrdých jmen.
 +NM+Sg+Voc:^u    #; ! bohu dělníku duchu
++NM+Pl+Nom:^í    #; ! dlužnící
++NM+Pl+Voc:^í    #;
 +NM+Pl+Loc:^ách  #; ! fíkách
 
 LEXICON NMl
