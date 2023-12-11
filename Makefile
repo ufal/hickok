@@ -39,6 +39,7 @@ parsed: $(PARSEDFILES)
 merged: $(MERGEDFILES)
 .PHONY: preprc
 preprc: $(PREPRCFILES)
+	rm $(PREPRCDIR)/*/*-forudapi.conllu
 
 # Extract plain text from an individual CoNLL-U file (which was converted from the vertical).
 # The script resides in the UD tools repository.
