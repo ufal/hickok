@@ -188,12 +188,14 @@ dům:duom              NIy;
 hrob                  NIy;
 chléb+NM+Sg+Nom:chléb #;
 chléb:chleb           NIy;
+kořen                 NIy; ! Gen "kořene" ale Pl Nom "kořeny"
 kout                  NIy;
 kout:kút              NIy;
 národ                 NIy;
 pas                   NIy;
 peníz                 NIy;
 peníz:peniez          NIy;
+plamen                NIy; ! Gen "plamene", ale Pl Nom "plameny"
 poklad                NIy;
 příklad               NIy;
 rov                   NIy;
@@ -243,13 +245,13 @@ LEXICON NIiStem
 ! Neživotná měkká maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
 
 bochník:buochenEc NIi;
-kořen       NIi;
+kořen       NIi; ! Gen "kořene", jinak je tvrdé
 koš         NIi;
 koš:kuoš    NIi;
 oheň:ohEň   NIi;
 oheň:uohEň  NIi;
 pláč        NIi;
-plamen      NIi;
+plamen      NIi; ! Gen "plamene", jinak je tvrdé
 plášť       NIi;
 plášť:plášč NIi;
 tisíc       NIi;
