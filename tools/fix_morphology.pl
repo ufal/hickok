@@ -3061,8 +3061,8 @@ while(<>)
         # "hora" se to píše "huořě" a pouze jednou, v Olomoucké bibli 24.3, se objevuje
         # "hoře" ("na hoře Olivetské").
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
-        elsif(!($f[1] =~ m/^hoře$/i && get_ref($f[9]) !~ m/^MATT_24\.3$/ || $f[1] =~ m/^(duše|hoř[ií]?|potopi|vinni)$/) &&
-              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|hu?o[rř]|libř|lichv|mátě|m[aá]teř|matk|měřic|mís|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|trúb|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
+        elsif(!($f[1] =~ m/^(duše|potopi|vinni)$/) &&
+              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|lichv|mátě|m[aá]teř|matk|měřic|mís|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|trúb|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3118,30 +3118,6 @@ while(<>)
                 'duším'   => ['duše', 'dušě', [['Plur', 'P', 'Dat', '3']]],
                 'dušu'    => ['duše', 'dušě', [['Sing', 'S', 'Acc', '4']]],
                 'dušú'    => ['duše', 'dušě', [['Sing', 'S', 'Ins', '7']]],
-                'hor'     => ['hora', 'huora', [['Plur', 'P', 'Gen', '2']]],
-                'hora'    => ['hora', 'huora', [['Sing', 'S', 'Nom', '1']]],
-                'horách'  => ['hora', 'huora', [['Plur', 'P', 'Loc', '6']]],
-                'horám'   => ['hora', 'huora', [['Plur', 'P', 'Dat', '3']]],
-                'horami'  => ['hora', 'huora', [['Plur', 'P', 'Ins', '7']]],
-                'horo'    => ['hora', 'huora', [['Sing', 'S', 'Voc', '5']]],
-                'horou'   => ['hora', 'huora', [['Sing', 'S', 'Ins', '7']]],
-                'horu'    => ['hora', 'huora', [['Sing', 'S', 'Acc', '4']]],
-                'horú'    => ['hora', 'huora', [['Sing', 'S', 'Ins', '7']]],
-                'hory'    => ['hora', 'huora', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'hoře'    => ['hora', 'huora', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'hořě'    => ['hora', 'huora', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'huor'    => ['hora', 'huora', [['Plur', 'P', 'Gen', '2']]],
-                'huora'   => ['hora', 'huora', [['Sing', 'S', 'Nom', '1']]],
-                'huorách' => ['hora', 'huora', [['Plur', 'P', 'Loc', '6']]],
-                'huorám'  => ['hora', 'huora', [['Plur', 'P', 'Dat', '3']]],
-                'huorami' => ['hora', 'huora', [['Plur', 'P', 'Ins', '7']]],
-                'huoro'   => ['hora', 'huora', [['Sing', 'S', 'Voc', '5']]],
-                'huorou'  => ['hora', 'huora', [['Sing', 'S', 'Ins', '7']]],
-                'huoru'   => ['hora', 'huora', [['Sing', 'S', 'Acc', '4']]],
-                'huorú'   => ['hora', 'huora', [['Sing', 'S', 'Ins', '7']]],
-                'huory'   => ['hora', 'huora', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'huoře'   => ['hora', 'huora', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'huořě'   => ['hora', 'huora', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'liber'   => ['libra', 'libra', [['Plur', 'P', 'Gen', '2']]],
                 'libra'   => ['libra', 'libra', [['Sing', 'S', 'Nom', '1']]],
                 'librách' => ['libra', 'libra', [['Plur', 'P', 'Loc', '6']]],
