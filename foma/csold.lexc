@@ -534,6 +534,7 @@ LEXICON NM
 ! Ale narazil jsem i na Loc "hospodině", "velblúdě" (Dat zatím nedávám, dokud ho taky nepotkám).
 ! A pravděpodobně se nebude vyskytovat po některých souhláskách, např. "bohě" by nejspíš bylo "bozě", pokud vůbec.
 +NM+Sg+Loc:^ě    #;
++NM+Sg+Loc:^e    #; ! proroce (Dat/Loc?)
 ! Voc se zřejmě liší podle kmene. Koncovka -e vypadá relativně nejrozšířenější, ale u měkkých jmen je problematická kvůli kolizi s genitivem.
 ! Musíme rozpoznat vokativní ^e (měkčí kmenovou souhlásku, otec-otče) od genitivního ^e (neměkčí, otec-otce).
 +NM+Sg+Voc:^E    #; ! anděle přietele běse bože dělníče duše  hade hospodine kacieře kopáče kokote muže otče páne pope tovařiše
