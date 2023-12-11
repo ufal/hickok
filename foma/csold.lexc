@@ -1,14 +1,15 @@
 Multichar_Symbols +NM +NF +NN +A +AMposs +AFposs +Masc +Mina +Fem +Neut +Sg +Du +Pl +Nom +Gen +Dat +Acc +Voc +Loc +Ins Sup+ +Pos +Comp @P.SUP.ON@ @D.SUP@
 
+!------------------------------------------------------------------------------
 LEXICON Root
 
 Noun;
 Adj;
 
+!------------------------------------------------------------------------------
 LEXICON Noun
 
 NMyStem;
-NMPléStem;
 NMkStem;
 NMlStem;
 NMiStem;
@@ -23,12 +24,17 @@ NNeStem;
 NNteStem;
 NNíStem;
 
+!------------------------------------------------------------------------------
 LEXICON Adj
 
 AyStem;
 AiStem;
 
+!------------------------------------------------------------------------------
 LEXICON NMyStem
+
+! Všechny mužské životné tvary jsou použitelné i pro neživotná maskulina.
+! Většina tvrdých tvarů je použitelná i s měkkými kmeny. Výjimkou je Pl Nom Acc Voc Ins na -y.
 
 běs NMy;
 bratr NMy;
@@ -41,17 +47,17 @@ bratr+NM+Pl+Acc:bratřie #;
 červ:črv     NMy;
 ďábel:ďábEl  NMy;
 ďábel:diábEl NMy;
-had NMy;
-hospodin NMy;
-kokot NMy;
-kozel:kozEl NMy;
+had          NMy;
+hospodin     NMy;
+kokot        NMy;
+kozel:kozEl  NMy;
 krajan+NM+Sg+Nom:krajěnín NMy;
 krajan+NM+Pl+Nom:krajěné #;
 krajan:krajěn NMy; ! ne Nom
 mistr            NMy;
 pán              NMy;
 pes:pEs          NMy;
-pes+NM+Pl+Gen:psí #;
+pohan            NMy;
 pop              NMy;
 satan            NMy;
 satan:sathan     NMy;
@@ -60,6 +66,7 @@ satan+NM+Sg+Voc:sathana #;
 satan+NM+Sg+Voc:sathanas #;
 syn              NMy;
 velbloud:velblúd NMy;
+žid              NMy;
 
 ! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
 abraham          NMy;
@@ -93,14 +100,10 @@ pilát            NMy;
 zebedeus+NM+Sg+Nom:zebedeus #;
 zebedeus:zebede  NMy;
 
-LEXICON NMPléStem
-
-ďábel:diábEl NMPlé; ! Doloženo "diáblé"
-muž NMPlé; ! Doloženo "mužé"
-pohan NMPlé;
-žid NMPlé;
-
+!------------------------------------------------------------------------------
 LEXICON NMkStem
+
+! Jména na -k, -h, -ch mají navíc vokativ na -u.
 
 bůh+NM+Sg+Nom:bóh #;
 bůh+NM+Sg+Gen:božé #; ! Doloženo jako alternativa k "boha".
@@ -140,19 +143,18 @@ křtitel          NMl;
 křtitel:krstitel NMl;
 křtitel:křstitel NMl;
 
+!------------------------------------------------------------------------------
 LEXICON NMiStem
 
 císař:ciesař NMi;
 kacíř:kacieř NMi;
 kopáč        NMi;
 muž          NMi;
-muž+NM+Pl+Gen:muží #;
 otec:otEc    NMi;
 panoš        NMi;
 panoš+NM+Sg+Nom:panošicě #;
 panoš+NM+Pl+Nom:panošicě #;
 panoš+NM+Sg+Ins:panoší #;
-panoš+NM+Pl+Gen:panoší #;
 panoš+NM+Pl+Ins:panošěmi #;
 pisec:pisEc NMi;
 rybář NMi;
@@ -179,6 +181,7 @@ zachař            NMi;
 zebedeus:zebedáš  NMi;
 zebedeus:zebedeáš NMi;
 
+!------------------------------------------------------------------------------
 LEXICON NIyStem
 
 ! Neživotná tvrdá maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
@@ -231,6 +234,7 @@ jordán           NIy;
 nazaret          NIy;
 nazaret:nazareth NIy;
 
+!------------------------------------------------------------------------------
 LEXICON NIkStem
 
 fík              NIk;
@@ -249,6 +253,7 @@ užitek:užitEk    NIk;
 zárodek:zárodEk  NIk;
 zbytek:zbytEk    NIk;
 
+!------------------------------------------------------------------------------
 LEXICON NIiStem
 
 ! Neživotná měkká maskulina mají pár možností navíc, ale asi můžou využít i všechny životné tvary.
@@ -265,6 +270,7 @@ plášť       NIi;
 plášť:plášč NIi;
 tisíc       NIi;
 
+!------------------------------------------------------------------------------
 LEXICON NFaStem
 
 cesta:cěst   NFa;
@@ -298,6 +304,7 @@ tetrarcha:tetrarch NFa;
 golgata:golgat     NFa;
 sodoma:sodom       NFa;
 
+!------------------------------------------------------------------------------
 LEXICON NFeStem
 
 božnice:buožnic       NFe;
@@ -331,6 +338,7 @@ marie+NF+Sg+Ins:maří   #;
 marie:maři             NFe;
 marie:máři             NFe;
 
+!------------------------------------------------------------------------------
 LEXICON NFtStem
 
 poušť:púšč NFt;
@@ -347,6 +355,7 @@ stred      NFt;
 ráchel        NFt;
 ráchel:rachel NFt;
 
+!------------------------------------------------------------------------------
 LEXICON NNoStem
 
 břicho:břich     NNo;
@@ -380,6 +389,7 @@ slovo:slov       NNo;
 ústa:ust         NNo;
 zábradlí:zábradl NNo; ! zábradlách
 
+!------------------------------------------------------------------------------
 LEXICON NNeStem
 
 břímě:břím      NNe;
@@ -396,6 +406,7 @@ tržiště:tržišč  NNe;
 vejce:vejc      NNe;
 vejce:vajEc     NNe;
 
+!------------------------------------------------------------------------------
 LEXICON NNteStem
 
 dítě:dít      NNte;
@@ -404,6 +415,7 @@ kníže:kniež   NNte;
 oslíče:oslíč  NNte;
 robě:rob      NNte;
 
+!------------------------------------------------------------------------------
 LEXICON NNíStem
 
 důstojenství:důstojenstv  NNí;
@@ -412,6 +424,7 @@ důstojenství:duostojenstv NNí;
 násilí:násil              NNí;
 znamení:znameň            NNí; ! Kmen je měkký. Většinou "ň" zase zmizí díky "í". Ale Gen/Loc duálu je "znameňú".
 
+!------------------------------------------------------------------------------
 LEXICON AyStem
 
 dobrý@D.SUP@+Pos:dobr@D.SUP@ Ay;
@@ -468,6 +481,7 @@ známý:znám         Ax;
 žíznivý:žiezniv    Ax;
 žíznivý:žiezliv    Ax;
 
+!------------------------------------------------------------------------------
 LEXICON AiStem
 
 bližní@D.SUP@+Pos:bližn@D.SUP@ Ai;
@@ -533,6 +547,7 @@ LEXICON NM
 +NM+Pl+Gen:^óv   #; ! andělóv  přietelóv  běsóv  bohóv  dělníkóv  duchóv  hadóv  hospodinóv  kacieřóv  kopáčóv  kokotóv  mužóv  otcóv  pánóv  popóv  tovařišóv
 +NM+Pl+Gen:^uov  #; ! anděluov přieteluov běsuov bohuov dělníkuov duchuov haduov hospodinuov kacieřuov kopáčuov kokotuov mužuov otcuov pánuov popuov tovařišuov
 +NM+Pl+Gen:^iev  #; ! dniev
++NM+Pl+Gen:^í    #; ! psí muží
 +NM+Pl+Dat:^ům   #;
 +NM+Pl+Dat:^óm   #; ! andělóm  přietelóm  běsóm  bohóm  dělníkóm  duchóm  hadóm  hospodinóm  kacieřóm  kopáčóm  kokotóm  mužóm  otcóm  pánóm  popóm  tovařišóm
 +NM+Pl+Dat:^uom  #; ! anděluom přieteluom běsuom bohuom dělníkuom duchuom haduom hospodinuom kacieřuom kopáčuom kokotuom mužuom otcuom pánuom popuom tovařišuom

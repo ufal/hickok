@@ -100,7 +100,7 @@ while(<>)
         #----------------------------------------------------------------------
         # Mužský rod životný.
         #----------------------------------------------------------------------
-        if($f[1] =~ m/^(ne)?(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kokot|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pe?s|pohan|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|tovařiš|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|pohaně|popové|starosti)$/i)
+        if($f[1] =~ m/^(ne)?(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kokot|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pe?s|pohan|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|pohaně|popové|starosti)$/i)
         {
             my $negprefix = lc($1);
             my $lform = lc($2.$3);
@@ -1060,25 +1060,6 @@ while(<>)
                 'tetrarchy'   => ['tetrarcha', 'tetrarcha', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'tetrarše'    => ['tetrarcha', 'tetrarcha', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'tetraršě'    => ['tetrarcha', 'tetrarcha', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'tovařiš'     => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Nom', '1']]],
-                'tovařiša'    => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
-                'tovařiše'    => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Acc', '4']]],
-                'tovařišě'    => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'tovařišem'   => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Ins', '7']]],
-                'tovařiši'    => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5'], ['Plur', 'P', 'Ins', '7']]],
-                'tovařišie'   => ['tovaryš', 'tovařiš', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'tovařišiech' => ['tovaryš', 'tovařiš', [['Plur', 'P', 'Loc', '6']]],
-                'tovařišiem'  => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Ins', '7']]],
-                'tovařišiev'  => ['tovaryš', 'tovařiš', [['Plur', 'P', 'Gen', '2']]],
-                'tovařišóm'   => ['tovaryš', 'tovařiš', [['Plur', 'P', 'Dat', '3']]],
-                'tovařišoma'  => ['tovaryš', 'tovařiš', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'tovařišóv'   => ['tovaryš', 'tovařiš', [['Plur', 'P', 'Gen', '2']]],
-                'tovařišové'  => ['tovaryš', 'tovařiš', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'tovařišovi'  => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'tovařišu'    => ['tovaryš', 'tovařiš', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'tovařišú'    => ['tovaryš', 'tovařiš', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'tovařišuom'  => ['tovaryš', 'tovařiš', [['Plur', 'P', 'Dat', '3']]],
-                'tovařišuov'  => ['tovaryš', 'tovařiš', [['Plur', 'P', 'Gen', '2']]],
                 'učedlnícě'    => ['učedník', 'učedlník', [['Sing', 'S', 'Loc', '6']]],
                 'učedlníci'    => ['učedník', 'učedlník', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
                 'učedlnície'   => ['učedník', 'učedlník', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
