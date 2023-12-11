@@ -4588,7 +4588,7 @@ while(<>)
         }
         # 'popové' není plurál od substantiva 'pop'. Je to adjektivum ve spojení 'kniežě popové' ('velekněz').
         # Měli bychom zavést samostatnou kategorii trpných příčestí dlouhých a "propuščenú" přestěhovat tam.
-        elsif($f[1] =~ m/^(dobreh|d(?:ó|uo)stojn|jin|lesk|lidsk|nebe(?:sk|št)|neptalimov(?:sk)?|ohněv|popov|propuščen|smrtedln|velik|vysok|židov(?:sk|št)?)(ý|á|é|ého|ém|ým|ú|éj|ie|í|ých|ými)$/i && $f[1] !~ m/^(židového)$/i)
+        elsif($f[1] =~ m/^(dobreh|d(?:ó|uo)stojn|jin|lesk|lidsk|nebe(?:sk|št)|ohněv|popov|propuščen|smrtedln|velik|vysok|židov(?:sk|št)?)(ý|á|é|ého|ém|ým|ú|éj|ie|í|ých|ými)$/i && $f[1] !~ m/^(židového)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -4710,8 +4710,6 @@ while(<>)
                 'nebeským'  => ['nebeský', 'nebeský', [['Anim', 'M', 'Sing', 'S', 'Ins', '7'], ['Anim', 'M', 'Plur', 'P', 'Dat', '3'], ['Inan', 'I', 'Sing', 'S', 'Ins', '7'], ['Inan', 'I', 'Plur', 'P', 'Dat', '3'], ['Fem', 'F', 'Plur', 'P', 'Dat', '3'], ['Neut', 'N', 'Sing', 'S', 'Ins', '7'], ['Neut', 'N', 'Plur', 'P', 'Dat', '3']]],
                 'nebeskými' => ['nebeský', 'nebeský', [['Anim', 'M', 'Plur', 'P', 'Ins', '7'], ['Inan', 'I', 'Plur', 'P', 'Ins', '7'], ['Fem', 'F', 'Plur', 'P', 'Ins', '7'], ['Neut', 'N', 'Plur', 'P', 'Ins', '7']]],
                 'nebeští'   => ['nebeský', 'nebeský', [['Anim', 'M', 'Plur', 'P', 'Nom', '1'], ['Anim', 'M', 'Plur', 'P', 'Voc', '5']]],
-                'neptalimová' => ['neptalimový', 'neptalimový', [['Fem', 'F', 'Sing', 'S', 'Nom', '1']]],
-                'neptalimovských' => ['neptalimovský', 'neptalimovský', [['Inan', 'I', 'Plur', 'P', 'Loc', '6']]],
                 'ohněvá'   => ['ohnivý', 'ohněvý', [['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Fem', 'F', 'Sing', 'S', 'Voc', '5'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4'], ['Neut', 'N', 'Plur', 'P', 'Voc', '5']]],
                 'ohněvé'   => ['ohnivý', 'ohněvý', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Voc', '5'], ['Fem', 'F', 'Sing', 'S', 'Gen', '2'], ['Fem', 'F', 'Sing', 'S', 'Dat', '3'], ['Fem', 'F', 'Sing', 'S', 'Loc', '6'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Voc', '5'], ['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4'], ['Neut', 'N', 'Sing', 'S', 'Voc', '5']]],
                 'ohněvého' => ['ohnivý', 'ohněvý', [['Anim', 'M', 'Sing', 'S', 'Gen', '2'], ['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Inan', 'I', 'Sing', 'S', 'Gen', '2'], ['Neut', 'N', 'Sing', 'S', 'Gen', '2']]],
