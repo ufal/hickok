@@ -347,6 +347,7 @@ jméno+NN+Sg+Nom:jmě #;
 jméno+NN+Sg+Acc:jmě #;
 jméno+NN+Sg+Voc:jmě #;
 jméno+NN+Sg+Gen:jmeni #;
+jméno+NN+Sg+Gen:jmene #;
 město:měst       NNo;
 místo:míst       NNo;
 místo:miest      NNo;

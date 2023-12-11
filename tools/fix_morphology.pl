@@ -3756,6 +3756,7 @@ while(<>)
                 'jménách'  => ['jméno', 'jmě', [['Plur', 'P', 'Loc', '6']]],
                 'jmenami'  => ['jméno', 'jmě', [['Plur', 'P', 'Ins', '7']]],
                 'jménami'  => ['jméno', 'jmě', [['Plur', 'P', 'Ins', '7']]],
+                'jmene'    => ['jméno', 'jmě', [['Sing', 'S', 'Gen', '2']]],
                 'jmeně'    => ['jméno', 'jmě', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'jméně'    => ['jméno', 'jmě', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'jmenech'  => ['jméno', 'jmě', [['Plur', 'P', 'Loc', '6']]],
