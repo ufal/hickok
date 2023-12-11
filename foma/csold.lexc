@@ -362,6 +362,7 @@ břímě:břiem     NNe;
 dítě:dět        NNe;
 dítě:diet       NNe;
 nebe:neb        NNe;
+nebe+NN+Pl+Loc:nebesích #; ! "nebeso" nahoře vede k "nebesách" a "nebesiech", ale ne "nebesích"
 písmeno:písemEc NNe; ! písemce
 slovo:slovEc    NNe; ! slovce
 srdce:srdEc     NNe;
