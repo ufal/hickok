@@ -743,6 +743,7 @@ LEXICON NNo
 +NN+Du+Dat:^oma  #;
 +NN+Du+Acc:^ě    #;
 +NN+Du+Acc:^e    #;
++NN+Du+Acc:^é    #; ! Doloženo "za dvě leté"
 +NN+Du+Voc:^ě    #;
 +NN+Du+Voc:^e    #;
 +NN+Du+Loc:^ú    #;
