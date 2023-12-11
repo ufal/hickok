@@ -3548,7 +3548,7 @@ while(<>)
         #----------------------------------------------------------------------
         # Střední rod.
         #----------------------------------------------------------------------
-        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|neb|nebes|oc|oslíč|písemc|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|letě|letěti|letie|letí|neb[ou]?|nebiech|nebích|oc[ií])$/i)
+        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|kniež|let|neb|nebes|oc|oslíč|písemc|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|letě|letěti|letie|letí|neb[ou]?|nebiech|nebích|oc[ií])$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
