@@ -100,7 +100,7 @@ while(<>)
         #----------------------------------------------------------------------
         # Mužský rod životný.
         #----------------------------------------------------------------------
-        if($f[1] =~ m/^(ne)?(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kokot|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pe?s|pohan|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|starost|súdc|svědk|syn|šielene?[cč]|tetrarch|tovařiš|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|pohaně|popové|starosti)$/i)
+        if($f[1] =~ m/^(ne)?(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kokot|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pe?s|pohan|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|tovařiš|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|pohaně|popové|starosti)$/i)
         {
             my $negprefix = lc($1);
             my $lform = lc($2.$3);
@@ -919,17 +919,6 @@ while(<>)
                 'sluzě'   => ['sluha', 'sluha', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'slúze'   => ['sluha', 'sluha', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'slúzě'   => ['sluha', 'sluha', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'starost'    => ['starosta', 'starosta', [['Plur', 'P', 'Gen', '2']]],
-                'starosta'   => ['starosta', 'starosta', [['Sing', 'S', 'Nom', '1']]],
-                'starostách' => ['starosta', 'starosta', [['Plur', 'P', 'Loc', '6']]],
-                'starostám'  => ['starosta', 'starosta', [['Plur', 'P', 'Dat', '3']]],
-                'starostami' => ['starosta', 'starosta', [['Plur', 'P', 'Ins', '7']]],
-                'starostě'   => ['starosta', 'starosta', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'starosto'   => ['starosta', 'starosta', [['Sing', 'S', 'Voc', '5']]],
-                'starostou'  => ['starosta', 'starosta', [['Sing', 'S', 'Ins', '7']]],
-                'starostu'   => ['starosta', 'starosta', [['Sing', 'S', 'Acc', '4']]],
-                'starostú'   => ['starosta', 'starosta', [['Sing', 'S', 'Ins', '7']]],
-                'starosty'   => ['starosta', 'starosta', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'súdc'     => ['soudce', 'súdcě', [['Plur', 'P', 'Gen', '2']]],
                 'súdce'    => ['soudce', 'súdcě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'súdcě'    => ['soudce', 'súdcě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
