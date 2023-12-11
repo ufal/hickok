@@ -4504,8 +4504,30 @@ while(<>)
             my $lform = $stem.$suffix;
             my %ma =
             (
-                'křtěn'   => ['křtěný',   'křstěný',   [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]],
-                'pokřtěn' => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Sing', 'S', 'Nom', '1']]]
+                'křstěn'  => ['křtěný', 'křstěný', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
+                'křstěna' => ['křtěný', 'křstěný', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
+                'křstěni' => ['křtěný', 'křstěný', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
+                'křstěno' => ['křtěný', 'křstěný', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4']]],
+                'křstěnu' => ['křtěný', 'křstěný', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
+                'křstěny' => ['křtěný', 'křstěný', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]],
+                'křtěn'   => ['křtěný', 'křstěný', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
+                'křtěna'  => ['křtěný', 'křstěný', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
+                'křtěni'  => ['křtěný', 'křstěný', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
+                'křtěno'  => ['křtěný', 'křstěný', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4']]],
+                'křtěnu'  => ['křtěný', 'křstěný', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
+                'křtěny'  => ['křtěný', 'křstěný', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]],
+                'pokřstěn'  => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
+                'pokřstěna' => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
+                'pokřstěni' => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
+                'pokřstěno' => ['pokřtěný', 'pokřstěný', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4']]],
+                'pokřstěnu' => ['pokřtěný', 'pokřstěný', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
+                'pokřstěny' => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]],
+                'pokřtěn'   => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Nom', '1'], ['Inan', 'I', 'Sing', 'S', 'Acc', '4']]],
+                'pokřtěna'  => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Sing', 'S', 'Acc', '4'], ['Fem', 'F', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Nom', '1'], ['Neut', 'N', 'Plur', 'P', 'Acc', '4']]],
+                'pokřtěni'  => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Plur', 'P', 'Nom', '1']]],
+                'pokřtěno'  => ['pokřtěný', 'pokřstěný', [['Neut', 'N', 'Sing', 'S', 'Nom', '1'], ['Neut', 'N', 'Sing', 'S', 'Acc', '4']]],
+                'pokřtěnu'  => ['pokřtěný', 'pokřstěný', [['Fem', 'F', 'Sing', 'S', 'Acc', '4']]],
+                'pokřtěny'  => ['pokřtěný', 'pokřstěný', [['Anim', 'M', 'Plur', 'P', 'Acc', '4'], ['Inan', 'I', 'Plur', 'P', 'Nom', '1'], ['Inan', 'I', 'Plur', 'P', 'Acc', '4'], ['Fem', 'F', 'Plur', 'P', 'Nom', '1'], ['Fem', 'F', 'Plur', 'P', 'Acc', '4']]]
             );
             my $ma = $ma{$lform}; die("Something is wrong: '$lform'") if(!defined($ma));
             $f[2] = $ma->[0];
