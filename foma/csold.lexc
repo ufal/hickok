@@ -313,6 +313,7 @@ tetrarcha:tetrarch NFa;
 
 ! Vlastní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
 golgata:golgat     NFa;
+marie:mař          NFa;
 sodoma:sodom       NFa;
 
 !------------------------------------------------------------------------------
