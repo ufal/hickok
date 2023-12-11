@@ -3009,7 +3009,7 @@ while(<>)
         # "hoře" ("na hoře Olivetské").
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
         elsif(!($f[1] =~ m/^hoře$/i && get_ref($f[9]) !~ m/^MATT_24\.3$/ || $f[1] =~ m/^(duše|hoř[ií]?|potopi|vinni)$/) &&
-              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|hu?o[rř]|libř|lichv|mátě|m[aá]teř|matk|měřic|mís|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|trúb|ulic|u?ovc|vesnic|vier|vinn|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
+              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|hu?o[rř]|libř|lichv|mátě|m[aá]teř|matk|měřic|mís|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|trúb|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3376,17 +3376,6 @@ while(<>)
                 'viery'   => ['víra', 'viera', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'vieře'   => ['víra', 'viera', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'vieřě'   => ['víra', 'viera', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'vinn'    => ['vina', 'vinna', [['Plur', 'P', 'Gen', '2']]],
-                'vinna'   => ['vina', 'vinna', [['Sing', 'S', 'Nom', '1']]],
-                'vinnách' => ['vina', 'vinna', [['Plur', 'P', 'Loc', '6']]],
-                'vinnám'  => ['vina', 'vinna', [['Plur', 'P', 'Dat', '3']]],
-                'vinnami' => ['vina', 'vinna', [['Plur', 'P', 'Ins', '7']]],
-                'vinně'   => ['vina', 'vinna', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'vinno'   => ['vina', 'vinna', [['Sing', 'S', 'Voc', '5']]],
-                'vinnou'  => ['vina', 'vinna', [['Sing', 'S', 'Ins', '7']]],
-                'vinnu'   => ['vina', 'vinna', [['Sing', 'S', 'Acc', '4']]],
-                'vinnú'   => ['vina', 'vinna', [['Sing', 'S', 'Ins', '7']]],
-                'vinny'   => ['vina', 'vinna', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'vuod'    => ['voda', 'vuoda', [['Plur', 'P', 'Gen', '2']]],
                 'vuoda'   => ['voda', 'vuoda', [['Sing', 'S', 'Nom', '1']]],
                 'vuodách' => ['voda', 'vuoda', [['Plur', 'P', 'Loc', '6']]],
