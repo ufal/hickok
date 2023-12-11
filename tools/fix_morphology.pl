@@ -3502,7 +3502,7 @@ while(<>)
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
         # "Miesto" je předložka v 2.21 resp. 2.22, všude jinde je to podstatné jméno.
         elsif(!($f[1] =~ m/^miesto$/i && get_ref($f[9]) =~ m/^MATT_2\.(21|22)$/) &&
-              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hoří?|hořie|hořěti|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
+              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|ledv|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3661,12 +3661,38 @@ while(<>)
                 'důstojenstvům'    => ['důstojenství', 'dóstojenstvie', [['Plur', 'P', 'Dat', '3']]],
                 'důstojenstvuom'   => ['důstojenství', 'dóstojenstvie', [['Plur', 'P', 'Dat', '3']]],
                 'důstojenstvy'     => ['důstojenství', 'dóstojenstvie', [['Plur', 'P', 'Ins', '7']]],
-                'hniezd'      => ['hnízdo',   'hniezdo',  [['Plur', 'P', 'Gen', '2']]],
-                'hniezda'     => ['hnízdo',   'hniezdo',  [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4']]],
-                'hniezdo'     => ['hnízdo',   'hniezdo',  [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'hoře'        => ['hoře',     'hoře',     [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'hoři'        => ['hoře',     'hoře',     [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'hořem'       => ['hoře',     'hoře',     [['Sing', 'S', 'Ins', '7']]],
+                'hniezd'     => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Gen', '2']]],
+                'hniezda'    => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
+                'hniezdách'  => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Loc', '6']]],
+                'hniezdami'  => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Ins', '7']]],
+                'hniezdě'    => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
+                'hniezdech'  => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Loc', '6']]],
+                'hniezdem'   => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Ins', '7']]],
+                'hniezdiech' => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Loc', '6']]],
+                'hniezdo'    => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
+                'hniezdóm'   => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Dat', '3']]],
+                'hniezdoma'  => ['hnízdo', 'hniezdo', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
+                'hniezdu'    => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
+                'hniezdú'    => ['hnízdo', 'hniezdo', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
+                'hniezdům'   => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Dat', '3']]],
+                'hniezduom'  => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Dat', '3']]],
+                'hniezdy'    => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Ins', '7']]],
+                'hnízd'      => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Gen', '2']]],
+                'hnízda'     => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
+                'hnízdách'   => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Loc', '6']]],
+                'hnízdami'   => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Ins', '7']]],
+                'hnízdě'     => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
+                'hnízdech'   => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Loc', '6']]],
+                'hnízdem'    => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Ins', '7']]],
+                'hnízdiech'  => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Loc', '6']]],
+                'hnízdo'     => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
+                'hnízdóm'    => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Dat', '3']]],
+                'hnízdoma'   => ['hnízdo', 'hniezdo', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
+                'hnízdu'     => ['hnízdo', 'hniezdo', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
+                'hnízdú'     => ['hnízdo', 'hniezdo', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
+                'hnízdům'    => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Dat', '3']]],
+                'hnízduom'   => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Dat', '3']]],
+                'hnízdy'     => ['hnízdo', 'hniezdo', [['Plur', 'P', 'Ins', '7']]],
                 'jmě'         => ['jméno',    'jmě',      [['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Nom', '1']]],
                 'jmen'        => ['jméno',    'jmě',      [['Plur', 'P', 'Gen', '2']]],
                 'jmena'       => ['jméno',    'jmě',      [['Plur', 'P', 'Nom', '1']]],
