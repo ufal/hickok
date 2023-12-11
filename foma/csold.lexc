@@ -513,9 +513,11 @@ LEXICON NM
 +NM+Du+Ins:^oma  #;
 ! Nom a Voc Pl jsou vždy stejné.
 +NM+Pl+Nom:^i    #; ! anděli   přietel?   běsi   bozi   dělníci   duši    hadi   hospodini   kacieři   kopáči   kokoti   muži   otci   páni   popi   tovařiši
-+NM+Pl+Nom:^ové  #; ! andělové přietelové běsové bohové dělníkové duchové hadové hospodinové kacieřové kopáčové kokotové mužové otcové pánové popové tovařišové
 +NM+Pl+Voc:^i    #;
++NM+Pl+Nom:^ové  #; ! andělové přietelové běsové bohové dělníkové duchové hadové hospodinové kacieřové kopáčové kokotové mužové otcové pánové popové tovařišové
 +NM+Pl+Voc:^ové  #;
++NM+Pl+Nom:^é    #; ! andělé přietelé židé; ale doloženo též: diablé mužé panošé
++NM+Pl+Voc:^é    #;
 +NM+Pl+Nom:^ie   #; ! attested: bratřie črvie mužie tovařišie židie
 +NM+Pl+Voc:^ie   #;
 ! Gen a Dat Pl mají jednoznačné koncovky (-ó- vs. -uo- je jen starší vs. mladší varianta) pro všechna mužská jména.
