@@ -705,40 +705,42 @@ LEXICON NNo
 
 LEXICON NNe
 
-+NN+Sg+Nom:^e   #;
-+NN+Sg+Nom:^ě   #;
-+NN+Sg+Gen:^e   #;
-+NN+Sg+Gen:^ě   #;
-+NN+Sg+Dat:^i   #;
-+NN+Sg+Dat:^u   #; ! Doloženo srdcu
-+NN+Sg+Acc:^e   #;
-+NN+Sg+Acc:^ě   #;
-+NN+Sg+Voc:^e   #;
-+NN+Sg+Voc:^ě   #;
-+NN+Sg+Loc:^i   #;
-+NN+Sg+Loc:^u   #; ! Doloženo srdcu
-+NN+Sg+Ins:^em  #;
-+NN+Du+Nom:^ě   #;
-+NN+Du+Nom:^e   #;
-+NN+Du+Gen:^ú   #;
-+NN+Du+Dat:^oma #;
-+NN+Du+Acc:^ě   #;
-+NN+Du+Acc:^e   #;
-+NN+Du+Voc:^ě   #;
-+NN+Du+Voc:^e   #;
-+NN+Du+Loc:^ú   #;
-+NN+Du+Ins:^oma #;
-+NN+Pl+Nom:^e   #;
-+NN+Pl+Nom:^ě   #;
-+NN+Pl+Gen:^í   #;
-+NN+Pl+Gen:^λ   #; ! Doloženo srdec
-+NN+Pl+Dat:^ím  #;
-+NN+Pl+Acc:^e   #;
-+NN+Pl+Acc:^ě   #;
-+NN+Pl+Voc:^e   #;
-+NN+Pl+Voc:^ě   #;
-+NN+Pl+Loc:^ích #;
-+NN+Pl+Ins:^i   #;
++NN+Sg+Nom:^e    #;
++NN+Sg+Nom:^ě    #;
++NN+Sg+Gen:^e    #;
++NN+Sg+Gen:^ě    #;
++NN+Sg+Dat:^i    #;
++NN+Sg+Dat:^u    #; ! Doloženo srdcu
++NN+Sg+Acc:^e    #;
++NN+Sg+Acc:^ě    #;
++NN+Sg+Voc:^e    #;
++NN+Sg+Voc:^ě    #;
++NN+Sg+Loc:^i    #;
++NN+Sg+Loc:^u    #; ! Doloženo srdcu
++NN+Sg+Ins:^em   #;
++NN+Du+Nom:^ě    #;
++NN+Du+Nom:^e    #;
++NN+Du+Gen:^ú    #;
++NN+Du+Dat:^oma  #;
++NN+Du+Acc:^ě    #;
++NN+Du+Acc:^e    #;
++NN+Du+Voc:^ě    #;
++NN+Du+Voc:^e    #;
++NN+Du+Loc:^ú    #;
++NN+Du+Ins:^oma  #;
++NN+Pl+Nom:^e    #;
++NN+Pl+Nom:^ě    #;
++NN+Pl+Gen:^í    #;
++NN+Pl+Gen:^λ    #; ! Doloženo srdec
++NN+Pl+Dat:^ím   #;
++NN+Pl+Dat:^iem  #; ! Zatím jsem neviděl, ale je to stejná úprava jako "-ích" vs. "-iech" dole.
++NN+Pl+Acc:^e    #;
++NN+Pl+Acc:^ě    #;
++NN+Pl+Voc:^e    #;
++NN+Pl+Voc:^ě    #;
++NN+Pl+Loc:^ích  #;
++NN+Pl+Loc:^iech #; ! Doloženo srdciech
++NN+Pl+Ins:^i    #;
 
 LEXICON NNte
 
