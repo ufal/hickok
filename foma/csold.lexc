@@ -108,6 +108,8 @@ LEXICON NMkStem
 bůh+NM+Sg+Nom:bóh #;
 bůh+NM+Sg+Gen:božé #; ! Doloženo jako alternativa k "boha".
 bůh+NM+Sg+Gen:buožé #; ! Doloženo jako alternativa k "boha".
+bůh+NM+Sg+Voc:božě #; ! Doloženo jako alternativa k "bože".
+bůh+NM+Sg+Voc:buožě #;
 bůh:boh NMk;
 bůh:buoh NMk;
 býk NMk;
