@@ -1886,7 +1886,7 @@ while(<>)
         # Výjimka: 'čině' může být sloveso, 'činiech' možná taky?
         # Výjimka: 'dna' a 'dny' je ve všech výskytech nemoc, nikoli tvar slova 'den'.
         # Výjimka: "pláče" je v dotyčném výskytu sloveso "plakat", nikoli tvar slova "pláč".
-        elsif($f[1] =~ m/^(balšám|buochenc|čas|čin|déšč|div|dn|dóm|du?om|fík|hrob|hřie(ch|š)|chleb|ku?oš|kút|národ|neduh|okrajk|otrusk|pas|peniez|pláč|plamen|plášč|podhrdlk|podolk|poklad|příklad|rov|sbuor|skutk|sn|stien|stol|súd|ščěvík|tisíc|úd|u?oheň|u?ohn|u?ostatk|uzlíc|užitk|větr|vlas|zárodc|zástup|zbytk|zub)(a|e|ě|i|u|ové|óv|uov|iev|í|óm|uom|y|ách|iech)?$/i && $f[1] !~ m/^(dn[ay]|diví|čin[ěí]|činiech|fíkové|pas[ae]?|pláč[eí]|súdí|tisící)$/i)
+        elsif($f[1] =~ m/^(balšám|buochenc|čas|čin|déšč|div|dn|dóm|du?om|fík|hrob|hřie(ch|š)|chleb|ku?oš|kút|národ|neduh|okrajk|otrusk|pas|peniez|pláč|plamen|plášč|podhrdlk|podolk|poklad|příklad|rov|sbuor|skutk|stien|stol|súd|ščěvík|tisíc|úd|u?oheň|u?ohn|u?ostatk|uzlíc|užitk|větr|vlas|zárodc|zástup|zbytk|zub)(a|e|ě|i|u|ové|óv|uov|iev|í|óm|uom|y|ách|iech)?$/i && $f[1] !~ m/^(dn[ay]|diví|čin[ěí]|činiech|fíkové|pas[ae]?|pláč[eí]|súdí|tisící)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -2632,25 +2632,6 @@ while(<>)
                 'skutkuom'  => ['skutek', 'skutek', [['Plur', 'P', 'Dat', '3']]],
                 'skutkuov'  => ['skutek', 'skutek', [['Plur', 'P', 'Gen', '2']]],
                 'skutky'    => ['skutek', 'skutek', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5'], ['Plur', 'P', 'Ins', '7']]],
-                'sen'    => ['sen', 'sen', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
-                'sna'    => ['sen', 'sen', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
-                'snách'  => ['sen', 'sen', [['Plur', 'P', 'Loc', '6']]],
-                'sne'    => ['sen', 'sen', [['Sing', 'S', 'Voc', '5']]],
-                'sně'    => ['sen', 'sen', [['Sing', 'S', 'Loc', '6']]],
-                'snem'   => ['sen', 'sen', [['Sing', 'S', 'Ins', '7']]],
-                'sni'    => ['sen', 'sen', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'snie'   => ['sen', 'sen', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'sniech' => ['sen', 'sen', [['Plur', 'P', 'Loc', '6']]],
-                'snóm'   => ['sen', 'sen', [['Plur', 'P', 'Dat', '3']]],
-                'snoma'  => ['sen', 'sen', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'snóv'   => ['sen', 'sen', [['Plur', 'P', 'Gen', '2']]],
-                'snové'  => ['sen', 'sen', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'snovi'  => ['sen', 'sen', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'snu'    => ['sen', 'sen', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'snú'    => ['sen', 'sen', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'snuom'  => ['sen', 'sen', [['Plur', 'P', 'Dat', '3']]],
-                'snuov'  => ['sen', 'sen', [['Plur', 'P', 'Gen', '2']]],
-                'sny'    => ['sen', 'sen', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5'], ['Plur', 'P', 'Ins', '7']]],
                 'stien'     => ['stín', 'stien', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
                 'stiena'    => ['stín', 'stien', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
                 'stiene'    => ['stín', 'stien', [['Sing', 'S', 'Voc', '5']]],
