@@ -3607,8 +3607,7 @@ while(<>)
         # Střední rod.
         #----------------------------------------------------------------------
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
-        # "Miesto" je předložka v 2.21 resp. 2.22, všude jinde je to podstatné jméno.
-        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|rob|robátk|rúch|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|oc[ií]|roba)$/i)
+        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|násil|neb|nebes|oc|oslíč|písemc|rob|robátk|rúch|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|oc[ií]|roba)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
