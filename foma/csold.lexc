@@ -162,6 +162,8 @@ panoš+NM+Pl+Ins:panošěmi #;
 pisec:pisEc NMi;
 rybář NMi;
 rytíř:rytieř NMi;
+soudce:soudc     NMi; ! starší skloňování jako "duše", ale později se objevuje třeba "soudcové"
+soudce:súdc      NMi;
 šílenec:šielenEc NMi;
 tovaryš:tovařiš NMi;
 vodič NMi;
