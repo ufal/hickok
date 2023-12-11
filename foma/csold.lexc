@@ -695,6 +695,7 @@ LEXICON NFe
 +NF+Pl+Dat:^iem  #;
 +NF+Pl+Dat:^ím   #;
 +NF+Pl+Dat:^em   #; ! Doloženo "súdcem" (ve významu Pl Dat).
++NF+Pl+Dat:^uom  #; ! Doloženo "súdcuom" (ve významu Pl Dat).
 +NF+Pl+Acc:^ě    #;
 +NF+Pl+Acc:^e    #;
 +NF+Pl+Voc:^ě    #;
