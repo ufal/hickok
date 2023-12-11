@@ -3110,7 +3110,7 @@ while(<>)
         # "Nohe" = "Noe"
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
         elsif($f[1] !~ m/^(duše|nohe|potopi|vinni)$/i &&
-              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
+              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3303,7 +3303,6 @@ while(<>)
                 'púštiem'  => ['poušť', 'púščě', [['Plur', 'P', 'Dat', '3']]],
                 'púštu'    => ['poušť', 'púščě', [['Sing', 'S', 'Acc', '4']]],
                 'púšťu'    => ['poušť', 'púščě', [['Sing', 'S', 'Acc', '4']]],
-                'rez'         => ['rez',      'rez',      [['Sing', 'S', 'Nom', '1']]],
                 'ruce'   => ['ruka', 'ruka', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'rucě'   => ['ruka', 'ruka', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'rucí'   => ['ruka', 'ruka', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],

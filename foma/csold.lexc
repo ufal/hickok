@@ -33,27 +33,27 @@ AiStem;
 !------------------------------------------------------------------------------
 LEXICON NMyStem
 
-! Všechny mužské životné tvary jsou použitelné i pro neživotná maskulina.
+! Všechny mužské životné tvary jsou ve staré češtině použitelné i pro neživotná maskulina.
 ! Většina tvrdých tvarů je použitelná i s měkkými kmeny. Výjimkou je Pl Nom Acc Voc Ins na -y.
 
-běs NMy;
-bratr NMy;
+běs              NMy;
+bratr            NMy;
 bratr+NM+Du+Gen:bratřú #;
 bratr+NM+Pl+Nom:bratřie #;
 bratr+NM+Pl+Gen:bratří #;
 bratr+NM+Pl+Dat:bratří #;
 bratr+NM+Pl+Acc:bratřie #;
-červ         NMy;
-červ:črv     NMy;
-ďábel:ďábEl  NMy;
-ďábel:diábEl NMy;
-had          NMy;
-hospodin     NMy;
-kokot        NMy;
-kozel:kozEl  NMy;
+červ             NMy;
+červ:črv         NMy;
+ďábel:ďábEl      NMy;
+ďábel:diábEl     NMy;
+had              NMy;
+hospodin         NMy;
+kokot            NMy; ! kohout
+kozel:kozEl      NMy;
 krajan+NM+Sg+Nom:krajěnín NMy;
 krajan+NM+Pl+Nom:krajěné #;
-krajan:krajěn NMy; ! ne Nom
+krajan:krajěn    NMy; ! ne Nom
 mistr            NMy;
 pán              NMy;
 pán+NM+Sg+Gen:pání #;
@@ -66,6 +66,7 @@ satan+NM+Sg+Voc:satanas #;
 satan+NM+Sg+Voc:sathana #;
 satan+NM+Sg+Voc:sathanas #;
 syn              NMy;
+velbloud         NMy;
 velbloud:velblúd NMy;
 žid              NMy;
 
@@ -104,7 +105,7 @@ zebedeus:zebede  NMy;
 !------------------------------------------------------------------------------
 LEXICON NMkStem
 
-! Jména na -k, -h, -ch mají navíc vokativ na -u.
+! Jména na -k, -h, -ch mají navíc Sg Voc na -u a Pl Loc na -ách.
 
 bůh+NM+Sg+Nom:bóh #;
 bůh+NM+Sg+Gen:božé #; ! Doloženo jako alternativa k "boha".
@@ -133,7 +134,11 @@ zjevník:zjěvník NMk;
 ! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
 izák            NMk;
 
+!------------------------------------------------------------------------------
 LEXICON NMlStem
+
+! Jména na -l mají navíc Sg Voc na -i, podobně jako měkká jména.
+! anděli přieteli kacieři kopáči muži tovařiši
 
 anděl NMl;
 anděl:anjel NMl;
@@ -594,10 +599,7 @@ LEXICON NMl
 ! Mužské obojetné skloňování některých jmen končících na -l.
 
 NMy; ! Kromě níže uvedených lze použít i všechny koncovky ze základního slovníku NM a z tvrdého NMy.
-! Voc se zřejmě liší podle kmene.
 +NM+Sg+Voc:^i    #; ! anděli přieteli běs? boh? dělník? duch? had? hospodin? kacieři kopáči kokot? muži otc? pán? pop? tovařiši
-+NM+Pl+Nom:^é    #; ! andělé   přietelé   běs?   boh?   dělník?   duch?   had?
-+NM+Pl+Voc:^é    #;
 
 LEXICON NMi
 
