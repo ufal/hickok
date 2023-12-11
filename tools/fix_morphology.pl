@@ -3545,7 +3545,7 @@ while(<>)
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
         # "Miesto" je předložka v 2.21 resp. 2.22, všude jinde je to podstatné jméno.
         elsif(!($f[1] =~ m/^miesto$/i && get_ref($f[9]) =~ m/^MATT_2\.(21|22)$/) &&
-              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|miesti|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
+              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|rob|robátk|rúch|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|miesti|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3941,23 +3941,6 @@ while(<>)
                 'písmenům'   => ['písmeno', 'písemce', [['Plur', 'P', 'Dat', '3']]],
                 'písmenuom'  => ['písmeno', 'písemce', [['Plur', 'P', 'Dat', '3']]],
                 'písmeny'    => ['písmeno', 'písemce', [['Plur', 'P', 'Ins', '7']]],
-                'práv'     => ['právo', 'právo', [['Plur', 'P', 'Gen', '2']]],
-                'práva'    => ['právo', 'právo', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'právách'  => ['právo', 'právo', [['Plur', 'P', 'Loc', '6']]],
-                'právami'  => ['právo', 'právo', [['Plur', 'P', 'Ins', '7']]],
-                'práve'    => ['právo', 'právo', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'právě'    => ['právo', 'právo', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'právech'  => ['právo', 'právo', [['Plur', 'P', 'Loc', '6']]],
-                'právem'   => ['právo', 'právo', [['Sing', 'S', 'Ins', '7']]],
-                'práviech' => ['právo', 'právo', [['Plur', 'P', 'Loc', '6']]],
-                'právo'    => ['právo', 'právo', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'právóm'   => ['právo', 'právo', [['Plur', 'P', 'Dat', '3']]],
-                'právoma'  => ['právo', 'právo', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'právu'    => ['právo', 'právo', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'právú'    => ['právo', 'právo', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'právům'   => ['právo', 'právo', [['Plur', 'P', 'Dat', '3']]],
-                'právuom'  => ['právo', 'právo', [['Plur', 'P', 'Dat', '3']]],
-                'právy'    => ['právo', 'právo', [['Plur', 'P', 'Ins', '7']]],
                 'robat'    => ['robě', 'robě', [['Plur', 'P', 'Gen', '2']]],
                 'robata'   => ['robě', 'robě', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'robatech' => ['robě', 'robě', [['Plur', 'P', 'Loc', '6']]],
