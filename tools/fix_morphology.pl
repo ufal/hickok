@@ -672,6 +672,7 @@ while(<>)
                 'mužě'    => ['muž', 'muž', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'mužech'  => ['muž', 'muž', [['Plur', 'P', 'Loc', '6']]],
                 'mužem'   => ['muž', 'muž', [['Sing', 'S', 'Ins', '7']]],
+                'mužěvé'  => ['muž', 'muž', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
                 'muži'    => ['muž', 'muž', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5'], ['Plur', 'P', 'Ins', '7']]],
                 'muží'    => ['muž', 'muž', [['Dual', 'D', 'Gen', '2'], ['Plur', 'P', 'Gen', '2']]],
                 'mužie'   => ['muž', 'muž', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],

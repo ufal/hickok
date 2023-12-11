@@ -594,6 +594,8 @@ NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního 
 +NM+Du+Gen:^í    #; ! pod stráži dvú rytieří
 +NM+Du+Acc:^ě    #;
 +NM+Du+Voc:^ě    #;
++NM+Pl+Nom:^ěvé  #; ! mužěvé
++NM+Pl+Voc:^ěvé  #;
 +NM+Pl+Gen:^iev  #; ! kacieřiev kopáčiev tovařišiev ; košiev kuošiev (doloženo)
 +NM+Pl+Acc:^e    #; ! kacieře kopáče muže otce tovařiše
 +NM+Pl+Ins:^i    #; ! kacieři kopáči muži otci tovařiši
