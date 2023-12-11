@@ -3607,7 +3607,7 @@ while(<>)
         # Střední rod.
         #----------------------------------------------------------------------
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
-        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|násil|neb|nebes|oc|oslíč|písemc|rob|robátk|rúch|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|oc[ií]|roba)$/i)
+        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|násil|neb|nebes|oc|oslíč|písemc|rob|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|oc[ií]|roba)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -4026,7 +4026,6 @@ while(<>)
                 'rúše'     => ['roucho', 'rúcho', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'rúšě'     => ['roucho', 'rúcho', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'rúšiech'  => ['roucho', 'rúcho', [['Plur', 'P', 'Loc', '6']]],
-                'siemě'       => ['semeno',   'siemě',    [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
                 'slov'      => ['slovo', 'slovce', [['Plur', 'P', 'Gen', '2']]],
                 'slova'     => ['slovo', 'slovce', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'slovách'   => ['slovo', 'slovce', [['Plur', 'P', 'Loc', '6']]],
