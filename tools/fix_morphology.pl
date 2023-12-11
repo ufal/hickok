@@ -3109,8 +3109,8 @@ while(<>)
         # "hoře" ("na hoře Olivetské").
         # "Nohe" = "Noe"
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
-        elsif($f[1] !~ m/^(duše|nohe|potopi|vinni)$/i &&
-              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
+        elsif($f[1] !~ m/^(duše|nohe|vinni)$/i &&
+              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|přísah|púš[čtť]|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3260,18 +3260,6 @@ while(<>)
                 'uovcích'  => ['ovce', 'ovcě', [['Plur', 'P', 'Loc', '6']]],
                 'uovcím'   => ['ovce', 'ovcě', [['Plur', 'P', 'Dat', '3']]],
                 'uovcu'    => ['ovce', 'ovcě', [['Sing', 'S', 'Acc', '4']]],
-                'potop'    => ['potopa', 'potopa', [['Plur', 'P', 'Gen', '2']]],
-                'potopa'   => ['potopa', 'potopa', [['Sing', 'S', 'Nom', '1']]],
-                'potopách' => ['potopa', 'potopa', [['Plur', 'P', 'Loc', '6']]],
-                'potopám'  => ['potopa', 'potopa', [['Plur', 'P', 'Dat', '3']]],
-                'potopami' => ['potopa', 'potopa', [['Plur', 'P', 'Ins', '7']]],
-                'potope'   => ['potopa', 'potopa', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'potopě'   => ['potopa', 'potopa', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'potopo'   => ['potopa', 'potopa', [['Sing', 'S', 'Voc', '5']]],
-                'potopou'  => ['potopa', 'potopa', [['Sing', 'S', 'Ins', '7']]],
-                'potopu'   => ['potopa', 'potopa', [['Sing', 'S', 'Acc', '4']]],
-                'potopú'   => ['potopa', 'potopa', [['Sing', 'S', 'Ins', '7']]],
-                'potopy'   => ['potopa', 'potopa', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'přísah'    => ['přísaha', 'přísaha', [['Plur', 'P', 'Gen', '2']]],
                 'přísaha'   => ['přísaha', 'přísaha', [['Sing', 'S', 'Nom', '1']]],
                 'přísahách' => ['přísaha', 'přísaha', [['Plur', 'P', 'Loc', '6']]],
@@ -3284,6 +3272,7 @@ while(<>)
                 'přísahy'   => ['přísaha', 'přísaha', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'přísaze'   => ['přísaha', 'přísaha', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'přísazě'   => ['přísaha', 'přísaha', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
+                'přísazí'   => ['přísaha', 'přísaha', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
                 'púšč'     => ['poušť', 'púščě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
                 'púšče'    => ['poušť', 'púščě', [['Sing', 'S', 'Gen', '2']]],
                 'púščě'    => ['poušť', 'púščě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
