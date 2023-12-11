@@ -580,22 +580,13 @@ NM; ! Kromě níže uvedených lze použít i všechny koncovky ze základního 
 +NM+Pl+Acc:^y    #; ! anděly běsy bohy dělníky duchy hady hospodiny kokoty pány popy
 +NM+Pl+Ins:^y    #;
 
-LEXICON NMPlé
-
-! Mužské tvrdé skloňování s alternativním plurálem na -é.
-! (Zde nejsou "andělé", protože "anděl" má ještě navíc alternativní vokativ na -i.)
-
-NMy; ! Kromě níže uvedených lze použít i všechny koncovky ostatních tvrdých jmen.
-+NM+Pl+Nom:^é    #; ! pohané židé
-+NM+Pl+Voc:^é    #; ! pohané židé
-
 LEXICON NMk
 
 ! Mužské tvrdé skloňování jmen končících na -h, -ch, -k.
 
 NMy; ! Kromě níže uvedených lze použít i všechny koncovky ostatních tvrdých jmen.
-! Voc se zřejmě liší podle kmene.
 +NM+Sg+Voc:^u    #; ! bohu dělníku duchu
++NM+Pl+Loc:^ách  #; ! fíkách
 
 LEXICON NMl
 
