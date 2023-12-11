@@ -100,7 +100,7 @@ while(<>)
         #----------------------------------------------------------------------
         # Mužský rod životný.
         #----------------------------------------------------------------------
-        if($f[1] =~ m/^(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|popové|starosti|súdcóv)$/i)
+        if($f[1] =~ m/^(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|hospodin|hřiešní[kc]|kacieř|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|popové|starosti|súdcóv)$/i)
         {
             my $negprefix = '';
             my $lform = lc($1.$2);
@@ -463,24 +463,6 @@ while(<>)
                 'duchovníkuom'  => ['duchovník', 'duchovník', [['Plur', 'P', 'Dat', '3']]],
                 'duchovníkuov'  => ['duchovník', 'duchovník', [['Plur', 'P', 'Gen', '2']]],
                 'duchovníky'    => ['duchovník', 'duchovník', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Ins', '7']]],
-                'had'     => ['had', 'had', [['Sing', 'S', 'Nom', '1']]],
-                'hada'    => ['had', 'had', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
-                'hade'    => ['had', 'had', [['Sing', 'S', 'Voc', '5']]],
-                'hadě'    => ['had', 'had', [['Sing', 'S', 'Loc', '6']]],
-                'hadem'   => ['had', 'had', [['Sing', 'S', 'Ins', '7']]],
-                'hadi'    => ['had', 'had', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'hadie'   => ['had', 'had', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'hadiech' => ['had', 'had', [['Plur', 'P', 'Loc', '6']]],
-                'hadóm'   => ['had', 'had', [['Plur', 'P', 'Dat', '3']]],
-                'hadoma'  => ['had', 'had', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'hadóv'   => ['had', 'had', [['Plur', 'P', 'Gen', '2']]],
-                'hadové'  => ['had', 'had', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'hadovi'  => ['had', 'had', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'hadu'    => ['had', 'had', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'hadú'    => ['had', 'had', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'haduom'  => ['had', 'had', [['Plur', 'P', 'Dat', '3']]],
-                'haduov'  => ['had', 'had', [['Plur', 'P', 'Gen', '2']]],
-                'hady'    => ['had', 'had', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Ins', '7']]],
                 'hospodin'     => ['hospodin', 'hospodin', [['Sing', 'S', 'Nom', '1']]],
                 'hospodina'    => ['hospodin', 'hospodin', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
                 'hospodine'    => ['hospodin', 'hospodin', [['Sing', 'S', 'Voc', '5']]],
