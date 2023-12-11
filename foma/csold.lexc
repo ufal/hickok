@@ -289,6 +289,7 @@ starosta:starost   NFa;
 tetrarcha:tetrarch NFa;
 
 ! Vlastní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
+golgata:golgat     NFa;
 sodoma:sodom       NFa;
 
 LEXICON NFeStem
