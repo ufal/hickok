@@ -3051,7 +3051,7 @@ while(<>)
         # "hoře" ("na hoře Olivetské").
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
         elsif(!($f[1] =~ m/^(duše|potopi|vinni)$/) &&
-              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|lichv|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|trúb|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
+              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|lichv|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3336,18 +3336,6 @@ while(<>)
                 'škuolu'   => ['škola', 'škuola', [['Sing', 'S', 'Acc', '4']]],
                 'škuolú'   => ['škola', 'škuola', [['Sing', 'S', 'Ins', '7']]],
                 'škuoly'   => ['škola', 'škuola', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'trúb'    => ['trouba', 'trúba', [['Plur', 'P', 'Gen', '2']]],
-                'trúba'   => ['trouba', 'trúba', [['Sing', 'S', 'Nom', '1']]],
-                'trúbách' => ['trouba', 'trúba', [['Plur', 'P', 'Loc', '6']]],
-                'trúbám'  => ['trouba', 'trúba', [['Plur', 'P', 'Dat', '3']]],
-                'trúbami' => ['trouba', 'trúba', [['Plur', 'P', 'Ins', '7']]],
-                'trúbe'   => ['trouba', 'trúba', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'trúbě'   => ['trouba', 'trúba', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'trúbo'   => ['trouba', 'trúba', [['Sing', 'S', 'Voc', '5']]],
-                'trúbou'  => ['trouba', 'trúba', [['Sing', 'S', 'Ins', '7']]],
-                'trúbu'   => ['trouba', 'trúba', [['Sing', 'S', 'Acc', '4']]],
-                'trúbú'   => ['trouba', 'trúba', [['Sing', 'S', 'Ins', '7']]],
-                'trúby'   => ['trouba', 'trúba', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'ulic'     => ['ulice', 'ulicě', [['Plur', 'P', 'Gen', '2']]],
                 'ulice'    => ['ulice', 'ulicě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'ulicě'    => ['ulice', 'ulicě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
