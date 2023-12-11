@@ -3043,7 +3043,7 @@ while(<>)
         # "hoře" ("na hoře Olivetské").
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
         elsif(!($f[1] =~ m/^(duše|potopi|vinni)$/) &&
-              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|lichv|mátě|m[aá]teř|matk|měřic|mís|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|trúb|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
+              $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|lichv|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|trúb|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3155,18 +3155,6 @@ while(<>)
                 'měřicích'  => ['měřice', 'měřicě', [['Plur', 'P', 'Loc', '6']]],
                 'měřicím'   => ['měřice', 'měřicě', [['Plur', 'P', 'Dat', '3']]],
                 'měřicu'    => ['měřice', 'měřicě', [['Sing', 'S', 'Acc', '4']]],
-                'mís'    => ['mísa', 'mísa', [['Plur', 'P', 'Gen', '2']]],
-                'mísa'   => ['mísa', 'mísa', [['Sing', 'S', 'Nom', '1']]],
-                'mísách' => ['mísa', 'mísa', [['Plur', 'P', 'Loc', '6']]],
-                'mísám'  => ['mísa', 'mísa', [['Plur', 'P', 'Dat', '3']]],
-                'mísami' => ['mísa', 'mísa', [['Plur', 'P', 'Ins', '7']]],
-                'míse'   => ['mísa', 'mísa', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'mísě'   => ['mísa', 'mísa', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'míso'   => ['mísa', 'mísa', [['Sing', 'S', 'Voc', '5']]],
-                'mísou'  => ['mísa', 'mísa', [['Sing', 'S', 'Ins', '7']]],
-                'mísu'   => ['mísa', 'mísa', [['Sing', 'S', 'Acc', '4']]],
-                'mísú'   => ['mísa', 'mísa', [['Sing', 'S', 'Ins', '7']]],
-                'mísy'   => ['mísa', 'mísa', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'modlitv'    => ['modlitba', 'modlitva', [['Plur', 'P', 'Gen', '2']]],
                 'modlitev'   => ['modlitba', 'modlitva', [['Plur', 'P', 'Gen', '2']]],
                 'modlitva'   => ['modlitba', 'modlitva', [['Sing', 'S', 'Nom', '1']]],
