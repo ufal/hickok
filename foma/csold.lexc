@@ -213,6 +213,7 @@ soud:súd              NIy;
 vítr:větr             NIy;
 vítr:vietr            NIy;
 vlas                  NIy;
+zástup                NIy;
 zub                   NIy;
 
 ! Vlastní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
