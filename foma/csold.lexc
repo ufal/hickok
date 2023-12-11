@@ -964,6 +964,7 @@ LEXICON Ai
 +A+Masc+Sg+Acc:^ieho #;
 +A+Masc+Sg+Voc:^í    #;
 +A+Masc+Sg+Loc:^ím   #;
++A+Masc+Sg+Loc:^iem  #; ! bližniem
 +A+Masc+Sg+Ins:^ím   #;
 +A+Masc+Pl+Nom:^í    #;
 +A+Masc+Pl+Gen:^ích  #;
@@ -981,6 +982,7 @@ LEXICON Ai
 +A+Mina+Sg+Acc:^í    #;
 +A+Mina+Sg+Voc:^í    #;
 +A+Mina+Sg+Loc:^ím   #;
++A+Mina+Sg+Loc:^iem  #;
 +A+Mina+Sg+Ins:^ím   #;
 +A+Mina+Pl+Nom:^í    #;
 +A+Mina+Pl+Gen:^ích  #;
