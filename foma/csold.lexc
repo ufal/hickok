@@ -48,15 +48,16 @@ kozel:kozEl NMy;
 krajan+NM+Sg+Nom:krajěnín NMy;
 krajan+NM+Pl+Nom:krajěné #;
 krajan:krajěn NMy; ! ne Nom
-mistr NMy;
-pán NMy;
-pes:pEs NMy;
+mistr            NMy;
+pán              NMy;
+pes:pEs          NMy;
 pes+NM+Pl+Gen:psí #;
-pop NMy;
-satan NMy;
+pop              NMy;
+satan            NMy;
+satan:sathan     NMy;
 satan+NM+Sg+Voc:satanas #;
 satan+NM+Sg+Voc:sathana #;
-syn NMy;
+syn              NMy;
 velbloud:velblúd NMy;
 
 ! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
