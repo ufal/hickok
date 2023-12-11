@@ -3536,7 +3536,7 @@ while(<>)
                 }
             }
         }
-        elsif($f[1] =~ m/^(Betani?|Dekapol|Galile?|Golgat|Sodom|Sy[rř])(a|e|é|ě|i|í|jí)$/i)
+        elsif($f[1] =~ m/^(Betani?|Dekapol|Galile?|Golgat|Sodom)(a|e|é|ě|i|í|jí)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
