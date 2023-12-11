@@ -3109,7 +3109,7 @@ while(<>)
         # "hoře" ("na hoře Olivetské").
         # "Nohe" = "Noe"
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
-        elsif(!($f[1] =~ m/^(duše|nohe|potopi|vinni)$/) &&
+        elsif($f[1] !~ m/^(duše|nohe|potopi|vinni)$/i &&
               $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
