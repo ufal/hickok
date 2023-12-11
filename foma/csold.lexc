@@ -401,6 +401,8 @@ břímě:břím      NNe;
 břímě:břiem     NNe;
 dítě:dět        NNe;
 dítě:diet       NNe;
+kníže:kníž      NNe;
+kníže:kniež     NNe;
 nebe:neb        NNe;
 nebe+NN+Pl+Loc:nebesích #; ! "nebeso" nahoře vede k "nebesách" a "nebesiech", ale ne "nebesích"
 písmeno:písemEc NNe; ! písemce
@@ -416,6 +418,7 @@ LEXICON NNteStem
 
 dítě:dít      NNte;
 dítě:diet     NNte;
+kníže:kníž    NNte;
 kníže:kniež   NNte;
 oslíče:oslíč  NNte;
 robě:rob      NNte;
