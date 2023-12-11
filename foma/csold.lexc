@@ -332,45 +332,49 @@ stred      NFt;
 
 LEXICON NNoStem
 
-břicho:břich  NNo;
+břicho:břich     NNo;
 důstojenství:důstojenstv  NNo;
 důstojenství:dóstojenstv  NNo;
 důstojenství:duostojenstv NNo;
-hnízdo:hnízd  NNo;
-hnízdo:hniezd NNo;
-město:měst    NNo;
-místo:míst    NNo;
-místo:miest   NNo;
-nebe:nebes    NNo;
-robátko:robátEk NNo;
-rok:let       NNo; ! Chtělo by to zablokovat singulár.
-roucho:rouch  NNo;
-roucho:rúch   NNo;
-seno:sen      NNo;
-seno:sěn      NNo;
-slovo:slov    NNo;
-ústa:úst      NNo; ! Chtělo by to zablokovat singulár.
-ústa:ust      NNo;
-zábradlí:zábradl NNo;
+hnízdo:hnízd     NNo;
+hnízdo:hniezd    NNo;
+město:měst       NNo;
+místo:míst       NNo;
+místo:miest      NNo;
+nebe:nebes       NNo;
+písmeno:písmen   NNo;
+právo:práv       NNo;
+robátko:robátEk  NNo;
+rok:let          NNo; ! Chtělo by to zablokovat singulár.
+roucho:rouch     NNo;
+roucho:rúch      NNo;
+seno:sen         NNo;
+seno:sěn         NNo;
+slovo:slov       NNo;
+ústa:úst         NNo; ! Chtělo by to zablokovat singulár.
+ústa:ust         NNo;
+zábradlí:zábradl NNo; ! zábradlách
 
 LEXICON NNeStem
 
-břímě:břím     NNe;
-břímě:břiem    NNe;
-dítě:dět       NNe;
-dítě:diet      NNe;
-nebe:neb       NNe;
-slovo:slovEc   NNe; ! slovce
-srdce:srdEc    NNe;
-tržiště:tržišť NNe;
-tržiště:tržišč NNe;
-vejce:vejc     NNe;
-vejce:vajEc    NNe;
+břímě:břím      NNe;
+břímě:břiem     NNe;
+dítě:dět        NNe;
+dítě:diet       NNe;
+nebe:neb        NNe;
+písmeno:písemEc NNe; ! písemce
+slovo:slovEc    NNe; ! slovce
+srdce:srdEc     NNe;
+tržiště:tržišť  NNe;
+tržiště:tržišč  NNe;
+vejce:vejc      NNe;
+vejce:vajEc     NNe;
 
 LEXICON NNteStem
 
 dítě:dít      NNte;
 dítě:diet     NNte;
+oslíče:oslíč  NNte;
 robě:rob      NNte;
 
 LEXICON NNíStem
@@ -378,6 +382,7 @@ LEXICON NNíStem
 důstojenství:důstojenstv  NNí;
 důstojenství:dóstojenstv  NNí;
 důstojenství:duostojenstv NNí;
+násilí:násil              NNí;
 znamení:znameň            NNí; ! Kmen je měkký. Většinou "ň" zase zmizí díky "í". Ale Gen/Loc duálu je "znameňú".
 
 LEXICON AyStem
@@ -778,9 +783,11 @@ LEXICON NNí
 +NN+Du+Loc:^ú   #; ! znameňú
 +NN+Du+Ins:^íma #; ! znameníma
 +NN+Pl+Nom:^í   #;
++NN+Pl+Nom:^é   #; ! násilé
 +NN+Pl+Gen:^í   #;
 +NN+Pl+Dat:^ím  #;
 +NN+Pl+Acc:^í   #;
++NN+Pl+Acc:^é   #; ! násilé
 +NN+Pl+Voc:^í   #;
 +NN+Pl+Loc:^ích #;
 +NN+Pl+Ins:^ími #;
