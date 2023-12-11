@@ -100,7 +100,7 @@ while(<>)
         #----------------------------------------------------------------------
         # Mužský rod životný.
         #----------------------------------------------------------------------
-        if($f[1] =~ m/^(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pe?s|pohan|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|pohaně|popové|starosti|súdcóv)$/i)
+        if($f[1] =~ m/^(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pe?s|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|popové|starosti|súdcóv)$/i)
         {
             my $negprefix = '';
             my $lform = lc($1.$2);
@@ -788,25 +788,6 @@ while(<>)
                 'piscuov'  => ['pisec', 'pisec', [['Plur', 'P', 'Gen', '2']]],
                 'pisče'    => ['pisec', 'pisec', [['Sing', 'S', 'Voc', '5']]],
                 'pisec'    => ['pisec', 'pisec', [['Sing', 'S', 'Nom', '1']]],
-                'pohan'     => ['pohan', 'pohan', [['Sing', 'S', 'Nom', '1']]],
-                'pohana'    => ['pohan', 'pohan', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
-                'pohane'    => ['pohan', 'pohan', [['Sing', 'S', 'Voc', '5']]],
-                'pohané'    => ['pohan', 'pohan', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'pohaně'    => ['pohan', 'pohan', [['Sing', 'S', 'Loc', '6']]],
-                'pohanem'   => ['pohan', 'pohan', [['Sing', 'S', 'Ins', '7']]],
-                'pohani'    => ['pohan', 'pohan', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'pohanie'   => ['pohan', 'pohan', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'pohaniech' => ['pohan', 'pohan', [['Plur', 'P', 'Loc', '6']]],
-                'pohanóm'   => ['pohan', 'pohan', [['Plur', 'P', 'Dat', '3']]],
-                'pohanoma'  => ['pohan', 'pohan', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'pohanóv'   => ['pohan', 'pohan', [['Plur', 'P', 'Gen', '2']]],
-                'pohanové'  => ['pohan', 'pohan', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'pohanovi'  => ['pohan', 'pohan', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'pohanu'    => ['pohan', 'pohan', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'pohanú'    => ['pohan', 'pohan', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'pohanuom'  => ['pohan', 'pohan', [['Plur', 'P', 'Dat', '3']]],
-                'pohanuov'  => ['pohan', 'pohan', [['Plur', 'P', 'Gen', '2']]],
-                'pohany'    => ['pohan', 'pohan', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Ins', '7']]],
                 'pop'     => ['pop', 'pop', [['Sing', 'S', 'Nom', '1']]],
                 'popa'    => ['pop', 'pop', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
                 'pope'    => ['pop', 'pop', [['Sing', 'S', 'Voc', '5']]],
