@@ -100,7 +100,7 @@ while(<>)
         #----------------------------------------------------------------------
         # Mužský rod životný.
         #----------------------------------------------------------------------
-        if($f[1] =~ m/^(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pe?s|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|popové|starosti|súdcóv)$/i)
+        if($f[1] =~ m/^(anděl|anjel|apoštol|běs|brat[rř]|bu?o[hž]|býc|člověk|črv|dělní[kc]|diábe?l|dlužní[kc]|duch|duchovní[kcč]|had|hospodin|hřiešní[kc]|kacieř|kopáč|koze?lc?|krajěn|licoměrník|mládenečk|mistr|mudrá[kc]|muž|otc|pán|panoš|panošic|pop|proro[kc]|přietel|rybář|rytieř|sath?an(?:as)?|sl[uú]h|súdc|svědk|syn|šielene?[cč]|tetrarch|učedlní[kc]|učenní[kc]|velblúd|vodič|vrabc|ženc|žid)(a|e|ě|i|u|ovi|i?em|ú|oma|ie|ové|ěvé|é|óv|uov|í|ám|óm|uom|y|ami|ěmi)?$/i && $f[1] !~ m/^(božú|bu?oží|bu?ožiem?|hospodinóv|popové|starosti|súdcóv)$/i)
         {
             my $negprefix = '';
             my $lform = lc($1.$2);
@@ -751,25 +751,6 @@ while(<>)
                 'panošům'   => ['panoš', 'panoše', [['Plur', 'P', 'Dat', '3']]],
                 'panošuom'  => ['panoš', 'panoše', [['Plur', 'P', 'Dat', '3']]],
                 'panošuov'  => ['panoš', 'panoše', [['Plur', 'P', 'Gen', '2']]],
-                'pes'    => ['pes', 'pes', [['Sing', 'S', 'Nom', '1']]],
-                'psa'    => ['pes', 'pes', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
-                'pse'    => ['pes', 'pes', [['Sing', 'S', 'Voc', '5']]],
-                'psě'    => ['pes', 'pes', [['Sing', 'S', 'Loc', '6']]],
-                'psem'   => ['pes', 'pes', [['Sing', 'S', 'Ins', '7']]],
-                'psi'    => ['pes', 'pes', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'psí'    => ['pes', 'pes', [['Plur', 'P', 'Gen', '2']]],
-                'psie'   => ['pes', 'pes', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'psiech' => ['pes', 'pes', [['Plur', 'P', 'Loc', '6']]],
-                'psóm'   => ['pes', 'pes', [['Plur', 'P', 'Dat', '3']]],
-                'psoma'  => ['pes', 'pes', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'psóv'   => ['pes', 'pes', [['Plur', 'P', 'Gen', '2']]],
-                'psové'  => ['pes', 'pes', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'psovi'  => ['pes', 'pes', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'psu'    => ['pes', 'pes', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'psú'    => ['pes', 'pes', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'psuom'  => ['pes', 'pes', [['Plur', 'P', 'Dat', '3']]],
-                'psuov'  => ['pes', 'pes', [['Plur', 'P', 'Gen', '2']]],
-                'psy'    => ['pes', 'pes', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Ins', '7']]],
                 'pisca'    => ['pisec', 'pisec', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
                 'pisce'    => ['pisec', 'pisec', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Plur', 'P', 'Acc', '4']]],
                 'piscě'    => ['pisec', 'pisec', [['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
