@@ -754,6 +754,7 @@ LEXICON NNe
 +NN+Pl+Voc:^ě    #;
 +NN+Pl+Loc:^ích  #;
 +NN+Pl+Loc:^iech #; ! Doloženo srdciech
++NN+Pl+Loc:^ech  #; ! Doloženo srdcech
 +NN+Pl+Ins:^i    #;
 
 LEXICON NNte

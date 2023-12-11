@@ -4034,6 +4034,7 @@ while(<>)
                 'slovy'     => ['slovo', 'slovce', [['Plur', 'P', 'Ins', '7']]],
                 'srdce'    => ['srdce', 'srdce', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'srdcě'    => ['srdce', 'srdce', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
+                'srdcech'  => ['srdce', 'srdce', [['Plur', 'P', 'Loc', '6']]],
                 'srdcem'   => ['srdce', 'srdce', [['Sing', 'S', 'Ins', '7']]],
                 'srdci'    => ['srdce', 'srdce', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6'], ['Plur', 'P', 'Ins', '7']]],
                 'srdcí'    => ['srdce', 'srdce', [['Plur', 'P', 'Gen', '2']]],
