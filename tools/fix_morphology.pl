@@ -3531,7 +3531,7 @@ while(<>)
                 'galilee'     => ['Galilea',   'Galilea',   [['Sing', 'S', 'Gen', '2']]],
                 'galilei'     => ['Galilea',   'Galilea',   [['Sing', 'S', 'Loc', '6']]],
                 'galileí'     => ['Galilea',   'Galilea',   [['Sing', 'S', 'Acc', '4']]],
-                'galileí'     => ['Galilea',   'Galilea',   [['Sing', 'S', 'Ins', '7']]],
+                'galilí'      => ['Galilea',   'Galilea',   [['Sing', 'S', 'Ins', '7']]],
                 'golgat'    => ['Golgata', 'Golgata', [['Plur', 'P', 'Gen', '2']]],
                 'golgata'   => ['Golgata', 'Golgata', [['Sing', 'S', 'Nom', '1']]],
                 'golgatách' => ['Golgata', 'Golgata', [['Plur', 'P', 'Loc', '6']]],
