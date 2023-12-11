@@ -3613,7 +3613,7 @@ while(<>)
         # Střední rod.
         #----------------------------------------------------------------------
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
-        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|násil|neb|nebes|oc|oslíč|písemc|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|oc[ií])$/i)
+        elsif($f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|neb|nebes|oc|oslíč|písemc|robátk|rúch|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hniezdí|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|neb[ou]?|nebiech|nebích|oc[ií])$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3870,14 +3870,6 @@ while(<>)
                 'letům'   => ['rok', 'rok', [['Plur', 'P', 'Dat', '3']]],
                 'letuom'  => ['rok', 'rok', [['Plur', 'P', 'Dat', '3']]],
                 'lety'    => ['rok', 'rok', [['Plur', 'P', 'Ins', '7']]],
-                'násilé'   => ['násilí', 'násilie', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4']]],
-                'násilí'   => ['násilí', 'násilie', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Sing', 'S', 'Loc', '6'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Gen', '2'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'násilie'  => ['násilí', 'násilie', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'násilích' => ['násilí', 'násilie', [['Plur', 'P', 'Loc', '6']]],
-                'násilím'  => ['násilí', 'násilie', [['Sing', 'S', 'Ins', '7'], ['Plur', 'P', 'Dat', '3']]],
-                'násilíma' => ['násilí', 'násilie', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'násilími' => ['násilí', 'násilie', [['Plur', 'P', 'Ins', '7']]],
-                'násilú'   => ['násilí', 'násilie', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
                 'neb'       => ['nebe', 'nebě', [['Plur', 'P', 'Gen', '2']]],
                 'nebe'      => ['nebe', 'nebě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'nebě'      => ['nebe', 'nebě', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
