@@ -1225,7 +1225,7 @@ while(<>)
         }
         # Koncovka -ovi může být dativ substantiva, nebo přivlastňovací adjektivum v Plur Masc Nom.
         # Přeskočit tuto větev, pokud už UDPipe odhadl, že jde o adjektivum.
-        elsif($f[1] =~ m/^(Archelaus|Bar[nr]abáš|Daniel|H?eliáš|H?erod(?:es)?|Izaiáš|Jezukrist(?:us)?|Ježíš|Jozef|Mojžieš|Ozěp|Petr|Pilát|Šalomún|Zebedáš|Zebede)(a|e|ě|u|i|ovi|e|em)?$/i && !($f[1] =~ m/ovi$/i && $f[3] eq 'ADJ'))
+        elsif($f[1] =~ m/^(Archelaus|Bar[nr]abáš|Daniel|H?eliáš|H?erod(?:es)?|Izaiáš|Jezukrist(?:us)?|Ježíš|Jozef|Mojžieš|Ozěp|Pilát|Šalomún|Zebedáš|Zebede)(a|e|ě|u|i|ovi|e|em)?$/i && !($f[1] =~ m/ovi$/i && $f[3] eq 'ADJ'))
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -1547,24 +1547,6 @@ while(<>)
                 'mojžíšú'     => ['Mojžíš', 'Mojžieš', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
                 'mojžíšuom'   => ['Mojžíš', 'Mojžieš', [['Plur', 'P', 'Dat', '3']]],
                 'mojžíšuov'   => ['Mojžíš', 'Mojžieš', [['Plur', 'P', 'Gen', '2']]],
-                'petr'     => ['Petr', 'Petr', [['Sing', 'S', 'Nom', '1']]],
-                'petra'    => ['Petr', 'Petr', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
-                'petrem'   => ['Petr', 'Petr', [['Sing', 'S', 'Ins', '7']]],
-                'petróm'   => ['Petr', 'Petr', [['Plur', 'P', 'Dat', '3']]],
-                'petroma'  => ['Petr', 'Petr', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'petróv'   => ['Petr', 'Petr', [['Plur', 'P', 'Gen', '2']]],
-                'petrové'  => ['Petr', 'Petr', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'petrovi'  => ['Petr', 'Petr', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'petru'    => ['Petr', 'Petr', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'petrú'    => ['Petr', 'Petr', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'petruom'  => ['Petr', 'Petr', [['Plur', 'P', 'Dat', '3']]],
-                'petruov'  => ['Petr', 'Petr', [['Plur', 'P', 'Gen', '2']]],
-                'petry'    => ['Petr', 'Petr', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Ins', '7']]],
-                'petře'    => ['Petr', 'Petr', [['Sing', 'S', 'Voc', '5']]],
-                'petřě'    => ['Petr', 'Petr', [['Sing', 'S', 'Loc', '6']]],
-                'petři'    => ['Petr', 'Petr', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'petřie'   => ['Petr', 'Petr', [['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Voc', '5']]],
-                'petřiech' => ['Petr', 'Petr', [['Plur', 'P', 'Loc', '6']]],
                 'pilát'     => ['Pilát', 'Pilát', [['Sing', 'S', 'Nom', '1']]],
                 'piláta'    => ['Pilát', 'Pilát', [['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
                 'piláte'    => ['Pilát', 'Pilát', [['Sing', 'S', 'Voc', '5']]],
