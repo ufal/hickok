@@ -3530,7 +3530,7 @@ while(<>)
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
         # "Miesto" je předložka v 2.21 resp. 2.22, všude jinde je to podstatné jméno.
         elsif(!($f[1] =~ m/^miesto$/i && get_ref($f[9]) =~ m/^MATT_2\.(21|22)$/) &&
-              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|miesti|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
+              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|jm|jmen|kniež|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|jm[aeiuú]?|jměte|jmie|jmiech|letě|letěti|letie|letí|miesti|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3981,38 +3981,6 @@ while(<>)
                 'rúše'     => ['roucho', 'rúcho', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'rúšě'     => ['roucho', 'rúcho', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
                 'rúšiech'  => ['roucho', 'rúcho', [['Plur', 'P', 'Loc', '6']]],
-                'sen'     => ['seno', 'sěno', [['Plur', 'P', 'Gen', '2']]],
-                'sěn'     => ['seno', 'sěno', [['Plur', 'P', 'Gen', '2']]],
-                'sena'    => ['seno', 'sěno', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'sěna'    => ['seno', 'sěno', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
-                'senách'  => ['seno', 'sěno', [['Plur', 'P', 'Loc', '6']]],
-                'sěnách'  => ['seno', 'sěno', [['Plur', 'P', 'Loc', '6']]],
-                'senami'  => ['seno', 'sěno', [['Plur', 'P', 'Ins', '7']]],
-                'sěnami'  => ['seno', 'sěno', [['Plur', 'P', 'Ins', '7']]],
-                'seně'    => ['seno', 'sěno', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'sěně'    => ['seno', 'sěno', [['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5']]],
-                'senech'  => ['seno', 'sěno', [['Plur', 'P', 'Loc', '6']]],
-                'sěnech'  => ['seno', 'sěno', [['Plur', 'P', 'Loc', '6']]],
-                'senem'   => ['seno', 'sěno', [['Sing', 'S', 'Ins', '7']]],
-                'sěnem'   => ['seno', 'sěno', [['Sing', 'S', 'Ins', '7']]],
-                'seniech' => ['seno', 'sěno', [['Plur', 'P', 'Loc', '6']]],
-                'sěniech' => ['seno', 'sěno', [['Plur', 'P', 'Loc', '6']]],
-                'seno'    => ['seno', 'sěno', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'sěno'    => ['seno', 'sěno', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5']]],
-                'senóm'   => ['seno', 'sěno', [['Plur', 'P', 'Dat', '3']]],
-                'sěnóm'   => ['seno', 'sěno', [['Plur', 'P', 'Dat', '3']]],
-                'senoma'  => ['seno', 'sěno', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'sěnoma'  => ['seno', 'sěno', [['Dual', 'D', 'Dat', '3'], ['Dual', 'D', 'Ins', '7']]],
-                'senu'    => ['seno', 'sěno', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'senú'    => ['seno', 'sěno', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'sěnu'    => ['seno', 'sěno', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
-                'sěnú'    => ['seno', 'sěno', [['Dual', 'D', 'Gen', '2'], ['Dual', 'D', 'Loc', '6']]],
-                'senům'   => ['seno', 'sěno', [['Plur', 'P', 'Dat', '3']]],
-                'sěnům'   => ['seno', 'sěno', [['Plur', 'P', 'Dat', '3']]],
-                'senuom'  => ['seno', 'sěno', [['Plur', 'P', 'Dat', '3']]],
-                'sěnuom'  => ['seno', 'sěno', [['Plur', 'P', 'Dat', '3']]],
-                'seny'    => ['seno', 'sěno', [['Plur', 'P', 'Ins', '7']]],
-                'sěny'    => ['seno', 'sěno', [['Plur', 'P', 'Ins', '7']]],
                 'siemě'       => ['semeno',   'siemě',    [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Acc', '4']]],
                 'slov'      => ['slovo', 'slovce', [['Plur', 'P', 'Gen', '2']]],
                 'slova'     => ['slovo', 'slovce', [['Sing', 'S', 'Gen', '2'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
