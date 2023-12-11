@@ -489,10 +489,13 @@ LEXICON NM
 +NM+Pl+Voc:^ie   #;
 ! Gen a Dat Pl mají jednoznačné koncovky (-ó- vs. -uo- je jen starší vs. mladší varianta) pro všechna mužská jména.
 ! Gen Pl se často používal v přímém předmětu místo Acc, ale to nehodnotím jako alternativní tvar akuzativu, nýbrž jako partitivní konstrukci (nejsem si jist, že je to OK).
++NM+Pl+Gen:^ů    #;
 +NM+Pl+Gen:^óv   #; ! andělóv  přietelóv  běsóv  bohóv  dělníkóv  duchóv  hadóv  hospodinóv  kacieřóv  kopáčóv  kokotóv  mužóv  otcóv  pánóv  popóv  tovařišóv
 +NM+Pl+Gen:^uov  #; ! anděluov přieteluov běsuov bohuov dělníkuov duchuov haduov hospodinuov kacieřuov kopáčuov kokotuov mužuov otcuov pánuov popuov tovařišuov
++NM+Pl+Dat:^ům   #;
 +NM+Pl+Dat:^óm   #; ! andělóm  přietelóm  běsóm  bohóm  dělníkóm  duchóm  hadóm  hospodinóm  kacieřóm  kopáčóm  kokotóm  mužóm  otcóm  pánóm  popóm  tovařišóm
 +NM+Pl+Dat:^uom  #; ! anděluom přieteluom běsuom bohuom dělníkuom duchuom haduom hospodinuom kacieřuom kopáčuom kokotuom mužuom otcuom pánuom popuom tovařišuom
++NM+Pl+Loc:^ech  #;
 +NM+Pl+Loc:^iech #;
 
 ! Dále lze vytvořit přivlastňovací přídavné jméno (hlavně od životných, ale nemusíme to omezovat).

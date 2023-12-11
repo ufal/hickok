@@ -3521,7 +3521,7 @@ while(<>)
         # "Jmu" zřejmě může být zájmeno "mu" a ne dativ od "jmě" = "jméno". A taky to může být sloveso "jmout".
         # "Miesto" je předložka v 2.21 resp. 2.22, všude jinde je to podstatné jméno.
         elsif(!($f[1] =~ m/^miesto$/i && get_ref($f[9]) =~ m/^MATT_2\.(21|22)$/) &&
-              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|trn|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hoří?|hořie|hořěti|jm[aeiu]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
+              $f[1] =~ m/^(břiem|břiš|diet|dietek|dietky|d(?:ó|uo)stojenstv|hniezd|hoř|jm|jmen|kniež|ledv|let|měst|miest|násil|neb|nebes|oc|oslíč|písemc|práv|rob|robátk|rúch|sěn|siem|slovc|srde?c|tržišč|ust|vajc|zábradl)(o|e|é|ě|ie|a|i|u|ú|í|em|[eě]t[ei]|ata?|atóm|atuom|i?ech|ách|ích|aty)?$/i && $f[1] !~ m/^(diet[aei]|hniezdie|hoří?|hořie|hořěti|jm[aeiu]?|jměte|jmie|jmiech|letě|letěti|letie|letí|násil|neb[ou]?|nebiech|nebích|ocí|roba)$/i)
         {
             my $lform = lc($f[1]);
             my %ma =
@@ -3915,9 +3915,6 @@ while(<>)
                 'srdcím'  => ['srdce', 'srdce', [['Plur', 'P', 'Dat', '3']]],
                 'srdcu'   => ['srdce', 'srdce', [['Sing', 'S', 'Dat', '3'], ['Sing', 'S', 'Loc', '6']]],
                 'srdec'   => ['srdce', 'srdce', [['Plur', 'P', 'Gen', '2']]],
-                'trní'        => ['trní',     'trnie',    [['Sing', 'S', 'Loc', '6']]],
-                'trnie'       => ['trní',     'trnie',    [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4']]],
-                'trním'       => ['trní',     'trnie',    [['Sing', 'S', 'Ins', '7']]],
                 'tržišč'    => ['tržiště', 'tržišče', [['Plur', 'P', 'Gen', '2']]],
                 'tržišče'   => ['tržiště', 'tržišče', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
                 'tržiščě'   => ['tržiště', 'tržišče', [['Sing', 'S', 'Nom', '1'], ['Sing', 'S', 'Gen', '2'], ['Sing', 'S', 'Acc', '4'], ['Sing', 'S', 'Voc', '5'], ['Dual', 'D', 'Nom', '1'], ['Dual', 'D', 'Acc', '4'], ['Dual', 'D', 'Voc', '5'], ['Plur', 'P', 'Nom', '1'], ['Plur', 'P', 'Acc', '4'], ['Plur', 'P', 'Voc', '5']]],
