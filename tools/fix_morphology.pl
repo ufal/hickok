@@ -3107,8 +3107,9 @@ while(<>)
         # Slovo "hoře" je většinou střední rod ("hoře vám"). Jako Dat/Loc od slova
         # "hora" se to píše "huořě" a pouze jednou, v Olomoucké bibli 24.3, se objevuje
         # "hoře" ("na hoře Olivetské").
+        # "Nohe" = "Noe"
         # Slovo "vinny" se vyskytlo v Ol. 5.32 jako substantivum, nikoli adjektivum.
-        elsif(!($f[1] =~ m/^(duše|potopi|vinni)$/) &&
+        elsif(!($f[1] =~ m/^(duše|nohe|potopi|vinni)$/) &&
               $f[1] =~ m/^(buožnic|cěst|dci|dn|duš|libř|mátě|m[aá]teř|matk|měřic|modlitv|n[oó][hz]|potop|přísah|púš[čtť]|rez|ruc|siet|sól|stred|suol|světedlnic|škuol|ulic|u?ovc|vesnic|vier|vuod)(e|ě|i|í|y|u|ú|iem|iech|ách|ami)?$/i)
         {
             my $lform = lc($f[1]);
