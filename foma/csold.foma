@@ -64,8 +64,8 @@ define PalHí h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l
 # - K identifikaci adjektiv zkusíme využít příznak @D.SUP@, který mají adjektiva (všechna?) ze slovníku, takže
 #   bychom ho stejně museli zohlednit v kontextu. Neuděláme ho tedy v závorkách (volitelný), ale povinný.
 define PalXíAdj [c h]->š, r->ř, [s k]->[š ť], [c k]->[č ť] || _ "@D.SUP@" "^" í .#.;
-define PalHíAdj h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "@D.SUP@" "^" í .#.,
-define PalKíAdj k->c || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|š|t|ť|v|w|x|z|ž] _ "@D.SUP@" "^" í .#.,
+define PalHíAdj h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "@D.SUP@" "^" í .#.;
+define PalKíAdj k->c || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|š|t|ť|v|w|x|z|ž] _ "@D.SUP@" "^" í .#.;
 
 # Typ 7: komparativní přípona -ějš/ejš, souhlásky h:z, ch:š, k:c, r:ř, d:ď, t:ť, n:ň, sk:šť, ck:čť
 # - Adj Comp: důstojný-dóstojnější
