@@ -1,24 +1,7 @@
-# matk + ^0 --> matek, modlitv + ^0 --> modlitev
-define NFPlGenEInsertion [t k]->[t e k], [t v]->[t e v] || _ "^" λ;
-
-# otEc^λ -> otec, otEc^e -> otce
-define NMEc  [E c]->[e c] || _ "^" λ;
-define NMEce [E c]->c     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
-# svědEk^λ -> svědek, svědEk^a -> svědka
-define NMEk  [E k]->[e k] || _ "^" λ;
-define NMEka [E k]->k     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
-# diábEl^λ -> diábel, diábEl^a -> diábla (ale ne např. anjela -> anjla)
-define NMEl  [E l]->[e l] || _ "^" λ;
-define NMEla [E l]->l     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
-# dEn^λ -> den, dEn^e -> dne
-define NMEn  [E n]->[e n] || _ "^" λ;
-define NMEna [E n]->n     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
-# ohEň^λ -> oheň, ohEň^e -> ohňe
-define NMEň  [E ň]->[e ň] || _ "^" λ;
-define NMEňa [E ň]->ň     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
-# pEs^λ -> pes, pEs^a -> psa
-define NMEs  [E s]->[e s] || _ "^" λ;
-define NMEsa [E s]->s     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# Morfonologické převodníky pro starou češtinu.
+# Obsahují v podstatě dva druhy pravidel, ale v různých variantách:
+# - palatalizace (změna souhlásky na konci kmene)
+# - vkládání -e- do souhláskových skupin
 
 # bohe -> bože, duche -> duše, dělníke -> dělníče, mistre -> mistře, otce -> otče
 # "h" nesmí následovat po "c" (protože pak je to "ch")
@@ -56,16 +39,45 @@ define APlNomPalatalizationK k->c || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|c|č
                                                                                                                        _ "^" í c h .#.;
 define APlNomPalatalization APlNomPalatalizationX .o. APlNomPalatalizationH .o. APlNomPalatalizationK .o. NPlLocPalatalizationX;
 
-# ďe ťe ňe -> dě tě ně, ďi ťi ňi -> di ti ni
-define DeTeNe [ď "^" e]->[d "^" ě], [ď "^" ě]->[d "^" ě], [ť "^" e]->[t "^" ě], [ť "^" ě]->[t "^" ě], [ň "^" e]->[n "^" ě], [ň "^" ě]->[n "^" ě], [ď "^" i]->[d "^" i], [ď "^" í]->[d "^" í], [ť "^" i]->[t "^" i], [ť "^" í]->[t "^" í], [ň "^" i]->[n "^" i], [ň "^" í]->[n "^" í];
+# matk + ^0 --> matek, modlitv + ^0 --> modlitev
+define NFPlGenEInsertion [t k]->[t e k], [t v]->[t e v] || _ "^" λ;
 
-# Finally erase temporary symbols.
+# otEc^λ -> otec, otEc^e -> otce
+define NMEc  [E c]->[e c] || _ "^" λ;
+define NMEce [E c]->c     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# svědEk^λ -> svědek, svědEk^a -> svědka
+define NMEk  [E k]->[e k] || _ "^" λ;
+define NMEka [E k]->k     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# diábEl^λ -> diábel, diábEl^a -> diábla (ale ne např. anjela -> anjla)
+define NMEl  [E l]->[e l] || _ "^" λ;
+define NMEla [E l]->l     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# dEn^λ -> den, dEn^e -> dne
+define NMEn  [E n]->[e n] || _ "^" λ;
+define NMEna [E n]->n     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# ohEň^λ -> oheň, ohEň^e -> ohňe
+define NMEň  [E ň]->[e ň] || _ "^" λ;
+define NMEňa [E ň]->ň     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# pEs^λ -> pes, pEs^a -> psa
+define NMEs  [E s]->[e s] || _ "^" λ;
+define NMEsa [E s]->s     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+
+# Úklidové pravopisné pravidlo: Pokud někde zůstalo [ďťň] před švem a [eěií] za ním, opravit.
+# ďe ťe ňe -> dě tě ně, ďi ťi ňi -> di ti ni
+define DeTeNe [ď "^" e]->[d "^" ě], [ď "^" ě]->[d "^" ě], [ť "^" e]->[t "^" ě], [ť "^" ě]->[t "^" ě], [ň "^" e]->[n "^" ě], [ň "^" ě]->[n "^" ě],
+              [ď "^" i]->[d "^" i], [ď "^" í]->[d "^" í], [ť "^" i]->[t "^" i], [ť "^" í]->[t "^" í], [ň "^" i]->[n "^" i], [ň "^" í]->[n "^" í];
+
+# Závěrečný úklid: zbavit se pomocných slovníkových symbolů.
 define Surface "^" -> 0, λ -> 0, E -> e;
 
+# Načíst slovník a zkombinovat to vše dohromady.
 read lexc csold.lexc
 define Lexicon;
 regex Lexicon .o. NMEc .o. NMEce .o. NMEk .o. NMEka .o. NMEl .o. NMEla .o. NMEn .o. NMEna .o. NMEň .o. NMEňa .o. NMEs .o. NMEsa .o. NFPlGenEInsertion
     .o. NMSgVocPalatalization .o. NMPlNomPalatalization .o. NFSgDatPalatalization .o. APlNomPalatalization .o. DeTeNe .o. Surface;
 
+# Uložit převodník ve formátu .dot (pro případnou vizualizaci) a .bin (pro použití s flookup).
+# dot fst.dot -Tpng -o fst.png & start fst.png
+# foma -l compile.foma ; ./generovat_tvary.pl marie NF | perl -CDSA ./flookup2perl.pl Maria
+# (Poznámka: compile.foma volá tento skript, ale po uložení zásobníku z něj zase hned vyskočí.)
 print dot > fst.dot
 save stack > fst.bin
