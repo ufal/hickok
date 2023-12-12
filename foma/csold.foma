@@ -3,41 +3,83 @@
 # - palatalizace (změna souhlásky na konci kmene)
 # - vkládání -e- do souhláskových skupin
 
-# bohe -> bože, duche -> duše, dělníke -> dělníče, mistre -> mistře, otce -> otče
-# "h" nesmí následovat po "c" (protože pak je to "ch")
-# Toto pravidlo se nesmí použít na koncovku -e, která není mužským vokativem, např. na genitiv "otce".
-define NMSgVocPalatalization h->ž, [c h]->š, k->č, r->ř, c->č || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" E .#.;
+# Poznámka: s "ch" pracujeme jako se dvěma znaky, protože ve slovníku není definováno jako multichar symbol.
+# Kvůli tomu ale musíme být opatrní u pravidel, která se mají vztahovat na "h".
 
-# bohi -> bozi, duchi -> duši, dělníki -> dělníci, bratri -> bratři
-# bohie -> bozie, duchie -> dušie, dělníkie -> dělnície
-# "h" nesmí následovat po "c" (protože pak je to "ch")
-define NMPlNomPalatalizationXi [c h]->š, k->c, r->ř || _ "^" i;
-define NMPlNomPalatalizationHi h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" i;
+#------------------------------------------------------------------------------
+# Palatalizace
+#------------------------------------------------------------------------------
+# V různých situacích dochází k podobným, ale ne stejným hláskovým změnám.
+# Většinou jde o změnu souhlásky na konci kmene, ta může být doplněna nebo
+# nahrazena změnou kvality samohlásky (e->ě, y->i). V závislosti na fázi vývoje
+# češtiny (a na nářečí) může jít o skutečnou změnu výslovnosti, nebo už pouze
+# o její otisk v pravopisu.
 
-# bratré -> bratřé (ale ne židé -> žiďé, pohané -> pohaňé!)
-# "é" je potřeba kvůli mužskému plurálu nominativu bratré -> bratřé
-# "h" nesmí následovat po "c" (protože pak je to "ch")
-define NMPlNomPalatalizationXé [c h]->š, k->c, r->ř || _ "^" é .#.;
-define NMPlNomPalatalizationHé h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" é .#.;
-define NMPlNomPalatalization NMPlNomPalatalizationXi .o. NMPlNomPalatalizationHi .o. NMPlNomPalatalizationXé .o. NMPlNomPalatalizationHé;
+# Typ 1: pádová koncovka -e/ě, souhlásky h:z, ch:š, k:c, r:ř, d:ď, t:ť, n:ň
+# (Ve starších textech se -ě vyskytuje i po souhláskách, po kterých se později
+# píše už jen -e: ž, š, č, ř, c, j, s, z.)
+# - Masc Sg Gen: pán-páně, pokoj-pokojě, pláč-pláčě, muž-mužě
+# - Masc Sg Loc: bůh-bozě, vrch-vršě, příbytek-přiebytcě, klášter-klášteřě, západ-západě, svět-světě, zákon-zákoně, hrob-hrobě, houf-houfě, chrám-chrámě, sklep-sklepě, ostrov-ostrově, les-lesě (dnes lese), peníz-peniezě (dnes peníze) pokoj-pokojě (dnes pokoje)
+# - Fem Sg Dat/Loc: dráha-drázě, útěcha-útěšě, hora-hořě, pravda-pravdě, cesta-cestě, rodina-rodině, osoba-osobě, šífa-šífě, zima-zimě, potopa-potopě, hlava-hlavě, krása-krásě (dnes kráse), hrůza-hrózě (dnes hrůze)
+# - Neut Sg Dat/Loc: roucho-rúšě, jitro-jitřě, pivo-pivě, maso-masě (dnes mase), železo-železě (dnes železe)
+# - Nevztahuje se na některé delší koncovky, např. na Masc/Neut Ins -em: klášterem, nikoli klášteřem.
+# - Nevztahuje se na koncovku -e pro Masc Voc. Tam dochází k jiným změnám, popsaným samostatně.
+define PalXě [c h]->š, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|ě] .#.;
+define PalHě h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" [e|ě] .#.;
 
-# duhe -> duze, archa -> arše, matke -> matce, hore -> hoře, pravde -> pravďe, ceste -> cesťe, žene -> žeňe
-# dóstojnejší -> dóstojnější
-# "h" nesmí následovat po "c" (protože pak je to "ch")
-define NFSgDatPalatalizationX [c h]->š, k->c, r->ř, d->ď, t->ť, n->ň || _ "^" [e|ě] .#., _ "^" [e|ě] j š;
-define NFSgDatPalatalizationH h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" [e|ě] .#.;
-define NFSgDatPalatalization NFSgDatPalatalizationX .o. NFSgDatPalatalizationH;
+# Typ 2: koncovka množného čísla -i, souhlásky h:z, ch:š, k:c, r:ř, d:ď, t:ť, n:ň
+# - Masc Pl Nom/Voc: vrah-vrazi, duch-duši, rak-raci, bratr-bratři, had-hadi, kat-kati, pán-páni (u d/t/n dochází ke změně ve výslovnosti, ale ne v textu)
+# - Vztahuje se i na starší delší koncovku -ie: bůh-bozie, duch-dušie, dělník-dělnície, bratr-bratřie.
+# - Vztahuje se i na Pl Gen -iev, ale tato koncovka je méně častá, běžnější je -óv, -uov.
+# - Vztahuje se i na Pl Dat -iem: bůh-boziem, duch-dušiem, bratr-bratřiem.
+# - Vztahuje se i na Pl Loc -iech: bůh-boziech, duch-dušiech, bratr-bratřiech.
+define PalXi [c h]->š, k->c, r->ř || _ "^" i;
+define PalHi h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" i;
 
-# nahí -> nazí, plachí -> plaší, vysokí -> vysocí, dobrí -> dobří, nebeskí -> nebeští
-# vrhích -> vrzích, vrchích -> vrších, fíkích -> fících, bratrích -> bratřích, pyskích -> pyscích (ne pyštích!)
-# Nejsem si jist, co dělat s příznakovou diakritikou. Kazí mi kontext.
-define APlNomPalatalizationX [c h]->š, r->ř, [s k]->[š t] || _ ("@D.SUP@") "^" í .#.;
-define NPlLocPalatalizationX [c h]->š, r->ř               || _             "^" í c h .#.;
-define APlNomPalatalizationH h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ ("@D.SUP@") "^" í .#.,
-                                     [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" í c h .#.;
-define APlNomPalatalizationK k->c || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|c|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|š|t|ť|v|w|x|z|ž] _ ("@D.SUP@") "^" í .#.,
-                                                                                                                       _ "^" í c h .#.;
-define APlNomPalatalization APlNomPalatalizationX .o. APlNomPalatalizationH .o. APlNomPalatalizationK .o. NPlLocPalatalizationX;
+# Typ 3: koncovka množného čísla -é, souhlásky h:z, ch:š, k:c, r:ř
+# - Masc Pl Nom/Voc: bratr-bratřé (ale ne žid-žiďé, kat-kaťé, pohan-pohaňé)
+define PalXé [c h]->š, k->c, r->ř || _ "^" é .#.;
+define PalHé h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" é .#.;
+
+# Typ 4: koncovka vokativu -e, souhlásky h:ž, ch:š, k:č, r:ř, c:č
+# - Masc Sg Voc: bůh-bože, duch-duše, dělník-dělníče, mistr-mistře, otec-otče (ale ne žid-židě atd.)
+# - Toto pravidlo se nesmí použít na koncovku -e, která není mužským vokativem, např. na genitiv "otce".
+# - Používám lexikální symbol E pro odlišení této koncovky od ostatních morfů začínajících na -e.
+define PalXVoc [c h]->š, k->c, r->ř, c->č || _ "^" E .#.;
+define PalHVoc h->ž || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" E .#.;
+
+# Typ 5: pádová koncovka začínající na -í, souhlásky h:z, ch:š, k:c, r:ř
+# - Masc Pl Gen: bratr-bratří
+# - Masc Pl Loc: vrh-vrzích, vrch-vrších, fík-fících, bratr-bratřích
+# - Toto by mohlo zabrat i na množné číslo adjektiv, tady ale vzniká problém.
+#   U adjektiv se má navíc uplatnit změna sk:šť, ck:čť, u substantiv ji ale nechceme (pysk-pyscích, nikoli pištích).
+#   Naopak u adjektiv je tato změna povinná (český-čeští, nikoli čescí).
+# - K identifikaci adjektiv zkusíme využít příznak @D.SUP@, který mají adjektiva (všechna?) ze slovníku, takže
+#   bychom ho stejně museli zohlednit v kontextu. Neuděláme ho tedy v závorkách (volitelný), ale povinný. Viz níže.
+define PalXí [c h]->š, k->c, r->ř || _ "^" í;
+define PalHí h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" í;
+
+# Typ 6: koncovka množného čísla adjektiv -í, souhlásky h:z, ch:š, k:c, r:ř, sk:šť, ck:čť
+# - Adj Masc Pl Nom: nahý-nazí, plachý-plaší, vysoký-vysocí, dobrý-dobří, nebeský-nebeští, zámecký-zámečtí
+# - K identifikaci adjektiv zkusíme využít příznak @D.SUP@, který mají adjektiva (všechna?) ze slovníku, takže
+#   bychom ho stejně museli zohlednit v kontextu. Neuděláme ho tedy v závorkách (volitelný), ale povinný.
+define PalXíAdj [c h]->š, r->ř, [s k]->[š ť], [c k]->[č ť] || _ "@D.SUP@" "^" í .#.;
+define PalHíAdj h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "@D.SUP@" "^" í .#.,
+define PalKíAdj k->c || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|š|t|ť|v|w|x|z|ž] _ "@D.SUP@" "^" í .#.,
+
+# Typ 7: komparativní přípona -ějš/ejš, souhlásky h:z, ch:š, k:c, r:ř, d:ď, t:ť, n:ň, sk:šť, ck:čť
+# - Adj Comp: důstojný-dóstojnější
+# Jde sice o adjektiva, ale komparativ příznak @D.SUP@ neobsahuje.
+define PalXějš  [c h]->š, r->ř, d->ď, t->ť, n->ň, [s k]->[š ť], [c k]->[č ť] || _ "^" [e|ě] j š;
+define PalHějš  h->z || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|s|š|t|ť|v|w|x|z|ž] _ "^" [e|ě] j š;
+define PalKějš  k->c || [a|á|e|é|ě|i|í|o|ó|u|ů|ú|y|ý|b|č|d|ď|f|g|h|j|k|l|m|n|ň|p|q|r|ř|š|t|ť|v|w|x|z|ž] _ "^" [e|ě] j š;
+
+define Palatalization PalXě .o. PalHě .o. PalXi .o. PalHi .o. PalXé .o. PalHé .o. PalXVoc .o. PalHVoc .o. PalXí .o. PalHí
+                      .o. PalXíAdj .o. PalHíAdj .o. PalKíAdj .o. PalXějš .o. PalHějš .o. PalKějš;
+
+#------------------------------------------------------------------------------
+# Vkládání -e-
+#------------------------------------------------------------------------------
 
 # matk + ^0 --> matek, modlitv + ^0 --> modlitev
 define NFPlGenEInsertion [t k]->[t e k], [t v]->[t e v] || _ "^" λ;
@@ -73,7 +115,7 @@ define Surface "^" -> 0, λ -> 0, E -> e;
 read lexc csold.lexc
 define Lexicon;
 regex Lexicon .o. NMEc .o. NMEce .o. NMEk .o. NMEka .o. NMEl .o. NMEla .o. NMEn .o. NMEna .o. NMEň .o. NMEňa .o. NMEs .o. NMEsa .o. NFPlGenEInsertion
-    .o. NMSgVocPalatalization .o. NMPlNomPalatalization .o. NFSgDatPalatalization .o. APlNomPalatalization .o. DeTeNe .o. Surface;
+    .o. Palatalization .o. DeTeNe .o. Surface;
 
 # Uložit převodník ve formátu .dot (pro případnou vizualizaci) a .bin (pro použití s flookup).
 # dot fst.dot -Tpng -o fst.png & start fst.png
