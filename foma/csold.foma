@@ -81,27 +81,46 @@ define Palatalization PalXě .o. PalHě .o. PalXi .o. PalHi .o. PalXé .o. PalH�
 # Vkládání -e-
 #------------------------------------------------------------------------------
 
-# matk + ^0 --> matek, modlitv + ^0 --> modlitev
-define NFPlGenEInsertion [t k]->[t e k], [t v]->[t e v] || _ "^" λ;
-
+# prosEb^λ -> proseb, prosEb^a -> prosba
+define InsEb  [E b]->[e b] || _ "^" λ;
+define InsEba [E b]->b     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
 # otEc^λ -> otec, otEc^e -> otce
-define NMEc  [E c]->[e c] || _ "^" λ;
-define NMEce [E c]->c     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
-# svědEk^λ -> svědek, svědEk^a -> svědka
-define NMEk  [E k]->[e k] || _ "^" λ;
-define NMEka [E k]->k     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+define InsEc  [E c]->[e c] || _ "^" λ;
+define InsEce [E c]->c     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# svědEk^λ -> svědek, svědEk^a -> svědka; též matka-matek
+define InsEk  [E k]->[e k] || _ "^" λ;
+define InsEka [E k]->k     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
 # diábEl^λ -> diábel, diábEl^a -> diábla (ale ne např. anjela -> anjla)
-define NMEl  [E l]->[e l] || _ "^" λ;
-define NMEla [E l]->l     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+define InsEl  [E l]->[e l] || _ "^" λ;
+define InsEla [E l]->l     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# palEm^λ -> palem, palEm^a -> palma
+define InsEm  [E m]->[e m] || _ "^" λ;
+define InsEma [E m]->m     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
 # dEn^λ -> den, dEn^e -> dne
-define NMEn  [E n]->[e n] || _ "^" λ;
-define NMEna [E n]->n     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+define InsEn  [E n]->[e n] || _ "^" λ;
+define InsEna [E n]->n     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
 # ohEň^λ -> oheň, ohEň^e -> ohňe
-define NMEň  [E ň]->[e ň] || _ "^" λ;
-define NMEňa [E ň]->ň     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+define InsEň  [E ň]->[e ň] || _ "^" λ;
+define InsEňa [E ň]->ň     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# libEr^λ -> liber, libEr^a -> libra
+define InsEr  [E r]->[e r] || _ "^" λ;
+define InsEra [E r]->r     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
 # pEs^λ -> pes, pEs^a -> psa
-define NMEs  [E s]->[e s] || _ "^" λ;
-define NMEsa [E s]->s     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+define InsEs  [E s]->[e s] || _ "^" λ;
+define InsEsa [E s]->s     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# karEt^λ -> karet, karEt^a -> karta
+define InsEt  [E t]->[e t] || _ "^" λ;
+define InsEta [E t]->t     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+# barEv^λ -> barev, barEv^a -> barva
+define InsEv  [E v]->[e v] || _ "^" λ;
+define InsEva [E v]->v     || _ "^" [a|á|e|é|ě|E|i|í|o|ó|u|ů|ú|y|ý];
+
+define EInsertion InsEb .o. InsEba .o. InsEc .o. InsEce .o. InsEk .o. InsEka .o. InsEl .o. InsEla .o. InsEm .o. InsEma .o. InsEn .o. InsEna .o. InsEň .o. InsEňa
+                  .o. InsEr .o. InsEra .o. InsEs .o. InsEsa .o. InsEt .o. InsEta .o. InsEv .o. InsEva;
+
+#------------------------------------------------------------------------------
+# Kombinace pravidel.
+#------------------------------------------------------------------------------
 
 # Úklidové pravopisné pravidlo: Pokud někde zůstalo [ďťň] před švem a [eěií] za ním, opravit.
 # ďe ťe ňe -> dě tě ně, ďi ťi ňi -> di ti ni
@@ -114,8 +133,7 @@ define Surface "^" -> 0, λ -> 0, E -> e;
 # Načíst slovník a zkombinovat to vše dohromady.
 read lexc csold.lexc
 define Lexicon;
-regex Lexicon .o. NMEc .o. NMEce .o. NMEk .o. NMEka .o. NMEl .o. NMEla .o. NMEn .o. NMEna .o. NMEň .o. NMEňa .o. NMEs .o. NMEsa .o. NFPlGenEInsertion
-    .o. Palatalization .o. DeTeNe .o. Surface;
+regex Lexicon .o. EInsertion .o. Palatalization .o. DeTeNe .o. Surface;
 
 # Uložit převodník ve formátu .dot (pro případnou vizualizaci) a .bin (pro použití s flookup).
 # dot fst.dot -Tpng -o fst.png & start fst.png

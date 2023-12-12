@@ -4,6 +4,7 @@ Multichar_Symbols +NM +NF +NN +A +AMposs +AFposs +Masc +Mina +Fem +Neut +Sg +Du 
 LEXICON Root
 
 Noun;
+AdjSup; ! prefix "nej"/"naj"; z něj se pokračuje do Adj
 Adj;
 
 !------------------------------------------------------------------------------
@@ -76,6 +77,7 @@ alfeus+NM+Sg+Nom:alfeus #;
 alfeus+NM+Sg+Nom:alpheus #;
 alfeus:alfe      NMy;
 alfeus:alphe     NMy;
+augustin         NMy;
 belzebub         NMy;
 david            NMy;
 herodes:herodes  NMy; ! Neděláme výjimku jen pro Nom Sg, protože je doloženo i "Herodesovi".
@@ -99,6 +101,8 @@ petr             NMy;
 pilát            NMy;
 šalamoun         NMy;
 šalamoun:šalomún NMy;
+štěpán           NMy;
+štěpán:ščepán    NMy;
 zebedeus+NM+Sg+Nom:zebedeus #;
 zebedeus:zebede  NMy;
 
@@ -107,29 +111,41 @@ LEXICON NMkStem
 
 ! Jména na -k, -h, -ch mají navíc Sg Voc na -u a Pl Loc na -ách.
 
+andílek:andílEk  NMk;
+andílek:anjelík  NMk;
+bůh+NM+Sg+Nom:bůh #;
 bůh+NM+Sg+Nom:bóh #;
 bůh+NM+Sg+Gen:božé #; ! Doloženo jako alternativa k "boha".
 bůh+NM+Sg+Gen:buožé #; ! Doloženo jako alternativa k "boha".
 bůh+NM+Sg+Voc:božě #; ! Doloženo jako alternativa k "bože".
 bůh+NM+Sg+Voc:buožě #;
-bůh:boh NMk;
-bůh:buoh NMk;
-býk NMk;
-člověk NMk;
-dělník NMk;
-dlužník NMk;
-duch NMk;
-duchovník NMk;
+bůh:boh          NMk;
+bůh:bog          NMk;
+bůh:buoh         NMk;
+býk              NMk;
+člověk           NMk;
+dávatel:davateľ  NMk;
+dělník           NMk;
+dlužník          NMk;
+duch             NMk;
+duchovník        NMk;
 hříšník:hřiešník NMk;
-kozel:kozelEc NMi;
-licoměrník NMk;
+kozel:kozelEc    NMi;
+král:kráľ        NMk; ! doložen Sg Voc kráľu; jinak je to NMl, viz níže
+krmitel:krmiteľ  NMk; ! Sg Voc krmiteľu
+licoměrník       NMk;
 mládeneček:mládenečEk NMk;
-mudrák NMk;
-prorok NMk;
-svědek:svědEk NMk;
+mudrák           NMk;
+prorok           NMk;
+přítel:přieteľ   NMk; ! doložen Sg Voc přieteľu, jinak NMl
+slavitel:slaviteľ NMk; ! Sg Voc slaviteľu
+spasitel:spasiteľ NMk; ! doložen Sg Voc spasiteľu, jinak NMl
+stvořitel:stvořiteľ NMk; ! doložen Sg Voc stvořiteľu, jinak NMl
+svědek:svědEk    NMk;
+těšitel:těšiteľ  NMk; ! Sg Voc těšiteľu
 učedník:učedlník NMk;
-učedník:učenník NMk;
-zjevník:zjěvník NMk;
+učedník:učenník  NMk;
+zjevník:zjěvník  NMk;
 
 ! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
 izák            NMk;
@@ -140,10 +156,17 @@ LEXICON NMlStem
 ! Jména na -l mají navíc Sg Voc na -i, podobně jako měkká jména.
 ! anděli přieteli kacieři kopáči muži tovařiši
 
-anděl NMl;
-anděl:anjel NMl;
-apoštol NMl;
-přítel:přietel NMl;
+anděl            NMl;
+anděl:anjel      NMl;
+apoštol          NMl;
+dávatel:davatel  NMl;
+král             NMl;
+krmitel          NMl;
+přítel:přietel   NMl;
+slavitel         NMl;
+spasitel         NMl;
+stvořitel        NMl;
+těšitel          NMl;
 
 ! Osobní jména. Nemůžeme mít na začátku velké písmeno, protože třeba "E" používáme jako morfonologický signál.
 daniel           NMl;
@@ -283,28 +306,35 @@ tisíc       NIi;
 !------------------------------------------------------------------------------
 LEXICON NFaStem
 
-cesta:cěst   NFa;
-dna:dn       NFa;
-hora:hor     NFa;
-hora:huor    NFa;
-libra:libr   NFa;
-lichva:lichv NFa;
-matka:matk   NFa;
-mísa:mís     NFa;
-modlitba:modlitv NFa;
+cesta:cěst         NFa;
+dna:dn             NFa;
+hora:hor           NFa;
+hora:huor          NFa;
+karta:karEt        NFa;
+libra:libEr        NFa;
+lichva:lichEv      NFa;
+matka:matEk        NFa;
+mísa:mís           NFa;
+modlitba:modlitEb  NFa;
+modlitba:modlitEv  NFa;
 modlitba+NF+Pl+Gen:modlitv #; ! Doloženo i bez vloženého "e"
-noha:noh         NFa;
+noha:noh           NFa;
 noha+NF+Pl+Gen:nóh #;
 noha+NF+Pl+Loc:noziech #; ! Tvar doložen, Loc Pl je jistý, ale nejsem si jist významem "noha".
-potopa:potop     NFa;
-přísaha:přísah   NFa;
-ruka:ruk      NFa;
-škola:škuol   NFa;
-trouba:trúb   NFa;
-vina:vinn     NFa;
-víra:vier     NFa;
-voda:vuod     NFa;
-žena:žen      NFa;
+potopa:potop       NFa;
+přísaha:přísah     NFa;
+ruka:ruk           NFa;
+škola:škol         NFa;
+škola:škuol        NFa;
+trouba:troub       NFa;
+trouba:trúb        NFa;
+vina:vin           NFa;
+vina:vinn          NFa;
+víra:vír           NFa;
+víra:vier          NFa;
+voda:vod           NFa;
+voda:vuod          NFa;
+žena:žen           NFa;
 ! Zřejmě se velmi podobně skloňovala i mužská jména podle dnešního vzoru předseda.
 sluha:sluh         NFa;
 sluha:slúh         NFa;
@@ -916,6 +946,7 @@ LEXICON AdjMposs
 LEXICON AdjSup
 
 @P.SUP.ON@Sup+:@P.SUP.ON@nej Adj;
+@P.SUP.ON@Sup+:@P.SUP.ON@naj Adj;
 
 LEXICON AyDeg
 
