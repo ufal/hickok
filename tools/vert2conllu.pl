@@ -301,7 +301,7 @@ sub process_file
                 $sentid = create_sentence_id($sourceid, $kniha, $kapitola);
             }
         }
-        elsif(m/<(titul|nadpis|podnadpis|predmluva|incipit|explicit|impresum|adresat)>/)
+        elsif(m/<(titul|nadpis|podnadpis|predmluva|incipit|explicit|impresum|adresat|poznamka)>/)
         {
             flush_sentence();
             print $OUT ("\# $1\n");
@@ -310,7 +310,7 @@ sub process_file
             print $OUT ("\# newpar id = $sentid\n");
             $nopar = 0;
         }
-        elsif(m/<(titul|nadpis|podnadpis|predmluva|incipit|explicit|impresum|adresat) continued="true">/)
+        elsif(m/<(titul|nadpis|podnadpis|predmluva|incipit|explicit|impresum|adresat|poznamka) continued="true">/)
         {
             # Nedělat nic. Zejména ne flush_sentence()!
             $nopar = 0;
@@ -369,7 +369,7 @@ sub process_file
             $bibleref = undef;
         }
         # Konec odstavce nebo jiného elementu na úrovni odstavce.
-        elsif(m/<\/(titul|nadpis|podnadpis|predmluva|odstavec|explicit|incipit|impresum|adresat)>/)
+        elsif(m/<\/(titul|nadpis|podnadpis|predmluva|odstavec|explicit|incipit|impresum|adresat|poznamka)>/)
         {
             # We do not want to flush sentence at the paragraph end tag because
             # this may not be the real end of the paragraph. The tag may be here
