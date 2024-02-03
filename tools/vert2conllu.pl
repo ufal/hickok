@@ -32,13 +32,55 @@ sub usage
 my $sourceid = '';
 my $srcdir;
 my $tgtdir;
+my $fields = 'word,lc,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat';
 GetOptions
 (
     'sourceid=s' => \$sourceid,
     'srcdir=s'   => \$srcdir,
-    'tgtdir=s'   => \$tgtdir
+    'tgtdir=s'   => \$tgtdir,
+    'fields=s'   => \$fields
 );
 
+
+# Depending on how the vertical was exported, there may be different positional attributes.
+# Known attributes (vert fields):
+my %known_vert_fields =
+(
+    'word'           => 1, # the "surface" word form (but for old Czech this typically is a result of transcription)
+    'lc'             => 1, # lowercased word
+    'amblemma'       => 1, # (lemma) ... list of possible (historical) lemmas according to morphological analysis
+    'ambhlemma'      => 1, # (hl) ... hyperlemma from morphological analysis (still potentially ambiguous if the word form can belong to multiple lexemes)
+    'ambprgtag'      => 1, # (tag) ... list of possible Prague-style morphological tags from morphological analysis
+    'ambbrntag'      => 1, # (atag) ... list of possible Brno-style morphological tags from morphological analysis
+    'comment'        => 1, # any token-level prose comment
+    'corrected_from' => 1, # (emendation) ... emendation/emendace (oprava porušeného nebo nečitelného místa textu založená na využití odpovídajícího úseku v jiném textu daného díla)
+    'translit'       => 1, # transliteration
+    'language'       => 1, # "cizí jazyk" = foreign language (other than the main language of the text)
+    'hlt'            => 1, # list of possible combinations hyperlemma + tag
+    'hlat'           => 1, # list of possible combinations hyperlemma + atag
+    'flags'          => 1  # one of the following values: damaged|restored|supplied|symbol or image|variant
+);
+# The following fields were present in the data for the pilot project in 2021 (Gospel of Matthew from Bible drážďanská and Bible olomoucká):
+#     word,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat
+# The following fields were present in Hičkok vert_full in November 2023:
+#     word,flags,corrected_from,language
+# The following fields were present in Hičkok vert_etalon in February 2024:
+#     word,lc,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat
+my @vert_fields = split(',', $fields);
+if(scalar(@vert_fields) == 0)
+{
+    confess("No fields (positional attributes) defined for the input");
+}
+else
+{
+    foreach my $f (@vert_fields)
+    {
+        if(!exists($known_vert_fields{$f}))
+        {
+            confess("Unknown input field (positional attribute) '$f'");
+        }
+    }
+}
 # Hash all document ids so we can check they are unique.
 my %docids;
 if(defined($srcdir))
@@ -383,30 +425,6 @@ sub process_file
                 print $OUT ("\# newpar id = $sentid\n");
                 $nopar = 0;
             }
-            # Depending on how the vertical was exported, there may be different positional attributes.
-            # Known attributes (vert fields):
-            # word ... the "surface" word form (but for old Czech this typically is a result of transcription)
-            # amblemma ... list of possible lemmas according to morphological analysis
-            # ambhlemma ... hyperlemma from morphological analysis (still potentially ambiguous if the word form can belong to multiple lexemes)
-            # ambprgtag ... list of possible Prague-style morphological tags from morphological analysis
-            # ambbrntag ... list of possible Brno-style morphological tags from morphological analysis
-            # comment ... any token-level prose comment
-            # corrected_from ... emendation/emendace (oprava porušeného nebo nečitelného místa textu založená na využití odpovídajícího úseku v jiném textu daného díla)
-            # translit ... transliteration
-            # language ... "cizí jazyk" = foreign language (other than the main language of the text)
-            # hlt ... list of possible combinations hyperlemma + tag
-            # hlat ... list of possible combinations hyperlemma + atag
-            my @vert_fields;
-            if(0) ###!!! Ultimately this should be parameterizable by command line options.
-            {
-                # The following fields were present in the data for the pilot project in 2021 (Gospel of Matthew from Bible drážďanská and Bible olomoucká):
-                @vert_fields = qw(word amblemma ambhlemma ambprgtag ambbrntag comment emendation translit language hlt hlat);
-            }
-            else
-            {
-                # For Hičkok (November 2023), the fields are:
-                @vert_fields = qw(word flags corrected_from language);
-            }
             my @f = process_token($_, \@vert_fields, $tokenid, $newfolio, $verse, $bibleref);
             push(@sentence, \@f);
             $tokenid++;
@@ -467,6 +485,10 @@ sub process_token
         elsif($vert_fields[$i] eq 'word')
         {
             $form = $f[$i];
+        }
+        elsif($vert_fields[$i] eq 'lc')
+        {
+            # Do nothing. We can always get lc from word if we need it.
         }
         elsif($vert_fields[$i] eq 'amblemma')
         {
