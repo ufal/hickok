@@ -2,7 +2,8 @@ SHELL=/bin/bash
 UDPIPE=$(PARSINGROOT)/udpipe-parser/scripts/parse.pl
 
 # Define the folders for each step.
-VERTDIR   := data/vert_full
+#VERTDIR   := data/vert_full
+VERTDIR   := data/vert_etalon
 CONLLUDIR := data/conllu
 TEXTDIR   := data/text
 PARSEDDIR := data/parsed
