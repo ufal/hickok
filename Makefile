@@ -9,6 +9,7 @@ TEXTDIR   := data/text
 PARSEDDIR := data/parsed
 MERGEDDIR := data/merged
 PREPRCDIR := data/preprocessed
+FORANNDIR := data/for_annotation
 
 # Find all source files in the source folder.
 VERTFILES   := $(wildcard $(VERTDIR)/*/*.vert)
@@ -19,6 +20,7 @@ TEXTFILES   := $(addprefix $(TEXTDIR)/, $(addsuffix .txt, $(subst $(CONLLUDIR)/,
 PARSEDFILES := $(patsubst $(CONLLUDIR)/%, $(PARSEDDIR)/%, $(CONLLUFILES))
 MERGEDFILES := $(patsubst $(CONLLUDIR)/%, $(MERGEDDIR)/%, $(CONLLUFILES))
 PREPRCFILES := $(patsubst $(CONLLUDIR)/%, $(PREPRCDIR)/%, $(CONLLUFILES))
+FORANNFILES := $(addprefix $(FORANNDIR)/, $(addsuffix .tsv, $(subst $(CONLLUDIR)/,,$(subst .conllu,,$(CONLLUFILES)))))
 
 # If a command ends with ane error, delete its target file because it may be corrupt.
 .DELETE_ON_ERROR:
@@ -41,6 +43,8 @@ merged: $(MERGEDFILES)
 .PHONY: preprc
 preprc: $(PREPRCFILES)
 	rm $(PREPRCDIR)/*/*-forudapi.conllu
+.PHONY: forann
+forann: $(FORANNFILES)
 
 # Extract plain text from an individual CoNLL-U file (which was converted from the vertical).
 # The script resides in the UD tools repository.
@@ -84,6 +88,11 @@ $(PREPRCDIR)/%.conllu: $(MERGEDDIR)/%.conllu
 	./tools/fix_tokenization.pl < $< | ./tools/fix_morphology.pl > $(PREPRCDIR)/$*-forudapi.conllu
 	udapy -s util.Eval node='if node.form.lower() == "u" and node.upos == "ADP" and re.match(r"(Acc|Loc)", node.parent.feats["Case"]): node.lemma = "v"; node.feats["Case"] = node.parent.feats["Case"]; node.xpos = "RV--6----------" if node.feats["Case"] == "Loc" else "RV--4----------"' < $(PREPRCDIR)/$*-forudapi.conllu > $@
 
+# Prepare a CSV file that can be opened in a spreadsheet editor such as LibreOffice Calc and manually annotated.
+$(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
+	mkdir -p $(@D)
+	./tools/generate_table_for_annotation.pl < $< > $@
+
 # Clean rule to remove all generated files.
 clean:
 	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR) $(MERGEDDIR) $(PREPRCDIR)
@@ -94,17 +103,6 @@ amblist:
 	cat 08-bibl_dr_ol_mt-morfixed.conllu | udapy util.Eval node='if re.match(r"^(PRON|DET)$$", node.upos): print(node.upos, node.feats["PronType"], node.lemma, node.feats["Poss"], node.feats["Reflex"], node.feats["Number"], node.feats["Person"], node.feats["Gender"], node.feats["Case"], node.form.lower())' | sort | uniq -c > zajmena.txt
 	cat 08-bibl_dr_ol_mt-morfixed.conllu | udapy util.Eval node='lemma = node.lemma; lemma += "/"+node.misc["Lemma1300"] if node.misc["Lemma1300"] != "" else ""; print(f"{node.form.lower()}\t{node.upos} {node.feats} {lemma}")' | perl -CDS -pe 'while(<>) { chomp; @f=split(/\t/); $$cw{$$f[0]}++; $$ca{$$f[0]}{$$f[1]}++ } @w=sort {$$r=$$cw{$$b}<=>$$cw{$$a}; unless($$r){$$r=$$a cmp $$b}; $$r} (keys(%cw)); foreach $$w (@w) { print("$$w\t$$cw{$$w}\n"); @u=sort {$$r=$$ca{$$w}{$$b}<=>$$ca{$$w}{$$a}; unless($$r){$$r=$$a cmp $$b}; $$r} (keys(%{$$ca{$$w}})); foreach $$u (@u) { print("\t$$u\t$$ca{$$w}{$$u}\n") } }' > amblist.txt
 	conllu-stats.pl 08-bibl_dr_ol_mt-morfixed.conllu > stats.xml
-
-# Prepare a CSV file that can be opened in a spreadsheet editor such as LibreOffice Calc and manually annotated.
-# First pass:
-MANMORPHIN=08-bibl_dr_ol_mt-morfixed.conllu
-MANMORPHCSV=bibl_dr_ol_mt-manually_checked.csv
-MANMORPHXLSX=bibl_dr_ol_mt-manually_checked.xlsx
-MANMORPHOUT=bibl_dr_ol_mt-manually_checked-zeman.txt
-MANMORPHPOST=bibl_dr_ol_mt-manual-zeman.conllu
-pre_manual_annotation:
-	generate_table_for_annotation.pl < $(MANMORPHIN) > $(MANMORPHCSV)
-	generate_xlsx_for_annotation.pl < $(MANMORPHIN) $(MANMORPHXLSX)
 
 # In the Upper Sorbian project from 2016, the next step would be to open the CSV file in LibreOffice
 # and edit it (screenshot in jak_spravne_otevrit_csv.jpg shows the import parameters). During
