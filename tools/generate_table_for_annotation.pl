@@ -24,6 +24,8 @@ my %conllu_name_index = ('ID' => 0, 'FORM' => 1, 'LEMMA' => 2, 'UPOS' => 3, 'XPO
 # Vypsat záhlaví tabulky.
 print(join("\t", @names)."\n");
 my %ignored_features;
+my %requested_features;
+my %observed_features;
 my $sid = '';
 while(<>)
 {
@@ -58,7 +60,12 @@ while(<>)
 my @ignored_features = sort(keys(%ignored_features));
 if(scalar(@ignored_features)>0)
 {
-    print STDERR ("Features not exported: ", join(', ', @ignored_features), "\n");
+    print STDERR ("Features not exported (but observed): ", join(', ', @ignored_features), "\n");
+}
+my @unknown_features = sort(grep {!exists($observed_features{$_})} (keys(%requested_features)));
+if(scalar(@unknown_features)>0)
+{
+    print STDERR ("Features not observed (but expected): ", join(', ', @unknown_features), "\n");
 }
 
 
@@ -103,7 +110,17 @@ sub get_column_value
     # Neznámé názvy polí považujeme za jména rysů. Jejich seznam neznáme předem, různé soubory můžou obsahovat různé rysy.
     else
     {
-        my $value = $features->{$name} // '_';
+        # Zapamatovat si, které z očekávaných rysů byly opravdu spatřeny s neprázdnou hodnotou, abychom to mohli na konci ohlásit.
+        $requested_features{$name}++;
+        my $value = $features->{$name};
+        if(defined($value))
+        {
+            $observed_features{$name}++;
+        }
+        else
+        {
+            $value = '_';
+        }
         delete($features->{$name});
         return $value;
     }
