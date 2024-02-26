@@ -32,7 +32,7 @@ sub usage
 my $sourceid = '';
 my $srcdir;
 my $tgtdir;
-my $fields = 'word,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat';
+my $fields = 'word,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat,inflclass';
 GetOptions
 (
     'sourceid=s' => \$sourceid,
@@ -58,14 +58,16 @@ my %known_vert_fields =
     'language'       => 1, # "cizí jazyk" = foreign language (other than the main language of the text)
     'hlt'            => 1, # list of possible combinations hyperlemma + tag
     'hlat'           => 1, # list of possible combinations hyperlemma + atag
-    'flags'          => 1  # one of the following values: damaged|restored|supplied|symbol or image|variant
+    'flags'          => 1, # one of the following values: damaged|restored|supplied|symbol or image|variant
+    'inflclass'      => 1  # list of model lemmas representing the inflection types (paradigm)
 );
 # The following fields were present in the data for the pilot project in 2021 (Gospel of Matthew from Bible drážďanská and Bible olomoucká):
 #     word,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat
 # The following fields were present in Hičkok vert_full in November 2023:
 #     word,flags,corrected_from,language
-# The following fields were present in Hičkok vert_etalon in February 2024:
+# The following fields were present in Hičkok vert_etalon in February 2024 (the first line is what Ondra reported but the second line is what actually was in the data):
 #     word,lc,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat
+#     word,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat,inflclass
 my @vert_fields = split(',', $fields);
 if(scalar(@vert_fields) == 0)
 {
@@ -541,6 +543,10 @@ sub process_token
         elsif($vert_fields[$i] eq 'hlat')
         {
             add_misc_attribute(\@misc, 'AmbHlemmaBrnTag', $f[$i]);
+        }
+        elsif($vert_fields[$i] eq 'inflclass')
+        {
+            add_misc_attribute(\@misc, 'InflClass', $f[$i]);
         }
         elsif($vert_fields[$i] eq 'flags')
         {
