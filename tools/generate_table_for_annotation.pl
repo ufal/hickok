@@ -18,7 +18,9 @@ my @fnames = ('Gender', 'Animacy', 'Number', 'Case', 'Degree', 'Person',
     'PronType', 'Reflex', 'Poss', 'Gender[psor]', 'Number[psor]', 'PrepCase', 'Variant',
     'NumType', 'NumForm', 'NameType', 'AdpType', 'Abbr', 'Hyph', 'Foreign');
 # Seznam všech sloupců včetně morfologických rysů.
-my @names = ('SENTENCE', 'ID', 'FORM', 'RETRO', 'LEMMA', 'LEMMA1300', 'UPOS', @fnames, 'HEAD', 'DEPREL', 'DEPS', 'MISC');
+# Prozatím vyřazuju LEMMA1300, protože bylo k dispozici jen pro hrstku slov a v kontextu projektu Hičkok ho možná ani nechceme.
+# Také skrývám XPOS a FEATS, protože obojí budeme po anotaci automaticky odvozovat z vyplněných hodnot rysů.
+my @names = ('SENTENCE', 'ID', 'FORM', 'RETRO', 'LEMMA', 'UPOS', @fnames, 'HEAD', 'DEPREL', 'DEPS', 'MISC');
 my %conllu_name_index = ('ID' => 0, 'FORM' => 1, 'LEMMA' => 2, 'UPOS' => 3, 'XPOS' => 4, 'FEATS' => 5, 'HEAD' => 6, 'DEPREL' => 7, 'DEPS' => 8, 'MISC' => 9);
 
 # Vypsat záhlaví tabulky.
