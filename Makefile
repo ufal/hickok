@@ -25,7 +25,7 @@ FORANNFILES := $(addprefix $(FORANNDIR)/, $(addsuffix .tsv, $(subst $(CONLLUDIR)
 # If a command ends with ane error, delete its target file because it may be corrupt.
 .DELETE_ON_ERROR:
 
-all: conllu preprc
+all: conllu forann
 	echo $(VERTFILES) | wc -w
 
 # Phony targets for each step.
