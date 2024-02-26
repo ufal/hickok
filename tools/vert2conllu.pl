@@ -32,7 +32,7 @@ sub usage
 my $sourceid = '';
 my $srcdir;
 my $tgtdir;
-my $fields = 'word,lc,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat';
+my $fields = 'word,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat';
 GetOptions
 (
     'sourceid=s' => \$sourceid,

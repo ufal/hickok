@@ -33,7 +33,7 @@ all: conllu preprc
 # This is applied to the whole folder and the loop is inside the script because individual files get renamed in the process (CamelCase, diacritics etc.)
 .PHONY: conllu
 conllu: $(VERTFILES)
-	./tools/vert2conllu.pl --srcdir $(VERTDIR) --tgtdir $(CONLLUDIR)
+	./tools/vert2conllu.pl --srcdir $(VERTDIR) --tgtdir $(CONLLUDIR) --fields word,amblemma,ambhlemma,ambprgtag,ambbrntag,comment,corrected_from,translit,language,hlt,hlat
 .PHONY: text
 text:   $(TEXTFILES)
 .PHONY: parsed
