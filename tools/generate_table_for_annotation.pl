@@ -11,10 +11,12 @@ binmode(STDERR, ':utf8');
 
 # Seznam rysů, které chceme exportovat. Možná by do budoucna mohl být konfigurovatelný z příkazového řádku.
 # NumValue ... Býval v konverzi z pražských značek, ale byl k ničemu (hodnota byla stejně vždy "1,2,3"). Z dat UD už jsem ho vyhodil.
+# AdpType ... Sice nás nezajímá rozdíl mezi předložkou a záložkou, ale máme tam taky Comprep a hlavně Voc.
+# Style ... Nevěřím, že jsme schopni o něm rozhodovat konzistentně. A zejména Style=Arch je obtížně proveditelný u dat, která jdou napříč staletími. (Mělo by to znamenat, že daný výraz byl archaický už v době sepsání textu, ale jak zjistíme, jestli tomu tak bylo?)
 my @fnames = ('Gender', 'Animacy', 'Number', 'Case', 'Degree', 'Person',
     'VerbForm', 'Mood', 'Tense', 'Aspect', 'Voice', 'Polarity',
     'PronType', 'Reflex', 'Poss', 'Gender[psor]', 'Number[psor]', 'PrepCase', 'Variant',
-    'NumType', 'NumForm', 'NameType', 'AdpType', 'Abbr', 'Hyph', 'Style', 'Foreign');
+    'NumType', 'NumForm', 'NameType', 'AdpType', 'Abbr', 'Hyph', 'Foreign');
 # Seznam všech sloupců včetně morfologických rysů.
 my @names = ('SENTENCE', 'ID', 'FORM', 'RETRO', 'LEMMA', 'LEMMA1300', 'UPOS', @fnames, 'HEAD', 'DEPREL', 'DEPS', 'MISC');
 my %conllu_name_index = ('ID' => 0, 'FORM' => 1, 'LEMMA' => 2, 'UPOS' => 3, 'XPOS' => 4, 'FEATS' => 5, 'HEAD' => 6, 'DEPREL' => 7, 'DEPS' => 8, 'MISC' => 9);
