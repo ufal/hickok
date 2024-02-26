@@ -90,7 +90,9 @@ sub get_column_value
     elsif($name =~ m/^(ID|FORM|LEMMA|UPOS|XPOS|FEATS|HEAD|DEPREL|DEPS|MISC)$/)
     {
         my $value = $conllu_fields[$conllu_name_index{$name}];
-        if($name eq 'FORM' && $conllu_fields[3] =~ m/^(NUM|PUNCT)$/)
+        if($name eq 'ID' && $value =~ m/[-\.]/ ||
+           $name =~ m/^(FORM|LEMMA)$/ && $conllu_fields[3] =~ m/^(NUM|PUNCT)$/ ||
+           $name eq 'XPOS')
         {
             $value =~ s/"/""/g; # "
             $value = '"'.$value.'"';
@@ -107,6 +109,11 @@ sub get_column_value
         my $lemma1300 = '';
         my @lemma1300 = map {s/^Lemma1300=//; $_} (grep {m/^Lemma1300=/} (split(/\|/, $conllu_fields[9])));
         $lemma1300 = $lemma1300[0] if(scalar(@lemma1300) > 0);
+        if($conllu_fields[3] =~ m/^(NUM|PUNCT)$/)
+        {
+            $lemma1300 =~ s/"/""/g; # "
+            $lemma1300 = '"'.$lemma1300.'"';
+        }
         return $lemma1300;
     }
     # Neznámé názvy polí považujeme za jména rysů. Jejich seznam neznáme předem, různé soubory můžou obsahovat různé rysy.
