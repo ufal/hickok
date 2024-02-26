@@ -9,6 +9,19 @@ binmode(STDIN, ':utf8');
 binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
 
+# Seznam rysů, které chceme exportovat. Možná by do budoucna mohl být konfigurovatelný z příkazového řádku.
+# NumValue ... Býval v konverzi z pražských značek, ale byl k ničemu (hodnota byla stejně vždy "1,2,3"). Z dat UD už jsem ho vyhodil.
+my @fnames = ('Gender', 'Animacy', 'Number', 'Case', 'Degree', 'Person',
+    'VerbForm', 'Mood', 'Tense', 'Aspect', 'Voice', 'Polarity',
+    'PronType', 'Reflex', 'Poss', 'Gender[psor]', 'Number[psor]', 'PrepCase', 'Variant',
+    'NumType', 'NumForm', 'NameType', 'AdpType', 'Abbr', 'Hyph', 'Style', 'Foreign');
+# Seznam všech sloupců včetně morfologických rysů.
+my @names = ('SENTENCE', 'ID', 'FORM', 'RETRO', 'LEMMA', 'LEMMA1300', 'UPOS', @fnames, 'HEAD', 'DEPREL', 'DEPS', 'MISC');
+my %conllu_name_index = ('ID' => 0, 'FORM' => 1, 'LEMMA' => 2, 'UPOS' => 3, 'XPOS' => 4, 'FEATS' => 5, 'HEAD' => 6, 'DEPREL' => 7, 'DEPS' => 8, 'MISC' => 9);
+
+# Vypsat záhlaví tabulky.
+print(join("\t", @names)."\n");
+my %ignored_features;
 my $sid = '';
 while(<>)
 {
@@ -21,10 +34,6 @@ while(<>)
     {
         s/\r?\n$//;
         my @fields = split(/\t/, $_);
-        my $reversed = myreverse($fields[1]);
-        my $lemma1300 = '';
-        my @lemma1300 = map {s/^Lemma1300=//; $_} (grep {m/^Lemma1300=/} (split(/\|/, $fields[9])));
-        $lemma1300 = $lemma1300[0] if(scalar(@lemma1300) > 0);
         my @features = split(/\|/, $fields[5]);
         my %features;
         foreach my $fpair (@features)
@@ -34,26 +43,68 @@ while(<>)
                 $features{$1} = $2;
             }
         }
-        my @fnames = ('Gender', 'Animacy', 'Number', 'Case', 'Degree', 'Person', 'VerbForm', 'Mood', 'Tense', 'Aspect', 'Voice', 'Polarity', 'PronType', 'Reflex', 'Poss', 'Gender[psor]', 'Number[psor]', 'PrepCase', 'Variant', 'NumType', 'NumForm', 'NumValue', 'NameType', 'AdpType', 'Abbr', 'Hyph', 'Style', 'Foreign');
-        my @values = map {my $x = $features{$_} // '_'; delete($features{$_}); $x} @fnames;
+        my @output_fields = map {get_column_value($_, $sid, \%features, @fields)} (@names);
         # Sanity check: Are there any features that we do not export?
-        my @remaining_features = keys(%features);
-        if(scalar(@remaining_features)>0)
+        foreach my $f (keys(%features))
         {
-            print STDERR ("Features not exported: ", join(', ', @remaining_features), "\n");
+            $ignored_features{$f}++;
         }
-        splice(@fields, 4, 1, @values);
-        if($fields[3] =~ m/^(NUM|PUNCT)$/)
-        {
-            $fields[1] =~ s/"/""/g; # "
-            $fields[1] = '"'.$fields[1].'"';
-        }
-        splice(@fields, 3, 0, $lemma1300);
-        splice(@fields, 2, 0, $reversed);
-        unshift(@fields, $sid);
-        $_ = join("\t", @fields)."\n";
+        $_ = join("\t", @output_fields)."\n";
     }
     print;
+}
+my @ignored_features = sort(keys(%ignored_features));
+if(scalar(@ignored_features)>0)
+{
+    print STDERR ("Features not exported: ", join(', ', @ignored_features), "\n");
+}
+
+
+
+#------------------------------------------------------------------------------
+# Dodá hodnotu pole (sloupce) podle jeho názvu. Umožňuje uspořádat sloupce
+# podle přání uživatele.
+#------------------------------------------------------------------------------
+sub get_column_value
+{
+    my $name = shift;
+    my $sid = shift; # poslední spatřené sent_id
+    my $features = shift; # hash; použité rysy z něj budeme odstraňovat, aby se na konci dalo zjistit, zda jsme na nějaké zapomněli
+    my @conllu_fields = @_;
+    if($name eq 'SENTENCE')
+    {
+        return $sid;
+    }
+    # Standardní pole formátu CoNLL-U prostě zkopírovat.
+    elsif($name =~ m/^(ID|FORM|LEMMA|UPOS|XPOS|FEATS|HEAD|DEPREL|DEPS|MISC)$/)
+    {
+        my $value = $conllu_fields[$conllu_name_index{$name}];
+        if($name eq 'FORM' && $conllu_fields[3] =~ m/^(NUM|PUNCT)$/)
+        {
+            $value =~ s/"/""/g; # "
+            $value = '"'.$value.'"';
+        }
+        return $value;
+    }
+    # Zvláštní pole, která jsme si dodefinovali pro naše potřeby.
+    elsif($name eq 'RETRO')
+    {
+        return myreverse($conllu_fields[1]);
+    }
+    elsif($name eq 'LEMMA1300')
+    {
+        my $lemma1300 = '';
+        my @lemma1300 = map {s/^Lemma1300=//; $_} (grep {m/^Lemma1300=/} (split(/\|/, $conllu_fields[9])));
+        $lemma1300 = $lemma1300[0] if(scalar(@lemma1300) > 0);
+        return $lemma1300;
+    }
+    # Neznámé názvy polí považujeme za jména rysů. Jejich seznam neznáme předem, různé soubory můžou obsahovat různé rysy.
+    else
+    {
+        my $value = $features->{$name} // '_';
+        delete($features->{$name});
+        return $value;
+    }
 }
 
 
