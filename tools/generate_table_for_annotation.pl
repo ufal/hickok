@@ -20,7 +20,21 @@ my @fnames = ('Gender', 'Animacy', 'Number', 'Case', 'Degree', 'Person',
 # Seznam všech sloupců včetně morfologických rysů.
 # Prozatím vyřazuju LEMMA1300, protože bylo k dispozici jen pro hrstku slov a v kontextu projektu Hičkok ho možná ani nechceme.
 # Také skrývám XPOS a FEATS, protože obojí budeme po anotaci automaticky odvozovat z vyplněných hodnot rysů.
-my @names = ('SENTENCE', 'ID', 'FORM', 'RETRO', 'LEMMA', 'UPOS', @fnames, 'HEAD', 'DEPREL', 'DEPS', 'MISC');
+# RESEGMENT: V tomto sloupci bude neprázdná hodnota v případě, že je potřeba opravit segmentaci textu na věty. Povolené hodnoty:
+#     "spojit" ... Má smysl pouze u prvního tokenu existující věty a říká, že tato věta se má spojit s větou předcházející. (Tj. ta hodnota se nemůže objevit v první větě dokumentu a asi ani odstavce.)
+#     "rozdělit" ... Má smysl pouze u jiného než prvního tokenu existující věty a říká, že tato věta se má rozdělit a toto má být první token nové věty.
+#     Jednu větu lze rozdělit i na více než dva kusy. Lze také začátek věty spojit s předchozí větou, ale později větu rozdělit.
+# RETOKENIZE: V tomto sloupci bude neprázdná hodnota v případě, že je potřeba opravit tokenizaci (resp. segmentaci na slova). Povolené hodnoty:
+#     "spojit" ... Tento token nebo jeho začátek má být součástí předcházejícího tokenu. Pokud je předcházející token v jiné větě, je třeba současně signalizovat i spojení vět (viz výše).
+#         Správná morfologická anotace je uvedena u předcházejícího tokenu (pokud nebyl předcházející token současně dělen, viz níže).
+#     "rozdělit" ... Tento token má být rozdělen na dva nebo více nových tokenů. Tato hodnota sama neříká, jak a na kolik dílů se má token rozdělit, ani jaká je morfologická anotace jednotlivých dílů.
+#         Pokud je alespoň na jedné straně od nové hranice tokenů interpunkční znak, výsledkem dělení jsou dva podřetězce původního tokenu, přičemž u toho prvního přibude v MISC atribut SpaceAfter=No.
+#         Pokud je nová hranice vedena mezi dvěma písmeny, bude výsledkem "multiword token" (MWT, agregát). Můj skript vloží nový řádek pro rozsah MWT, jednotlivé části pak nemusí být nutně podřetězce
+#         povrchového tokenu, např. "bylas" se rozloží na "byla" a "jsi".
+# SUBTOKENS: Vyplňuje se právě tehdy, když ve sloupci RETOKENIZE je hodnota "rozdělit". Obsahuje hodnoty pole FORM nových tokenů, oddělené mezerou (např. pro "bylas" zde bude "byla jsi").
+#    Ani toto není úplná informace, protože nemáme prostor na oddělenou morfologickou anotaci každého nového tokenu zvlášť. Pokud se ukáže, že jde o častý jev, vymyslíme dodatečně, jak ho řešit
+#    systematicky; pokud to bude jen pár případů, tak je vyřešíme ad hoc při přebírání anotací.
+my @names = ('LINENO', 'SENTENCE', 'RESEGMENT', 'RETOKENIZE', 'SUBTOKENS', 'ID', 'FORM', 'RETRO', 'LEMMA', 'UPOS', @fnames, 'HEAD', 'DEPREL', 'DEPS', 'MISC');
 my %conllu_name_index = ('ID' => 0, 'FORM' => 1, 'LEMMA' => 2, 'UPOS' => 3, 'XPOS' => 4, 'FEATS' => 5, 'HEAD' => 6, 'DEPREL' => 7, 'DEPS' => 8, 'MISC' => 9);
 
 # Vypsat záhlaví tabulky.
@@ -29,19 +43,26 @@ my %ignored_features;
 my %requested_features;
 my %observed_features;
 my $sid = '';
+my $lineno = 0;
 while(<>)
 {
-    if(m/^\#\s*sent_id\s*=\s*(.+)$/)
+    $lineno++;
+    my $line = $_;
+    $line =~ s/\r?\n$//;
+    my $sentence = $line;
+    my @fields = ();
+    my %features = ();
+    if($line =~ m/^\#\s*sent_id\s*=\s*(.+)$/)
     {
         $sid = $1;
-        $sid =~ s/\r?\n$//;
+        # Anotátoři by rádi viděli u každého tokenu jen konec id věty (kde je číslo odstavce a věty v rámci dokumentu).
+        $sid =~ s/^.*(p[0-9][0-9A-B]*-s[0-9][0-9A-B]*)$/$1/;
     }
-    elsif(m/^\d/)
+    elsif($line =~ m/^\d/)
     {
-        s/\r?\n$//;
-        my @fields = split(/\t/, $_);
+        $sentence = $sid;
+        @fields = split(/\t/, $line);
         my @features = split(/\|/, $fields[5]);
-        my %features;
         foreach my $fpair (@features)
         {
             if($fpair =~ m/^(.+?)=(.+)$/)
@@ -49,14 +70,14 @@ while(<>)
                 $features{$1} = $2;
             }
         }
-        my @output_fields = map {get_column_value($_, $sid, \%features, @fields)} (@names);
-        # Sanity check: Are there any features that we do not export?
-        foreach my $f (keys(%features))
-        {
-            $ignored_features{$f}++;
-        }
-        $_ = join("\t", @output_fields)."\n";
     }
+    my @output_fields = map {get_column_value($_, $lineno, $sentence, \%features, @fields)} (@names);
+    # Sanity check: Are there any features that we do not export?
+    foreach my $f (keys(%features))
+    {
+        $ignored_features{$f}++;
+    }
+    $_ = join("\t", @output_fields)."\n";
     print;
 }
 my @ignored_features = sort(keys(%ignored_features));
@@ -79,12 +100,21 @@ if(scalar(@unknown_features)>0)
 sub get_column_value
 {
     my $name = shift;
-    my $sid = shift; # poslední spatřené sent_id
+    my $lineno = shift; # číslo aktuálně zpracovávaného řádku
+    my $sentence = shift; # řádek s větným komentářem nebo prázdný řádek nebo (na úrovni tokenu) poslední spatřené sent_id
     my $features = shift; # hash; použité rysy z něj budeme odstraňovat, aby se na konci dalo zjistit, zda jsme na nějaké zapomněli
     my @conllu_fields = @_;
-    if($name eq 'SENTENCE')
+    if($name eq 'LINENO')
     {
-        return $sid;
+        return $lineno;
+    }
+    elsif($name eq 'SENTENCE')
+    {
+        return $sentence;
+    }
+    elsif($name =~ m/^(RESEGMENT|RETOKENIZE|SUBTOKENS)$/)
+    {
+        return '';
     }
     # Standardní pole formátu CoNLL-U prostě zkopírovat.
     elsif($name =~ m/^(ID|FORM|LEMMA|UPOS|XPOS|FEATS|HEAD|DEPREL|DEPS|MISC)$/)
@@ -119,19 +149,27 @@ sub get_column_value
     # Neznámé názvy polí považujeme za jména rysů. Jejich seznam neznáme předem, různé soubory můžou obsahovat různé rysy.
     else
     {
-        # Zapamatovat si, které z očekávaných rysů byly opravdu spatřeny s neprázdnou hodnotou, abychom to mohli na konci ohlásit.
-        $requested_features{$name}++;
-        my $value = $features->{$name};
-        if(defined($value))
+        # Rysy zobrazovat pouze na řádcích, které odpovídají tokenům. Na řádcích s větnými komentáři a na prázdných řádcích za větou vracet prázdné řetězce, nikoli podtržítka.
+        if(scalar(@conllu_fields) > 0)
         {
-            $observed_features{$name}++;
+            # Zapamatovat si, které z očekávaných rysů byly opravdu spatřeny s neprázdnou hodnotou, abychom to mohli na konci ohlásit.
+            $requested_features{$name}++;
+            my $value = $features->{$name};
+            if(defined($value))
+            {
+                $observed_features{$name}++;
+            }
+            else
+            {
+                $value = '_';
+            }
+            delete($features->{$name});
+            return $value;
         }
         else
         {
-            $value = '_';
+            return '';
         }
-        delete($features->{$name});
-        return $value;
     }
 }
 
