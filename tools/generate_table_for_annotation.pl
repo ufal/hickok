@@ -25,13 +25,14 @@ my @fnames = ('Gender', 'Animacy', 'Number', 'Case', 'Degree', 'Person',
 #     "rozdělit" ... Má smysl pouze u jiného než prvního tokenu existující věty a říká, že tato věta se má rozdělit a toto má být první token nové věty.
 #     Jednu větu lze rozdělit i na více než dva kusy. Lze také začátek věty spojit s předchozí větou, ale později větu rozdělit.
 # RETOKENIZE: V tomto sloupci bude neprázdná hodnota v případě, že je potřeba opravit tokenizaci (resp. segmentaci na slova). Povolené hodnoty:
-#     "spojit" ... Tento token nebo jeho začátek má být součástí předcházejícího tokenu. Pokud je předcházející token v jiné větě, je třeba současně signalizovat i spojení vět (viz výše).
+#     "spojit" ... Tento token má být součástí předcházejícího tokenu. Pokud je předcházející token v jiné větě, je třeba současně signalizovat i spojení vět (viz výše).
 #         Správná morfologická anotace je uvedena u předcházejícího tokenu (pokud nebyl předcházející token současně dělen, viz níže).
 #     "rozdělit" ... Tento token má být rozdělen na dva nebo více nových tokenů. Tato hodnota sama neříká, jak a na kolik dílů se má token rozdělit, ani jaká je morfologická anotace jednotlivých dílů.
-#         Pokud je alespoň na jedné straně od nové hranice tokenů interpunkční znak, výsledkem dělení jsou dva podřetězce původního tokenu, přičemž u toho prvního přibude v MISC atribut SpaceAfter=No.
+#         Pokud je alespoň na jedné straně od nové hranice tokenů interpunkční znak, výsledkem dělení jsou dva podřetězce původního tokenu, přičemž u toho prvního přibude v MISC atribut SpaceAfter=No. (Zařídím později skriptem.)
 #         Pokud je nová hranice vedena mezi dvěma písmeny, bude výsledkem "multiword token" (MWT, agregát). Můj skript vloží nový řádek pro rozsah MWT, jednotlivé části pak nemusí být nutně podřetězce
 #         povrchového tokenu, např. "bylas" se rozloží na "byla" a "jsi".
-# SUBTOKENS: Vyplňuje se právě tehdy, když ve sloupci RETOKENIZE je hodnota "rozdělit". Obsahuje hodnoty pole FORM nových tokenů, oddělené mezerou (např. pro "bylas" zde bude "byla jsi").
+#     "obojí" ... Token se má rozdělit a jeho první část se má spojit s předcházejícím tokenem. Jde o komplexní (a snad nepravděpodobnou) situaci, která se bude muset dořešit ručně.
+# SUBTOKENS: Vyplňuje se právě tehdy, když ve sloupci RETOKENIZE je hodnota "rozdělit" nebo "obojí". Obsahuje hodnoty pole FORM nových tokenů, oddělené mezerou (např. pro "bylas" zde bude "byla jsi").
 #    Ani toto není úplná informace, protože nemáme prostor na oddělenou morfologickou anotaci každého nového tokenu zvlášť. Pokud se ukáže, že jde o častý jev, vymyslíme dodatečně, jak ho řešit
 #    systematicky; pokud to bude jen pár případů, tak je vyřešíme ad hoc při přebírání anotací.
 my @names = ('LINENO', 'SENTENCE', 'RESEGMENT', 'RETOKENIZE', 'SUBTOKENS', 'ID', 'FORM', 'RETRO', 'LEMMA', 'UPOS', @fnames, 'HEAD', 'DEPREL', 'DEPS', 'MISC');
