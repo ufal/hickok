@@ -61,6 +61,15 @@ while(<>)
     }
     elsif($line =~ m/^\d/)
     {
+        # Jirka si vyžádal ještě jeden prázdný řádek mezi komentáři a tokeny. Úplně prázdný tedy nebude, protože ho potřebuju pak snadno poznat.
+        if($line =~ m/^1\t/)
+        {
+            my $extra = '###!!! EXTRA LINE';
+            my @output_fields = map {get_column_value($_, $lineno, $extra)} (@names);
+            $_ = join("\t", @output_fields)."\n";
+            print;
+            $lineno++;
+        }
         $sentence = $sid;
         @fields = split(/\t/, $line);
         my @features = split(/\|/, $fields[5]);
@@ -105,12 +114,20 @@ sub get_column_value
     my $sentence = shift; # řádek s větným komentářem nebo prázdný řádek nebo (na úrovni tokenu) poslední spatřené sent_id
     my $features = shift; # hash; použité rysy z něj budeme odstraňovat, aby se na konci dalo zjistit, zda jsme na nějaké zapomněli
     my @conllu_fields = @_;
+    # Výjimka se zvláštním zpracováním pro # text, kde se vlastní text věty uřízne a dá se do sloupce FORM.
+    if($name =~ m/^(SENTENCE|FORM)$/ && $sentence =~ m/^(\#\s*text\s*=)\s*(.+)$/)
+    {
+        $sentence = $1;
+        $conllu_fields[1] = $2;
+    }
+    # A teď vrátit žádaný řetězec.
     if($name eq 'LINENO')
     {
         return $lineno;
     }
     elsif($name eq 'SENTENCE')
     {
+        # Sem patří všechny řádky, které nejsou rozsekané do sloupců, tedy komentáře před větou a prázdné řádky za větou.
         return $sentence;
     }
     elsif($name =~ m/^(RESEGMENT|RETOKENIZE|SUBTOKENS)$/)
