@@ -92,6 +92,7 @@ $(PREPRCDIR)/%.conllu: $(MERGEDDIR)/%.conllu
 $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 	mkdir -p $(@D)
 	./tools/generate_table_for_annotation.pl < $< > $@
+	./tools/generate_sentence_list.pl < $< > $*-sentences.txt
 
 # Clean rule to remove all generated files.
 clean:
