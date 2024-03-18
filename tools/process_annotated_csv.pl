@@ -117,6 +117,10 @@ sub read_tsv_file
             {
                 # The value of the cell may be enclosed in quotation marks if the value is considered dangerous. Get rid of the quotation marks.
                 $f[$i] =~ s/^"(.+)"$/$1/;
+                if($headers[$i] eq 'ID')
+                {
+                    $f[$i] = fix_mwt_id($f[$i]);
+                }
                 $f{$headers[$i]} = $f[$i];
             }
             # Check that the line numbers are ordered.
@@ -139,4 +143,43 @@ sub read_tsv_file
     }
     # Return the list of headers and list of line hashes.
     return (\@headers, \@lines);
+}
+
+
+
+#------------------------------------------------------------------------------
+# Fixes multiword token range that was misinterpreted by Excel as a date.
+#------------------------------------------------------------------------------
+my %conversion;
+BEGIN
+{
+    %conversion =
+    (
+        'I'    => 1,
+        'II'   => 2,
+        'III'  => 3,
+        'IV'   => 4,
+        'V'    => 5,
+        'VI'   => 6,
+        'VII'  => 7,
+        'VIII' => 8,
+        'IX'   => 9,
+        'X'    => 10,
+        'XI'   => 11,
+        'XII'  => 12
+    );
+}
+sub fix_mwt_id
+{
+    my $x = shift;
+    if($x =~ m/^([0-9]+)\.([IVX]+)$/)
+    {
+        my $x0 = $1;
+        my $x1 = $2;
+        if(exists($conversion{$x1}))
+        {
+            $x = "$x0-$conversion{$x1}";
+        }
+    }
+    return $x;
 }
