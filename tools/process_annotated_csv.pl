@@ -50,6 +50,22 @@ if($anl != $onl)
 {
     confess("The original file had $onl lines but the annotated file has $anl lines");
 }
+# Check that the important values that should not be modified are indeed identical in both files.
+for(my $i = 0; $i <= $#{$alines}; $i++)
+{
+    if($alines->[$i]{SENTENCE} ne $olines->[$i]{SENTENCE})
+    {
+        confess("Line $alines->[$i]{LINENO}: Mismatch in SENTENCE column\nORIGINAL:  $olines->[$i]{SENTENCE}\nANNOTATED: $alines->[$i]{SENTENCE}\n");
+    }
+    if($alines->[$i]{ID} ne $olines->[$i]{ID})
+    {
+        confess("Line $alines->[$i]{LINENO}: Mismatch in ID column\nORIGINAL:  $olines->[$i]{ID}\nANNOTATED: $alines->[$i]{ID}\n");
+    }
+    if($alines->[$i]{FORM} ne $olines->[$i]{FORM})
+    {
+        confess("Line $alines->[$i]{LINENO}: Mismatch in FORM column\nORIGINAL:  $olines->[$i]{FORM}\nANNOTATED: $alines->[$i]{FORM}\n");
+    }
+}
 
 
 
@@ -99,6 +115,8 @@ sub read_tsv_file
             my %f;
             for(my $i = 0; $i <= $#f; $i++)
             {
+                # The value of the cell may be enclosed in quotation marks if the value is considered dangerous. Get rid of the quotation marks.
+                $f[$i] =~ s/^"(.+)"$/$1/;
                 $f{$headers[$i]} = $f[$i];
             }
             # Check that the line numbers are ordered.
