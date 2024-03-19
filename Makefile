@@ -105,6 +105,9 @@ amblist:
 	cat 08-bibl_dr_ol_mt-morfixed.conllu | udapy util.Eval node='lemma = node.lemma; lemma += "/"+node.misc["Lemma1300"] if node.misc["Lemma1300"] != "" else ""; print(f"{node.form.lower()}\t{node.upos} {node.feats} {lemma}")' | perl -CDS -pe 'while(<>) { chomp; @f=split(/\t/); $$cw{$$f[0]}++; $$ca{$$f[0]}{$$f[1]}++ } @w=sort {$$r=$$cw{$$b}<=>$$cw{$$a}; unless($$r){$$r=$$a cmp $$b}; $$r} (keys(%cw)); foreach $$w (@w) { print("$$w\t$$cw{$$w}\n"); @u=sort {$$r=$$ca{$$w}{$$b}<=>$$ca{$$w}{$$a}; unless($$r){$$r=$$a cmp $$b}; $$r} (keys(%{$$ca{$$w}})); foreach $$u (@u) { print("\t$$u\t$$ca{$$w}{$$u}\n") } }' > amblist.txt
 	conllu-stats.pl 08-bibl_dr_ol_mt-morfixed.conllu > stats.xml
 
+# C:\Users\Dan\Documents\Lingvistika\Projekty\hickok\data\annotated\etalon_anotace>perl ..\..\..\tools\process_annotated_csv.pl --ann1 002_modl_kunh_AM.csv --ann2 002_modl_kunh_JZ.csv --orig ..\..\for_annotation\13_19_stol\002_modl_kunh.tsv --name1 AM --name2 JZ > 002_modl_kunh_AM_JZ_diff.txt
+# C:\Users\Dan\Documents\Lingvistika\Projekty\hickok\data\annotated\etalon_anotace>perl ..\..\..\tools\process_annotated_csv.pl --orig ..\..\for_annotation\13_19_stol\004_zalt_u.tsv --name1 JP --ann1 004_zalt_u_JP.csv --name2 ON --ann2 004_zalt_u_ON.csv > 004_zalt_u_JP_ON_diff.txt
+
 # In the Upper Sorbian project from 2016, the next step would be to open the CSV file in LibreOffice
 # and edit it (screenshot in jak_spravne_otevrit_csv.jpg shows the import parameters). During
 # annotation, the file would be saved in the LibreOffice native format: *.ods. Inserting or removing

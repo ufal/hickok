@@ -17,18 +17,23 @@ use Getopt::Long;
 
 sub usage
 {
-    print STDERR ("Usage: $0 --orig for_annotation.tsv --ann1 by_annotator_1.tsv --ann2 by_annotator_2.tsv\n");
+    print STDERR ("Usage: $0 --orig for_annotation.tsv --ann1 by_annotator_1.tsv --ann2 by_annotator_2.tsv --name1 AB --name2 CD\n");
     print STDERR ("    The original file, as sent to the annotators, is used to check that the annotated file has not been altered too much.\n");
+    print STDERR ("    Options --name1 and --name2 give initials of the annotators for difference reports. Default: A1 and A2.\n");
 }
 
 my $orig;
 my $ann1;
 my $ann2;
+my $name1 = 'A1';
+my $name2 = 'A2';
 GetOptions
 (
-    'orig=s' => \$orig,
-    'ann1=s' => \$ann1,
-    'ann2=s' => \$ann2
+    'orig=s'  => \$orig,
+    'ann1=s'  => \$ann1,
+    'ann2=s'  => \$ann2,
+    'name1=s' => \$name1,
+    'name2=s' => \$name2
 );
 if(!defined($orig))
 {
@@ -60,7 +65,7 @@ my $onl = scalar(@{$olines});
 my $a1nh = scalar(@{$a1headers});
 if($a1nh != $onh)
 {
-    confess("The original file had $onh columns but the annotated file 1 has $a1nh columns");
+    confess("The original file had $onh columns, file annotated by $name1 has $a1nh columns");
 }
 else
 {
@@ -68,19 +73,19 @@ else
     {
         if(!grep {$_ eq $header} (@{$a1headers}))
         {
-            confess("Missing column '$header' in annotated file 1");
+            confess("Missing column '$header' in $name1");
         }
     }
 }
 my $a1nl = scalar(@{$a1lines});
 if($a1nl != $onl)
 {
-    confess("The original file had $onl lines but the annotated file 1 has $a1nl lines");
+    confess("The original file had $onl lines, file annotated by $name1 has $a1nl lines");
 }
 my $a2nh = scalar(@{$a2headers});
 if($a2nh != $onh)
 {
-    confess("The original file had $onh columns but the annotated file 2 has $a2nh columns");
+    confess("The original file had $onh columns, file annotated by $name2 has $a2nh columns");
 }
 else
 {
@@ -88,55 +93,59 @@ else
     {
         if(!grep {$_ eq $header} (@{$a2headers}))
         {
-            confess("Missing column '$header' in annotated file 2");
+            confess("Missing column '$header' in $name2");
         }
     }
 }
 my $a2nl = scalar(@{$a2lines});
 if($a2nl != $onl)
 {
-    confess("The original file had $onl lines but the annotated file 2 has $a2nl lines");
+    confess("The original file had $onl lines, file annotated by $name2 has $a2nl lines");
 }
 # Look for differences.
 my $ndiff = 0;
+my $maxl = 0;
 for(my $i = 0; $i < $onl; $i++)
 {
     # Check that the important values that should not be modified are indeed identical in both annotated files and the original.
-    if($a1lines->[$i]{SENTENCE} ne $olines->[$i]{SENTENCE})
+    foreach my $header (qw(SENTENCE ID FORM))
     {
-        confess("Line $a1lines->[$i]{LINENO}: Mismatch in SENTENCE column\nORIGINAL:    $olines->[$i]{SENTENCE}\nANNOTATED 1: $a1lines->[$i]{SENTENCE}\n");
+        if($a1lines->[$i]{$header} ne $olines->[$i]{$header})
+        {
+            confess("Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name1: $a1lines->[$i]{$header}\n");
+        }
     }
-    if($a1lines->[$i]{ID} ne $olines->[$i]{ID})
+    foreach my $header (qw(SENTENCE ID FORM))
     {
-        confess("Line $a1lines->[$i]{LINENO}: Mismatch in ID column\nORIGINAL:    $olines->[$i]{ID}\nANNOTATED 1: $a1lines->[$i]{ID}\n");
-    }
-    if($a1lines->[$i]{FORM} ne $olines->[$i]{FORM})
-    {
-        confess("Line $a1lines->[$i]{LINENO}: Mismatch in FORM column\nORIGINAL:    $olines->[$i]{FORM}\nANNOTATED 1: $a1lines->[$i]{FORM}\n");
-    }
-    if($a2lines->[$i]{SENTENCE} ne $olines->[$i]{SENTENCE})
-    {
-        confess("Line $a2lines->[$i]{LINENO}: Mismatch in SENTENCE column\nORIGINAL:    $olines->[$i]{SENTENCE}\nANNOTATED 2: $a2lines->[$i]{SENTENCE}\n");
-    }
-    if($a2lines->[$i]{ID} ne $olines->[$i]{ID})
-    {
-        confess("Line $a2lines->[$i]{LINENO}: Mismatch in ID column\nORIGINAL:    $olines->[$i]{ID}\nANNOTATED 2: $a2lines->[$i]{ID}\n");
-    }
-    if($a2lines->[$i]{FORM} ne $olines->[$i]{FORM})
-    {
-        confess("Line $a2lines->[$i]{LINENO}: Mismatch in FORM column\nORIGINAL:    $olines->[$i]{FORM}\nANNOTATED 2: $a2lines->[$i]{FORM}\n");
+        if($a2lines->[$i]{$header} ne $olines->[$i]{$header})
+        {
+            confess("Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name2: $a2lines->[$i]{$header}\n");
+        }
     }
     # Find differences between the two annotated files.
     foreach my $header (@{$oheaders})
     {
         if($a1lines->[$i]{$header} ne $a2lines->[$i]{$header})
         {
-            print("Line $olines->[$i]{LINENO} ($olines->[$i]{FORM}): Difference in $header:   a1=$a1lines->[$i]{$header}   a2=$a2lines->[$i]{$header}\n");
+            my $message = "Line $olines->[$i]{LINENO} ($olines->[$i]{FORM}): Difference in $header:";
+            # Try to align the message with the longest message encountered so far, except for super-outliers.
+            my $l = length($message);
+            if($l < $maxl)
+            {
+                $message .= ' ' x ($maxl-$l);
+            }
+            elsif($maxl == 0 || $l > $maxl && $l < $maxl*1.2)
+            {
+                $maxl = $l;
+            }
+            my $m1 = "$name1=$a1lines->[$i]{$header}"; $m1 .= ' ' x (length($name1)+10-length($m1));
+            my $m2 = "$name2=$a2lines->[$i]{$header}";
+            print("$message   $m1   $m2\n");
             $ndiff++;
         }
     }
 }
-print("Found $ndiff differences between a1 and a2.\n");
+print("\nFound $ndiff differences between $name1 and $name2.\n");
 
 
 
