@@ -188,6 +188,12 @@ sub read_tsv_file
             {
                 # The value of the cell may be enclosed in quotation marks if the value is considered dangerous. Get rid of the quotation marks.
                 $f[$i] =~ s/^"(.+)"$/$1/;
+                # Get rid of leading and trailing spaces.
+                $f[$i] =~ s/^\s+//;
+                $f[$i] =~ s/\s+$//;
+                # Replace empty values by underscores.
+                $f[$i] = '_' if($f[$i] eq '');
+                # Fix MWT ranges that were mis-interpreted by Excel as dates.
                 if($headers[$i] eq 'ID')
                 {
                     $f[$i] = fix_mwt_id($f[$i]);
