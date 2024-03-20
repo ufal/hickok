@@ -114,8 +114,8 @@ postprocess:
 	# Udapi resides in https://github.com/udapi/udapi-python
 	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).conllu ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu
 	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).conllu ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu
-	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu util.Eval node='node.misc = {}' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
-	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu util.Eval node='node.misc = {}' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu util.Eval node='node.misc = {}' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu util.Eval node='node.misc = {}' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	# The UD validation script should be in PATH (and python3 available).
 	# The script resides in https://github.com/UniversalDependencies/tools
 	validate.py --lang cs data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu |& tee data/annotated/13_19_stol/$(ANNBASE)_$(A1).validation.log
