@@ -88,42 +88,53 @@ $(PREPRCDIR)/%.conllu: $(MERGEDDIR)/%.conllu
 	./tools/fix_tokenization.pl < $< | ./tools/fix_morphology.pl > $(PREPRCDIR)/$*-forudapi.conllu
 	udapy -s util.Eval node='if node.form.lower() == "u" and node.upos == "ADP" and re.match(r"(Acc|Loc)", node.parent.feats["Case"]): node.lemma = "v"; node.feats["Case"] = node.parent.feats["Case"]; node.xpos = "RV--6----------" if node.feats["Case"] == "Loc" else "RV--4----------"' < $(PREPRCDIR)/$*-forudapi.conllu > $@
 
-# Prepare a CSV file that can be opened in a spreadsheet editor such as LibreOffice Calc and manually annotated.
+# Prepare a TSV file (tab-separated values) that can be opened in a spreadsheet editor such as
+# LibreOffice Calc and manually annotated.
 $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 	mkdir -p $(@D)
 	./tools/generate_table_for_annotation.pl < $< > $@
 	./tools/generate_sentence_list.pl < $< > $(FORANNDIR)/$*-sentences.txt
 
+# Once a file has been annotated independently by two annotators, save their files as a TSV again,
+# read it by this script and verify that it still matches the original in the important fields such
+# as the word forms. Report differences between the two annotators and save their files in the
+# CoNLL-U format.
+# Note: We can give the script the initials of the annotators via --name1 and --name2; they will be
+# then used in the difference report instead of 'A1' and 'A2'.
+ANNBASE=002_modl_kunh
+A1=AM
+A2=JZ
+#ANNBASE=004_zalt_u
+#A1=JP
+#A2=ON
+postprocess:
+	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/13_19_stol/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/13_19_stol/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/13_19_stol/$(ANNBASE)_$(A2).csv > $(ANNBASE)_$(A1)_$(A2)_diff.txt
+	# The files may not be valid because syntactic annotation has been ignored.
+	# Install Udapi (python) and make sure it is in PATH.
+	# Udapi resides in https://github.com/udapi/udapi-python
+	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).conllu ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu
+	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).conllu ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu
+	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu util.Eval node='node.misc = {}' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu util.Eval node='node.misc = {}' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	# The UD validation script should be in PATH (and python3 available).
+	# The script resides in https://github.com/UniversalDependencies/tools
+	validate.py --lang cs data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu
+	validate.py --lang cs data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu
+
+
+
 # Clean rule to remove all generated files.
 clean:
-	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR) $(MERGEDDIR) $(PREPRCDIR)
+	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR) $(MERGEDDIR) $(PREPRCDIR) $(FORANNDIR)
 
 
+
+# Archiv cílů z projektu Matouš 2021
 
 amblist:
 	cat 08-bibl_dr_ol_mt-morfixed.conllu | udapy util.Eval node='if re.match(r"^(PRON|DET)$$", node.upos): print(node.upos, node.feats["PronType"], node.lemma, node.feats["Poss"], node.feats["Reflex"], node.feats["Number"], node.feats["Person"], node.feats["Gender"], node.feats["Case"], node.form.lower())' | sort | uniq -c > zajmena.txt
 	cat 08-bibl_dr_ol_mt-morfixed.conllu | udapy util.Eval node='lemma = node.lemma; lemma += "/"+node.misc["Lemma1300"] if node.misc["Lemma1300"] != "" else ""; print(f"{node.form.lower()}\t{node.upos} {node.feats} {lemma}")' | perl -CDS -pe 'while(<>) { chomp; @f=split(/\t/); $$cw{$$f[0]}++; $$ca{$$f[0]}{$$f[1]}++ } @w=sort {$$r=$$cw{$$b}<=>$$cw{$$a}; unless($$r){$$r=$$a cmp $$b}; $$r} (keys(%cw)); foreach $$w (@w) { print("$$w\t$$cw{$$w}\n"); @u=sort {$$r=$$ca{$$w}{$$b}<=>$$ca{$$w}{$$a}; unless($$r){$$r=$$a cmp $$b}; $$r} (keys(%{$$ca{$$w}})); foreach $$u (@u) { print("\t$$u\t$$ca{$$w}{$$u}\n") } }' > amblist.txt
 	conllu-stats.pl 08-bibl_dr_ol_mt-morfixed.conllu > stats.xml
-
-# C:\Users\Dan\Documents\Lingvistika\Projekty\hickok\data\annotated\etalon_anotace>perl ..\..\..\tools\process_annotated_csv.pl --ann1 002_modl_kunh_AM.csv --ann2 002_modl_kunh_JZ.csv --orig ..\..\for_annotation\13_19_stol\002_modl_kunh.tsv --name1 AM --name2 JZ > 002_modl_kunh_AM_JZ_diff.txt
-# C:\Users\Dan\Documents\Lingvistika\Projekty\hickok\data\annotated\etalon_anotace>perl ..\..\..\tools\process_annotated_csv.pl --orig ..\..\for_annotation\13_19_stol\004_zalt_u.tsv --name1 JP --ann1 004_zalt_u_JP.csv --name2 ON --ann2 004_zalt_u_ON.csv > 004_zalt_u_JP_ON_diff.txt
-
-# In the Upper Sorbian project from 2016, the next step would be to open the CSV file in LibreOffice
-# and edit it (screenshot in jak_spravne_otevrit_csv.jpg shows the import parameters). During
-# annotation, the file would be saved in the LibreOffice native format: *.ods. Inserting or removing
-# lines or columns is forbidden, we can only edit certain cells. The final file would be saved
-# again in CSV (screenshot in jak_spravne_ulozit_csv.jpg shows the export parameters). Now in the
-# Old Czech project, the main change is that we use Microsoft Excel instead of Libre Office.
-# Exporting to plain text is different. We have to select Unicode Text, but it is Unicode BOM, not
-# UTF-8, and it is also with Windows line breaks, so we subsequently have to open it in Notepad2
-# and fix these remaining issues.
-
-# Once we have the table in plain text again, we run a sanity check: Make sure that the annotated
-# file has the same number of lines and that all words match those in the input file. If it is OK,
-# remove extra columns and compress it back to the CoNLL-U format.
-post_manual_annotation:
-	sanity_check_after_annotation.pl $(MANMORPHIN) $(MANMORPHOUT) > $(MANMORPHPOST)
-	sanity_check_after_annotation.pl $(MANMORPHIN) bibl_dr_ol_mt-manually_checked-kosek-dr_mt_3.txt > bibl_dr_ol_mt-manual-kosek.conllu
 
 # Check allowed and required features. This is how we run Udapi in Windows (udapy.bat will take care
 # of setting PYTHONPATH and calling python with the right copy of the udapy script; however, we

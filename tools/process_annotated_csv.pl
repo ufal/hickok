@@ -20,6 +20,10 @@ sub usage
     print STDERR ("Usage: $0 --orig for_annotation.tsv --ann1 by_annotator_1.tsv --ann2 by_annotator_2.tsv --name1 AB --name2 CD\n");
     print STDERR ("    The original file, as sent to the annotators, is used to check that the annotated file has not been altered too much.\n");
     print STDERR ("    Options --name1 and --name2 give initials of the annotators for difference reports. Default: A1 and A2.\n");
+    print STDERR ("Output:\n");
+    print STDERR ("    Differences are printed to STDOUT.\n");
+    print STDERR ("    In addition, a CoNLL-U file is created for each annotator: Path and base name is taken from --ann1/2, '.conllu' is added.\n");
+    print STDERR ("    If the CoNLL-U file already exists, it will be overwritten without warning!\n");
 }
 
 my $orig;
@@ -146,6 +150,15 @@ for(my $i = 0; $i < $onl; $i++)
     }
 }
 print("\nFound $ndiff differences between $name1 and $name2.\n");
+# Write each annotator's file in the CoNLL-U format.
+my $conllu1 = $ann1;
+my $conllu2 = $ann2;
+$conllu1 =~ s/(.)\.[a-z]*$/$1/;
+$conllu2 =~ s/(.)\.[a-z]*$/$1/;
+$conllu1 .= '.conllu';
+$conllu2 .= '.conllu';
+write_conllu_file($conllu1, $a1headers, $a1lines);
+write_conllu_file($conllu2, $a2headers, $a2lines);
 
 
 
@@ -268,4 +281,56 @@ sub fix_mwt_id
         }
     }
     return $x;
+}
+
+
+
+#------------------------------------------------------------------------------
+# Writes a CoNLL-U file based on headers and lines previously read from TSV.
+#------------------------------------------------------------------------------
+sub write_conllu_file
+{
+    my $path = shift;
+    my $headers = shift;
+    my $lines = shift;
+    # Use :raw to prevent LF to CRLF translation. Combine it with :utf8, otherwise the encoding will be messed up.
+    open(OUT, '>:raw:utf8', $path) or confess("Cannot write '$path': $!");
+    my @fheaders = sort {lc($a) cmp lc($b)} (grep {uc($_) ne $_} (@{$headers}));
+    foreach my $line (@{$lines})
+    {
+        if($line->{ID} =~ m/^[0-9]/)
+        {
+            # This is a token/word/node line.
+            my $feats = join('|', map {"$_=$line->{$_}"} (grep {$line->{$_} ne '_'} (@fheaders)));
+            $feats = '_' if($feats eq '');
+            my @misc = $line->{MISC} eq '_' ? () : split(/\|/, $line->{MISC});
+            if($line->{SUBTOKENS} ne '_')
+            {
+                unshift(@misc, "SUBTOKENS=$line->{SUBTOKENS}");
+            }
+            if($line->{RETOKENIZE} ne '_')
+            {
+                unshift(@misc, "RETOKENIZE=$line->{RETOKENIZE}");
+            }
+            if($line->{RESEGMENT} ne '_')
+            {
+                unshift(@misc, "RESEGMENT=$line->{RESEGMENT}");
+            }
+            # The annotated files do not contain XPOS. Print underscore now. We will compute XPOS from UPOS+FEATS later.
+            print OUT ("$line->{ID}\t$line->{FORM}\t$line->{LEMMA}\t$line->{UPOS}\t_\t$feats\t$line->{HEAD}\t$line->{DEPREL}\t$line->{DEPS}\t$line->{MISC}\n");
+        }
+        else
+        {
+            # This is a sentence-level comment or an empty line after a sentence.
+            if($line->{SENTENCE} =~ m/^\#\s*text\s*=\s*$/)
+            {
+                print OUT ("\# text = $line->{FORM}\n");
+            }
+            else
+            {
+                print OUT ("$line->{SENTENCE}\n");
+            }
+        }
+    }
+    close(OUT);
 }
