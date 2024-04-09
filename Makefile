@@ -101,12 +101,12 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # CoNLL-U format.
 # Note: We can give the script the initials of the annotators via --name1 and --name2; they will be
 # then used in the difference report instead of 'A1' and 'A2'.
-#ANNBASE=002_modl_kunh
-#A1=AM
-#A2=JZ
-ANNBASE=004_zalt_u
-A1=JP
-A2=ON
+ANNBASE=002_modl_kunh
+A1=AM
+A2=JZ
+#ANNBASE=004_zalt_u
+#A1=JP
+#A2=ON
 postprocess:
 	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/13_19_stol/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/13_19_stol/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/13_19_stol/$(ANNBASE)_$(A2).csv > data/annotated/13_19_stol/$(ANNBASE)_$(A1)_$(A2)_diff.txt
 	# The files may not be valid because syntactic annotation has been ignored.
