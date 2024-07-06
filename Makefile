@@ -95,19 +95,26 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 	./tools/generate_table_for_annotation.pl < $< > $@
 	./tools/generate_sentence_list.pl < $< > $(FORANNDIR)/$*-sentences.txt
 
-# Once a file has been annotated independently by two annotators, save their files as a TSV again,
-# read it by this script and verify that it still matches the original in the important fields such
-# as the word forms. Report differences between the two annotators and save their files in the
-# CoNLL-U format.
+# Once a file has been annotated independently by two annotators, save their files as
+# tab-separated values again (but now with ".csv" file extensions):
+# Open the .xlsx file in LibreOffice Calc rather than Microsoft Excel. Select Save as "Text CSV",
+# make sure to check "Upravit nastavení filtru", then set output encoding to Unicode (UTF-8),
+# field separator to TAB, the rest can probably stay set to default values.
+
+# Read the .csv files by the script below and verify that they still match the original in the
+# important fields such as the word forms. Report differences between the two annotators and save
+# their files in the CoNLL-U format.
+
 # Note: We can give the script the initials of the annotators via --name1 and --name2; they will be
 # then used in the difference report instead of 'A1' and 'A2'.
-ANNBASE=002_modl_kunh
-A1=AM
-A2=JZ
-#ANNBASE=004_zalt_u
-#A1=JP
-#A2=ON
+# Set the environment variables before calling make like this:
+# DATE=2024-04-09 ANNBASE=002_modl_kunh  A1=AM A2=JZ make postprocess
+# DATE=2024-04-09 ANNBASE=004_zalt_u     A1=JP A2=ON make postprocess
+# DATE=2024-07-06 ANNBASE=005_umuc_rajhr A1=AM A2=JZ make postprocess
+# DATE=2024-07-06 ANNBASE=008_hrad_sat   A1=JP A2=ON make postprocess
+
 postprocess:
+	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi ; if [[ -z "$(A1)" ]] ; then exit 2 ; fi ; if [[ -z "$(A2)" ]] ; then exit 3 ; fi
 	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/13_19_stol/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/13_19_stol/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/13_19_stol/$(ANNBASE)_$(A2).csv > data/annotated/13_19_stol/$(ANNBASE)_$(A1)_$(A2)_diff.txt
 	# The files may not be valid because syntactic annotation has been ignored.
 	# Install Udapi (python) and make sure it is in PATH.
