@@ -66,8 +66,12 @@ my $a2lines;
 ($a2headers, $a2lines) = read_tsv_file($ann2);
 my $onh = scalar(@{$oheaders});
 my $onl = scalar(@{$olines});
+# We will report if the annotated file has too few columns but we must tolerate
+# if it has too many. Sometimes the spreadsheet processor will add many empty
+# columns, e.g. to make the total number of columns rise to 1024, and name them
+# "Sloupec1" to "Sloupec984".
 my $a1nh = scalar(@{$a1headers});
-if($a1nh != $onh)
+if($a1nh < $onh)
 {
     confess("The original file had $onh columns, file annotated by $name1 has $a1nh columns");
 }
@@ -87,7 +91,7 @@ if($a1nl != $onl)
     confess("The original file had $onl lines, file annotated by $name1 has $a1nl lines");
 }
 my $a2nh = scalar(@{$a2headers});
-if($a2nh != $onh)
+if($a2nh < $onh)
 {
     confess("The original file had $onh columns, file annotated by $name2 has $a2nh columns");
 }
