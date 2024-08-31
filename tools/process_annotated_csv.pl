@@ -77,6 +77,11 @@ if($a1nh < $onh)
 }
 else
 {
+    if($a1nh > $onh)
+    {
+        splice(@{$a1headers}, $onh);
+        $a1nh = $onh;
+    }
     foreach my $header (@{$oheaders})
     {
         if(!grep {$_ eq $header} (@{$a1headers}))
@@ -97,6 +102,11 @@ if($a2nh < $onh)
 }
 else
 {
+    if($a2nh > $onh)
+    {
+        splice(@{$a2headers}, $onh);
+        $a2nh = $onh;
+    }
     foreach my $header (@{$oheaders})
     {
         if(!grep {$_ eq $header} (@{$a2headers}))
