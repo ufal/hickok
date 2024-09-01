@@ -340,11 +340,15 @@ sub fix_morphology
     # syntactic annotation but only morphology was edited manually. Here we
     # just try to avoid validation errors stemming from syntax incompatible
     # with the manual morphology.
-    if($f->{UPOS} eq 'AUX' && $f->{DEPREL} =~ m/^(case)(:|$)/)
+    if($f->{UPOS} eq 'AUX' && $f->{DEPREL} =~ m/^(case|nummod)(:|$)/)
     {
         $f->{DEPREL} = 'aux';
     }
     if($f->{UPOS} eq 'PRON' && $f->{DEPREL} =~ m/^(case|cc)(:|$)/)
+    {
+        $f->{DEPREL} = 'dep';
+    }
+    if($f->{UPOS} eq 'PART' && $f->{DEPREL} =~ m/^(det|punct)(:|$)/)
     {
         $f->{DEPREL} = 'dep';
     }
