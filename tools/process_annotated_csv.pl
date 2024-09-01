@@ -330,6 +330,16 @@ sub fix_morphology
             $f->{PrepCase} = 'Pre';
         }
     }
+    # The indefinite quantifier "nejeden" is not annotated as negative form of
+    # the numeral "jeden". It has the lemma "nejeden", tag DET (not NUM),
+    # PronType=Ind.
+    if($f->{LEMMA} eq 'nejeden')
+    {
+        $f->{UPOS} = 'DET';
+        $f->{PronType} = 'Ind';
+        $f->{NumType} = 'Card';
+        $f->{NumForm} = '_';
+    }
     # The verb "být" is always AUX and never VERB. And it is imperfective.
     if($f->{UPOS} =~ m/^(VERB|AUX)$/ && $f->{LEMMA} eq 'být')
     {
