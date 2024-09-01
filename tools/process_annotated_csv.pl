@@ -330,6 +330,12 @@ sub fix_morphology
             $f->{PrepCase} = 'Pre';
         }
     }
+    # The verb "být" is always AUX and never VERB. And it is imperfective.
+    if($f->{UPOS} =~ m/^(VERB|AUX)$/ && $f->{LEMMA} eq 'být')
+    {
+        $f->{UPOS} = 'AUX';
+        $f->{Aspect} = 'Imp';
+    }
 }
 
 
