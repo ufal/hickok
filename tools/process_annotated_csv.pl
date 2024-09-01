@@ -317,6 +317,19 @@ sub fix_morphology
     {
         $f->{Polarity} = '_';
     }
+    # Third person pronouns in non-nominative must have the PrepCase feature
+    # (except clitics "ho" and "mu").
+    if($f->{UPOS} eq 'PRON' && $f->{LEMMA} eq 'on' && $f->{Case} =~ m/^(Gen|Dat|Acc|Loc|Ins)$/)
+    {
+        if($f->{FORM} =~ m/^j/i)
+        {
+            $f->{PrepCase} = 'Npr';
+        }
+        elsif($f->{FORM} =~ m/^[nň]/i)
+        {
+            $f->{PrepCase} = 'Pre';
+        }
+    }
 }
 
 
