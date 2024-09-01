@@ -236,6 +236,9 @@ sub read_tsv_file
                 }
                 $f{$headers[$i]} = $f[$i];
             }
+            # Make annotations more consistent and automatically fix certain
+            # common errors.
+            fix_morphology(\%f);
             # Check that the line numbers are ordered.
             if($f{LINENO} != $.-1)
             {
@@ -295,6 +298,25 @@ sub fix_mwt_id
         }
     }
     return $x;
+}
+
+
+
+#------------------------------------------------------------------------------
+# Fixes certain annotation inconsistencies that the annotators are allowed to
+# do. The fixes must be done in this script, before the differences between
+# annotators are computed and reported.
+#------------------------------------------------------------------------------
+sub fix_morphology
+{
+    my $f = shift; # hash ref (fixes will be done in-place)
+    # Nouns do not have Polarity. As per meeting on 2024-05-16, negative nouns
+    # have negative lemmas and are not treated as negative forms of affirmative
+    # lemmas.
+    if($f->{upos} =~ m/^NOUN|PROPN$/)
+    {
+        $f->{Polarity} = '_';
+    }
 }
 
 
