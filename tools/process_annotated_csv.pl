@@ -313,7 +313,7 @@ sub fix_morphology
     # Nouns do not have Polarity. As per meeting on 2024-05-16, negative nouns
     # have negative lemmas and are not treated as negative forms of affirmative
     # lemmas.
-    if($f->{upos} =~ m/^NOUN|PROPN$/)
+    if($f->{UPOS} =~ m/^NOUN|PROPN$/)
     {
         $f->{Polarity} = '_';
     }
