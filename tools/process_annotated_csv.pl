@@ -344,6 +344,10 @@ sub fix_morphology
     {
         $f->{DEPREL} = 'aux';
     }
+    if($f->{UPOS} ne'AUX' && $f->{DEPREL} =~ m/^(aux)(:|$)/)
+    {
+        $f->{DEPREL} = 'dep';
+    }
     if($f->{UPOS} eq 'PRON' && $f->{DEPREL} =~ m/^(case|cc)(:|$)/)
     {
         $f->{DEPREL} = 'dep';
