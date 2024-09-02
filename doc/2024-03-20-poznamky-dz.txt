@@ -1,0 +1,6 @@
+u s lokálem bude mít lemma "u", protože v 19. stol to tak stejně dělají ("u vodě")
+zájmeno "veš" ve všech podobách (i "všecek") bude mít lemma "všechen" ... to znamená, že některé věci se budou muset změnit i v novočeských datech
+"lidé" má mít lemma "člověk" (ale teď v PDT nemá)
+lemmatizace osobních zájmen??? různé verze českých morfologií - jaký je teď názor v pdt?
+... a possessiva jeho/její jejímu, jejího, jejím, jejích, jejími ... i jejie ve stč mohlo být nesklonné
+dva, oba by mělo mít i v nové češtině Number=Dual

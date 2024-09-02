@@ -1,0 +1,54 @@
+Lemmatizace
+Až 4 různá lemmata pro každé slovo?
+1. základní tvar odpovídající podobě kmene v anotovaném tvaru
+2. hyperlemma pro dané období, např. k roku 1300
+   Otázky:
+   - jak se rozhodne, který tvar je "kanoničtější" a má přednost
+   - jak se rozhodne, co všechno ještě spadá pod dané hyperlemma
+3. hyperlemma pro všechna období, reprezentované moderním tvarem
+   Tohle je lemma, které primárně předpoví UDPipe. Kromě toho je užitečné něco takového mít pro uživatele korpusu, aby snadněji dohledal různé tvary slova v různě starých textech.
+   Otázky:
+   - i moderních tvarů může být více a je třeba rozhodnout, který má přednost
+   - co všechno pod něj spadá: pokud se změnilo morfologické paradigma, je to problém?
+4. teoreticky by se mohlo hodit ještě nějaké "derivačně-sémantické" hyperlemma (v závislosti na tom, co se vejde nebo nevejde do hyperlemmatu v bodu 3)
+   např. když se stejný pojem dříve odvozoval od kmene nějakým sufixem a nyní úplně jiným
+   ale na tohle nejspíš nemáme kapacitu a asi to patří spíš do slovníku než do korpusu
+
+Které rysy anotovat ke kterým slovům, jak rozhodovat o hraničních UPOS kategoriích?
+- Ledacos už je nějak nastaveno přímo pravidly UD, popř. debatami z "projektu Matouš" a konzistencí s jinými českými UD treebanky.
+
+Anotační nástroje
+- https://universaldependencies.org/tools.html
+- Na ÚFALu používáme Tred a CoNLL-U Editor, ale hlavně kvůli syntaxi.
+- Na morfologické rysy v CoNLL-U jsou celkem účinné i tabulkové procesory (Microsoft Excel, LibreOffice Calc).
+  - Na jednu stranu žádná podpora specificky lingvistických požadavků ani dohled nad požadovaným formátem tabulky.
+  - Na druhou stranu lze anotovat rychle pomocí klávesnice. Pokud má každý rys svůj sloupec, často stačí jeden dva úhozy, aby se opsala hodnota z dříve anotovaných slov.
+
+Hranice vět
+- Určitě nejsou všude správně, ale není snadné je změnit ručně.
+  - Dohodnout anotační značky "zde spojit s předchozí větou" resp. "zde začít novou větu", posléze se to zpracuje nějakým skriptem.
+
+Validační skripty
+- Určitě je budu pouštět já, ale ideální by bylo, aby si anotaci mohl nechat zvalidovat i sám anotátor.
+  - Základní validace formátu souboru.
+  - Nepoškození těch částí, na které anotátor neměl sahat (např. slovní tvar?)
+  - Jsou u každého slova vyplněny hodnoty všech povinných rysů?
+  - Mají všechny rysy známou (schválenou) hodnotu?
+
+Nějaká wiki, kde budeme sbírat postřehy a slaďovat přístupy?
+Popř. Github (jsou tam issues, tj. diskusní fórum o jednotlivých tématech).
+
+Postup anotace
+- Vybrat soubory, se kterými se začne.
+- Až budou hotové, přetrénujeme UDPipe a znova jím proženeme další soubory, měly by dopadnout lépe a anotátorům nechat méně práce.
+- Máme kapacitu na to, aby každý soubor anotovali nezávisle dva anotátoři?
+
+... syntax?
+
+
+Poslat odkaz na Google drive z projektu "Matouš".
+
+Jirka Hana - nástroj "feat" - zdrojáky???
+(pro Ondru)
+
+Příští schůzka v březnu (na konci února se dohodneme kdy).
