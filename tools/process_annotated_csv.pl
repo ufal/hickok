@@ -330,6 +330,15 @@ sub fix_morphology
             $f->{PrepCase} = 'Pre';
         }
     }
+    # Adjectives including short forms and passive participles should have
+    # non-empty Degree.
+    if($f->{UPOS} eq 'ADJ' && $f->{NumType} eq '_' && $f->{Poss} eq '_' && ($f->{VerbForm} eq '_' || $f->{Voice} eq 'Pass'))
+    {
+        if($f->{Degree} eq '_')
+        {
+            $f->{Degree} = 'Pos';
+        }
+    }
     # The indefinite quantifier "nejeden" is not annotated as negative form of
     # the numeral "jeden". It has the lemma "nejeden", tag DET (not NUM),
     # PronType=Ind.
