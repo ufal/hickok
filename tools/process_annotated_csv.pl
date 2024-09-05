@@ -339,6 +339,20 @@ sub fix_morphology
             $f->{Degree} = 'Pos';
         }
     }
+    # Pronouns use Variant=Short only for a handful of forms, based on existing
+    # Modern Czech data. The feature is not used elsewhere where longer and
+    # shorter forms compete.
+    if($f->{UPOS} eq 'PRON')
+    {
+        if($f->{FORM} =~ m/^(mě|mi|tě|ti|ho|mu|se|si)$/i)
+        {
+            $f->{Variant} = 'Short';
+        }
+        else
+        {
+            $f->{Variant} = '_';
+        }
+    }
     # The indefinite quantifier "nejeden" is not annotated as negative form of
     # the numeral "jeden". It has the lemma "nejeden", tag DET (not NUM),
     # PronType=Ind.
