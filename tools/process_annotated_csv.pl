@@ -424,6 +424,7 @@ sub write_conllu_file
             {
                 unshift(@misc, "RESEGMENT=$line->{RESEGMENT}");
             }
+            $line->{MISC} = scalar(@misc) > 0 ? join('|', @misc) : '_';
             # The annotated files do not contain XPOS. Print underscore now. We will compute XPOS from UPOS+FEATS later.
             print OUT ("$line->{ID}\t$line->{FORM}\t$line->{LEMMA}\t$line->{UPOS}\t_\t$feats\t$line->{HEAD}\t$line->{DEPREL}\t$line->{DEPS}\t$line->{MISC}\n");
         }
