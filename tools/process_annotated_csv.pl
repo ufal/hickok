@@ -415,7 +415,6 @@ sub write_conllu_file
             my @misc = $line->{MISC} eq '_' ? () : split(/\|/, $line->{MISC});
             if($line->{SUBTOKENS} ne '_')
             {
-                unshift(@misc, "SUBTOKENS=$line->{SUBTOKENS}");
                 ###!!! Alert me if there are instructions that have not been implemented downstream.
                 if($line->{SUBTOKENS} !~ m/^\S+ [sť]$/)
                 {
@@ -427,24 +426,27 @@ sub write_conllu_file
                         $n_err++;
                     }
                 }
+                unshift(@misc, "SUBTOKENS=$line->{SUBTOKENS}");
             }
             if($line->{RETOKENIZE} ne '_')
             {
-                unshift(@misc, "RETOKENIZE=$line->{RETOKENIZE}");
                 ###!!! Alert me if there are instructions that have not been implemented downstream.
+                ###!!! But do not crash if it is just a known typo.
+                $line->{RETOKENIZE} = 'rozdělit' if($line->{RETOKENIZE} eq 'rozdlělit');
                 if($line->{RETOKENIZE} ne 'rozdělit')
                 {
                     confess("Retokenizing instruction '$line->{RETOKENIZE}' is not yet implemented");
                 }
+                unshift(@misc, "RETOKENIZE=$line->{RETOKENIZE}");
             }
             if($line->{RESEGMENT} ne '_')
             {
-                unshift(@misc, "RESEGMENT=$line->{RESEGMENT}");
                 ###!!! Alert me if there are instructions that have not been implemented downstream.
                 if($line->{RESEGMENT} ne 'rozdělit')
                 {
                     confess("Resegmenting instruction '$line->{RESEGMENT}' is not yet implemented");
                 }
+                unshift(@misc, "RESEGMENT=$line->{RESEGMENT}");
             }
             $line->{MISC} = scalar(@misc) > 0 ? join('|', @misc) : '_';
             # The annotated files do not contain XPOS. Print underscore now. We will compute XPOS from UPOS+FEATS later.
