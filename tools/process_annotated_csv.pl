@@ -418,7 +418,12 @@ sub write_conllu_file
                 ###!!! Alert me if there are instructions that have not been implemented downstream.
                 if($line->{SUBTOKENS} !~ m/^\w+ [sť]$/)
                 {
-                    confess("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented");
+                    ###!!! Ignore the request to retokenize 'přědeň' that is already
+                    ###!!! a multiword token 'přěd+něj' into 'přěde+ňej'.
+                    unless($line->{ID} =~ m/\./ && $line->{SUBTOKENS} eq 'přěde ňej')
+                    {
+                        print STDERR ("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented");
+                    }
                 }
             }
             if($line->{RETOKENIZE} ne '_')
