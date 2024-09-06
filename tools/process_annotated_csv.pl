@@ -417,7 +417,7 @@ sub write_conllu_file
             {
                 unshift(@misc, "SUBTOKENS=$line->{SUBTOKENS}");
                 ###!!! Alert me if there are instructions that have not been implemented downstream.
-                if($line->{SUBTOKENS} !~ m/^\w+ [sť]$/)
+                if($line->{SUBTOKENS} !~ m/^\S+ [sť]$/)
                 {
                     ###!!! Ignore the request to retokenize 'přědeň' that is already
                     ###!!! a multiword token 'přěd+něj' into 'přěde+ňej'.
