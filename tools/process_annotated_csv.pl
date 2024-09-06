@@ -412,43 +412,7 @@ sub write_conllu_file
             # This is a token/word/node line.
             my $feats = join('|', map {"$_=$line->{$_}"} (grep {$line->{$_} ne '_'} (@fheaders)));
             $feats = '_' if($feats eq '');
-            my @misc = $line->{MISC} eq '_' ? () : split(/\|/, $line->{MISC});
-            if($line->{SUBTOKENS} ne '_')
-            {
-                ###!!! Alert me if there are instructions that have not been implemented downstream.
-                if($line->{SUBTOKENS} !~ m/^\S+ [sť]$/)
-                {
-                    ###!!! Ignore the request to retokenize 'přědeň' that is already
-                    ###!!! a multiword token 'přěd+něj' into 'přěde+ňej'.
-                    unless($line->{ID} =~ m/\./ && $line->{SUBTOKENS} eq 'přěde ňej')
-                    {
-                        print STDERR ("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented.\n");
-                        $n_err++;
-                    }
-                }
-                unshift(@misc, "SUBTOKENS=$line->{SUBTOKENS}");
-            }
-            if($line->{RETOKENIZE} ne '_')
-            {
-                ###!!! Alert me if there are instructions that have not been implemented downstream.
-                ###!!! But do not crash if it is just a known typo.
-                $line->{RETOKENIZE} = 'rozdělit' if($line->{RETOKENIZE} eq 'rozdlělit');
-                if($line->{RETOKENIZE} ne 'rozdělit')
-                {
-                    confess("Retokenizing instruction '$line->{RETOKENIZE}' is not yet implemented");
-                }
-                unshift(@misc, "RETOKENIZE=$line->{RETOKENIZE}");
-            }
-            if($line->{RESEGMENT} ne '_')
-            {
-                ###!!! Alert me if there are instructions that have not been implemented downstream.
-                if($line->{RESEGMENT} ne 'rozdělit')
-                {
-                    confess("Resegmenting instruction '$line->{RESEGMENT}' is not yet implemented");
-                }
-                unshift(@misc, "RESEGMENT=$line->{RESEGMENT}");
-            }
-            $line->{MISC} = scalar(@misc) > 0 ? join('|', @misc) : '_';
+            $n_err = encode_resegment_instructions($line, $n_err);
             # The annotated files do not contain XPOS. Print underscore now. We will compute XPOS from UPOS+FEATS later.
             print OUT ("$line->{ID}\t$line->{FORM}\t$line->{LEMMA}\t$line->{UPOS}\t_\t$feats\t$line->{HEAD}\t$line->{DEPREL}\t$line->{DEPS}\t$line->{MISC}\n");
         }
@@ -473,4 +437,75 @@ sub write_conllu_file
     {
         confess("There were $n_err errors when writing $path");
     }
+}
+
+
+
+#------------------------------------------------------------------------------
+# Reads columns with instructions for resegmentation of sentences and words.
+# Checks whether the instructions are correct and encodes them in MISC so that
+# Udapi can later process them.
+#------------------------------------------------------------------------------
+sub encode_resegment_instructions
+{
+    my $line = shift; # hash ref
+    my $n_err = shift;
+    my @misc = $line->{MISC} eq '_' ? () : split(/\|/, $line->{MISC});
+    # Sentence segmentation instructions are in the RESEGMENT column.
+    # We may want to split a sentence ('rozdělit') or merge it with previous
+    # sentence ('spojit'). At present, only splitting is implemented in Udapi.
+    # The merging instruction will cause a fatal error. (And we will finish
+    # the implementation when it is needed.)
+    if($line->{RESEGMENT} ne '_')
+    {
+        if($line->{RESEGMENT} eq 'rozdělit')
+        {
+            unshift(@misc, 'SplitSentence=Here');
+        }
+        else
+        {
+            confess("Resegmenting instruction '$line->{RESEGMENT}' is not yet implemented");
+        }
+    }
+    # Word segmentation instructions are in the columns RETOKENIZE and SUBTOKENS.
+    # We may want to split a token ('rozdělit') or merge it with previous token
+    # ('spojit'). At present, only splitting of some kinds of multiword tokens
+    # is implemented in Udapi.
+    if($line->{RETOKENIZE} ne '_')
+    {
+        if($line->{RETOKENIZE} eq 'rozdělit')
+        {
+            if($line->{ID} =~ m/\./)
+            {
+                print STDERR ("Resplitting an existing multiword token is not yet implemented.\n");
+                $n_err++;
+            }
+            if($line->{SUBTOKENS} ne '_')
+            {
+                if($line->{SUBTOKENS} =~ m/^\S+ [sť]$/)
+                {
+                    unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
+                }
+                else
+                {
+                    print STDERR ("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented.\n");
+                    $n_err++;
+                }
+            }
+            else
+            {
+                confess("RETOKENIZE='rozdělit' but there are no SUBTOKENS");
+            }
+        }
+        else
+        {
+            confess("Retokenizing instruction '$line->{RETOKENIZE}' is not yet implemented");
+        }
+    }
+    elsif($line->{SUBTOKENS} ne '_')
+    {
+        confess("SUBTOKENS='$line->{SUBTOKENS}' but RETOKENIZE is not 'rozdělit'");
+    }
+    $line->{MISC} = scalar(@misc) > 0 ? join('|', @misc) : '_';
+    return $n_err;
 }
