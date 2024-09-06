@@ -416,7 +416,7 @@ sub write_conllu_file
             {
                 unshift(@misc, "SUBTOKENS=$line->{SUBTOKENS}");
                 ###!!! Alert me if there are instructions that have not been implemented downstream.
-                if($line->{SUBTOKENS} !~ m/^\w+ ť$/)
+                if($line->{SUBTOKENS} !~ m/^\w+ [sť]$/)
                 {
                     confess("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented");
                 }
