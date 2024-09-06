@@ -423,7 +423,7 @@ sub write_conllu_file
                     ###!!! a multiword token 'přěd+něj' into 'přěde+ňej'.
                     unless($line->{ID} =~ m/\./ && $line->{SUBTOKENS} eq 'přěde ňej')
                     {
-                        print STDERR ("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented");
+                        print STDERR ("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented.\n");
                         $n_err++;
                     }
                 }
