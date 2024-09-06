@@ -469,6 +469,6 @@ sub write_conllu_file
     ###!!! the errors but the errors will be overlooked and never resolved.
     if($n_err > 0)
     {
-        confess("There were $n_err errors");
+        confess("There were $n_err errors when writing $path");
     }
 }
