@@ -404,6 +404,7 @@ sub write_conllu_file
     # Use :raw to prevent LF to CRLF translation. Combine it with :utf8, otherwise the encoding will be messed up.
     open(OUT, '>:raw:utf8', $path) or confess("Cannot write '$path': $!");
     my @fheaders = sort {lc($a) cmp lc($b)} (grep {uc($_) ne $_} (@{$headers}));
+    my $n_err = 0;
     foreach my $line (@{$lines})
     {
         if($line->{ID} =~ m/^[0-9]/)
@@ -422,7 +423,8 @@ sub write_conllu_file
                     ###!!! a multiword token 'přěd+něj' into 'přěde+ňej'.
                     unless($line->{ID} =~ m/\./ && $line->{SUBTOKENS} eq 'přěde ňej')
                     {
-                        confess("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented");
+                        print STDERR ("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented");
+                        $n_err++;
                     }
                 }
             }
@@ -462,4 +464,11 @@ sub write_conllu_file
         }
     }
     close(OUT);
+    ###!!! If there were errors in the tokenization instructions, we must die
+    ###!!! here. If we allow the other scripts to run, they will probably survive
+    ###!!! the errors but the errors will be overlooked and never resolved.
+    if($n_err > 0)
+    {
+        confess("There were $n_err errors");
+    }
 }
