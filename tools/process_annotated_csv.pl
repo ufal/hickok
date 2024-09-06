@@ -415,14 +415,29 @@ sub write_conllu_file
             if($line->{SUBTOKENS} ne '_')
             {
                 unshift(@misc, "SUBTOKENS=$line->{SUBTOKENS}");
+                ###!!! Alert me if there are instructions that have not been implemented downstream.
+                if($line->{SUBTOKENS} !~ m/^\w+ ť$/)
+                {
+                    confess("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented");
+                }
             }
             if($line->{RETOKENIZE} ne '_')
             {
                 unshift(@misc, "RETOKENIZE=$line->{RETOKENIZE}");
+                ###!!! Alert me if there are instructions that have not been implemented downstream.
+                if($line->{RETOKENIZE} ne 'rozdělit')
+                {
+                    confess("Retokenizing instruction '$line->{RETOKENIZE}' is not yet implemented");
+                }
             }
             if($line->{RESEGMENT} ne '_')
             {
                 unshift(@misc, "RESEGMENT=$line->{RESEGMENT}");
+                ###!!! Alert me if there are instructions that have not been implemented downstream.
+                if($line->{RESEGMENT} ne 'rozdělit')
+                {
+                    confess("Resegmenting instruction '$line->{RESEGMENT}' is not yet implemented");
+                }
             }
             $line->{MISC} = scalar(@misc) > 0 ? join('|', @misc) : '_';
             # The annotated files do not contain XPOS. Print underscore now. We will compute XPOS from UPOS+FEATS later.
