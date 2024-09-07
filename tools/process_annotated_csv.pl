@@ -478,6 +478,7 @@ sub encode_resegment_instructions
             if($line->{ID} =~ m/\./)
             {
                 print STDERR ("Resplitting an existing multiword token is not yet implemented.\n");
+                unshift(@misc, "Bug=RetokenizeExistingMWTNotSupported");
                 $n_err++;
             }
             if($line->{SUBTOKENS} ne '_')
@@ -489,12 +490,15 @@ sub encode_resegment_instructions
                 else
                 {
                     print STDERR ("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented.\n");
+                    unshift(@misc, "Bug=RetokenizeThisTokenNotSupported");
                     $n_err++;
                 }
             }
             else
             {
-                confess("RETOKENIZE='rozdělit' but there are no SUBTOKENS");
+                print STDERR ("RETOKENIZE='rozdělit' but there are no SUBTOKENS.\n");
+                unshift(@misc, "Bug=RetokenizeRozdělitWithoutSubtokens");
+                $n_err++;
             }
         }
         else
