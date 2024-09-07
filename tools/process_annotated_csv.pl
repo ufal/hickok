@@ -430,12 +430,13 @@ sub write_conllu_file
         }
     }
     close(OUT);
-    ###!!! If there were errors in the tokenization instructions, we must die
-    ###!!! here. If we allow the other scripts to run, they will probably survive
-    ###!!! the errors but the errors will be overlooked and never resolved.
+    # If there were errors in the tokenization instructions, allow some time to
+    # spot them in the log. Nevertheless, they are also saved as Bug in MISC,
+    # so they will be visible when we later run Udapi ud.cs.MarkFeatsBugs.
     if($n_err > 0)
     {
-        confess("There were $n_err errors when writing $path");
+        print STDERR ("There were $n_err errors when writing $path.\n");
+        sleep(5);
     }
 }
 
