@@ -363,6 +363,12 @@ sub fix_morphology
         $f->{NumType} = 'Card';
         $f->{NumForm} = '_';
     }
+    # The determiner "sám/samý" is lemmatized as "sám" in Hičkok but we need to
+    # make it consistent with Modern Czech data, where it is lemmatized "samý".
+    if($f->{UPOS} eq 'DET' && $f->{LEMMA} eq 'sám')
+    {
+        $f->{LEMMA} = 'samý';
+    }
     # The verb "být" is always AUX and never VERB. And it is imperfective.
     if($f->{UPOS} =~ m/^(VERB|AUX)$/ && $f->{LEMMA} eq 'být')
     {
