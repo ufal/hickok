@@ -511,8 +511,26 @@ sub encode_resegment_instructions
             }
             if($line->{SUBTOKENS} ne '_')
             {
-                if($line->{SUBTOKENS} =~ m/^\S+ [sť]$/)
+                if($line->{SUBTOKENS} =~ m/^(\S+) ([sť])$/)
                 {
+                    my $mainform = $1;
+                    my $clitic = $2;
+                    # In this case we expect that the concatenation of the indicated subtokens
+                    # indeed yields the surface form, including capitalization. If the annotator
+                    # did not respect it, fix it automatically.
+                    if("$mainform$clitic" ne $line->{FORM})
+                    {
+                        print STDERR ("Mismatch between FORM='$line->{FORM}' and the proposed SUBTOKENS='$line->{SUBTOKENS}'.\n");
+                        if($line->{FORM} =~ m/^(.+)([sť])$/)
+                        {
+                            $line->{SUBTOKENS} = "$1 $2";
+                        }
+                        else
+                        {
+                            unshift(@misc, "Bug=RetokenizeMismatchFormSubtokens");
+                            $n_err++;
+                        }
+                    }
                     unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
                 }
                 else
