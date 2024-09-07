@@ -524,13 +524,15 @@ sub encode_resegment_instructions
                     # did not respect it, fix it automatically.
                     if("$mainform$clitic" ne $line->{FORM})
                     {
-                        print STDERR ("Mismatch between FORM='$line->{FORM}' and the proposed SUBTOKENS='$line->{SUBTOKENS}'.\n");
+                        print STDERR ("Mismatch between FORM='$line->{FORM}' and the proposed SUBTOKENS='$line->{SUBTOKENS}'");
                         if($line->{FORM} =~ m/^(.+)([sť])$/)
                         {
                             $line->{SUBTOKENS} = "$1 $2";
+                            print STDERR (" => changed to '$line->{SUBTOKENS}'.\n");
                         }
                         else
                         {
+                            print STDERR (".\n");
                             unshift(@misc, "Bug=RetokenizeMismatchFormSubtokens");
                             $n_err++;
                         }
