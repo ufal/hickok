@@ -400,6 +400,10 @@ sub fix_morphology
     {
         $f->{DEPREL} = 'dep';
     }
+    if($f->{UPOS} eq 'ADV' && $f->{DEPREL} =~ m/^(nummod|nmod|obl)(:|$)/)
+    {
+        $f->{DEPREL} = 'advmod';
+    }
     if($f->{UPOS} eq 'PART' && $f->{DEPREL} =~ m/^(det|punct)(:|$)/)
     {
         $f->{DEPREL} = 'dep';
