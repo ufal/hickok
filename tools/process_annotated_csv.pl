@@ -481,6 +481,16 @@ sub encode_resegment_instructions
                 unshift(@misc, "Bug=RetokenizeExistingMWTNotSupported");
                 $n_err++;
             }
+            # In fact, the SUBTOKENS column is not so important because we will
+            # reject splits that do not follow a pre-approved pattern. So if the
+            # column is empty but we see a known pattern, we can fill it in.
+            if($line->{SUBTOKENS} eq '_')
+            {
+                if($line->{FORM} =~ m/^(.+)([sť])$/)
+                {
+                    $line->{SUBTOKENS} = "$1 $2";
+                }
+            }
             if($line->{SUBTOKENS} ne '_')
             {
                 if($line->{SUBTOKENS} =~ m/^\S+ [sť]$/)
