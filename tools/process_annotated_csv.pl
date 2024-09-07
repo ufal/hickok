@@ -496,7 +496,7 @@ sub encode_resegment_instructions
             }
             else
             {
-                print STDERR ("RETOKENIZE='rozdělit' but there are no SUBTOKENS.\n");
+                print STDERR ("RETOKENIZE='rozdělit' but there are no SUBTOKENS (FORM=$line->{FORM}).\n");
                 unshift(@misc, "Bug=RetokenizeRozdělitWithoutSubtokens");
                 $n_err++;
             }
