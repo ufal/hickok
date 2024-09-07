@@ -121,8 +121,8 @@ postprocess:
 	# Udapi resides in https://github.com/udapi/udapi-python
 	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).conllu util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu
 	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).conllu util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu
-	mv $(ANNBASE)_$(A1).fixed.conllu $(ANNBASE)_$(A1).conllu
-	mv $(ANNBASE)_$(A2).fixed.conllu $(ANNBASE)_$(A2).conllu
+	mv data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu data/annotated/13_19_stol/$(ANNBASE)_$(A1).conllu
+	mv data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu data/annotated/13_19_stol/$(ANNBASE)_$(A2).conllu
 	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu util.Eval node='node.misc = {}' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu util.Eval node='node.misc = {}' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	# The UD validation script should be in PATH (and python3 available).
