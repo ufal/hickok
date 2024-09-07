@@ -375,11 +375,20 @@ sub fix_morphology
         $f->{UPOS} = 'AUX';
         $f->{Aspect} = 'Imp';
     }
+    # The modern infinitive ending in -t should serve as the lemma instead of
+    # the old infinitive ending in -ti; make sure that the annotators did not
+    # forget it. (But the few verbs ending in -ci are OK and should not be
+    # replaced with -ct.)
+    if($f->{UPOS} =~ m/^(VERB|AUX)$/ && $f->{LEMMA} =~ m/ti$/i)
+    {
+        $f->{LEMMA} =~ s/ti$/t/i;
+    }
+    #--------------------------------------------------------------------------
     # The following is more about syntax than morphology. The data contains
     # syntactic annotation but only morphology was edited manually. Here we
     # just try to avoid validation errors stemming from syntax incompatible
     # with the manual morphology.
-    if($f->{UPOS} eq 'AUX' && $f->{DEPREL} =~ m/^(case|nummod)(:|$)/)
+    if($f->{UPOS} eq 'AUX' && $f->{DEPREL} =~ m/^(case|mark|nummod)(:|$)/)
     {
         $f->{DEPREL} = 'aux';
     }
