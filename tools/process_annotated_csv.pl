@@ -557,9 +557,20 @@ sub encode_resegment_instructions
                 $n_err++;
             }
         }
+        elsif($line->{RETOKENIZE} eq 'spojit')
+        {
+            # The instruction 'spojit' (join a token with the previous one) has
+            # been defined but not yet implemented. There has been one instance
+            # when an annotator used it but I think it was a mistake, and the
+            # other annotator did not suggest it at the same place. Until we
+            # have a good use case, report it as an annotation error but do not
+            # die because of it.
+            unshift(@misc, "Bug=MergingTokensNotYetImplemented");
+            $n_err++;
+        }
         else
         {
-            confess("Retokenizing instruction '$line->{RETOKENIZE}' is not yet implemented");
+            confess("Unknown retokenizing instruction '$line->{RETOKENIZE}'");
         }
     }
     elsif($line->{SUBTOKENS} ne '_')
