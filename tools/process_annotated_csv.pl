@@ -565,7 +565,8 @@ sub encode_resegment_instructions
             # other annotator did not suggest it at the same place. Until we
             # have a good use case, report it as an annotation error but do not
             # die because of it.
-            unshift(@misc, "Bug=MergingTokensNotYetImplemented");
+            print STDERR ("Joining two tokens is not yet implemented.\n");
+            unshift(@misc, "Bug=JoiningTokensNotYetImplemented");
             $n_err++;
         }
         else
