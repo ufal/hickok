@@ -482,9 +482,13 @@ sub encode_resegment_instructions
         {
             unshift(@misc, 'SplitSentence=Here');
         }
+        elsif($line->{RESEGMENT} eq 'spojit')
+        {
+            unshift(@misc, 'JoinSentence=Here');
+        }
         else
         {
-            confess("Resegmenting instruction '$line->{RESEGMENT}' is not yet implemented");
+            confess("Unknown resegmenting instruction '$line->{RESEGMENT}'");
         }
     }
     # Word segmentation instructions are in the columns RETOKENIZE and SUBTOKENS.
