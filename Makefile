@@ -115,7 +115,7 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 
 postprocess:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi ; if [[ -z "$(A1)" ]] ; then exit 2 ; fi ; if [[ -z "$(A2)" ]] ; then exit 3 ; fi
-	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/13_19_stol/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/13_19_stol/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/13_19_stol/$(ANNBASE)_$(A2).csv > data/annotated/13_19_stol/$(ANNBASE)_$(A1)_$(A2)_diff.txt 2| tee data/annotated/13_19_stol/$(ANNBASE)_$(A1)_$(A2)_postprocess.log
+	( perl ./tools/process_annotated_csv.pl --orig data/for_annotation/13_19_stol/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/13_19_stol/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/13_19_stol/$(ANNBASE)_$(A2).csv > data/annotated/13_19_stol/$(ANNBASE)_$(A1)_$(A2)_diff.txt ) |& tee data/annotated/13_19_stol/$(ANNBASE)_$(A1)_$(A2)_postprocess.log
 	# The files may not be valid because syntactic annotation has been ignored.
 	# Install Udapi (python) and make sure it is in PATH.
 	# Udapi resides in https://github.com/udapi/udapi-python
