@@ -369,6 +369,14 @@ sub fix_morphology
     {
         $f->{LEMMA} = 'samý';
     }
+    # Some annotators annotate "vždy" with Polarity=Yes because old texts may
+    # contain "nevždy" as one word. At present I am removing it because
+    # PronType=Tot does not combine with Polarity. If we reintroduce it in the
+    # future, we should change it also in the Modern Czech data.
+    if($f->{LEMMA} eq 'vždy')
+    {
+        $f->{Polarity} = '_';
+    }
     # The verb "být" is always AUX and never VERB. And it is imperfective.
     if($f->{UPOS} =~ m/^(VERB|AUX)$/ && $f->{LEMMA} eq 'být')
     {
