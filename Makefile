@@ -112,6 +112,8 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # DATE=2024-04-09 ANNBASE=004_zalt_u     A1=JP A2=ON make postprocess
 # DATE=2024-07-06 ANNBASE=005_umuc_rajhr A1=AM A2=JZ make postprocess
 # DATE=2024-07-06 ANNBASE=008_hrad_sat   A1=JP A2=ON make postprocess
+# DATE=2024-09-09 ANNBASE=005_umuc_rajhr make postprocess_def
+# DATE=2024-09-12 ANNBASE=008_hrad_sat   make postprocess_def
 
 # To be made configurable in the future: the folder for the century of the data.
 STOL=14_stol
