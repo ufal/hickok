@@ -118,7 +118,7 @@ STOL=14_stol
 
 postprocess:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi ; if [[ -z "$(A1)" ]] ; then exit 2 ; fi ; if [[ -z "$(A2)" ]] ; then exit 3 ; fi
-	( perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/$(STOL)/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/$(STOL)/$(ANNBASE)_$(A2).csv > data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2)_diff.txt ) |& tee data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2)_postprocess.log
+	( perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/$(STOL)/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/$(STOL)/$(ANNBASE)_$(A2).csv > data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2)_diff.txt ) |& tee data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2).postprocess.log
 	# The files may not be valid because syntactic annotation has been ignored.
 	# Install Udapi (python) and make sure it is in PATH.
 	# Udapi resides in https://github.com/udapi/udapi-python
@@ -137,7 +137,7 @@ postprocess:
 # We still use the same script in the beginning, using "DEF" as the identifier of both annotators (the script will read the same file twice).
 postprocess_def:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi
-	( perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)/$(ANNBASE).tsv --name1 DEF --ann1 data/annotated/$(STOL)/$(ANNBASE)_DEF.csv ) |& tee data/annotated/$(STOL)/$(ANNBASE)_DEF_postprocess.log
+	( perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)/$(ANNBASE).tsv --name1 DEF --ann1 data/annotated/$(STOL)/$(ANNBASE)_DEF.csv ) |& tee data/annotated/$(STOL)/$(ANNBASE)_DEF.postprocess.log
 	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_DEF.conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_DEF.fixed.conllu
 	mv data/annotated/$(STOL)/$(ANNBASE)_DEF.fixed.conllu data/annotated/$(STOL)/$(ANNBASE)_DEF.conllu
 	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/$(STOL)/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
