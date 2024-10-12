@@ -205,6 +205,11 @@ sub read_tsv_file
     }
     my $n_columns;
     my @headers;
+    # We may need the Emph column even if it was not generated in the file for
+    # the annotators. So we will add it to the headers if it is not in the file.
+    # However, we must remember if we did so because then we also must generate
+    # its empty values.
+    my $add_emph = 0;
     my @lines; # array of hashes
     while(<>)
     {
@@ -223,6 +228,16 @@ sub read_tsv_file
             }
             # The first line should contain the headers of the columns.
             @headers = @f;
+            # We decided we need the Emph column after the first batch of files
+            # was given to the annotators. Therefore we may have to add the column
+            # now.
+            if(!grep {$_ eq 'Emph'} (@headers))
+            {
+                push(@headers, 'Emph');
+                $add_emph = 1;
+                # Do not increase $n_columns! It holds the real number of columns
+                # expected on the input.
+            }
         }
         else
         {
@@ -249,6 +264,10 @@ sub read_tsv_file
                     $f[$i] = fix_mwt_id($f[$i]);
                 }
                 $f{$headers[$i]} = $f[$i];
+            }
+            if($add_emph)
+            {
+                $f{Emph} = '_';
             }
             # Make annotations more consistent and automatically fix certain
             # common errors.
