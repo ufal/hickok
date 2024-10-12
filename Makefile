@@ -113,32 +113,35 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # DATE=2024-07-06 ANNBASE=005_umuc_rajhr A1=AM A2=JZ make postprocess
 # DATE=2024-07-06 ANNBASE=008_hrad_sat   A1=JP A2=ON make postprocess
 
+# To be made configurable in the future: the folder for the century of the data.
+STOL=14_stol
+
 postprocess:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi ; if [[ -z "$(A1)" ]] ; then exit 2 ; fi ; if [[ -z "$(A2)" ]] ; then exit 3 ; fi
-	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/13_19_stol/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/13_19_stol/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/13_19_stol/$(ANNBASE)_$(A2).csv > data/annotated/13_19_stol/$(ANNBASE)_$(A1)_$(A2)_diff.txt 2| tee data/annotated/13_19_stol/$(ANNBASE)_$(A1)_$(A2)_postprocess.log
+	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/$(STOL)/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/$(STOL)/$(ANNBASE)_$(A2).csv > data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2)_diff.txt 2| tee data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2)_postprocess.log
 	# The files may not be valid because syntactic annotation has been ignored.
 	# Install Udapi (python) and make sure it is in PATH.
 	# Udapi resides in https://github.com/udapi/udapi-python
-	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu
-	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu
-	mv data/annotated/13_19_stol/$(ANNBASE)_$(A1).fixed.conllu data/annotated/13_19_stol/$(ANNBASE)_$(A1).conllu
-	mv data/annotated/13_19_stol/$(ANNBASE)_$(A2).fixed.conllu data/annotated/13_19_stol/$(ANNBASE)_$(A2).conllu
-	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/13_19_stol/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
-	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/13_19_stol/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A1).conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A1).fixed.conllu
+	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A2).conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A2).fixed.conllu
+	mv data/annotated/$(STOL)/$(ANNBASE)_$(A1).fixed.conllu data/annotated/$(STOL)/$(ANNBASE)_$(A1).conllu
+	mv data/annotated/$(STOL)/$(ANNBASE)_$(A2).fixed.conllu data/annotated/$(STOL)/$(ANNBASE)_$(A2).conllu
+	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A1).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/$(STOL)/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A2).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/$(STOL)/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	# The UD validation script should be in PATH (and python3 available).
 	# The script resides in https://github.com/UniversalDependencies/tools
-	validate.py --lang cs data/annotated/13_19_stol/$(ANNBASE)_$(A1).conllu |& tee data/annotated/13_19_stol/$(ANNBASE)_$(A1).validation.log
-	validate.py --lang cs data/annotated/13_19_stol/$(ANNBASE)_$(A2).conllu |& tee data/annotated/13_19_stol/$(ANNBASE)_$(A2).validation.log
+	validate.py --lang cs data/annotated/$(STOL)/$(ANNBASE)_$(A1).conllu |& tee data/annotated/$(STOL)/$(ANNBASE)_$(A1).validation.log
+	validate.py --lang cs data/annotated/$(STOL)/$(ANNBASE)_$(A2).conllu |& tee data/annotated/$(STOL)/$(ANNBASE)_$(A2).validation.log
 
 # Use only a slightly modified postprocessing procedure to process the definitive version (after addressing the differences between the annotators).
 # We still use the same script in the beginning, using "DEF" as the identifier of both annotators (the script will read the same file twice).
 postprocess_def:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi
-	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/13_19_stol/$(ANNBASE).tsv --name1 DEF --ann1 data/annotated/13_19_stol/$(ANNBASE)_DEF.csv --name2 DEF --ann2 data/annotated/13_19_stol/$(ANNBASE)_DEF.csv > data/annotated/13_19_stol/$(ANNBASE)_DEF_DEF_diff.txt 2| tee data/annotated/13_19_stol/$(ANNBASE)_DEF_DEF_postprocess.log
-	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_DEF.conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_DEF.fixed.conllu
-	mv data/annotated/13_19_stol/$(ANNBASE)_DEF.fixed.conllu data/annotated/13_19_stol/$(ANNBASE)_DEF.conllu
-	udapy read.Conllu files=data/annotated/13_19_stol/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/13_19_stol/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
-	validate.py --lang cs data/annotated/13_19_stol/$(ANNBASE)_DEF.conllu |& tee data/annotated/13_19_stol/$(ANNBASE)_DEF.validation.log
+	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)/$(ANNBASE).tsv --name1 DEF --ann1 data/annotated/$(STOL)/$(ANNBASE)_DEF.csv --name2 DEF --ann2 data/annotated/$(STOL)/$(ANNBASE)_DEF.csv > data/annotated/$(STOL)/$(ANNBASE)_DEF_DEF_diff.txt 2| tee data/annotated/$(STOL)/$(ANNBASE)_DEF_DEF_postprocess.log
+	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_DEF.conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_DEF.fixed.conllu
+	mv data/annotated/$(STOL)/$(ANNBASE)_DEF.fixed.conllu data/annotated/$(STOL)/$(ANNBASE)_DEF.conllu
+	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/$(STOL)/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	validate.py --lang cs data/annotated/$(STOL)/$(ANNBASE)_DEF.conllu |& tee data/annotated/$(STOL)/$(ANNBASE)_DEF.validation.log
 
 
 
