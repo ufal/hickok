@@ -17,13 +17,14 @@ use Getopt::Long;
 
 sub usage
 {
-    print STDERR ("Usage: $0 --orig for_annotation.tsv --ann1 by_annotator_1.tsv --ann2 by_annotator_2.tsv --name1 AB --name2 CD\n");
+    print STDERR ("Usage: $0 --orig for_annotation.tsv --ann1 by_annotator_1.tsv [--ann2 by_annotator_2.tsv] --name1 AB [--name2 CD]\n");
     print STDERR ("    The original file, as sent to the annotators, is used to check that the annotated file has not been altered too much.\n");
     print STDERR ("    Options --name1 and --name2 give initials of the annotators for difference reports. Default: A1 and A2.\n");
     print STDERR ("Output:\n");
     print STDERR ("    Differences are printed to STDOUT.\n");
     print STDERR ("    In addition, a CoNLL-U file is created for each annotator: Path and base name is taken from --ann1/2, '.conllu' is added.\n");
     print STDERR ("    If the CoNLL-U file already exists, it will be overwritten without warning!\n");
+    print STDERR ("    If only one annotated file is provided (e.g., the final annotation), no difference is printed.\n");
 }
 
 my $orig;
@@ -49,10 +50,10 @@ if(!defined($ann1))
     usage();
     confess("Missing the path to the file annotated by annotator 1");
 }
+my $single_annotation = 0;
 if(!defined($ann2))
 {
-    usage();
-    confess("Missing the path to the file annotated by annotator 2");
+    $single_annotation = 1;
 }
 
 my $oheaders; # original file
@@ -63,7 +64,7 @@ my $a2headers; # file annotated by annotator 2
 my $a2lines;
 ($oheaders, $olines) = read_tsv_file($orig);
 ($a1headers, $a1lines) = read_tsv_file($ann1);
-($a2headers, $a2lines) = read_tsv_file($ann2);
+($a2headers, $a2lines) = read_tsv_file($ann2) unless($single_annotation);
 my $onh = scalar(@{$oheaders});
 my $onl = scalar(@{$olines});
 # We will report if the annotated file has too few columns but we must tolerate
@@ -95,37 +96,9 @@ if($a1nl != $onl)
 {
     confess("The original file had $onl lines, file annotated by $name1 has $a1nl lines");
 }
-my $a2nh = scalar(@{$a2headers});
-if($a2nh < $onh)
-{
-    confess("The original file had $onh columns, file annotated by $name2 has $a2nh columns");
-}
-else
-{
-    if($a2nh > $onh)
-    {
-        splice(@{$a2headers}, $onh);
-        $a2nh = $onh;
-    }
-    foreach my $header (@{$oheaders})
-    {
-        if(!grep {$_ eq $header} (@{$a2headers}))
-        {
-            confess("Missing column '$header' in $name2");
-        }
-    }
-}
-my $a2nl = scalar(@{$a2lines});
-if($a2nl != $onl)
-{
-    confess("The original file had $onl lines, file annotated by $name2 has $a2nl lines");
-}
-# Look for differences.
-my $ndiff = 0;
-my $maxl = 0;
+# Check that the important values that should not be modified are indeed identical in both annotated files and the original.
 for(my $i = 0; $i < $onl; $i++)
 {
-    # Check that the important values that should not be modified are indeed identical in both annotated files and the original.
     foreach my $header (qw(SENTENCE ID FORM))
     {
         if($a1lines->[$i]{$header} ne $olines->[$i]{$header})
@@ -133,46 +106,87 @@ for(my $i = 0; $i < $onl; $i++)
             confess("Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name1: $a1lines->[$i]{$header}\n");
         }
     }
-    foreach my $header (qw(SENTENCE ID FORM))
-    {
-        if($a2lines->[$i]{$header} ne $olines->[$i]{$header})
-        {
-            confess("Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name2: $a2lines->[$i]{$header}\n");
-        }
-    }
-    # Find differences between the two annotated files.
-    foreach my $header (@{$oheaders})
-    {
-        if($a1lines->[$i]{$header} ne $a2lines->[$i]{$header})
-        {
-            my $message = "Line $olines->[$i]{LINENO} ($olines->[$i]{FORM}): Difference in $header:";
-            # Try to align the message with the longest message encountered so far, except for super-outliers.
-            my $l = length($message);
-            if($l < $maxl)
-            {
-                $message .= ' ' x ($maxl-$l);
-            }
-            elsif($maxl == 0 || $l > $maxl && $l < $maxl*1.2)
-            {
-                $maxl = $l;
-            }
-            my $m1 = "$name1=$a1lines->[$i]{$header}"; $m1 .= ' ' x (length($name1)+10-length($m1));
-            my $m2 = "$name2=$a2lines->[$i]{$header}";
-            print("$message   $m1   $m2\n");
-            $ndiff++;
-        }
-    }
 }
-print("\nFound $ndiff differences between $name1 and $name2.\n");
+unless($single_annotation)
+{
+    my $a2nh = scalar(@{$a2headers});
+    if($a2nh < $onh)
+    {
+        confess("The original file had $onh columns, file annotated by $name2 has $a2nh columns");
+    }
+    else
+    {
+        if($a2nh > $onh)
+        {
+            splice(@{$a2headers}, $onh);
+            $a2nh = $onh;
+        }
+        foreach my $header (@{$oheaders})
+        {
+            if(!grep {$_ eq $header} (@{$a2headers}))
+            {
+                confess("Missing column '$header' in $name2");
+            }
+        }
+    }
+    my $a2nl = scalar(@{$a2lines});
+    if($a2nl != $onl)
+    {
+        confess("The original file had $onl lines, file annotated by $name2 has $a2nl lines");
+    }
+    # Check that the important values that should not be modified are indeed identical in both annotated files and the original.
+    for(my $i = 0; $i < $onl; $i++)
+    {
+        foreach my $header (qw(SENTENCE ID FORM))
+        {
+            if($a2lines->[$i]{$header} ne $olines->[$i]{$header})
+            {
+                confess("Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name2: $a2lines->[$i]{$header}\n");
+            }
+        }
+    }
+    # Look for differences.
+    my $ndiff = 0;
+    my $maxl = 0;
+    for(my $i = 0; $i < $onl; $i++)
+    {
+        # Find differences between the two annotated files.
+        foreach my $header (@{$oheaders})
+        {
+            if($a1lines->[$i]{$header} ne $a2lines->[$i]{$header})
+            {
+                my $message = "Line $olines->[$i]{LINENO} ($olines->[$i]{FORM}): Difference in $header:";
+                # Try to align the message with the longest message encountered so far, except for super-outliers.
+                my $l = length($message);
+                if($l < $maxl)
+                {
+                    $message .= ' ' x ($maxl-$l);
+                }
+                elsif($maxl == 0 || $l > $maxl && $l < $maxl*1.2)
+                {
+                    $maxl = $l;
+                }
+                my $m1 = "$name1=$a1lines->[$i]{$header}"; $m1 .= ' ' x (length($name1)+10-length($m1));
+                my $m2 = "$name2=$a2lines->[$i]{$header}";
+                print("$message   $m1   $m2\n");
+                $ndiff++;
+            }
+        }
+    }
+    print("\nFound $ndiff differences between $name1 and $name2.\n");
+}
 # Write each annotator's file in the CoNLL-U format.
 my $conllu1 = $ann1;
-my $conllu2 = $ann2;
 $conllu1 =~ s/(.)\.[a-z]*$/$1/;
-$conllu2 =~ s/(.)\.[a-z]*$/$1/;
 $conllu1 .= '.conllu';
-$conllu2 .= '.conllu';
 write_conllu_file($conllu1, $a1headers, $a1lines);
-write_conllu_file($conllu2, $a2headers, $a2lines);
+unless($single_annotation)
+{
+    my $conllu2 = $ann2;
+    $conllu2 =~ s/(.)\.[a-z]*$/$1/;
+    $conllu2 .= '.conllu';
+    write_conllu_file($conllu2, $a2headers, $a2lines);
+}
 
 
 
