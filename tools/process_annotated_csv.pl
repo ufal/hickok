@@ -405,6 +405,17 @@ sub fix_morphology
     {
         $f->{LEMMA} =~ s/ti$/t/i;
     }
+    # Following a new agreement from October 2024, emphatic -ž is only
+    # annotated in non-lexicalized cases (see the wiki for the list of the
+    # lexicalized ones: e.g., "kdož" is lexicalized, "dřevniehož" is not).
+    # It is never treated as a multiword token. Instead, the lemma has no -ž
+    # and there is a new feature Emph=Yes. Since the pregenerated files had no
+    # column for Emph, Hyph=ž can be temporarily used instead of Emph=Yes.
+    if($f->{Hyph} =~ m/^ž$/i)
+    {
+        $f->{Hyph} = '_';
+        $f->{Emph} = 'Yes';
+    }
     #--------------------------------------------------------------------------
     # The following is more about syntax than morphology. The data contains
     # syntactic annotation but only morphology was edited manually. Here we
