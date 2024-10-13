@@ -570,6 +570,10 @@ sub encode_resegment_instructions
                 {
                     $line->{SUBTOKENS} = "$1 něj";
                 }
+                elsif($line->{FORM} =~ m/^(.+)ňž$/)
+                {
+                    $line->{SUBTOKENS} = "$1 nějž";
+                }
             }
             if($line->{SUBTOKENS} ne '_')
             {
@@ -599,6 +603,12 @@ sub encode_resegment_instructions
                 }
                 # přědeň
                 elsif($line->{SUBTOKENS} =~ m/^(\S+) něj$/)
+                {
+                    my $preposition = $1;
+                    unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
+                }
+                # zaňž
+                elsif($line->{SUBTOKENS} =~ m/^(\S+) nějž$/)
                 {
                     my $preposition = $1;
                     unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
