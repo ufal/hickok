@@ -553,7 +553,7 @@ sub encode_resegment_instructions
         {
             if($line->{ID} =~ m/-/)
             {
-                print STDERR ("Resplitting an existing multiword token is not yet implemented.\n");
+                print STDERR ("Resplitting an existing multiword token ('$line->{FORM}') is not yet implemented.\n");
                 unshift(@misc, "Bug=RetokenizeExistingMWTNotSupported");
                 $n_err++;
             }
