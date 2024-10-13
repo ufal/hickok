@@ -525,9 +525,7 @@ sub encode_resegment_instructions
     my @misc = $line->{MISC} eq '_' ? () : split(/\|/, $line->{MISC});
     # Sentence segmentation instructions are in the RESEGMENT column.
     # We may want to split a sentence ('rozdělit') or merge it with previous
-    # sentence ('spojit'). At present, only splitting is implemented in Udapi.
-    # The merging instruction will cause a fatal error. (And we will finish
-    # the implementation when it is needed.)
+    # sentence ('spojit').
     if($line->{RESEGMENT} ne '_')
     {
         if($line->{RESEGMENT} eq 'rozdělit')
@@ -553,7 +551,7 @@ sub encode_resegment_instructions
         $line->{RETOKENIZE} = 'rozdělit' if($line->{RETOKENIZE} eq 'rozdlělit');
         if($line->{RETOKENIZE} eq 'rozdělit')
         {
-            if($line->{ID} =~ m/\./)
+            if($line->{ID} =~ m/-/)
             {
                 print STDERR ("Resplitting an existing multiword token is not yet implemented.\n");
                 unshift(@misc, "Bug=RetokenizeExistingMWTNotSupported");
