@@ -1,0 +1,5 @@
+Upravit skript, který generuje soubory pro anotátory, a ještì neoanotované soubory vygenerovat znova.
+
+- Potøebujeme nový sloupec Emph (bude v nìm Yes pro nelexikalizované kombinace slova a pøíklonky -ž).
+- Rozšíøit repertoár víceslovných tokenù, které se pøedem identifikují a dìlí (pøìdeò, skirzeòž, zaòž).
+  - Také zkontrolovat, zda pro dílèí slova generuju preferované rysy.
