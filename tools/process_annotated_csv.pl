@@ -543,7 +543,7 @@ sub encode_resegment_instructions
     }
     # Word segmentation instructions are in the columns RETOKENIZE and SUBTOKENS.
     # We may want to split a token ('rozdělit') or merge it with previous token
-    # ('spojit'). At present, only splitting of some kinds of multiword tokens
+    # ('spojit'). At present, only splitting of selected kinds of multiword tokens
     # is implemented in Udapi.
     if($line->{RETOKENIZE} ne '_')
     {
@@ -560,19 +560,47 @@ sub encode_resegment_instructions
             # In fact, the SUBTOKENS column is not so important because we will
             # reject splits that do not follow a pre-approved pattern. So if the
             # column is empty but we see a known pattern, we can fill it in.
-            if($line->{SUBTOKENS} eq '_')
+            my $auto_subtokens;
+            # byls, bylť, ...
+            if($line->{FORM} =~ m/^(.+)([sť])$/i)
             {
-                if($line->{FORM} =~ m/^(.+)([sť])$/)
+                $auto_subtokens = "$1 $2";
+            }
+            # naň, oň, ...
+            # Known contractions of this type will be split by Udapi even
+            # without instruction from the annotator.
+            elsif($line->{FORM} =~ m/^(na|o|pro|přěde|ski?rz[eě]|za)ň$/i)
+            {
+                $auto_subtokens = "$1 něj";
+            }
+            # skirzěňž, zaňž, ...
+            # Known contractions of this type will be split by Udapi even
+            # without instruction from the annotator.
+            elsif($line->{FORM} =~ m/^(na|o|pro|přěde|ski?rz[eě]|za)ňž$/i)
+            {
+                $auto_subtokens = "$1 nějž";
+            }
+            # The proposed subtokens should try to follow the casing of the original.
+            if(defined($auto_subtokens))
+            {
+                if($line->{FORM} eq uc($line->{FORM}))
                 {
-                    $line->{SUBTOKENS} = "$1 $2";
+                    $auto_subtokens = uc($auto_subtokens);
                 }
-                elsif($line->{FORM} =~ m/^(.+)ň$/)
+                elsif($line->{FORM} =~ m/^\p{Lu}/)
                 {
-                    $line->{SUBTOKENS} = "$1 něj";
+                    # The /e option causes the substitution part to be interpreted
+                    # as an expression => the uc() function should work.
+                    $auto_subtokens =~ s/^(.)/uc($1)/e;
                 }
-                elsif($line->{FORM} =~ m/^(.+)ňž$/)
+                if($line->{SUBTOKENS} eq '_')
                 {
-                    $line->{SUBTOKENS} = "$1 nějž";
+                    $line->{SUBTOKENS} = $auto_subtokens;
+                }
+                elsif($line->{SUBTOKENS} ne $auto_subtokens)
+                {
+                    print STDERR ("Mismatch: FORM='$line->{FORM}', proposed SUBTOKENS='$line->{SUBTOKENS}' changed to '$auto_subtokens'.\n");
+                    $line->{SUBTOKENS} = $auto_subtokens;
                 }
             }
             if($line->{SUBTOKENS} ne '_')
