@@ -572,6 +572,8 @@ sub encode_resegment_instructions
             elsif($line->{FORM} =~ m/^(na|o|pro|přěde|ski?rz[eě]|za)ň$/i)
             {
                 $auto_subtokens = "$1 něj";
+                # At present Udapi removes vocalization from "přěde" (=> "přěd něj") but not from "skirzě".
+                $auto_subtokens =~ s/přěde /přěd /;
             }
             # skirzěňž, zaňž, ...
             # Known contractions of this type will be split by Udapi even
@@ -579,6 +581,8 @@ sub encode_resegment_instructions
             elsif($line->{FORM} =~ m/^(na|o|pro|přěde|ski?rz[eě]|za)ňž$/i)
             {
                 $auto_subtokens = "$1 nějž";
+                # At present Udapi removes vocalization from "přěde" (=> "přěd něj") but not from "skirzě".
+                $auto_subtokens =~ s/přěde /přěd /;
             }
             # The proposed subtokens should try to follow the casing of the original.
             if(defined($auto_subtokens))
