@@ -607,7 +607,7 @@ sub encode_resegment_instructions
                     my $preposition = $1;
                     unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
                 }
-                # zaňž
+                # skirzěňž, zaňž
                 elsif($line->{SUBTOKENS} =~ m/^(\S+) nějž$/)
                 {
                     my $preposition = $1;
