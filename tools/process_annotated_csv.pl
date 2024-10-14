@@ -408,6 +408,13 @@ sub fix_morphology
         $f->{UPOS} = 'AUX';
         $f->{Aspect} = 'Imp';
     }
+    # Ideally we want "oba" (both) to have NumType=Card | PronType=Tot but at
+    # present we do not have the PronType in Modern Czech data and the validator
+    # does not expect it.
+    if($f->{UPOS} eq 'NUM' && $f->{LEMMA} eq 'oba' && $f->{PronType} eq 'Tot')
+    {
+        $f->{PronType} = '_';
+    }
     # The modern infinitive ending in -t should serve as the lemma instead of
     # the old infinitive ending in -ti; make sure that the annotators did not
     # forget it. (But the few verbs ending in -ci are OK and should not be
