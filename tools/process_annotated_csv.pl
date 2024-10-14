@@ -429,10 +429,15 @@ sub fix_morphology
     {
         if($f->{Polarity} eq '_')
         {
-            if($f->{LEMMA} eq lc($f->{FORM}))
+            # We cannot require that the lemma is identical to the lowercased form
+            # because there are many spelling variants in Old Czech (for example,
+            # "přieliš" is lemmatized as "příliš"). Therefore, we will simply check
+            # that the form does not start with "ne-".
+            if($f->{LEMMA} eq lc($f->{FORM}) or lc($f->{FORM}) !~ m/^ne/i)
             {
                 $f->{Polarity} = 'Pos';
             }
+            # The negative ones must match or must be manually annotated for Polarity.
             elsif('ne'.$f->{LEMMA} eq lc($f->{FORM}))
             {
                 $f->{Polarity} = 'Neg';
@@ -440,7 +445,7 @@ sub fix_morphology
         }
         if($f->{Degree} eq '_')
         {
-            if($f->{FORM} =~ m/^(ne)?$f->{LEMMA}/i)
+            if($f->{FORM} !~ m/^(n[ae]j)?v(í|ie)ce?$/i)
             {
                 $f->{Degree} = 'Pos';
             }
