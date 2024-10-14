@@ -402,14 +402,6 @@ sub fix_morphology
     {
         $f->{LEMMA} = 'samý';
     }
-    # Some annotators annotate "vždy" with Polarity=Yes because old texts may
-    # contain "nevždy" as one word. At present I am removing it because
-    # PronType=Tot does not combine with Polarity. If we reintroduce it in the
-    # future, we should change it also in the Modern Czech data.
-    if($f->{LEMMA} eq 'vždy')
-    {
-        $f->{Polarity} = '_';
-    }
     # The verb "být" is always AUX and never VERB. And it is imperfective.
     if($f->{UPOS} =~ m/^(VERB|AUX)$/ && $f->{LEMMA} eq 'být')
     {
@@ -423,6 +415,36 @@ sub fix_morphology
     if($f->{UPOS} =~ m/^(VERB|AUX)$/ && $f->{LEMMA} =~ m/ti$/i)
     {
         $f->{LEMMA} =~ s/ti$/t/i;
+    }
+    # Adverbs: Unlike the previous practice in PDT and Czech UD, we will
+    # require Degree and Polarity for most adverbs even if the only value
+    # they can have is Pos. The reason is that some adverbs can be negated in
+    # Old Czech, although it does not happen in Modern Czech (vždy-nevždy).
+    # The other reason is that it will be simpler and more consistent. The
+    # exceptions that have empty Degree and Polarity are now determined by
+    # other features: non-empty PronType other than Tot, or non-empty NumType.
+    # In order to reduce the necessity for the annotators to supply the values,
+    # default values can be guessed here.
+    if($f->{UPOS} eq 'ADV' && $f->{NumType} eq '_' && $f->{PronType} =~ m/^(Tot|_)$/)
+    {
+        if($f->{Polarity} eq '_')
+        {
+            if($f->{LEMMA} eq lc($f->{FORM}))
+            {
+                $f->{Polarity} = 'Pos';
+            }
+            elsif('ne'.$f->{LEMMA} eq lc($f->{FORM}))
+            {
+                $f->{Polarity} = 'Neg';
+            }
+        }
+        if($f->{Degree} eq '_')
+        {
+            if($f->{FORM} =~ m/^(ne)?$f->{LEMMA}/i)
+            {
+                $f->{Degree} = 'Pos';
+            }
+        }
     }
     # Following a new agreement from October 2024, emphatic -ž is only
     # annotated in non-lexicalized cases (see the wiki for the list of the
