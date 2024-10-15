@@ -63,10 +63,14 @@ my $a1lines;
 my $a2headers; # file annotated by annotator 2
 my $a2lines;
 ($oheaders, $olines) = read_tsv_file($orig);
-($a1headers, $a1lines) = read_tsv_file($ann1);
-($a2headers, $a2lines) = read_tsv_file($ann2) unless($single_annotation);
+# Sometimes the spreadsheet processor will add many empty columns, e.g. to make
+# the total number of columns rise to 1024, and name them "Sloupec1" to "Sloupec984".
+# Hence we will tell the reading function how many columns we expect and it will
+# skip the rest.
 my $onh = scalar(@{$oheaders});
 my $onl = scalar(@{$olines});
+($a1headers, $a1lines) = read_tsv_file($ann1, $onh);
+($a2headers, $a2lines) = read_tsv_file($ann2, $onh) unless($single_annotation);
 # We will report if the annotated file has too few columns but we must tolerate
 # if it has too many. Sometimes the spreadsheet processor will add many empty
 # columns, e.g. to make the total number of columns rise to 1024, and name them
@@ -78,11 +82,8 @@ if($a1nh < $onh)
 }
 else
 {
-    if($a1nh > $onh)
-    {
-        splice(@{$a1headers}, $onh);
-        $a1nh = $onh;
-    }
+    # It should not happen that $a1nh > $onh because we told the reading function
+    # we want at most $onh columns. But check if we have the right columns.
     foreach my $header (@{$oheaders})
     {
         if(!grep {$_ eq $header} (@{$a1headers}))
@@ -116,11 +117,8 @@ unless($single_annotation)
     }
     else
     {
-        if($a2nh > $onh)
-        {
-            splice(@{$a2headers}, $onh);
-            $a2nh = $onh;
-        }
+        # It should not happen that $a2nh > $onh because we told the reading function
+        # we want at most $onh columns. But check if we have the right columns.
         foreach my $header (@{$oheaders})
         {
             if(!grep {$_ eq $header} (@{$a2headers}))
@@ -197,13 +195,14 @@ unless($single_annotation)
 sub read_tsv_file
 {
     my $path = shift; # read <> if undef
+    my $expected_n_columns = shift; # read all columns if undef
     my @original_args;
     if(defined($path))
     {
         @original_args = @ARGV;
         @ARGV = ($path);
     }
-    my $n_columns;
+    my $expected_input_columns;
     my @headers;
     # We may need the Emph column even if it was not generated in the file for
     # the annotators. So we will add it to the headers if it is not in the file.
@@ -220,12 +219,6 @@ sub read_tsv_file
         # The first line is special.
         if(!defined($n_columns))
         {
-            $n_columns = scalar(@f);
-            # We expect more than 1 column. If we do not see them, the file may have been exported with a wrong column separator.
-            if($n_columns <= 1)
-            {
-                confess('Expected more than one column');
-            }
             # The first line should contain the headers of the columns.
             @headers = @f;
             # We decided we need the Emph column after the first batch of files
@@ -233,23 +226,53 @@ sub read_tsv_file
             # now.
             if(!grep {$_ eq 'Emph'} (@headers))
             {
-                push(@headers, 'Emph');
                 $add_emph = 1;
-                # Do not increase $n_columns! It holds the real number of columns
-                # expected on the input.
+            }
+            my $n_columns = scalar(@f);
+            # If we know how many columns we expect, check that we have them.
+            if(defined($expected_n_columns))
+            {
+                # If we must generate the Emph column, $expected_n_columns already
+                # includes it (because we also generated the column when reading
+                # the original file, from which the number is taken), but $n_columns
+                # does not include it!
+                $expected_input_columns = $add_emph ? $expected_n_columns-1 : $expected_n_columns;
+                if($n_columns < $expected_input_columns)
+                {
+                    confess("Expected $expected_input_columns, found only $n_columns");
+                }
+                # If there are more columns, it could be Excel's decision to pad
+                # the sheet by "Sloupec100", "Sloupec101" etc., so we will just
+                # remove them, without reporting an error.
+                elsif($n_columns > $expected_input_columns)
+                {
+                    splice(@headers, $expected_input_columns);
+                }
+            }
+            else
+            {
+                # In any case we expect more than 1 column. If we do not see them,
+                # the file may have been exported with a wrong column separator.
+                if($n_columns <= 1)
+                {
+                    confess('Expected more than one column');
+                }
+                $expected_input_columns = $n_columns;
+            }
+            # Now that we have removed superfluous column, we can add the Emph column.
+            if($add_emph)
+            {
+                push(@headers, 'Emph');
             }
         }
         else
         {
-            # Check that we do not have more columns than headers.
-            my $n = scalar(@f);
-            if($n > $n_columns)
-            {
-                confess("Expected $n_columns columns but found $n on line $.");
-            }
-            # The columns may be in any order. Hash them by headers.
+            # The columns may be in any order. Hash them by headers. Nevertheless,
+            # if there are more columns than expected, the last ones will be ignored.
+            # If there are fewer columns than expected, the missing ones will be
+            # treated as empty values.
             my %f;
-            for(my $i = 0; $i <= $#f; $i++)
+            for(my $i = 0; $i < $expected_input_columns; $i++)
             {
                 # The value of the cell may be enclosed in quotation marks if the value is considered dangerous. Get rid of the quotation marks.
                 $f[$i] =~ s/^"(.+)"$/$1/;
