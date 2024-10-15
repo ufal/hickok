@@ -279,8 +279,8 @@ sub read_tsv_file
                 # Get rid of leading and trailing spaces.
                 $f[$i] =~ s/^\s+//;
                 $f[$i] =~ s/\s+$//;
-                # Replace empty values by underscores.
-                $f[$i] = '_' if($f[$i] eq '');
+                # Replace empty values by underscores (but not for the SENTENCE column because we need the empty line at the end).
+                $f[$i] = '_' if($f[$i] eq '' && $headers[$i] ne 'SENTENCE');
                 # Fix MWT ranges that were mis-interpreted by Excel as dates.
                 if($headers[$i] eq 'ID')
                 {
