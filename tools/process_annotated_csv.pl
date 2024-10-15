@@ -217,7 +217,7 @@ sub read_tsv_file
         $line =~ s/\s+$//;
         my @f = split(/\t/, $line);
         # The first line is special.
-        if(!defined($n_columns))
+        if(!defined($expected_input_columns))
         {
             # The first line should contain the headers of the columns.
             @headers = @f;
