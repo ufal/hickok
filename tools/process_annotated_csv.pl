@@ -353,6 +353,15 @@ sub fix_mwt_id
             $x = "$x0-$conversion{$x1}";
         }
     }
+    elsif($x =~ m/^([IVX]+)\.([0-9]+)$/)
+    {
+        my $x0 = $1;
+        my $x1 = $2;
+        if(exists($conversion{$x0}))
+        {
+            $x = "$conversion{$x0}-$x1";
+        }
+    }
     return $x;
 }
 
