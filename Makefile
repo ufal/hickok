@@ -107,13 +107,16 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 
 # Note: We can give the script the initials of the annotators via --name1 and --name2; they will be
 # then used in the difference report instead of 'A1' and 'A2'.
-# Set the environment variables before calling make like this (DATE is not used in the scripts, it is rather a comment here):
-# DATE=2024-04-09 ANNBASE=002_modl_kunh  A1=AM A2=JZ make postprocess
-# DATE=2024-04-09 ANNBASE=004_zalt_u     A1=JP A2=ON make postprocess
-# DATE=2024-07-06 ANNBASE=005_umuc_rajhr A1=AM A2=JZ make postprocess
-# DATE=2024-07-06 ANNBASE=008_hrad_sat   A1=JP A2=ON make postprocess
-# DATE=2024-09-09 ANNBASE=005_umuc_rajhr make postprocess_def
-# DATE=2024-09-12 ANNBASE=008_hrad_sat   make postprocess_def
+# Set the environment variables before calling make like this:
+# ANNBASE=002_modl_kunh  A1=AM A2=JZ make postprocess
+# ANNBASE=004_zalt_u     A1=JP A2=ON make postprocess
+# ANNBASE=005_umuc_rajhr A1=AM A2=JZ make postprocess
+# ANNBASE=008_hrad_sat   A1=JP A2=ON make postprocess
+# ANNBASE=005_umuc_rajhr make postprocess_def
+# ANNBASE=008_hrad_sat   make postprocess_def
+# ANNBASE=003_alx_h      A1=AM A2=JP make postprocess
+# ANNBASE=011_alx_bm     A1=JZ A2=ON make postprocess
+# ANNBASE=019_rada_otc_r A1=JP A2=JZ make postprocess
 
 # To be made configurable in the future: the folder for the century of the data.
 STOL=14_stol
