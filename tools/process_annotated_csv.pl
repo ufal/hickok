@@ -377,7 +377,7 @@ sub fix_morphology
     # shorter forms compete.
     if($f->{UPOS} eq 'PRON')
     {
-        if($f->{FORM} =~ m/^(mě|mi|tě|ti|ho|mu|se|si)$/i)
+        if($f->{FORM} =~ m/^(mě|mi|tě|ti|ho|mu|se|si)ť?$/i)
         {
             $f->{Variant} = 'Short';
         }
