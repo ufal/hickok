@@ -701,8 +701,8 @@ sub encode_resegment_instructions
             # other annotator did not suggest it at the same place. Until we
             # have a good use case, report it as an annotation error but do not
             # die because of it.
-            print STDERR ("Joining two tokens is not yet implemented.\n");
-            unshift(@misc, "Bug=JoiningTokensNotYetImplemented");
+            print STDERR ("Joining the token '$line->{FORM}' with the previous one is not supported.\n");
+            unshift(@misc, "Bug=JoiningTokensNotSupported");
             $n_err++;
         }
         else
