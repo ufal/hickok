@@ -121,20 +121,20 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # To be made configurable in the future: the folder for the century of the data.
 STOL=14_stol
 
+# Install Udapi (python) and make sure it is in PATH.
+# Udapi resides in https://github.com/udapi/udapi-python
+# The UD validation script should be in PATH (and python3 available).
+# The script resides in https://github.com/UniversalDependencies/tools
+# The annotated files may not be valid because syntactic annotation has been ignored.
 postprocess:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi ; if [[ -z "$(A1)" ]] ; then exit 2 ; fi ; if [[ -z "$(A2)" ]] ; then exit 3 ; fi
-	( perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/$(STOL)/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/$(STOL)/$(ANNBASE)_$(A2).csv > data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2).diff.txt ) |& tee data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2).postprocess.log
-	# The files may not be valid because syntactic annotation has been ignored.
-	# Install Udapi (python) and make sure it is in PATH.
-	# Udapi resides in https://github.com/udapi/udapi-python
+	perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/$(STOL)/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/$(STOL)/$(ANNBASE)_$(A2).csv 2>&1 >data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2).diff.txt | tee data/annotated/$(STOL)/$(ANNBASE)_$(A1)_$(A2).postprocess.log
 	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A1).conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' ud.FixLeaf ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A1).fixed.conllu
 	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A2).conllu util.JoinSentence misc_name=JoinSentence util.SplitSentence misc_name=SplitSentence ud.cs.AddMwt ud.FixRoot ud.FixAdvmodByUpos ud.FixMultiSubjects util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' util.Eval node='if node.deprel == "flat:foreign": node.deprel = "flat"' util.Eval node='if node.udeprel == "orphan" and node.parent.deprel != "conj": node.deprel = "dep"' ud.FixLeaf deprels=aux,cop,case,mark,cc,det ud.FixRightheaded deprels=conj,flat,fixed,appos,goeswith,list ud.FixPunct write.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A2).fixed.conllu
 	mv data/annotated/$(STOL)/$(ANNBASE)_$(A1).fixed.conllu data/annotated/$(STOL)/$(ANNBASE)_$(A1).conllu
 	mv data/annotated/$(STOL)/$(ANNBASE)_$(A2).fixed.conllu data/annotated/$(STOL)/$(ANNBASE)_$(A2).conllu
 	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A1).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs write.TextModeTreesHtml files=data/annotated/$(STOL)/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	udapy read.Conllu files=data/annotated/$(STOL)/$(ANNBASE)_$(A2).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=data/annotated/$(STOL)/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
-	# The UD validation script should be in PATH (and python3 available).
-	# The script resides in https://github.com/UniversalDependencies/tools
 	validate.py --lang cs data/annotated/$(STOL)/$(ANNBASE)_$(A1).conllu |& tee data/annotated/$(STOL)/$(ANNBASE)_$(A1).validation.log
 	validate.py --lang cs data/annotated/$(STOL)/$(ANNBASE)_$(A2).conllu |& tee data/annotated/$(STOL)/$(ANNBASE)_$(A2).validation.log
 
