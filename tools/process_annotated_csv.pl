@@ -627,9 +627,14 @@ sub encode_resegment_instructions
             # reject splits that do not follow a pre-approved pattern. So if the
             # column is empty but we see a known pattern, we can fill it in.
             my $auto_subtokens;
-            # byls, bylť, ...
+            # byls, jaks, žes, ...
             # But there are other spellings: jaks’ = jak jsi, žejs’ = že jsi
-            if($line->{FORM} =~ m/^(.+?)(j?s’?|ť)$/i)
+            if($line->{FORM} =~ m/^(.+?)(j?s’?)$/i)
+            {
+                $auto_subtokens = "$1 jsi";
+            }
+            # bylť, onť, ...
+            elsif($line->{FORM} =~ m/^(.+?)(ť)$/i)
             {
                 $auto_subtokens = "$1 $2";
             }
@@ -676,40 +681,12 @@ sub encode_resegment_instructions
             }
             if($line->{SUBTOKENS} ne '_')
             {
-                if($line->{SUBTOKENS} =~ m/^(\S+) (j?s’?|ť)$/)
-                {
-                    my $mainform = $1;
-                    my $clitic = $2;
-                    # In this case we expect that the concatenation of the indicated subtokens
-                    # indeed yields the surface form, including capitalization. If the annotator
-                    # did not respect it, fix it automatically.
-                    if("$mainform$clitic" ne $line->{FORM})
-                    {
-                        print STDERR ("Mismatch between FORM='$line->{FORM}' and the proposed SUBTOKENS='$line->{SUBTOKENS}'");
-                        if($line->{FORM} =~ m/^(.+)([sť])$/)
-                        {
-                            $line->{SUBTOKENS} = "$1 $2";
-                            print STDERR (" => changed to '$line->{SUBTOKENS}'.\n");
-                        }
-                        else
-                        {
-                            print STDERR (".\n");
-                            unshift(@misc, "Bug=RetokenizeMismatchFormSubtokens");
-                            $n_err++;
-                        }
-                    }
-                    unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
-                }
+                # byls
+                # bylť
                 # přědeň
-                elsif($line->{SUBTOKENS} =~ m/^(\S+) něj$/)
-                {
-                    my $preposition = $1;
-                    unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
-                }
                 # skirzěňž, zaňž
-                elsif($line->{SUBTOKENS} =~ m/^(\S+) nějž$/)
+                if($line->{SUBTOKENS} =~ m/^(\S+) (jsi|ť|nějž?)$/)
                 {
-                    my $preposition = $1;
                     unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
                 }
                 else
