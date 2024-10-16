@@ -628,7 +628,8 @@ sub encode_resegment_instructions
             # column is empty but we see a known pattern, we can fill it in.
             my $auto_subtokens;
             # byls, bylť, ...
-            if($line->{FORM} =~ m/^(.+)([sť])$/i)
+            # But there are other spellings: jaks’ = jak jsi, žejs’ = že jsi
+            if($line->{FORM} =~ m/^(.+)(j?s’?|ť)$/i)
             {
                 $auto_subtokens = "$1 $2";
             }
@@ -675,7 +676,7 @@ sub encode_resegment_instructions
             }
             if($line->{SUBTOKENS} ne '_')
             {
-                if($line->{SUBTOKENS} =~ m/^(\S+) ([sť])$/)
+                if($line->{SUBTOKENS} =~ m/^(\S+) (j?s’?|ť)$/)
                 {
                     my $mainform = $1;
                     my $clitic = $2;
