@@ -629,7 +629,7 @@ sub encode_resegment_instructions
             my $auto_subtokens;
             # byls, bylť, ...
             # But there are other spellings: jaks’ = jak jsi, žejs’ = že jsi
-            if($line->{FORM} =~ m/^(.+)(j?s’?|ť)$/i)
+            if($line->{FORM} =~ m/^(.+?)(j?s’?|ť)$/i)
             {
                 $auto_subtokens = "$1 $2";
             }
