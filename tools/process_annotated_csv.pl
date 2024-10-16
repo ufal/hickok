@@ -109,7 +109,10 @@ for(my $i = 0; $i < $onl; $i++)
     {
         if($a1lines->[$i]{$header} ne $olines->[$i]{$header})
         {
-            push(@a1errors, "Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name1: $a1lines->[$i]{$header}\n");
+            my $pad = ' ' x (length('ORIGINAL')-length($name1));
+            my $vor = "    ORIGINAL: $olines->[$i]{$header}";
+            my $va1 = "    $name1:$pad $a1lines->[$i]{$header}";
+            push(@a1errors, "Line $olines->[$i]{LINENO}: Mismatch in $header column\n$vor\n$va1\n");
         }
     }
 }
@@ -144,7 +147,10 @@ unless($single_annotation)
         {
             if($a2lines->[$i]{$header} ne $olines->[$i]{$header})
             {
-                push(@a2errors, "Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name2: $a2lines->[$i]{$header}\n");
+                my $pad = ' ' x (length('ORIGINAL')-length($name2));
+                my $vor = "    ORIGINAL: $olines->[$i]{$header}";
+                my $va2 = "    $name2:$pad $a2lines->[$i]{$header}";
+                push(@a2errors, "Line $olines->[$i]{LINENO}: Mismatch in $header column\n$vor\n$va2\n");
             }
         }
     }
