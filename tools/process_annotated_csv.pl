@@ -679,6 +679,12 @@ sub encode_resegment_instructions
                     $line->{SUBTOKENS} = $auto_subtokens;
                 }
             }
+            elsif($line->{SUBTOKENS} ne '_')
+            {
+                print STDERR ("Splitting '$line->{FORM}' to '$line->{SUBTOKENS}' is not supported.\n");
+                unshift(@misc, "Bug=SplittingUnsupportedPattern");
+                $n_err++;
+            }
             if($line->{SUBTOKENS} ne '_')
             {
                 # byls
@@ -692,7 +698,7 @@ sub encode_resegment_instructions
                 else
                 {
                     print STDERR ("Splitting a token to '$line->{SUBTOKENS}' is not yet implemented.\n");
-                    unshift(@misc, "Bug=RetokenizeThisTokenNotSupported");
+                    unshift(@misc, "Bug=SplittingUnsupportedPattern");
                     $n_err++;
                 }
             }
