@@ -69,13 +69,13 @@ my $a2lines;
 # skip the rest.
 my $onh = scalar(@{$oheaders});
 my $onl = scalar(@{$olines});
-($a1headers, $a1lines) = read_tsv_file($ann1, $onh);
-($a2headers, $a2lines) = read_tsv_file($ann2, $onh) unless($single_annotation);
 # If there are fatal errors in one or both annotated files, do not crash immediately.
 # Try to collect and report them all to minimize the number of times we must get
 # back to the annotators and request corrections.
 my @a1errors;
 my @a2errors;
+($a1headers, $a1lines) = read_tsv_file($ann1, $onh, \@a1errors);
+($a2headers, $a2lines) = read_tsv_file($ann2, $onh, \@a2errors) unless($single_annotation);
 # We will report if the annotated file has too few columns but we must tolerate
 # if it has too many. Sometimes the spreadsheet processor will add many empty
 # columns, e.g. to make the total number of columns rise to 1024, and name them
@@ -224,6 +224,7 @@ sub read_tsv_file
 {
     my $path = shift; # read <> if undef
     my $expected_n_columns = shift; # read all columns if undef
+    my $error_list = shift; # array ref; if defined, LINENO errors will be stored here instead of dying immediately
     my @original_args;
     if(defined($path))
     {
@@ -326,7 +327,14 @@ sub read_tsv_file
             # Check that the line numbers are ordered.
             if($f{LINENO} != $.-1)
             {
-                confess("The LINENO column on line $. contains $f{LINENO}");
+                if(defined($error_list))
+                {
+                    push(@{$error_list}, "The LINENO column on line $. contains $f{LINENO}");
+                }
+                else
+                {
+                    confess("The LINENO column on line $. contains $f{LINENO}");
+                }
             }
             # Skip the extra lines that we inserted to the file for readability.
             if($f{SENTENCE} eq '###!!! EXTRA LINE')
