@@ -71,6 +71,11 @@ my $onh = scalar(@{$oheaders});
 my $onl = scalar(@{$olines});
 ($a1headers, $a1lines) = read_tsv_file($ann1, $onh);
 ($a2headers, $a2lines) = read_tsv_file($ann2, $onh) unless($single_annotation);
+# If there are fatal errors in one or both annotated files, do not crash immediately.
+# Try to collect and report them all to minimize the number of times we must get
+# back to the annotators and request corrections.
+my @a1errors;
+my @a2errors;
 # We will report if the annotated file has too few columns but we must tolerate
 # if it has too many. Sometimes the spreadsheet processor will add many empty
 # columns, e.g. to make the total number of columns rise to 1024, and name them
@@ -78,7 +83,7 @@ my $onl = scalar(@{$olines});
 my $a1nh = scalar(@{$a1headers});
 if($a1nh < $onh)
 {
-    confess("The original file had $onh columns, file annotated by $name1 has $a1nh columns");
+    push(@a1errors, "The original file had $onh columns, file annotated by $name1 has $a1nh columns");
 }
 else
 {
@@ -88,14 +93,14 @@ else
     {
         if(!grep {$_ eq $header} (@{$a1headers}))
         {
-            confess("Missing column '$header' in $name1");
+            push(@a1errors, "Missing column '$header' in $name1");
         }
     }
 }
 my $a1nl = scalar(@{$a1lines});
 if($a1nl != $onl)
 {
-    confess("The original file had $onl lines, file annotated by $name1 has $a1nl lines");
+    push(@a1errors, "The original file had $onl lines, file annotated by $name1 has $a1nl lines");
 }
 # Check that the important values that should not be modified are indeed identical in both annotated files and the original.
 for(my $i = 0; $i < $onl; $i++)
@@ -104,7 +109,7 @@ for(my $i = 0; $i < $onl; $i++)
     {
         if($a1lines->[$i]{$header} ne $olines->[$i]{$header})
         {
-            confess("Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name1: $a1lines->[$i]{$header}\n");
+            push(@a1errors, "Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name1: $a1lines->[$i]{$header}\n");
         }
     }
 }
@@ -113,7 +118,7 @@ unless($single_annotation)
     my $a2nh = scalar(@{$a2headers});
     if($a2nh < $onh)
     {
-        confess("The original file had $onh columns, file annotated by $name2 has $a2nh columns");
+        push(@a2errors, "The original file had $onh columns, file annotated by $name2 has $a2nh columns");
     }
     else
     {
@@ -123,14 +128,14 @@ unless($single_annotation)
         {
             if(!grep {$_ eq $header} (@{$a2headers}))
             {
-                confess("Missing column '$header' in $name2");
+                push(@a2errors, "Missing column '$header' in $name2");
             }
         }
     }
     my $a2nl = scalar(@{$a2lines});
     if($a2nl != $onl)
     {
-        confess("The original file had $onl lines, file annotated by $name2 has $a2nl lines");
+        push(@a2errors, "The original file had $onl lines, file annotated by $name2 has $a2nl lines");
     }
     # Check that the important values that should not be modified are indeed identical in both annotated files and the original.
     for(my $i = 0; $i < $onl; $i++)
@@ -139,7 +144,7 @@ unless($single_annotation)
         {
             if($a2lines->[$i]{$header} ne $olines->[$i]{$header})
             {
-                confess("Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name2: $a2lines->[$i]{$header}\n");
+                push(@a2errors, "Line $olines->[$i]{LINENO}: Mismatch in $header column\nORIGINAL: $olines->[$i]{$header}\n$name2: $a2lines->[$i]{$header}\n");
             }
         }
     }
@@ -172,6 +177,23 @@ unless($single_annotation)
         }
     }
     print("\nFound $ndiff differences between $name1 and $name2.\n");
+}
+# Now it is time to stop if there were fatal errors in any of the input files.
+my $ne1 = scalar(@a1errors);
+my $ne2 = scalar(@a2errors);
+if($ne1 or $ne2)
+{
+    if($ne1)
+    {
+        print STDERR ("Found $ne1 fatal error(s) in $ann1:\n");
+        print STDERR (join('', map {"  $_\n"} (@a1errors)));
+    }
+    if($ne2)
+    {
+        print STDERR ("Found $ne2 fatal error(s) in $ann2:\n");
+        print STDERR (join('', map {"  $_\n"} (@a2errors)));
+    }
+    confess('Fatal input errors');
 }
 # Write each annotator's file in the CoNLL-U format.
 my $conllu1 = $ann1;
