@@ -727,15 +727,12 @@ sub encode_resegment_instructions
         }
         elsif($line->{RETOKENIZE} eq 'spojit')
         {
-            # The instruction 'spojit' (join a token with the previous one) has
-            # been defined but not yet implemented. There has been one instance
-            # when an annotator used it but I think it was a mistake, and the
-            # other annotator did not suggest it at the same place. Until we
-            # have a good use case, report it as an annotation error but do not
-            # die because of it.
-            print STDERR ("Joining the token '$line->{FORM}' with the previous one is not supported.\n");
-            unshift(@misc, "Bug=JoiningTokensNotSupported");
-            $n_err++;
+            # Merging two tokens is currently supported only without MWTs and
+            # if there was no space between this token and the previous one in
+            # the original text. We do not have to check the conditions here.
+            # Udapi ud.JoinToken will check them and if they are not met, it
+            # will print a warning and add a Bug attribute to MISC.
+            unshift(@misc, 'JoinToken=Here');
         }
         else
         {
