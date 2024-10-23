@@ -649,8 +649,8 @@ sub encode_resegment_instructions
     # is implemented in Udapi.
     if($line->{RETOKENIZE} ne '_')
     {
-        # Fix previously encountered typo.
-        $line->{RETOKENIZE} = 'rozdělit' if($line->{RETOKENIZE} eq 'rozdlělit');
+        # Fix previously encountered typos.
+        $line->{RETOKENIZE} = 'rozdělit' if($line->{RETOKENIZE} =~ m/^roz(dl)?ělit$/);
         if($line->{RETOKENIZE} eq 'rozdělit')
         {
             if($line->{ID} =~ m/-/)
