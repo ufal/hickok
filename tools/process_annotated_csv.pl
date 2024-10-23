@@ -727,7 +727,8 @@ sub encode_resegment_instructions
                 # bylť
                 # přědeň
                 # skirzěňž, zaňž
-                if($line->{SUBTOKENS} =~ m/^(\S+) (jsi|ť|nějž?)$/)
+                # abychme (předzpracování zatím umí jen novočeské abych, abys, aby, abychom, abyste)
+                if($line->{SUBTOKENS} =~ m/^(\S+) (jsi|bychme|ť|nějž?)$/)
                 {
                     unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
                 }
