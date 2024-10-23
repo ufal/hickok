@@ -663,9 +663,14 @@ sub encode_resegment_instructions
             # reject splits that do not follow a pre-approved pattern. So if the
             # column is empty but we see a known pattern, we can fill it in.
             my $auto_subtokens;
+            if($line->{FORM} =~ m/^(a|kdy)(bych|bys|by|bychom|bychme|byste)$/)
+            {
+                my $sconj = $1 eq 'a' ? 'aby' : 'když';
+                $auto_subtokens = "$sconj $2";
+            }
             # byls, jaks, žes, ...
             # But there are other spellings: jaks’ = jak jsi, žejs’ = že jsi
-            if($line->{FORM} =~ m/^(.+?)(j?s’?)$/i)
+            elsif($line->{FORM} =~ m/^(.+?)(j?s’?)$/i)
             {
                 $auto_subtokens = "$1 jsi";
             }
