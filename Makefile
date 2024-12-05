@@ -112,6 +112,8 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=14 ANNBASE=004_zalt_u         A1=JP A2=ON make postprocess
 # STOL=14 ANNBASE=005_umuc_rajhr     A1=AM A2=JZ make postprocess
 # STOL=14 ANNBASE=008_hrad_sat       A1=JP A2=ON make postprocess
+# STOL=14 ANNBASE=002_modl_kunh      make postprocess_def
+# STOL=14 ANNBASE=004_zalt_u         make postprocess_def
 # STOL=14 ANNBASE=005_umuc_rajhr     make postprocess_def
 # STOL=14 ANNBASE=008_hrad_sat       make postprocess_def
 # STOL=14 ANNBASE=003_alx_h          A1=AM A2=JP make postprocess
@@ -120,8 +122,12 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=15 ANNBASE=021_podk_u         A1=AM A2=ON make postprocess
 # STOL=15 ANNBASE=028_hus_kor_d_35   A1=AM A2=JZ make postprocess
 # STOL=15 ANNBASE=037_bibl_kladr_1rg A1=JP A2=ON make postprocess
-# STOL=14 ANNBASE=002_modl_kunh      make postprocess_def
 # STOL=14 ANNBASE=003_alx_h          make postprocess_def
+# STOL=14 ANNBASE=011_alx_bm         make postprocess_def
+# STOL=14 ANNBASE=019_rada_otc_r     make postprocess_def
+# STOL=15 ANNBASE=021_podk_u         make postprocess_def
+# STOL=15 ANNBASE=028_hus_kor_d_35   make postprocess_def
+# STOL=15 ANNBASE=037_bibl_kladr_1rg make postprocess_def
 
 # Install Udapi (python) and make sure it is in PATH.
 # Udapi resides in https://github.com/udapi/udapi-python
