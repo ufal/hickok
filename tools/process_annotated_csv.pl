@@ -674,6 +674,12 @@ sub encode_resegment_instructions
             {
                 $auto_subtokens = "$1 jsi";
             }
+            # myslilaj = myslila i (CCONJ)
+            # I do not know how much productive it is.
+            elsif($line->{FORM} =~ m/^(myslila)j$/i)
+            {
+                $auto_subtokens = "$1 i";
+            }
             # bylť, onť, ...
             elsif($line->{FORM} =~ m/^(.+?)(ť)$/i)
             {
