@@ -491,6 +491,12 @@ sub fix_morphology
     {
         $f->{LEMMA} =~ s/ti$/t/i;
     }
+    # In some cases, the annotators consider a verb (or participle) biaspectual,
+    # but in Modern Czech it is treated as single aspect.
+    if($f->{LEMMA} =~ m/^(řečený|říci)$/)
+    {
+        $f->{Aspect} = 'Perf';
+    }
     # Adverbs: Unlike the previous practice in PDT and Czech UD, we will
     # require Degree and Polarity for most adverbs even if the only value
     # they can have is Pos. The reason is that some adverbs can be negated in
