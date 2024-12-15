@@ -133,6 +133,8 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=14 ANNBASE=001_prip_jir       A1=AM A2=JP make postprocess
 # STOL=15 ANNBASE=032_mart_kron_a    make postprocess_def
 # STOL=14 ANNBASE=001_prip_jir       make postprocess_def
+DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
+DEFFILES15 := 021_podk_u 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kladr_1rg
 
 # Install Udapi (python) and make sure it is in PATH.
 # Udapi resides in https://github.com/udapi/udapi-python
@@ -160,6 +162,16 @@ postprocess_def:
 	mv data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.fixed.conllu data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu
 	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	validate.py --lang cs data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu |& tee data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.validation.log
+
+# Zatím testuju evaluaci parsingu+preprocessingu jen pro soubory ze 14. století.
+# data/annotated/14_stol/*_DEF.conllu
+DEFFILES := $(addprefix data/annotated/14_stol/, $(addsuffix _DEF.conllu, $(DEFFILES14)))
+EVALFILES := $(addprefix $(PREPRCDIR)/13_19_stol/, $(addsuffix .conllu, $(DEFFILES14)))
+# The UD parser evaluation script should be in PATH.
+eval:
+	cat $(DEFFILES) > gold.conllu
+	cat $(EVALFILES) > sys.conllu
+	eval.py -v gold.conllu sys.conllu
 
 
 
