@@ -164,11 +164,12 @@ postprocess_def:
 	validate.py --lang cs data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu |& tee data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.validation.log
 
 # Evaluate the quality of the parsing and preprocessing on the files for which we now have manual annotation.
-# The UD parser evaluation script should be in PATH.
+# The UD parser evaluation script and conllu_quick_fix.pl should be in PATH.
+# The conllu_quick_fix.pl script is applied to the manual data because the syntactic annotation may be invalid (e.g., there may be multiple root nodes in a sentence).
 DEFFILES := $(addprefix data/annotated/14_stol/, $(addsuffix _DEF.conllu, $(DEFFILES14))) $(addprefix data/annotated/15_stol/, $(addsuffix _DEF.conllu, $(DEFFILES15)))
 EVALFILES := $(addprefix $(PREPRCDIR)/13_19_stol/, $(addsuffix .conllu, $(DEFFILES14) $(DEFFILES15)))
 eval:
-	cat $(DEFFILES) > gold.conllu
+	cat $(DEFFILES) | conllu_quick_fix.pl > gold.conllu
 	cat $(EVALFILES) > sys.conllu
 	eval.py -v gold.conllu sys.conllu
 
