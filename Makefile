@@ -163,11 +163,10 @@ postprocess_def:
 	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	validate.py --lang cs data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu |& tee data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.validation.log
 
-# Zatím testuju evaluaci parsingu+preprocessingu jen pro soubory ze 14. století.
-# data/annotated/14_stol/*_DEF.conllu
-DEFFILES := $(addprefix data/annotated/14_stol/, $(addsuffix _DEF.conllu, $(DEFFILES14)))
-EVALFILES := $(addprefix $(PREPRCDIR)/13_19_stol/, $(addsuffix .conllu, $(DEFFILES14)))
+# Evaluate the quality of the parsing and preprocessing on the files for which we now have manual annotation.
 # The UD parser evaluation script should be in PATH.
+DEFFILES := $(addprefix data/annotated/14_stol/, $(addsuffix _DEF.conllu, $(DEFFILES14))) $(addprefix data/annotated/15_stol/, $(addsuffix _DEF.conllu, $(DEFFILES15)))
+EVALFILES := $(addprefix $(PREPRCDIR)/13_19_stol/, $(addsuffix .conllu, $(DEFFILES14) $(DEFFILES15)))
 eval:
 	cat $(DEFFILES) > gold.conllu
 	cat $(EVALFILES) > sys.conllu
