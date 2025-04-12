@@ -687,7 +687,7 @@ sub encode_resegment_instructions
                 $auto_subtokens = "$1 i";
             }
             # bylť, onť, ...
-            elsif($line->{FORM} =~ m/^(.+?)(ť)$/i)
+            elsif($line->{FORM} =~ m/^(.+?)(ť|tě|ti)$/i)
             {
                 $auto_subtokens = "$1 $2";
             }
