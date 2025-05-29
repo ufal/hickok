@@ -147,6 +147,7 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=14 ANNBASE=010_bibl_drazd_mt  make postprocess_def
 # STOL=14 ANNBASE=012_mast_muz       make postprocess_def
 # STOL=14 ANNBASE=013_zalt_wittb     make postprocess_def
+# STOL=14 ANNBASE=016_rad_kor_a      A1=JP A2=ON make postprocess
 DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
 DEFFILES15 := 021_podk_u 026_otc_b 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kladr_1rg
 
