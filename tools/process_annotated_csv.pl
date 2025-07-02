@@ -706,8 +706,9 @@ sub encode_resegment_instructions
             elsif($line->{FORM} =~ m/^(na|nade|o|pro|přěde|ski?rz[eě]|za)ňž$/i)
             {
                 $auto_subtokens = "$1 nějž";
-                # At present Udapi removes vocalization from "přěde" (=> "přěd něj") but not from "skirzě".
-                $auto_subtokens =~ s/(nad|přěd)e /přěd /;
+                # At present Udapi removes vocalization from "přěde" (=> "přěd něj")
+                # and from "nade" (=> "nad něj") but not from "skirzě".
+                $auto_subtokens =~ s/(nad|přěd)e /$1 /;
             }
             # The proposed subtokens should try to follow the casing of the original.
             if(defined($auto_subtokens))
@@ -742,7 +743,7 @@ sub encode_resegment_instructions
             {
                 # byls
                 # bylť
-                # přědeň
+                # přědeň, nadeň
                 # skirzěňž, zaňž
                 # abychme (předzpracování zatím umí jen novočeské abych, abys, aby, abychom, abyste)
                 if($line->{SUBTOKENS} =~ m/^(\S+) (jsi|bychme|byšta|i|ť|tě|ti|nějž?)$/)
