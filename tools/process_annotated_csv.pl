@@ -669,6 +669,7 @@ sub encode_resegment_instructions
             # No multiword tokens are created.
             if($line->{FORM} eq 'nížtopopisuje')
             {
+                unshift(@misc, "SplitTokenMorpho=LEMMA=popisovat\tUPOS=VERB\tFEATS=Aspect=Imp\\pMood=Ind\\pNumber=Sing\\pPerson=3\\pPolarity=Pos\\pTense=Pres\\pVerbForm=Fin\\pVoice=Act");
                 unshift(@misc, "SplitToken=$line->{SUBTOKENS}");
             }
             # In all other cases, assume that a multiword token is requested.
