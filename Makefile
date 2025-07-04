@@ -108,55 +108,57 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # Note: We can give the script the initials of the annotators via --name1 and --name2; they will be
 # then used in the difference report instead of 'A1' and 'A2'.
 # Set the environment variables before calling make like this:
-# STOL=14 ANNBASE=002_modl_kunh      A1=AM A2=JZ make postprocess
-# STOL=14 ANNBASE=004_zalt_u         A1=JP A2=ON make postprocess
-# STOL=14 ANNBASE=005_umuc_rajhr     A1=AM A2=JZ make postprocess
-# STOL=14 ANNBASE=008_hrad_sat       A1=JP A2=ON make postprocess
-# STOL=14 ANNBASE=002_modl_kunh      make postprocess_def
-# STOL=14 ANNBASE=004_zalt_u         make postprocess_def
-# STOL=14 ANNBASE=005_umuc_rajhr     make postprocess_def
-# STOL=14 ANNBASE=008_hrad_sat       make postprocess_def
-# STOL=14 ANNBASE=003_alx_h          A1=AM A2=JP make postprocess
-# STOL=14 ANNBASE=011_alx_bm         A1=JZ A2=ON make postprocess
-# STOL=14 ANNBASE=019_rada_otc_r     A1=JP A2=JZ make postprocess
-# STOL=15 ANNBASE=021_podk_u         A1=AM A2=ON make postprocess
-# STOL=15 ANNBASE=028_hus_kor_d_35   A1=AM A2=JZ make postprocess
-# STOL=15 ANNBASE=037_bibl_kladr_1rg A1=JP A2=ON make postprocess
-# STOL=14 ANNBASE=003_alx_h          make postprocess_def
-# STOL=14 ANNBASE=011_alx_bm         make postprocess_def
-# STOL=14 ANNBASE=019_rada_otc_r     make postprocess_def
-# STOL=15 ANNBASE=021_podk_u         make postprocess_def
-# STOL=15 ANNBASE=028_hus_kor_d_35   make postprocess_def
-# STOL=15 ANNBASE=037_bibl_kladr_1rg make postprocess_def
-# STOL=15 ANNBASE=026_otc_b          A1=AM A2=ON make postprocess
-# STOL=15 ANNBASE=032_mart_kron_a    A1=JP A2=JZ make postprocess
-# STOL=14 ANNBASE=001_prip_jir       A1=AM A2=JP make postprocess
-# STOL=15 ANNBASE=032_mart_kron_a    make postprocess_def
-# STOL=14 ANNBASE=001_prip_jir       make postprocess_def
-# STOL=15 ANNBASE=026_otc_b          make postprocess_def
-# STOL=14 ANNBASE=006_hrad_prok      A1=JP A2=ON make postprocess
-# STOL=14 ANNBASE=007_hrad_magd      A1=JP A2=AM make postprocess
-# STOL=14 ANNBASE=009_bibl_drazd_mc  A1=JP A2=ON make postprocess
-# STOL=14 ANNBASE=010_bibl_drazd_mt  A1=AM A2=JZ make postprocess
-# STOL=14 ANNBASE=012_mast_muz       A1=AM A2=JZ make postprocess
-# STOL=14 ANNBASE=013_zalt_wittb     A1=AM A2=JZ make postprocess
-# STOL=14 ANNBASE=014_stit_klem      A1=AM A2=ON make postprocess
-# STOL=14 ANNBASE=015_krist_a        A1=JZ A2=ON make postprocess
-# STOL=14 ANNBASE=007_hrad_magd      make postprocess_def
-# STOL=14 ANNBASE=009_bibl_drazd_mc  make postprocess_def
-# STOL=14 ANNBASE=010_bibl_drazd_mt  make postprocess_def
-# STOL=14 ANNBASE=012_mast_muz       make postprocess_def
-# STOL=14 ANNBASE=013_zalt_wittb     make postprocess_def
-# STOL=14 ANNBASE=016_rad_kor_a      A1=JP A2=ON make postprocess
-# STOL=14 ANNBASE=017_pas_muz_a      A1=JP A2=JZ make postprocess
-# STOL=14 ANNBASE=018_dal_v          A1=JP A2=ON make postprocess
-# STOL=14 ANNBASE=020_prisl_flas     A1=AM A2=ON make postprocess
-# STOL=14 ANNBASE=006_hrad_prok      make postprocess_def
-# STOL=14 ANNBASE=015_krist_a        make postprocess_def
-# STOL=14 ANNBASE=016_rad_kor_a      make postprocess_def
-# STOL=14 ANNBASE=017_pas_muz_a      make postprocess_def
-# STOL=15 ANNBASE=022_maj_car_a      A1=ON A2=JZ make postprocess
-# STOL=15 ANNBASE=023_lyra_mat       A1=AM A2=ON make postprocess
+# STOL=14 ANNBASE=002_modl_kunh       A1=AM A2=JZ make postprocess
+# STOL=14 ANNBASE=004_zalt_u          A1=JP A2=ON make postprocess
+# STOL=14 ANNBASE=005_umuc_rajhr      A1=AM A2=JZ make postprocess
+# STOL=14 ANNBASE=008_hrad_sat        A1=JP A2=ON make postprocess
+# STOL=14 ANNBASE=002_modl_kunh       make postprocess_def
+# STOL=14 ANNBASE=004_zalt_u          make postprocess_def
+# STOL=14 ANNBASE=005_umuc_rajhr      make postprocess_def
+# STOL=14 ANNBASE=008_hrad_sat        make postprocess_def
+# STOL=14 ANNBASE=003_alx_h           A1=AM A2=JP make postprocess
+# STOL=14 ANNBASE=011_alx_bm          A1=JZ A2=ON make postprocess
+# STOL=14 ANNBASE=019_rada_otc_r      A1=JP A2=JZ make postprocess
+# STOL=15 ANNBASE=021_podk_u          A1=AM A2=ON make postprocess
+# STOL=15 ANNBASE=028_hus_kor_d_35    A1=AM A2=JZ make postprocess
+# STOL=15 ANNBASE=037_bibl_kladr_1rg  A1=JP A2=ON make postprocess
+# STOL=14 ANNBASE=003_alx_h           make postprocess_def
+# STOL=14 ANNBASE=011_alx_bm          make postprocess_def
+# STOL=14 ANNBASE=019_rada_otc_r      make postprocess_def
+# STOL=15 ANNBASE=021_podk_u          make postprocess_def
+# STOL=15 ANNBASE=028_hus_kor_d_35    make postprocess_def
+# STOL=15 ANNBASE=037_bibl_kladr_1rg  make postprocess_def
+# STOL=15 ANNBASE=026_otc_b           A1=AM A2=ON make postprocess
+# STOL=15 ANNBASE=032_mart_kron_a     A1=JP A2=JZ make postprocess
+# STOL=14 ANNBASE=001_prip_jir        A1=AM A2=JP make postprocess
+# STOL=15 ANNBASE=032_mart_kron_a     make postprocess_def
+# STOL=14 ANNBASE=001_prip_jir        make postprocess_def
+# STOL=15 ANNBASE=026_otc_b           make postprocess_def
+# STOL=14 ANNBASE=006_hrad_prok       A1=JP A2=ON make postprocess
+# STOL=14 ANNBASE=007_hrad_magd       A1=JP A2=AM make postprocess
+# STOL=14 ANNBASE=009_bibl_drazd_mc   A1=JP A2=ON make postprocess
+# STOL=14 ANNBASE=010_bibl_drazd_mt   A1=AM A2=JZ make postprocess
+# STOL=14 ANNBASE=012_mast_muz        A1=AM A2=JZ make postprocess
+# STOL=14 ANNBASE=013_zalt_wittb      A1=AM A2=JZ make postprocess
+# STOL=14 ANNBASE=014_stit_klem       A1=AM A2=ON make postprocess
+# STOL=14 ANNBASE=015_krist_a         A1=JZ A2=ON make postprocess
+# STOL=14 ANNBASE=007_hrad_magd       make postprocess_def
+# STOL=14 ANNBASE=009_bibl_drazd_mc   make postprocess_def
+# STOL=14 ANNBASE=010_bibl_drazd_mt   make postprocess_def
+# STOL=14 ANNBASE=012_mast_muz        make postprocess_def
+# STOL=14 ANNBASE=013_zalt_wittb      make postprocess_def
+# STOL=14 ANNBASE=016_rad_kor_a       A1=JP A2=ON make postprocess
+# STOL=14 ANNBASE=017_pas_muz_a       A1=JP A2=JZ make postprocess
+# STOL=14 ANNBASE=018_dal_v           A1=JP A2=ON make postprocess
+# STOL=14 ANNBASE=020_prisl_flas      A1=AM A2=ON make postprocess
+# STOL=14 ANNBASE=006_hrad_prok       make postprocess_def
+# STOL=14 ANNBASE=015_krist_a         make postprocess_def
+# STOL=14 ANNBASE=016_rad_kor_a       make postprocess_def
+# STOL=14 ANNBASE=017_pas_muz_a       make postprocess_def
+# STOL=15 ANNBASE=022_maj_car_a       A1=ON A2=JZ make postprocess
+# STOL=15 ANNBASE=023_lyra_mat        A1=AM A2=ON make postprocess
+# STOL=15 ANNBASE=024_bibl_ol_gn-2esd A1=JP A2=ON make postprocess
+# STOL=15 ANNBASE=025_bibl_ol_ct      A1=AM A2=JZ make postprocess
 DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
 DEFFILES15 := 021_podk_u 026_otc_b 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kladr_1rg
 
