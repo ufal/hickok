@@ -787,7 +787,7 @@ sub encode_resegment_instructions
         }
         else
         {
-            confess("Unknown retokenizing instruction '$line->{RETOKENIZE}' on line $line->{LINENO}.");
+            confess("Unknown retokenizing instruction '$line->{RETOKENIZE}' on line $line->{LINENO}");
         }
     }
     elsif($line->{SUBTOKENS} ne '_')
