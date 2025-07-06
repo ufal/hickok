@@ -161,6 +161,10 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=15 ANNBASE=025_bibl_ol_ct      A1=AM A2=JZ make postprocess
 # STOL=15 ANNBASE=027_zrc_spas_k      A1=AM A2=JZ make postprocess
 # STOL=15 ANNBASE=029_astar           A1=JP A2=AM make postprocess
+# STOL=15 ANNBASE=030_lek_frant_muz   A1=JP A2=AM make postprocess
+# STOL=15 ANNBASE=031_alex_pov_d      A1=JP A2=JZ make postprocess
+# STOL=15 ANNBASE=033_prav_svab_c     A1=ON A2=AM make postprocess
+# STOL=15 ANNBASE=034_brez_snar_m     A1=ON A2=JZ make postprocess
 DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
 DEFFILES15 := 021_podk_u 026_otc_b 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kladr_1rg
 
