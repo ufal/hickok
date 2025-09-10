@@ -183,6 +183,7 @@ UDAPISCEN = \
     ud.FixRoot \
     ud.FixAdvmodByUpos \
     ud.FixMultiSubjects \
+    ud.FixMultiObjects \
     util.Eval node='if node.upos=="PUNCT": node.deprel="punct"' \
     util.Eval node='if node.deprel == "flat:foreign": node.deprel = "flat"' \
     util.Eval node='if node.udeprel == "orphan" and node.parent.deprel != "conj": node.deprel = "dep"' \
