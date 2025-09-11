@@ -674,7 +674,7 @@ sub encode_resegment_instructions
             }
             elsif($line->{FORM} eq 'vždymilován')
             {
-                unshift(@misc, "SplitTokenMorpho=LEMMA=milovaný\\tUPOS=ADJ\\tFEATS=Aspect=Imp\\pDegree=Pos\\pGender=Masc\\pNumber=Sing\\pPolarity=Pos\\pVariant=Short\\pVerbForm=Part\\pVoice=Pass");
+                unshift(@misc, "SplitTokenMorpho=LEMMA=milovaný\\tUPOS=ADJ\\tFEATS=Animacy=Inan\\pAspect=Imp\\pCase=Nom\\pDegree=Pos\\pGender=Masc\\pNumber=Sing\\pPolarity=Pos\\pVariant=Short\\pVerbForm=Part\\pVoice=Pass");
                 unshift(@misc, "SplitToken=$line->{SUBTOKENS}");
             }
             # In all other cases, assume that a multiword token is requested.
