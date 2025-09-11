@@ -695,6 +695,11 @@ sub encode_resegment_instructions
                 {
                     $auto_subtokens = "$1 jsi";
                 }
+                # ještoj’ = ješto jest
+                elsif($line->{FORM} =~ m/^(ješto)j’$/i)
+                {
+                    $auto_subtokens = "$1 jest";
+                }
                 # myslilaj = myslila i (CCONJ)
                 # I do not know how much productive it is.
                 elsif($line->{FORM} =~ m/^(myslila)j$/i)
@@ -762,7 +767,7 @@ sub encode_resegment_instructions
                     # přědeň, nadeň
                     # skirzěňž, zaňž
                     # abychme (předzpracování zatím umí jen novočeské abych, abys, aby, abychom, abyste)
-                    if($line->{SUBTOKENS} =~ m/^(\S+) (jsi|bychme|byšta|i|ť|tě|ti|nějž?)$/)
+                    if($line->{SUBTOKENS} =~ m/^(\S+) (jsi|jest|bychme|byšta|i|ť|tě|ti|nějž?)$/)
                     {
                         unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
                     }
