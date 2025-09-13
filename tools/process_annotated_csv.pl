@@ -443,7 +443,7 @@ sub fix_morphology
     # Adjectives must not have PronType. The problem is with "obojí", "obé",
     # where annotators occasionally add PronType=Tot in an analogy to "oba".
     # (But note that we do allow NumType=Mult with ADJ.)
-    if($f->{UPOS} eq 'ADJ')
+    if($f->{UPOS} eq 'ADJ' && $f->{LEMMA} eq 'obojí' && $f->{PronType} eq 'Tot')
     {
         $f->{PronType} = '_';
     }
