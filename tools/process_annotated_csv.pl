@@ -440,6 +440,13 @@ sub fix_morphology
             $f->{Degree} = 'Pos';
         }
     }
+    # Adjectives must not have PronType. The problem is with "obojí", "obé",
+    # where annotators occasionally add PronType=Tot in an analogy to "oba".
+    # (But note that we do allow NumType=Mult with ADJ.)
+    if($f->{UPOS} eq 'ADJ')
+    {
+        $f->{PronType} = '_';
+    }
     # Pronouns use Variant=Short only for a handful of forms, based on existing
     # Modern Czech data. The feature is not used elsewhere where longer and
     # shorter forms compete.
