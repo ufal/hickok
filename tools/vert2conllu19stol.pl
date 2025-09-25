@@ -36,7 +36,7 @@ sub usage
 my $sourceid = '';
 my $srcdir;
 my $tgtdir;
-my $fields = 'word,lemma,tag,comment';
+my $fields = 'word,lemmatag,comment';
 GetOptions
 (
     'sourceid=s' => \$sourceid,
@@ -53,6 +53,7 @@ my %known_vert_fields =
     'word'           => 1, # the "surface" word form (but for old Czech this typically is a result of transcription)
     'lc'             => 1, # lowercased word
     'lemma'          => 1, # lemma of the word (single form, modern Czech if possible)
+    'lemmatag'       => 1, # lemma and Prague-style tag separated by a space (i.e., not by TAB)
     'amblemma'       => 1, # (lemma) ... list of possible (historical) lemmas according to morphological analysis
     'ambhlemma'      => 1, # (hl) ... hyperlemma from morphological analysis (still potentially ambiguous if the word form can belong to multiple lexemes)
     'tag'            => 1, # positional tag, Prague-style, but different from those used in PDT and in Old Czech data
@@ -170,6 +171,13 @@ sub process_folder
         # Some names use CamelCase, some use underscores. Standardize to lowercase with underscores.
         $conllufile =~ s/([a-z])([A-Z0-9])/${1}_${2}/g;
         $conllufile = lc($conllufile);
+        # Make sure there are no spaces in the filename.
+        $conllufile =~ s/\s/_/g;
+        $conllufile =~ s/-/_/g;
+        # Specific for the files from the 19th century: remove certain prefixes and suffixes.
+        $conllufile =~ s/^martin_(18[0-9][0-9])__/${1}_/;
+        $conllufile =~ s/1899_upr.*$/1899.conllu/;
+        $conllufile =~ s/__.*$/.conllu/;
         my $dvfpath = "$srcpath/$decoded_vertfile";
         my $vfpath = "$srcpath/$vertfile";
         my $cfpath = "$tgtpath/$conllufile";
@@ -216,7 +224,7 @@ sub process_file
     my $odstavec = 0;
     my $nopar = 1; # to recognize text that occurs outside paragraph-level elements such as <nadpis> or <odstavec> (but maybe inside <verse>, which we consider smaller than sentence)
     local %sentids;
-    local $isent = 1;
+    local $isent = 1; # current sentence number inside the current paragraph (reset to 1 when new paragraph starts)
     local @sentence = ();
     local $sentid = $sourceid ne '' ? "$sourceid-$isent" : $isent;
     local $tokenid = 1;
@@ -277,9 +285,27 @@ sub process_file
         {
             $newfolio = "cislo:$1,sloupec:$2";
         }
-        elsif(m/<(folio|strana|strana_edice) cislo="(.*?)">/)
+        elsif(m/<(folio|strana|strana_edice|pg) (cislo|num)="?(.*?)"\/?>/) # v jednom případě úvodní uvozovka chyběla (chyba na vstupu)
         {
             $newfolio = "cislo:$2";
+        }
+        elsif(m/<\/?pg>/)
+        {
+            # Strana bez čísla. Asi nedělat nic. Stejně moc nerozumím tomu, jak jsou v textech z 19. století strany anotovány. Obvykle jsou na začátku nové strany tři řádky značek za sebou:
+            # <pg>
+            # <pg num="1"/>
+            # </pg>
+        }
+        elsif(m/<\/?(f|k|o|v|n)>/)
+        {
+            # Vůbec nevím, co to znamená. Nedělat nic.
+        }
+        elsif(m/<e>.*<\/e>/)
+        {
+            # Zřejmě emendace předcházejícího slova, vyskytlo se např. tohle:
+            # Fridrichovi	Fridrich N-MS3j----A-----	<done/>
+            # <e>Frydrychowi</e>
+            # Takže to asi můžu vyhodit, není to další token a nejsou u toho anotace.
         }
         elsif(m/<kniha zkratka="(.+)">/)
         {
@@ -292,6 +318,7 @@ sub process_file
                 flush_sentence();
                 print $OUT ("\# kniha $kniha\n");
                 $odstavec = 0;
+                $isent = 1;
                 $sentid = create_sentence_id($sourceid, $kniha);
             }
         }
@@ -306,6 +333,7 @@ sub process_file
                 flush_sentence();
                 print $OUT ("\# kapitola $kapitola\n");
                 $odstavec = 0;
+                $isent = 1;
                 $sentid = create_sentence_id($sourceid, $kniha, $kapitola);
             }
         }
@@ -314,6 +342,7 @@ sub process_file
             flush_sentence();
             print $OUT ("\# $1\n");
             $odstavec++;
+            $isent = 1;
             $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
             print $OUT ("\# newpar id = $sentid\n");
             $nopar = 0;
@@ -327,6 +356,7 @@ sub process_file
         {
             flush_sentence();
             $odstavec++;
+            $isent = 1;
             $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
             print $OUT ("\# newpar id = $sentid\n");
             $nopar = 0;
@@ -336,6 +366,23 @@ sub process_file
             # Nedělat nic. Zejména ne flush_sentence()!
             $nopar = 0;
         }
+        # V textech z 19. století bývají vyznačeny hranice vět. Ve staročeských
+        # textech nebyly, takže jsme celý obsah odstavce zpracovávali jako jedinou větu.
+        elsif(m/<s>/)
+        {
+            # Na začátku věty nedělat nic. Pro první větu už je číslo nastavené
+            # na 1 a odpovídající sent_id je také připravené. Na konci věty ale
+            # budeme muset číslo zvýšit o 1.
+        }
+        # Konec věty.
+        elsif(m/<\/s>/)
+        {
+            flush_sentence();
+            $isent++;
+            $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec, $isent);
+        }
+        # Ve staročeských textech jsme s veršem zacházeli jako s jednotkou přibližně na úrovni věty.
+        # V textech z 19. století ale máme prvek <s>, který označuje větu.
         elsif(m/<vers cislo="([^"]+)">/) # "
         {
             my $vers = $1;
@@ -377,7 +424,7 @@ sub process_file
             $bibleref = undef;
         }
         # Konec odstavce nebo jiného elementu na úrovni odstavce.
-        elsif(m/<\/(titul|nadpis|podnadpis|predmluva|odstavec|explicit|incipit|impresum|adresat|poznamka)>/)
+        elsif(m/<\/(titul|nadpis|podnadpis|predmluva|odstavec|p|explicit|incipit|impresum|adresat|poznamka)>/)
         {
             # We do not want to flush sentence at the paragraph end tag because
             # this may not be the real end of the paragraph. The tag may be here
@@ -394,7 +441,7 @@ sub process_file
         {
             # Nedělat nic.
         }
-        elsif(m/<g \/>/)
+        elsif(m/(<g \/>|<g><\/g>)/)
         {
             # A line with this element means that there is no space between the
             # previous and the next token.
@@ -417,7 +464,8 @@ sub process_file
                 }
             }
         }
-        elsif(m/^<.*>/)
+        # V textech z 19. století se u poškozených částí textu trojtečky uzavírají do skobiček, ale neměli bychom si je plést s markupem XML.
+        elsif(m/^<.*>/ && !m/^<\.\.\.>/)
         {
             confess("Unexpected XML markup '$_'");
         }
@@ -429,7 +477,8 @@ sub process_file
             {
                 flush_sentence();
                 $odstavec++;
-                $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
+                $isent = 1;
+                $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec, $isent);
                 print $OUT ("\# newpar id = $sentid\n");
                 $nopar = 0;
             }
@@ -498,6 +547,14 @@ sub process_token
         {
             # Do nothing. We can always get lc from word if we need it.
         }
+        elsif($vert_fields[$i] eq 'lemma')
+        {
+            $lemma = $f[$i];
+        }
+        elsif($vert_fields[$i] eq 'lemmatag')
+        {
+            ($lemma, $xpos) = split(/ /, $f[$i]);
+        }
         elsif($vert_fields[$i] eq 'amblemma')
         {
             add_misc_attribute(\@misc, 'AmbLemma', $f[$i]);
@@ -509,6 +566,10 @@ sub process_token
                 $lemma = $f[$i];
             }
             add_misc_attribute(\@misc, 'AmbHlemma', $f[$i]);
+        }
+        elsif($vert_fields[$i] eq 'tag')
+        {
+            $xpos = $f[$i];
         }
         elsif($vert_fields[$i] eq 'ambprgtag')
         {
@@ -524,7 +585,11 @@ sub process_token
         }
         elsif($vert_fields[$i] eq 'comment')
         {
-            add_misc_attribute(\@misc, 'Comment', $f[$i]);
+            unless($f[$i] eq '<done/>')
+            {
+                $f[$i] = 'ToDo' if($f[$i] eq '<todo/>');
+                add_misc_attribute(\@misc, 'Comment', $f[$i]);
+            }
         }
         elsif($vert_fields[$i] eq 'corrected_from')
         {
@@ -602,11 +667,13 @@ sub create_sentence_id
     my $kniha = shift;
     my $kapitola = shift;
     my $odstavec = shift;
+    my $veta = shift;
     my @elements = ();
     push(@elements, $sourceid) unless($sourceid eq '');
     push(@elements, "kniha-$kniha") unless($kniha eq '');
     push(@elements, "kapitola-$kapitola") unless($kapitola eq '');
     push(@elements, "p$odstavec") unless($odstavec eq '');
+    push(@elements, "s$veta") unless($veta eq '');
     if(scalar(@elements) == 0)
     {
         confess("Not enough information for sentence id");
