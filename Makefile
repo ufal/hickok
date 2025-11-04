@@ -167,6 +167,8 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=15 ANNBASE=034_brez_snar_m     A1=ON A2=JZ make postprocess
 # STOL=14 ANNBASE=014_stit_klem       make postprocess_def
 # STOL=14 ANNBASE=018_dal_v           make postprocess_def
+###!!! Tohle někam zařadit:
+# [15:01:30]zen:/net/work/people/zeman/hickok-data-neverzovano> ../hickok/tools/vert2conllu19stol.pl --srcdir 19_stol_od_martina --tgtdir 19_stol_conllu
 DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
 DEFFILES15 := 021_podk_u 026_otc_b 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kladr_1rg
 
@@ -211,7 +213,7 @@ postprocess_def:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi
 	set -o pipefail ; perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)_stol/$(ANNBASE).tsv --name1 DEF --ann1 data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.csv 2>&1 | tee data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.postprocess.log
 	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu $(UDAPISCEN) write.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.fixed.conllu
-	cp data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.pre-fix-backup.conllu
+	#cp data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.pre-fix-backup.conllu
 	mv data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.fixed.conllu data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu
 	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	validate.py --lang cs data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu |& tee data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.validation.log
