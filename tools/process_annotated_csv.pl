@@ -690,54 +690,7 @@ sub encode_resegment_instructions
                 # In fact, the SUBTOKENS column is not so important because we will
                 # reject splits that do not follow a pre-approved pattern. So if the
                 # column is empty but we see a known pattern, we can fill it in.
-                my $auto_subtokens;
-                if($line->{FORM} =~ m/^(a|kdy)(bych|bys|by|bychom|bychme|byšta|byste)$/)
-                {
-                    my $sconj = $1 eq 'a' ? 'aby' : 'když';
-                    $auto_subtokens = "$sconj $2";
-                }
-                # byls, jaks, žes, ...
-                # But there are other spellings: jaks’ = jak jsi, žejs’ = že jsi
-                elsif($line->{FORM} =~ m/^(.+?)(j?s’?)$/i)
-                {
-                    $auto_subtokens = "$1 jsi";
-                }
-                # ještoj’ = ješto jest
-                elsif($line->{FORM} =~ m/^(ješto)j’$/i)
-                {
-                    $auto_subtokens = "$1 jest";
-                }
-                # myslilaj = myslila i (CCONJ)
-                # I do not know how much productive it is.
-                elsif($line->{FORM} =~ m/^(myslila)j$/i)
-                {
-                    $auto_subtokens = "$1 i";
-                }
-                # bylť, onť, ...
-                elsif($line->{FORM} =~ m/^(.+?)(ť|tě|ti)$/i)
-                {
-                    $auto_subtokens = "$1 $2";
-                }
-                # naň, oň, ...
-                # Known contractions of this type will be split by Udapi even
-                # without instruction from the annotator.
-                elsif($line->{FORM} =~ m/^(na|nade|o|pro|přěde|ski?rz[eě]|za)[nň]$/i)
-                {
-                    $auto_subtokens = "$1 něj";
-                    # At present Udapi removes vocalization from "přěde" (=> "přěd něj")
-                    # and from "nade" (=> "nad něj") but not from "skirzě".
-                    $auto_subtokens =~ s/(nad|přěd)e /$1 /;
-                }
-                # skirzěňž, zaňž, ...
-                # Known contractions of this type will be split by Udapi even
-                # without instruction from the annotator.
-                elsif($line->{FORM} =~ m/^(na|nade|o|pro|přěde|ski?rz[eě]|za)ňž$/i)
-                {
-                    $auto_subtokens = "$1 nějž";
-                    # At present Udapi removes vocalization from "přěde" (=> "přěd něj")
-                    # and from "nade" (=> "nad něj") but not from "skirzě".
-                    $auto_subtokens =~ s/(nad|přěd)e /$1 /;
-                }
+                my $auto_subtokens = get_automatic_subtokens($line);
                 # The proposed subtokens should try to follow the casing of the original.
                 if(defined($auto_subtokens))
                 {
@@ -813,4 +766,76 @@ sub encode_resegment_instructions
     }
     $line->{MISC} = scalar(@misc) > 0 ? join('|', @misc) : '_';
     return $n_err;
+}
+
+
+
+#------------------------------------------------------------------------------
+# Gets a line of the table annotation (CoNLL-U-like). Assumes a split of the
+# token was requested (that is why the function was called; we do not check it
+# again). Looks at the FORM field and guesses what the subtokens should be,
+# regardless of what the SUBTOKENS column of the line contains. In fact, the
+# SUBTOKENS column is not so important because we will reject splits that do
+# not follow a pre-approved pattern. The function returns undef if the pattern
+# is not recognized.
+#------------------------------------------------------------------------------
+sub get_automatic_subtokens
+{
+    my $line = shift;
+    my $auto_subtokens;
+    if($line->{FORM} =~ m/^(a|kdy)(bych|bys|by|bychom|bychme|byšta|byste)$/)
+    {
+        my $sconj = $1 eq 'a' ? 'aby' : 'když';
+        $auto_subtokens = "$sconj $2";
+    }
+    # byls, jaks, žes, ...
+    # But there are other spellings: jaks’ = jak jsi, žejs’ = že jsi
+    elsif($line->{FORM} =~ m/^(.+?)(j?s’?)$/i)
+    {
+        $auto_subtokens = "$1 jsi";
+    }
+    # ještoj’ = ješto jest
+    elsif($line->{FORM} =~ m/^(ješto)j’$/i)
+    {
+        $auto_subtokens = "$1 jest";
+    }
+    # myslilaj = myslila i (CCONJ)
+    # I do not know how much productive it is.
+    elsif($line->{FORM} =~ m/^(myslila)j$/i)
+    {
+        $auto_subtokens = "$1 i";
+    }
+    # -ť typically combines with just one word. The only exception
+    # so far is to-li-ť and we must look for it specifically, as
+    # a general -li-ť pattern could damage l-participles.
+    elsif($line->{FORM} =~ m/^toliť$/i)
+    {
+        $auto_subtokens = 'to li ť';
+    }
+    # bylť, onť, ...
+    elsif($line->{FORM} =~ m/^(.+?)(ť|tě|ti)$/i)
+    {
+        $auto_subtokens = "$1 $2";
+    }
+    # naň, oň, ...
+    # Known contractions of this type will be split by Udapi even
+    # without instruction from the annotator.
+    elsif($line->{FORM} =~ m/^(na|nade|o|pro|přěde|ski?rz[eě]|za)[nň]$/i)
+    {
+        $auto_subtokens = "$1 něj";
+        # At present Udapi removes vocalization from "přěde" (=> "přěd něj")
+        # and from "nade" (=> "nad něj") but not from "skirzě".
+        $auto_subtokens =~ s/(nad|přěd)e /$1 /;
+    }
+    # skirzěňž, zaňž, ...
+    # Known contractions of this type will be split by Udapi even
+    # without instruction from the annotator.
+    elsif($line->{FORM} =~ m/^(na|nade|o|pro|přěde|ski?rz[eě]|za)ňž$/i)
+    {
+        $auto_subtokens = "$1 nějž";
+        # At present Udapi removes vocalization from "přěde" (=> "přěd něj")
+        # and from "nade" (=> "nad něj") but not from "skirzě".
+        $auto_subtokens =~ s/(nad|přěd)e /$1 /;
+    }
+    return $auto_subtokens;
 }
