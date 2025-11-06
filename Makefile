@@ -194,6 +194,7 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=16 ANNBASE=052_dopisy_dorota_z_krumlova      A1=AM A2=ON make postprocess
 # STOL=16 ANNBASE=053_vejce                         A1=JP A2=AM make postprocess
 # STOL=16 ANNBASE=059_kron_jov                      A1=JP A2=ON make postprocess
+# STOL=15 ANNBASE=033_prav_svab_c                   make postprocess_def
 ###!!! Tohle někam zařadit:
 # [15:01:30]zen:/net/work/people/zeman/hickok-data-neverzovano> ../hickok/tools/vert2conllu19stol.pl --srcdir 19_stol_od_martina --tgtdir 19_stol_conllu
 DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
