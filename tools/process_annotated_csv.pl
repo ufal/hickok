@@ -820,7 +820,7 @@ sub get_automatic_subtokens
     # naň, oň, ...
     # Known contractions of this type will be split by Udapi even
     # without instruction from the annotator.
-    elsif($line->{FORM} =~ m/^(na|nade|o|pro|přěde|ski?rz[eě]|za)[nň]$/i)
+    elsif($line->{FORM} =~ m/^(na|nade|o|po|pro|přěde|ski?rz[eě]|za)[nň]$/i)
     {
         $auto_subtokens = "$1 něj";
         # At present Udapi removes vocalization from "přěde" (=> "přěd něj")
@@ -830,7 +830,7 @@ sub get_automatic_subtokens
     # skirzěňž, zaňž, ...
     # Known contractions of this type will be split by Udapi even
     # without instruction from the annotator.
-    elsif($line->{FORM} =~ m/^(na|nade|o|pro|přěde|ski?rz[eě]|za)ňž$/i)
+    elsif($line->{FORM} =~ m/^(na|nade|o|po|pro|přěde|ski?rz[eě]|za)ňž$/i)
     {
         $auto_subtokens = "$1 nějž";
         # At present Udapi removes vocalization from "přěde" (=> "přěd něj")

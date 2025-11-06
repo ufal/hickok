@@ -177,6 +177,19 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=15 ANNBASE=030_lek_frant_muz   make postprocess_def
 # STOL=15 ANNBASE=031_alex_pov_d      make postprocess_def
 # STOL=15 ANNBASE=034_brez_snar_m     make postprocess_def
+# STOL=15 ANNBASE=035_prav_jihl_a     A1=AM A2=JZ make postprocess
+# STOL=15 ANNBASE=036_asen_m          A1=AM A2=ON make postprocess
+# STOL=15 ANNBASE=038_baw_arn         A1=ON A2=JZ make postprocess
+# STOL=15 ANNBASE=039_cest_mand_m     A1=JP A2=AM make postprocess
+# STOL=15 ANNBASE=040_let_a           A1=ON A2=JZ make postprocess
+# STOL=15 ANNBASE=041_svar            A1=JP A2=AM make postprocess
+# STOL=15 ANNBASE=042_pov_ol          A1=ON A2=JZ make postprocess
+# STOL=15 ANNBASE=043_lek_zen         A1=JP A2=JZ make postprocess
+# STOL=15 ANNBASE=044_tkadl_b         A1=JP A2=ON make postprocess
+# STOL=15 ANNBASE=045_hus_svatokup    A1=JP A2=JZ make postprocess
+# STOL=16 ANNBASE=046_vespucci_spis_o_novych_zemich A1=JP A2=JZ make postprocess
+# STOL=16 ANNBASE=047_kuch                          A1=AM A2=JZ make postprocess
+# STOL=16 ANNBASE=049_frantovy_prava                A1=JP A2=AM make postprocess
 ###!!! Tohle někam zařadit:
 # [15:01:30]zen:/net/work/people/zeman/hickok-data-neverzovano> ../hickok/tools/vert2conllu19stol.pl --srcdir 19_stol_od_martina --tgtdir 19_stol_conllu
 DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
