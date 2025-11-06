@@ -783,7 +783,7 @@ sub get_automatic_subtokens
 {
     my $line = shift;
     my $auto_subtokens;
-    if($line->{FORM} =~ m/^(a|kdy)(bych|bys|by|bychom|bychme|byšta|byste)$/)
+    if($line->{FORM} =~ m/^(a|kdy)(bych|bys|by|bychom|bychme|byšta|byste|byšte)$/)
     {
         my $sconj = $1 eq 'a' ? 'aby' : 'když';
         $auto_subtokens = "$sconj $2";

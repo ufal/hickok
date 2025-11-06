@@ -190,6 +190,8 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=16 ANNBASE=046_vespucci_spis_o_novych_zemich A1=JP A2=JZ make postprocess
 # STOL=16 ANNBASE=047_kuch                          A1=AM A2=JZ make postprocess
 # STOL=16 ANNBASE=049_frantovy_prava                A1=JP A2=AM make postprocess
+# STOL=16 ANNBASE=050_hanus                         A1=AM A2=ON make postprocess
+# STOL=16 ANNBASE=052_dopisy_dorota_z_krumlova      A1=AM A2=ON make postprocess
 ###!!! Tohle někam zařadit:
 # [15:01:30]zen:/net/work/people/zeman/hickok-data-neverzovano> ../hickok/tools/vert2conllu19stol.pl --srcdir 19_stol_od_martina --tgtdir 19_stol_conllu
 DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
