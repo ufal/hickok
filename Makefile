@@ -195,10 +195,6 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=16 ANNBASE=053_vejce                         A1=JP A2=AM make postprocess
 # STOL=16 ANNBASE=059_kron_jov                      A1=JP A2=ON make postprocess
 # STOL=15 ANNBASE=033_prav_svab_c                   make postprocess_def
-###!!! Tohle někam zařadit:
-# [15:01:30]zen:/net/work/people/zeman/hickok-data-neverzovano> ../hickok/tools/vert2conllu19stol.pl --srcdir 19_stol_od_martina --tgtdir 19_stol_conllu
-DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
-DEFFILES15 := 021_podk_u 026_otc_b 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kladr_1rg
 
 # Install Udapi (python) and make sure it is in PATH.
 # Udapi resides in https://github.com/udapi/udapi-python
@@ -246,6 +242,19 @@ postprocess_def:
 	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
 	validate.py --lang cs data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu |& tee data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.validation.log
 
+# 19th century files were annotated independently by Martin's team and we do not have to handle them in the same way
+# as the Old/Middle Czech files above. Instead, we take the manually annotated vertical files and convert them to
+# CoNLL-U.
+postprocess19:
+	./tools/vert2conllu19stol.pl --srcdir data/annotated/19_stol_vert_od_martina --tgtdir data/annotated/19_stol
+
+
+
+#----------------------------------------------------------------------------------------------------------------------
+# The goals from here down were partly copied from an older project. They have not been fully adapted to be useful.
+
+DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
+DEFFILES15 := 021_podk_u 026_otc_b 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kladr_1rg
 # Evaluate the quality of the parsing and preprocessing on the files for which we now have manual annotation.
 # The UD parser evaluation script and conllu_quick_fix.pl should be in PATH.
 # The conllu_quick_fix.pl script ensures that fatal syntactic errors, which are not our focus here, will not prevent evaluation.
