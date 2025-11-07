@@ -247,6 +247,11 @@ postprocess_def:
 # CoNLL-U.
 postprocess19:
 	./tools/vert2conllu19stol.pl --srcdir data/annotated/19_stol_vert_od_martina --tgtdir data/annotated/19_stol
+# TODO:
+# - Jsou tam často rozdělené věty, kde by neměly být (např. 1864_blesk_9.4.1864). Nemůže to být jen nedokonalá konverze? Zkontrolovat, případně projednat s Martinem.
+# - sent_id jsou zatím každopádně špatná, končí číslem odstavce.
+# - Převést poziční (šestnáctimístné) značky na UPOS a FEATS (Interset).
+# - Spousta tokenů má v MISC Comment=ToDo. Má se něco udělat, nebo se to má smazat?
 
 
 

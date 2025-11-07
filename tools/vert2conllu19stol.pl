@@ -16,6 +16,7 @@ use Getopt::Long;
 use File::Path qw(make_path);
 use Encode;
 use Carp;
+use Lingua::Interset::Converter;
 # Dan's modules.
 use ascii;
 
@@ -45,6 +46,7 @@ GetOptions
     'fields=s'   => \$fields
 );
 
+my $interset = new Lingua::Interset::Converter ('from' => 'cs::cnk', 'to' => 'mul::uposf');
 
 # Depending on how the vertical was exported, there may be different positional attributes.
 # Known attributes (vert fields):
@@ -649,6 +651,10 @@ sub process_token
     if(defined($newfolio))
     {
         add_misc_attribute(\@misc, 'NewFolio', $newfolio);
+    }
+    if(defined($xpos) && $xpos ne '_')
+    {
+        ($upos, $feats) = split(/\t/, $interset->convert($xpos));
     }
     my $misc = scalar(@misc) > 0 ? join('|', @misc) : '_';
     @f = ($tokenid, $form, $lemma, $upos, $xpos, $feats, $head, $deprel, $deps, $misc);
