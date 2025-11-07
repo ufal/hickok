@@ -555,7 +555,7 @@ sub process_token
         }
         elsif($vert_fields[$i] eq 'lemmatag')
         {
-            ($lemma, $xpos) = split(/ /, $f[$i]);
+            ($lemma, $xpos) = split(/ +/, $f[$i]);
         }
         elsif($vert_fields[$i] eq 'amblemma')
         {
