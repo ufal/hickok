@@ -224,7 +224,7 @@ sub process_file
     my $kniha;
     my $kapitola;
     my $odstavec = 0;
-    my $nopar = 1; # to recognize text that occurs outside paragraph-level elements such as <nadpis> or <odstavec> (but maybe inside <verse>, which we consider smaller than sentence)
+    my $nopar = 1; # to recognize text that occurs outside paragraph-level elements such as <nadpis> or <odstavec>
     local %sentids;
     local $isent = 1; # current sentence number inside the current paragraph (reset to 1 when new paragraph starts)
     local @sentence = ();
@@ -232,8 +232,6 @@ sub process_file
     local $tokenid = 1;
     my $newfolio; # NewFolio=cislo:171r,sloupec:b
     my $bibleref; # Ref=MATT_9.1 do MISC
-    my $ivers = 0; # if <vers> is not numbered in the source, we will use our own counter; if it is numbered in the source, we will project the number here
-    my $verse; # same as $ivers when inside a verse; undef outside
     while(<$IN>)
     {
         s/\r?\n$//;
@@ -287,7 +285,7 @@ sub process_file
         {
             $newfolio = "cislo:$1,sloupec:$2";
         }
-        elsif(m/<(folio|strana|strana_edice|pg) (cislo|num)="?(.*?)"\/?>/) # v jednom případě úvodní uvozovka chyběla (chyba na vstupu)
+        elsif(m/<(folio|strana|strana_edice|pg) (?:cislo|num)="?(.*?)"\/?>/) # v jednom případě úvodní uvozovka chyběla (chyba na vstupu)
         {
             $newfolio = "cislo:$2";
         }
@@ -321,7 +319,7 @@ sub process_file
                 print $OUT ("\# kniha $kniha\n");
                 $odstavec = 0;
                 $isent = 1;
-                $sentid = create_sentence_id($sourceid, $kniha);
+                $sentid = create_id($sourceid, $kniha);
             }
         }
         elsif(m/<kapitola cislo="(.+)">/)
@@ -336,17 +334,19 @@ sub process_file
                 print $OUT ("\# kapitola $kapitola\n");
                 $odstavec = 0;
                 $isent = 1;
-                $sentid = create_sentence_id($sourceid, $kniha, $kapitola);
+                $sentid = create_id($sourceid, $kniha, $kapitola, undef, $isent);
             }
         }
         elsif(m/<(titul|nadpis|podnadpis|predmluva|incipit|explicit|impresum|adresat|poznamka)>/)
         {
             flush_sentence();
+            # The only difference from odstavec|p below: Besides newpar, print also a separate comment about this being titul/nadpis/...
             print $OUT ("\# $1\n");
             $odstavec++;
+            my $parid = create_id($sourceid, $kniha, $kapitola, $odstavec);
+            print $OUT ("\# newpar id = $parid\n");
             $isent = 1;
-            $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
-            print $OUT ("\# newpar id = $sentid\n");
+            $sentid = create_id($sourceid, $kniha, $kapitola, $odstavec, $isent);
             $nopar = 0;
         }
         elsif(m/<(titul|nadpis|podnadpis|predmluva|incipit|explicit|impresum|adresat|poznamka) continued="true">/)
@@ -358,9 +358,10 @@ sub process_file
         {
             flush_sentence();
             $odstavec++;
+            my $parid = create_id($sourceid, $kniha, $kapitola, $odstavec);
+            print $OUT ("\# newpar id = $parid\n");
             $isent = 1;
-            $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec);
-            print $OUT ("\# newpar id = $sentid\n");
+            $sentid = create_id($sourceid, $kniha, $kapitola, $odstavec, $isent);
             $nopar = 0;
         }
         elsif(m/<odstavec( typ="rejstřík")? continued="true">/)
@@ -379,51 +380,15 @@ sub process_file
         # Konec věty.
         elsif(m/<\/s>/)
         {
+            # flush_sentence() se postará i o $isent++.
             flush_sentence();
-            $isent++;
-            $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec, $isent);
-        }
-        # Ve staročeských textech jsme s veršem zacházeli jako s jednotkou přibližně na úrovni věty.
-        # V textech z 19. století ale máme prvek <s>, který označuje větu.
-        elsif(m/<vers cislo="([^"]+)">/) # "
-        {
-            my $vers = $1;
-            $ivers = $vers;
-            $verse = $ivers;
-            # Problém: Pokud skončí folio, tak kvůli němu skončí i odstavec a
-            # vers. Jenže na následujícím foliu může tento vers (a odstavec)
-            # pokračovat.
-            # <vers cislo="24">
-            # ...
-            # </vers>
-            # </odstavec>
-            # </folio>
-            # <folio cislo="541v" sloupec="a">
-            # <odstavec continued="true">
-            # <vers cislo="24">
-        }
-        elsif(m/<vers( cislo="[^"]+")? continued="true">/) # "
-        {
-            # Pouze znovu aktivovat již známé číslo verše (ať už teď bylo zopakováno jako atribut, nebo ne).
-            $verse = $ivers;
-        }
-        elsif(m/<vers>/)
-        {
-            # Pokud není u verše uvedeno číslo, použijeme naše vlastní počítadlo.
-            $ivers++;
-            $verse = $ivers;
+            $sentid = create_id($sourceid, $kniha, $kapitola, $odstavec, $isent);
         }
         # U těchto elementů si nejsem jist, jak zapadají do struktury dokumentu a co bych si s nimi měl počít.
         # Zde pobereme jak začátek, tak konec elementu.
         elsif(m/<\/?(zive_zahlavi|pripisek|obrazek)>/)
         {
             # Nedělat nic.
-        }
-        # Konec verše.
-        elsif(m/<\/vers>/)
-        {
-            $verse = undef; # but keep the last number in $ivers
-            $bibleref = undef;
         }
         # Konec odstavce nebo jiného elementu na úrovni odstavce.
         elsif(m/<\/(titul|nadpis|podnadpis|predmluva|odstavec|p|explicit|incipit|impresum|adresat|poznamka)>/)
@@ -434,8 +399,6 @@ sub process_file
             # the next page with <odstavec continued="true">. On the other hand,
             # we want to set $nopar to true so that we can recognize text that
             # is not enclosed in a paragraph (and treat it as a new paragraph).
-            # This happens in documents where <podnadpis> is followed by text
-            # that is organized in <vers>-es but not in <odstavec>-es.
             $nopar = 1;
         }
         # Konec jiného elementu.
@@ -480,11 +443,11 @@ sub process_file
                 flush_sentence();
                 $odstavec++;
                 $isent = 1;
-                $sentid = create_sentence_id($sourceid, $kniha, $kapitola, $odstavec, $isent);
+                $sentid = create_id($sourceid, $kniha, $kapitola, $odstavec, $isent);
                 print $OUT ("\# newpar id = $sentid\n");
                 $nopar = 0;
             }
-            my @f = process_token($_, \@vert_fields, $tokenid, $newfolio, $verse, $bibleref);
+            my @f = process_token($_, \@vert_fields, $tokenid, $newfolio, $bibleref);
             push(@sentence, \@f);
             $tokenid++;
             $newfolio = undef;
@@ -518,7 +481,6 @@ sub process_token
     my $vert_fields = shift; # array ref
     my $tokenid = shift;
     my $newfolio = shift;
-    my $verse = shift; # verse number, if the token is part of a verse
     my $bibleref = shift;
     my $form = '_';
     my $lemma = '_';
@@ -640,17 +602,13 @@ sub process_token
             confess("Unknown field '$vert_fields[$i]'");
         }
     }
-    if(defined($verse))
-    {
-        add_misc_attribute(\@misc, 'Verse', $verse);
-    }
     if(defined($bibleref))
     {
         add_misc_attribute(\@misc, 'Ref', $bibleref);
     }
     if(defined($newfolio))
     {
-        add_misc_attribute(\@misc, 'NewFolio', $newfolio);
+        add_misc_attribute(\@misc, 'NewPage', $newfolio);
     }
     if(defined($xpos) && $xpos ne '_')
     {
@@ -664,22 +622,24 @@ sub process_token
 
 
 #------------------------------------------------------------------------------
-# Constructs sentence id depending on the known ids of the superordinate
-# elements (kniha=book, kapitola=chapter, verš=verse).
+# Constructs paragraph or sentence id depending on the known ids of the
+# superordinate elements (kniha=book, kapitola=chapter, odstavec=paragraph,
+# věta=sentence). Although the function can work with any string ids, typically
+# $sourceid identifies the document (input file), the other ids are integers.
 #------------------------------------------------------------------------------
-sub create_sentence_id
+sub create_id
 {
     my $sourceid = shift;
-    my $kniha = shift;
-    my $kapitola = shift;
-    my $odstavec = shift;
-    my $veta = shift;
+    my $ibook = shift;
+    my $ichapter = shift;
+    my $ipar = shift;
+    my $isent = shift;
     my @elements = ();
     push(@elements, $sourceid) unless($sourceid eq '');
-    push(@elements, "kniha-$kniha") unless($kniha eq '');
-    push(@elements, "kapitola-$kapitola") unless($kapitola eq '');
-    push(@elements, "p$odstavec") unless($odstavec eq '');
-    push(@elements, "s$veta") unless($veta eq '');
+    push(@elements, "kniha-$ibook") unless($ibook eq '');
+    push(@elements, "kapitola-$ichapter") unless($ichapter eq '');
+    push(@elements, "p$ipar") unless($ipar eq '');
+    push(@elements, "s$isent") unless($isent eq '');
     if(scalar(@elements) == 0)
     {
         confess("Not enough information for sentence id");
@@ -700,12 +660,10 @@ sub flush_sentence
     # $OUT, @sentence, %sentids, $sentid, $isent, $tokenid
     if(scalar(@sentence) > 0)
     {
-        # Unfortunately there are documents (e.g., 031_HradSat.vert) where
-        # verse numbers are not unique because they restart at 1 after a
-        # subheading (podnadpis) as if a new book or chapter started, but there
-        # are no formal book or chapter elements. Therefore our sentence ids
-        # are not unique either. We must make them unique artificially by adding
-        # a letter here.
+        # Make sure that sentence ids are unique by adding a letter if
+        # necessary. This happened in Old Czech texts where sentence ids were
+        # derived from non-unique verse numbers. It may not happen in the
+        # nineteenth-century texts but we keep it here for safety reasons.
         if(exists($sentids{$sentid}))
         {
             foreach my $letter (split(//, 'abcdefghijklmnopqrstuvwxyz'))

@@ -247,14 +247,15 @@ postprocess_def:
 # CoNLL-U.
 postprocess19:
 	./tools/vert2conllu19stol.pl --srcdir data/annotated/19_stol_vert_od_martina --tgtdir data/annotated/19_stol
+	cd data/annotated/19_stol ; for i in *.conllu ; do echo $$i ; cp $$i backup.conllu ; udapy -s ud.cs.AddMwt < backup.conllu > $$i ; rm -f backup.conllu ; done
 # TODO:
-# - Jsou tam často rozdělené věty, kde by neměly být (např. 1864_blesk_9.4.1864). Nemůže to být jen nedokonalá konverze? Zkontrolovat, případně projednat s Martinem.
-# - sent_id jsou zatím každopádně špatná, končí číslem odstavce.
+# - Jsou tam často rozdělené věty, kde by neměly být (např. 1864_blesk_9.4.1864, ale i různě jinde). Projednat další postup s Martinem.
 # - Převést poziční (šestnáctimístné) značky na UPOS a FEATS (Interset). Zatím zjištěné odchylky od tagsetu cs::cnk:
 #   - U některých slovních druhů (N, D, T, Z) chybí poddruh (je tam pomlčka), kvůli čemuž Interset nepozná UPOS.
 #   - Částice sice bývají samotné T (místo TT), ale zvratné "se" může mít T7, což je zřejmě kombinace TT a P7 tam, kde anotátoři nechtějí říct, že je to zájmeno, a chtějí to mít jako částici.
 #     Tohle určitě opravit, ale na druhou stranu tu informaci někde v MISC zachovat, protože nám pomůže se syntaktickou anotací (expl:pv/pass vs. normální větný člen).
 #   - Možná bude problém rozpoznat vlastní jména. Ale např. v onom Blesku z dubna 1864 má jméno "Precl" na 6. pozici (za pádem) nějaké "j", normálně tam bývá pomlčka.
+#   - Dořešit části spřežek a jiné divné věci se značkou Yo (je toho jen asi 34 typů, tak by to šlo vyřešit i seznamem).
 # - Dvojí značky mě upozornily, že někde je potřeba rozdělit víceslovný token:
 #   7	dobrous	dobrý_být	ADJ	AAFS4----1A--1--_VB-S---2--AA-1-I
 # - Spousta tokenů má v MISC Comment=ToDo. Má se něco udělat, nebo se to má smazat?
