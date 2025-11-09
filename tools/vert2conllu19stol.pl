@@ -613,6 +613,12 @@ sub process_token
     if(defined($xpos) && $xpos ne '_')
     {
         ($upos, $feats) = split(/\t/, $interset->convert($xpos));
+        if($xpos =~ m/T.$/ && $form =~ m/^(.+)(že?)$/i)
+        {
+            my @feats = $feats eq '_' ? () : split(/\|/, $feats);
+            push(@feats, 'Emph=Yes');
+            $feats = join('|', sort {lc($a) cmp lc($b)} (@feats));
+        }
     }
     # This depends on the tagset used, but in the nineteenth-century texts
     # (cs::xixstol), tags ending in 'T-' mark encliticized -ť, -tě, -ž.
