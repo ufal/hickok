@@ -255,6 +255,8 @@ postprocess19:
 #   - Částice sice bývají samotné T (místo TT), ale zvratné "se" může mít T7, což je zřejmě kombinace TT a P7 tam, kde anotátoři nechtějí říct, že je to zájmeno, a chtějí to mít jako částici.
 #     Tohle určitě opravit, ale na druhou stranu tu informaci někde v MISC zachovat, protože nám pomůže se syntaktickou anotací (expl:pv/pass vs. normální větný člen).
 #   - Možná bude problém rozpoznat vlastní jména. Ale např. v onom Blesku z dubna 1864 má jméno "Precl" na 6. pozici (za pádem) nějaké "j", normálně tam bývá pomlčka.
+# - Dvojí značky mě upozornily, že někde je potřeba rozdělit víceslovný token:
+#   7	dobrous	dobrý_být	ADJ	AAFS4----1A--1--_VB-S---2--AA-1-I
 # - Spousta tokenů má v MISC Comment=ToDo. Má se něco udělat, nebo se to má smazat?
 
 

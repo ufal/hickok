@@ -46,7 +46,7 @@ GetOptions
     'fields=s'   => \$fields
 );
 
-my $interset = new Lingua::Interset::Converter ('from' => 'cs::cnk', 'to' => 'mul::uposf');
+my $interset = new Lingua::Interset::Converter ('from' => 'cs::xixstol', 'to' => 'mul::uposf');
 
 # Depending on how the vertical was exported, there may be different positional attributes.
 # Known attributes (vert fields):
