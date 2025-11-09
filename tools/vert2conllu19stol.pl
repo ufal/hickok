@@ -614,6 +614,25 @@ sub process_token
     {
         ($upos, $feats) = split(/\t/, $interset->convert($xpos));
     }
+    # This depends on the tagset used, but in the nineteenth-century texts
+    # (cs::xixstol), tags ending in 'T-' mark encliticized -ť, -tě, -ž.
+    # We ignore -ž but for -ť/-tě, we want to treat it as a multiword token.
+    if($xpos =~ m/T.$/ && $form =~ m/^(.+)(ť|tě|ti)$/i)
+    {
+        add_misc_attribute(\@misc, 'AddMwt', "$1 $2");
+    }
+    if($xpos =~ m/1..$/ && $form =~ m/^(.+)s$/i)
+    {
+        add_misc_attribute(\@misc, 'AddMwt', "$1 jsi");
+    }
+    elsif($xpos =~ m/1..$/ && $form =~ m/^(.+)ň$/i)
+    {
+        add_misc_attribute(\@misc, 'AddMwt', "$1 něj");
+    }
+    # After splitting multiword tokens in Udapi, XixstolTag in MISC will stay
+    # on the MWT line and the following Udapi call will reveal remaining
+    # aggregates that were not split:
+    # cat *.conllu | udapy -TAM util.Mark node='re.search(r"1..$", node.misc["XixstolTag"])' | less -R
     my $misc = scalar(@misc) > 0 ? join('|', @misc) : '_';
     @f = ($tokenid, $form, $lemma, $upos, $xpos, $feats, $head, $deprel, $deps, $misc);
     return @f;
@@ -693,6 +712,12 @@ sub flush_sentence
         print $OUT ("\# text = $text\n");
         foreach my $token (@sentence)
         {
+            # Add dummy syntactic annotation to make it less surprising for tools like Udapi.
+            if($token->[6] !~ m/^[0-9]+$/)
+            {
+                $token->[6] = 0;
+                $token->[7] = 'root';
+            }
             print $OUT (join("\t", @{$token}), "\n");
         }
         print $OUT ("\n");

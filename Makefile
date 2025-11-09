@@ -247,7 +247,7 @@ postprocess_def:
 # CoNLL-U.
 postprocess19:
 	./tools/vert2conllu19stol.pl --srcdir data/annotated/19_stol_vert_od_martina --tgtdir data/annotated/19_stol
-	cd data/annotated/19_stol ; for i in *.conllu ; do echo $$i ; cp $$i backup.conllu ; udapy -s ud.cs.AddMwt < backup.conllu > $$i ; rm -f backup.conllu ; done
+	cd data/annotated/19_stol ; for i in *.conllu ; do echo $$i ; cp $$i backup.conllu ; udapy -s util.Eval node='node.misc["XixstolTag"]=node.xpos' ud.cs.AddMwt < backup.conllu > $$i ; rm -f backup.conllu ; done
 # TODO:
 # - Jsou tam často rozdělené věty, kde by neměly být (např. 1864_blesk_9.4.1864, ale i různě jinde). Projednat další postup s Martinem.
 # - Převést poziční (šestnáctimístné) značky na UPOS a FEATS (Interset). Zatím zjištěné odchylky od tagsetu cs::cnk:
@@ -258,7 +258,11 @@ postprocess19:
 #   - Dořešit části spřežek a jiné divné věci se značkou Yo (je toho jen asi 34 typů, tak by to šlo vyřešit i seznamem).
 # - Dvojí značky mě upozornily, že někde je potřeba rozdělit víceslovný token:
 #   7	dobrous	dobrý_být	ADJ	AAFS4----1A--1--_VB-S---2--AA-1-I
+#   - Sufix -ž/-že sice nedělím jako víceslovný token, ale měl bych místo toho doplňovat Emph=Yes.
 # - Spousta tokenů má v MISC Comment=ToDo. Má se něco udělat, nebo se to má smazat?
+# - Všem datům (nejen těm z 19. století) dopočítat jednotné značky XPOS zpětně z UPOS a FEATS. Asi stejné, jako jsou v PDT-C.
+# - Prohnat to validací včetně MarkFeatsBugs.
+# - Udělat nějaké statistické porovnání lematizace, UPOS a FEATS mezi PDT-C, 19. stoletím, střední a starou češtinou. Např. pro každý tvar seřadit jeho analýzy podle četnosti, pak se podívat, jestli se nejčastější výsledek v různých korpusech liší.
 
 
 
