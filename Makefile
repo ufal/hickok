@@ -247,7 +247,11 @@ postprocess_def:
 # CoNLL-U.
 postprocess19:
 	./tools/vert2conllu19stol.pl --srcdir data/annotated/19_stol_vert_od_martina --tgtdir data/annotated/19_stol
-	cd data/annotated/19_stol ; for i in *.conllu ; do echo $$i ; cp $$i backup.conllu ; udapy -s util.Eval node='node.misc["XixstolTag"]=node.xpos' ud.cs.AddMwt < backup.conllu > $$i ; rm -f backup.conllu ; done
+	for i in data/annotated/19_stol/*.conllu ; do echo $$i ; \
+	  cp $$i backup.conllu ; \
+	  set -o pipefail ; cat backup.conllu | udapy -s util.Eval node='node.misc["XixstolTag"]=node.xpos' ud.cs.AddMwt | ./tools/xpos_pdtc_from_upos_feats.pl > $$i ; \
+	  rm -f backup.conllu ; \
+	done
 # TODO:
 # - Jsou tam často rozdělené věty, kde by neměly být (např. 1864_blesk_9.4.1864, ale i různě jinde). Projednat další postup s Martinem.
 # - Převést poziční (šestnáctimístné) značky na UPOS a FEATS (Interset). Zatím zjištěné odchylky od tagsetu cs::cnk:
