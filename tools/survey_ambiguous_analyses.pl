@@ -38,13 +38,36 @@ if($compare && $nargs != 2)
 
 
 
-my %stats;
-$stats{n} = 0; # corpus size
-while(<>)
+if(!$compare)
 {
-    input_line($_, \%stats);
+    my %stats;
+    $stats{n} = 0; # corpus size
+    while(<>)
+    {
+        input_line($_, \%stats);
+    }
+    process_and_print_stats(\%stats);
 }
-process_and_print_stats(\%stats);
+else # compare multiple corpora
+{
+    my @stats;
+    foreach my $file (@ARGV)
+    {
+        print STDERR ("Reading $file...\n");
+        my %stats;
+        $stats{name} = $file;
+        $stats{name} =~ s/\.conllu$//i;
+        $stats{n} = 0; # corpus size
+        open(my $fh, $file) or die("Cannot read $file: $!");
+        while(<$fh>)
+        {
+            input_line($_, \%stats);
+        }
+        close($fh);
+        push(@stats, \%stats);
+    }
+    compare_stats($stats[0], $stats[1]);
+}
 
 
 
@@ -124,6 +147,68 @@ sub process_and_print_stats
         {
             $ipm = $stats->{analyses}{$lform}{$analysis} / $stats->{n} * 1000000;
             printf("\t%.3f ipm\t$stats->{analyses}{$lform}{$analysis}\t$analysis\n", $ipm);
+        }
+        print("\n");
+    }
+}
+
+
+
+#------------------------------------------------------------------------------
+# Takes raw hashes collected when reading two corpora. Looks for words that are
+# analyzed differently in the two corpora.
+#------------------------------------------------------------------------------
+sub compare_stats
+{
+    my $stats1 = shift;
+    my $stats2 = shift;
+    # Identify words that occur in both corpora.
+    my @lforms = grep {exists($stats2->{analyses}{$_})} (sort(keys(%{$stats1->{analyses}})));
+    # For each word, collect its analyses in both corpora, ordered by frequency.
+    # Discard words for which these lists do not differ.
+    my %differences;
+    foreach my $lform (@lforms)
+    {
+        my @analyses1 = sort {$stats1->{analyses}{$lform}{$b} <=> $stats1->{analyses}{$lform}{$a}} (keys(%{$stats1->{analyses}{$lform}}));
+        my @analyses2 = sort {$stats2->{analyses}{$lform}{$b} <=> $stats2->{analyses}{$lform}{$a}} (keys(%{$stats2->{analyses}{$lform}}));
+        ###!!! THIS SHOULD BE CONFIGURABLE!
+        # Either compare the full lists of analyses, or just the most frequent members.
+        #if(join(' ; ', @analyses1) ne join(' ; ', @analyses2))
+        if($analyses1[0] ne $analyses2[0])
+        {
+            $differences{$lform} =
+            {
+                'ipm' => ($stats1->{nocc}{$lform} / $stats1->{n} + $stats2->{nocc}{$lform} / $stats2->{n}) * 1000000,
+                'a1'  => \@analyses1,
+                'a2'  => \@analyses2
+            };
+        }
+    }
+    # Print the differing words, most frequent first.
+    my @difflforms = sort
+    {
+        my $r = $differences{$b}{ipm} <=> $differences{$a}{ipm};
+        unless($r)
+        {
+            $r = $a cmp $b;
+        }
+        $r
+    }
+    (keys(%differences));
+    foreach my $lform (@difflforms)
+    {
+        printf("$lform\t%.3f ipm\n", $differences{$lform}{ipm});
+        printf("\t$stats1->{name}:\n");
+        foreach my $analysis (@{$differences{$lform}{a1}})
+        {
+            $ipm = $stats1->{analyses}{$lform}{$analysis} / $stats1->{n} * 1000000;
+            printf("\t\t%09.3f\t$analysis\n", $ipm);
+        }
+        printf("\t$stats2->{name}:\n");
+        foreach my $analysis (@{$differences{$lform}{a2}})
+        {
+            $ipm = $stats2->{analyses}{$lform}{$analysis} / $stats2->{n} * 1000000;
+            printf("\t\t%09.3f\t$analysis\n", $ipm);
         }
         print("\n");
     }
