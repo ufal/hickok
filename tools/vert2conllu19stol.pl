@@ -619,21 +619,28 @@ sub process_token
             push(@feats, 'Emph=Yes');
             $feats = join('|', sort {lc($a) cmp lc($b)} (@feats));
         }
+        # This depends on the tagset used, but in the nineteenth-century texts
+        # (cs::xixstol), tags ending in 'T-' mark encliticized -ť, -tě, -ž.
+        # We ignore -ž but for -ť/-tě, we want to treat it as a multiword token.
+        if($xpos =~ m/T.$/ && $form =~ m/^(.+)(ť|tě|ti)$/i)
+        {
+            add_misc_attribute(\@misc, 'AddMwt', "$1 $2");
+        }
+        if($xpos =~ m/1..$/ && $form =~ m/^(.+)s$/i)
+        {
+            add_misc_attribute(\@misc, 'AddMwt', "$1 jsi");
+        }
+        elsif($xpos =~ m/1..$/ && $form =~ m/^(.+)ň$/i)
+        {
+            add_misc_attribute(\@misc, 'AddMwt', "$1 něj");
+        }
     }
-    # This depends on the tagset used, but in the nineteenth-century texts
-    # (cs::xixstol), tags ending in 'T-' mark encliticized -ť, -tě, -ž.
-    # We ignore -ž but for -ť/-tě, we want to treat it as a multiword token.
-    if($xpos =~ m/T.$/ && $form =~ m/^(.+)(ť|tě|ti)$/i)
+    # Aggregates have a double lemma, e.g., "tos" has the lemma "ten_být".
+    # Keep only the first part (the AddMwt block in Udapi will take care of
+    # re-introducing the second part when the token is split).
+    if(defined($lemma))
     {
-        add_misc_attribute(\@misc, 'AddMwt', "$1 $2");
-    }
-    if($xpos =~ m/1..$/ && $form =~ m/^(.+)s$/i)
-    {
-        add_misc_attribute(\@misc, 'AddMwt', "$1 jsi");
-    }
-    elsif($xpos =~ m/1..$/ && $form =~ m/^(.+)ň$/i)
-    {
-        add_misc_attribute(\@misc, 'AddMwt', "$1 něj");
+        $lemma =~ s/^([^_]+)_[^_]+$/$1/;
     }
     # After splitting multiword tokens in Udapi, XixstolTag in MISC will stay
     # on the MWT line and the following Udapi call will reveal remaining
