@@ -54,7 +54,8 @@ my @amblforms = grep {$stats{nanal}{$_} > 1} (@lforms);
 # Print the statistics.
 foreach my $lform (@amblforms)
 {
-    print("$lform\t$stats{nocc}{$lform} occurrences\t$stats{nanal}{$lform} analyses\n");
+    my $ipm = $stats{nocc}{$lform} / $n * 1000000;
+    printf("$lform\t%.3f ipm\t$stats{nocc}{$lform} occurrences\t$stats{nanal}{$lform} analyses\n", $ipm);
     my @analyses = keys(%{$stats{analyses}{$lform}});
     @analyses = sort
     {
@@ -68,7 +69,8 @@ foreach my $lform (@amblforms)
     (@analyses);
     foreach my $analysis (@analyses)
     {
-        print("\t$stats{analyses}{$lform}{$analysis}\t$analysis\n");
+        $ipm = $stats{analyses}{$lform}{$analysis} / $n * 1000000;
+        printf("\t%.3f ipm\t$stats{analyses}{$lform}{$analysis}\t$analysis\n", $ipm);
     }
     print("\n");
 }
