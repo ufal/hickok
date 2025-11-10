@@ -8,25 +8,67 @@ use open ':utf8';
 binmode(STDIN, ':utf8');
 binmode(STDOUT, ':utf8');
 binmode(STDERR, ':utf8');
+use Getopt::Long;
+
+sub usage
+{
+    print STDERR ("cat *.conllu | $0 | less\n");
+    print STDERR ("    All input files will be treated as one corpus. Ambiguous words will be\n");
+    print STDERR ("    printed with their analyses, most frequent words first.\n");
+    print STDERR ("$0 --compare corpus1.conllu corpus2.conllu | less\n");
+    print STDERR ("    Requires named input files as arguments, cannot read from STDIN. Each file\n");
+    print STDERR ("    will be treated as a separate corpus. Ambiguous words will be printed if\n");
+    print STDERR ("    they occur in at least two corpora and their analyses in these corpora are\n");
+    print STDERR ("    not identical. If the word has multiple analyses in one corpus, being\n");
+    print STDERR ("    identical means that the frequencies of the analyses in the other corpus\n");
+    print STDERR ("    must be in the same order.\n");
+}
+
+my $compare = 0;
+GetOptions
+(
+    'compare' => \$compare
+);
+my $nargs = scalar(@ARGV);
+if($compare && $nargs != 2)
+{
+    usage();
+    die("Expected 2 arguments, found $nargs");
+}
+
+
 
 my %stats;
 $stats{n} = 0; # corpus size
 while(<>)
 {
+    input_line($_, \%stats);
+}
+process_and_print_stats(\%stats);
+
+
+
+#------------------------------------------------------------------------------
+# Processes one CoNLL-U input line. To be called from different loops depending
+# on how we obtain input.
+#------------------------------------------------------------------------------
+sub input_line
+{
+    my $line = shift;
+    my $stats = shift;
     # We are only interested in morphosyntactic words (tree nodes). Ignore
     # comment lines, multiword token lines and abstract nodes.
     if(m/^[0-9]+\t/)
     {
         my @f = split(/\t/);
         my $lform = lc($f[1]);
-        $stats{nocc}{$lform}++;
+        $stats->{nocc}{$lform}++;
         # Take lemma, UPOS, and features.
         my $analysis = "$f[2]\t$f[3]\t$f[5]";
-        $stats{analyses}{$lform}{$analysis}++;
-        $stats{n}++;
+        $stats->{analyses}{$lform}{$analysis}++;
+        $stats->{n}++;
     }
 }
-process_and_print_stats(\%stats);
 
 
 
