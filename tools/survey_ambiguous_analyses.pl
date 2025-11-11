@@ -30,10 +30,10 @@ GetOptions
     'compare' => \$compare
 );
 my $nargs = scalar(@ARGV);
-if($compare && $nargs != 2)
+if($compare && $nargs < 2)
 {
     usage();
-    die("Expected 2 arguments, found $nargs");
+    die("Expected at least 2 arguments, found $nargs");
 }
 
 
@@ -66,7 +66,7 @@ else # compare multiple corpora
         close($fh);
         push(@stats, \%stats);
     }
-    compare_stats($stats[0], $stats[1]);
+    compare_stats(@stats);
 }
 
 
@@ -176,8 +176,8 @@ sub compare_stats
         {
             $differences{$lform} =
             {
-                'ipm' => ($stats1->{nocc}{$lform} / $stats1->{n} + $stats2->{nocc}{$lform} / $stats2->{n}) * 1000000,
-                'analyses' => [$analyses[0], $analyses[1]]
+                'ipm' => sum_ipm($lform, $stats1, $stats2),
+                'analyses' => \@analyses
             };
         }
     }
@@ -281,4 +281,23 @@ sub analyses_differ
         }
     }
     return 0;
+}
+
+
+
+#------------------------------------------------------------------------------
+# Takes a lowercased word form and a list of hashes with statistics from
+# individual corpora. Sums up the relative frequencies of the word in all
+# corpora and returns the sum expressed as ipm (instances per million tokens).
+#------------------------------------------------------------------------------
+sub sum_ipm
+{
+    my $lform = shift;
+    my @stats = @_;
+    my $relfrq = 0;
+    foreach my $stats (@stats)
+    {
+        $relfrq += $stats->{nocc}{$lform} / $stats->{n};
+    }
+    return $relfrq * 1000000;
 }
