@@ -172,10 +172,7 @@ sub compare_stats
     foreach my $lform (@lforms)
     {
         my @analyses = get_lform_analyses($lform, $stats1, $stats2);
-        ###!!! THIS SHOULD BE CONFIGURABLE!
-        # Either compare the full lists of analyses, or just the most frequent members.
-        #if(join(' ; ', @analyses1) ne join(' ; ', @analyses2))
-        if($analyses[0][0] ne $analyses[1][0])
+        if(analyses_differ(@analyses))
         {
             $differences{$lform} =
             {
@@ -248,8 +245,40 @@ sub get_lform_analyses
     my @analyses;
     foreach my $stats (@stats)
     {
-        my @analyses0 = exists($stats->{analyses}{$lform}) ? sort {$stats->{analyses}{$lform}{$b} <=> $stats->{analyses}{$lform}{$a}} (keys(%{$stats->{analyses}{$lform}})) : ();
+        my @analyses0 = exists($stats->{analyses}{$lform}) ? sort {my $r = $stats->{analyses}{$lform}{$b} <=> $stats->{analyses}{$lform}{$a}; unless($r) {$r = $a cmp $b} $r} (keys(%{$stats->{analyses}{$lform}})) : ();
         push(@analyses, \@analyses0);
     }
     return @analyses;
+}
+
+
+
+#------------------------------------------------------------------------------
+# Takes a list of lists of analyses of a word. Each list of analyses is ordered
+# by descending frequency, i.e., the most frequent analysis comes first. The
+# function checks whether there is a difference between the analyses and
+# returns 1 or 0.
+###!!!
+# There are multiple options how to define that the analyses differ. We may
+# want to parameterize this in the future, but currently we define a difference
+# as non-identity between the most frequent analysis for the word in each hash
+# (ignoring other analyses); if comparing more than two hashes, it is enough
+# that there is a difference between any two of them).
+#------------------------------------------------------------------------------
+sub analyses_differ
+{
+    my @analyses = @_;
+    for(my $i = 0; $i <= $#analyses; $i++)
+    {
+        for(my $j = $i+1; $j <= $#analyses; $j++)
+        {
+            # Compare the first analysis (the most frequent one) from each list.
+            ###!!! Alternatively we could compare the full lists and be sensitive to other differences.
+            if($analyses[$i][0] ne $analyses[$j][0])
+            {
+                return 1;
+            }
+        }
+    }
+    return 0;
 }
