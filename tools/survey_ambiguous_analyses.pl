@@ -180,8 +180,7 @@ sub compare_stats
             $differences{$lform} =
             {
                 'ipm' => ($stats1->{nocc}{$lform} / $stats1->{n} + $stats2->{nocc}{$lform} / $stats2->{n}) * 1000000,
-                'a1'  => $analyses[0],
-                'a2'  => $analyses[1]
+                'analyses' => [$analyses[0], $analyses[1]]
             };
         }
     }
@@ -199,17 +198,14 @@ sub compare_stats
     foreach my $lform (@difflforms)
     {
         printf("$lform\t%.3f ipm\n", $differences{$lform}{ipm});
-        printf("\t$stats1->{name}:\n");
-        foreach my $analysis (@{$differences{$lform}{a1}})
+        for(my $i = 0; $i <= 1; $i++)
         {
-            $ipm = $stats1->{analyses}{$lform}{$analysis} / $stats1->{n} * 1000000;
-            printf("\t\t%09.3f\t$analysis\n", $ipm);
-        }
-        printf("\t$stats2->{name}:\n");
-        foreach my $analysis (@{$differences{$lform}{a2}})
-        {
-            $ipm = $stats2->{analyses}{$lform}{$analysis} / $stats2->{n} * 1000000;
-            printf("\t\t%09.3f\t$analysis\n", $ipm);
+            printf("\t$stats[$i]{name}:\n");
+            foreach my $analysis (@{$differences{$lform}{analyses}[$i]})
+            {
+                $ipm = $stats[$i]{analyses}{$lform}{$analysis} / $stats[$i]{n} * 1000000;
+                printf("\t\t%09.3f\t$analysis\n", $ipm);
+            }
         }
         print("\n");
     }
