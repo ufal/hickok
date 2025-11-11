@@ -252,6 +252,11 @@ postprocess19:
 	  set -o pipefail ; cat backup.conllu | udapy -s util.Eval node='node.misc["XixstolTag"]=node.xpos' ud.cs.AddMwt | ./tools/xpos_pdtc_from_upos_feats.pl > $$i ; \
 	  rm -f backup.conllu ; \
 	done
+	cat data/annotated/19_stol/*.conllu > data/annotated/19stol.conllu
+
+compare19:
+	./tools/survey_ambiguous_analyses.pl --compare data/annotated/19stol.conllu data/annotated/14stol.conllu data/annotated/fictree.conllu > data/annotated/19stol-14stol-fictree-diff.txt
+
 # TODO:
 # - Jsou tam často rozdělené věty, kde by neměly být (např. 1864_blesk_9.4.1864, ale i různě jinde). Projednat další postup s Martinem.
 # - Převést poziční (šestnáctimístné) značky na UPOS a FEATS (Interset). Zatím zjištěné odchylky od tagsetu cs::cnk:

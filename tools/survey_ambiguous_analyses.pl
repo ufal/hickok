@@ -56,7 +56,9 @@ else # compare multiple corpora
         print STDERR ("Reading $file...\n");
         my %stats;
         $stats{name} = $file;
+        # Remove path and file extension, assuming that they are not significant for distinguishing the corpora.
         $stats{name} =~ s/\.conllu$//i;
+        $stats{name} =~ s:^.*/([^/]+)$:$1:;
         $stats{n} = 0; # corpus size
         open(my $fh, $file) or die("Cannot read $file: $!");
         while(<$fh>)
@@ -163,7 +165,7 @@ sub compare_stats
     my @stats = @_;
     # Identify words that occur in both corpora.
     my @lforms = keys_shared_by_at_least_two(map {$_->{analyses}} (@stats));
-    print STDERR ("Found ", scalar(@lforms), " common keys\n");
+    #print STDERR ("Found ", scalar(@lforms), " common keys\n");
     # For each word, collect its analyses in both corpora, ordered by frequency.
     # Discard words for which these lists do not differ.
     my %differences;
@@ -193,7 +195,7 @@ sub compare_stats
     foreach my $lform (@difflforms)
     {
         printf("$lform\t%.3f ipm\n", $differences{$lform}{ipm});
-        for(my $i = 0; $i <= 1; $i++)
+        for(my $i = 0; $i <= $#stats; $i++)
         {
             printf("\t$stats[$i]{name}:\n");
             foreach my $analysis (@{$differences{$lform}{analyses}[$i]})
@@ -272,6 +274,9 @@ sub analyses_differ
         {
             # Compare the first analysis (the most frequent one) from each list.
             ###!!! Alternatively we could compare the full lists and be sensitive to other differences.
+            # For some corpora the list of analyses may be empty because the
+            # word does not occur there. Do not count this as a difference.
+            next if(scalar(@{$analyses[$i]}) == 0 || scalar(@{$analyses[$j]}) == 0);
             if($analyses[$i][0] ne $analyses[$j][0])
             {
                 return 1;
