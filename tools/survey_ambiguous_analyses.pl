@@ -161,22 +161,20 @@ sub process_and_print_stats
 sub compare_stats
 {
     my @stats = @_;
-    my $stats1 = $stats[0];
-    my $stats2 = $stats[1];
     # Identify words that occur in both corpora.
-    my @lforms = keys_shared_by_at_least_two($stats1->{analyses}, $stats2->{analyses});
+    my @lforms = keys_shared_by_at_least_two(map {$_->{analyses}} (@stats));
     print STDERR ("Found ", scalar(@lforms), " common keys\n");
     # For each word, collect its analyses in both corpora, ordered by frequency.
     # Discard words for which these lists do not differ.
     my %differences;
     foreach my $lform (@lforms)
     {
-        my @analyses = get_lform_analyses($lform, $stats1, $stats2);
+        my @analyses = get_lform_analyses($lform, @stats);
         if(analyses_differ(@analyses))
         {
             $differences{$lform} =
             {
-                'ipm' => sum_ipm($lform, $stats1, $stats2),
+                'ipm' => sum_ipm($lform, @stats),
                 'analyses' => \@analyses
             };
         }
