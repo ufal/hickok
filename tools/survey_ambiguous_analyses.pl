@@ -160,27 +160,28 @@ sub process_and_print_stats
 #------------------------------------------------------------------------------
 sub compare_stats
 {
-    my $stats1 = shift;
-    my $stats2 = shift;
+    my @stats = @_;
+    my $stats1 = $stats[0];
+    my $stats2 = $stats[1];
     # Identify words that occur in both corpora.
-    my @lforms = grep {exists($stats2->{analyses}{$_})} (sort(keys(%{$stats1->{analyses}})));
+    my @lforms = keys_shared_by_at_least_two($stats1->{analyses}, $stats2->{analyses});
+    print STDERR ("Found ", scalar(@lforms), " common keys\n");
     # For each word, collect its analyses in both corpora, ordered by frequency.
     # Discard words for which these lists do not differ.
     my %differences;
     foreach my $lform (@lforms)
     {
-        my @analyses1 = sort {$stats1->{analyses}{$lform}{$b} <=> $stats1->{analyses}{$lform}{$a}} (keys(%{$stats1->{analyses}{$lform}}));
-        my @analyses2 = sort {$stats2->{analyses}{$lform}{$b} <=> $stats2->{analyses}{$lform}{$a}} (keys(%{$stats2->{analyses}{$lform}}));
+        my @analyses = get_lform_analyses($lform, $stats1, $stats2);
         ###!!! THIS SHOULD BE CONFIGURABLE!
         # Either compare the full lists of analyses, or just the most frequent members.
         #if(join(' ; ', @analyses1) ne join(' ; ', @analyses2))
-        if($analyses1[0] ne $analyses2[0])
+        if($analyses[0][0] ne $analyses[1][0])
         {
             $differences{$lform} =
             {
                 'ipm' => ($stats1->{nocc}{$lform} / $stats1->{n} + $stats2->{nocc}{$lform} / $stats2->{n}) * 1000000,
-                'a1'  => \@analyses1,
-                'a2'  => \@analyses2
+                'a1'  => $analyses[0],
+                'a2'  => $analyses[1]
             };
         }
     }
@@ -212,4 +213,47 @@ sub compare_stats
         }
         print("\n");
     }
+}
+
+
+
+#------------------------------------------------------------------------------
+# Takes a list of hash references. Returns a list of keys such that each key
+# occurs in at least two hashes.
+#------------------------------------------------------------------------------
+sub keys_shared_by_at_least_two
+{
+    my @hashes = @_;
+    my %keyhits;
+    foreach my $hash (@hashes)
+    {
+        foreach my $key (keys(%{$hash}))
+        {
+            $keyhits{$key}++;
+        }
+    }
+    # Sort them to maintain determinism between runs.
+    return sort(grep {$keyhits{$_} >= 2} (keys(%keyhits)));
+}
+
+
+
+#------------------------------------------------------------------------------
+# Takes a lowercased word form and a list of hash references. Each of the
+# hashes has a subhash called 'analyses', indexed by word forms. The function
+# returns a list of array references with the same number of elements as there
+# were input hashes. Each array contains the analyses of the given form in the
+# given hash, in descending order by frequency.
+#------------------------------------------------------------------------------
+sub get_lform_analyses
+{
+    my $lform = shift;
+    my @stats = @_;
+    my @analyses;
+    foreach my $stats (@stats)
+    {
+        my @analyses0 = exists($stats->{analyses}{$lform}) ? sort {$stats->{analyses}{$lform}{$b} <=> $stats->{analyses}{$lform}{$a}} (keys(%{$stats->{analyses}{$lform}})) : ();
+        push(@analyses, \@analyses0);
+    }
+    return @analyses;
 }
