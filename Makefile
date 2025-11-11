@@ -249,7 +249,7 @@ postprocess19:
 	./tools/vert2conllu19stol.pl --srcdir data/annotated/19_stol_vert_od_martina --tgtdir data/annotated/19_stol
 	for i in data/annotated/19_stol/*.conllu ; do echo $$i ; \
 	  cp $$i backup.conllu ; \
-	  set -o pipefail ; cat backup.conllu | udapy -s util.Eval node='node.misc["XixstolTag"]=node.xpos' ud.cs.AddMwt | ./tools/xpos_pdtc_from_upos_feats.pl > $$i ; \
+	  set -o pipefail ; cat backup.conllu | udapy -s util.Eval node='node.misc["XixstolTag"]=node.xpos' ud.cs.AddMwt ud.cs.FixMorpho | ./tools/xpos_pdtc_from_upos_feats.pl > $$i ; \
 	  rm -f backup.conllu ; \
 	done
 	cat data/annotated/19_stol/*.conllu > data/annotated/19stol.conllu
