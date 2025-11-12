@@ -300,6 +300,9 @@ sub analyses_differ
                     $samecasej =~ s/Animacy=[A-Za-z]+\|(.*)Gender=Masc/${1}Gender=XXX/;
                     $samecasej =~ s/Gender=[A-Za-z]+/Gender=XXX/;
                 }
+                # Many differences in verbs are caused by the gaps in Aspect in FicTree. Let's ignore them, too.
+                $samecasei =~ s/Aspect=(Imp|Perf)\|//;
+                $samecasej =~ s/Aspect=(Imp|Perf)\|//;
                 if($samecasei ne $samecasej)
                 {
                     return 1;
