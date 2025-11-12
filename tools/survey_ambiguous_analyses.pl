@@ -277,9 +277,23 @@ sub analyses_differ
             # For some corpora the list of analyses may be empty because the
             # word does not occur there. Do not count this as a difference.
             next if(scalar(@{$analyses[$i]}) == 0 || scalar(@{$analyses[$j]}) == 0);
-            if($analyses[$i][0] ne $analyses[$j][0])
+            ###!!! Another change that should be configurable:
+            # If the first two analyses differ only in Case (but both have a
+            # non-empty Case), co not take it as a significant difference.
+            if(0 && $analyses[$i][0] ne $analyses[$j][0])
             {
                 return 1;
+            }
+            else
+            {
+                my $samecasei = $analyses[$i][0];
+                $samecasei =~ s/Case=[A-Za-z]+/Case=XXX/;
+                my $samecasej = $analyses[$j][0];
+                $samecasej =~ s/Case=[A-Za-z]+/Case=XXX/;
+                if($samecasei ne $samecasej)
+                {
+                    return 1;
+                }
             }
         }
     }
