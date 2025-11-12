@@ -290,6 +290,16 @@ sub analyses_differ
                 $samecasei =~ s/Case=[A-Za-z]+/Case=XXX/;
                 my $samecasej = $analyses[$j][0];
                 $samecasej =~ s/Case=[A-Za-z]+/Case=XXX/;
+                # For adjectives we could also relax Gender, Animacy, and Number.
+                if($samecasei =~ m/ADJ\t/)
+                {
+                    $samecasei =~ s/Animacy=[A-Z][a-z]\|(.*)Gender=Masc/${1}Gender=XXX/;
+                    $samecasei =~ s/Gender=[A-Z][a-z]/Gender=XXX/;
+                    $samecasei =~ s/Number=[A-Z][a-z]/Number=XXX/;
+                    $samecasej =~ s/Animacy=[A-Z][a-z]\|(.*)Gender=Masc/${1}Gender=XXX/;
+                    $samecasej =~ s/Gender=[A-Z][a-z]/Gender=XXX/;
+                    $samecasej =~ s/Number=[A-Z][a-z]/Number=XXX/;
+                }
                 if($samecasei ne $samecasej)
                 {
                     return 1;
