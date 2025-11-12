@@ -22,12 +22,18 @@ sub usage
     print STDERR ("    not identical. If the word has multiple analyses in one corpus, being\n");
     print STDERR ("    identical means that the frequencies of the analyses in the other corpus\n");
     print STDERR ("    must be in the same order.\n");
+    print STDERR ("\nOptions:\n");
+    print STDERR ("--filter RE\n");
+    print STDERR ("    Perl regular expression that at least one analysis of the word must match.\n");
+    print STDERR ("    For example, we can request comparison focused on pronouns (PRON).\n");
 }
 
 my $compare = 0;
+my $filter;
 GetOptions
 (
-    'compare' => \$compare
+    'compare'  => \$compare,
+    'filter=s' => \$filter
 );
 my $nargs = scalar(@ARGV);
 if($compare && $nargs < 2)
@@ -132,9 +138,11 @@ sub process_and_print_stats
     # Print the statistics.
     foreach my $lform (@amblforms)
     {
+        my @analyses = keys(%{$stats->{analyses}{$lform}});
+        # See if the current word's analyses match what the user requested.
+        next if(!match_filter(@analyses));
         my $ipm = $stats->{nocc}{$lform} / $stats->{n} * 1000000;
         printf("$lform\t%.3f ipm\t$stats->{nocc}{$lform} occurrences\t$stats->{nanal}{$lform} analyses\n", $ipm);
-        my @analyses = keys(%{$stats->{analyses}{$lform}});
         @analyses = sort
         {
             my $r = $stats->{analyses}{$lform}{$b} <=> $stats->{analyses}{$lform}{$a};
@@ -194,6 +202,13 @@ sub compare_stats
     (keys(%differences));
     foreach my $lform (@difflforms)
     {
+        # See if the current word's analyses match what the user requested.
+        my @analyses;
+        for(my $i = 0; $i <= $#stats; $i++)
+        {
+            push(@analyses, @{$differences{$lform}{analyses}[$i]});
+        }
+        next if(!match_filter(@analyses));
         printf("$lform\t%.3f ipm\n", $differences{$lform}{ipm});
         for(my $i = 0; $i <= $#stats; $i++)
         {
@@ -330,4 +345,23 @@ sub sum_ipm
         $relfrq += $stats->{nocc}{$lform} / $stats->{n};
     }
     return $relfrq * 1000000;
+}
+
+
+
+#------------------------------------------------------------------------------
+# Takes a list of analyses (strings) and compares them with the global regular
+# expression $filter. If $filter is undef, the function returns always true.
+# Otherwise the filter is a regular expression and the function returns true if
+# at least one of the analyses matches the expression.
+#------------------------------------------------------------------------------
+sub match_filter
+{
+    my @analyses = @_;
+    return 1 if(!defined($filter));
+    foreach my $analysis (@analyses)
+    {
+        return 1 if($analysis =~ m/$filter/);
+    }
+    return 0;
 }
