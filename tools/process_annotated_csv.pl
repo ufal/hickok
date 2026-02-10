@@ -398,6 +398,7 @@ sub fix_mwt_id
             $x = "$conversion{$x0}-$x1";
         }
     }
+    $x =~ s/^0([1-9]-[0-9]+)$/$1/;
     return $x;
 }
 
