@@ -728,7 +728,8 @@ sub encode_resegment_instructions
                     # přědeň, nadeň
                     # skirzěňž, zaňž
                     # abychme (předzpracování zatím umí jen novočeské abych, abys, aby, abychom, abyste)
-                    if($line->{SUBTOKENS} =~ m/^(\S+|to li) (jsi|jest|bychme|byšta|byšte|i|ť|tě|ti|nějž?)$/)
+                    # dajžto
+                    if($line->{SUBTOKENS} =~ m/^(\S+|to li) (jsi|jest|bychme|byšta|byšte|i|ť|tě|ti|nějž?|to)$/)
                     {
                         unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
                     }
@@ -805,6 +806,11 @@ sub get_automatic_subtokens
     elsif($line->{FORM} =~ m/^(myslila)j$/i)
     {
         $auto_subtokens = "$1 i";
+    }
+    # dajžto = dajž to (VERB+DET)
+    elsif($line->{FORM} =~ m/^(dajž)to$/i)
+    {
+        $auto_subtokens = "$1 to";
     }
     # -ť typically combines with just one word. The only exception
     # so far is to-li-ť and we must look for it specifically, as
