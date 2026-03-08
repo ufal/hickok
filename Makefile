@@ -237,6 +237,8 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=15 ANNBASE=043_lek_zen                                     make postprocess_def
 # STOL=15 ANNBASE=044_tkadl_b                                     make postprocess_def
 # STOL=15 ANNBASE=045_hus_svatokup                                make postprocess_def
+# STOL=16 ANNBASE=046_vespucci_spis_o_novych_zemich               make postprocess_def
+# STOL=16 ANNBASE=047_kuch                                        make postprocess_def
 
 # Install Udapi (python) and make sure it is in PATH.
 # Udapi resides in https://github.com/udapi/udapi-python
