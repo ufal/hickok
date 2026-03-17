@@ -677,7 +677,7 @@ sub encode_resegment_instructions
             # No multiword tokens are created.
             if($line->{FORM} eq 'nadevšecko')
             {
-                unshift(@misc, "SplitTokenMorpho=LEMMA=všecek\\tUPOS=PRON\\tFEATS=Case=Acc\\pGender=Neut\\pNumber=Sing\\pPronType=Tot");
+                unshift(@misc, "SplitTokenMorpho=LEMMA=všecek\\tUPOS=DET\\tFEATS=Case=Acc\\pGender=Neut\\pNumber=Sing\\pPronType=Tot");
                 unshift(@misc, "SplitToken=$line->{SUBTOKENS}");
             }
             elsif($line->{FORM} eq 'nížtopopisuje')
