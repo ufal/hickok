@@ -675,7 +675,12 @@ sub encode_resegment_instructions
             }
             # In a rare case, splitting is required because of ill-edited text.
             # No multiword tokens are created.
-            if($line->{FORM} eq 'nížtopopisuje')
+            if($line->{FORM} eq 'nadevšecko')
+            {
+                unshift(@misc, "SplitTokenMorpho=LEMMA=všecek\\tUPOS=PRON\\tFEATS=Case=Acc\\pGender=Neut\\pNumber=Sing\\pPronType=Tot");
+                unshift(@misc, "SplitToken=$line->{SUBTOKENS}");
+            }
+            elsif($line->{FORM} eq 'nížtopopisuje')
             {
                 unshift(@misc, "SplitTokenMorpho=LEMMA=popisovat\\tUPOS=VERB\\tFEATS=Aspect=Imp\\pMood=Ind\\pNumber=Sing\\pPerson=3\\pPolarity=Pos\\pTense=Pres\\pVerbForm=Fin\\pVoice=Act");
                 unshift(@misc, "SplitToken=$line->{SUBTOKENS}");
