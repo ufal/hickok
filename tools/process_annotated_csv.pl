@@ -732,9 +732,10 @@ sub encode_resegment_instructions
                     # bylť
                     # přědeň, nadeň
                     # skirzěňž, zaňž
+                    # seč
                     # abychme (předzpracování zatím umí jen novočeské abych, abys, aby, abychom, abyste)
                     # dajžto
-                    if($line->{SUBTOKENS} =~ m/^(\S+|to li) (jsi|jest|bychme|byšta|byšte|i|ť|tě|ti|nějž?|to)$/)
+                    if($line->{SUBTOKENS} =~ m/^(\S+|to li) (jsi|jest|bychme|byšta|byšte|i|ť|tě|ti|nějž?|co|to)$/)
                     {
                         unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
                     }
@@ -848,6 +849,13 @@ sub get_automatic_subtokens
         # At present Udapi removes vocalization from "přěde" (=> "přěd něj")
         # and from "nade" (=> "nad něj") but not from "skirzě".
         $auto_subtokens =~ s/(nad|přěd)e /$1 /;
+    }
+    # seč = se + co
+    # Known contractions of this type will be split by Udapi even
+    # without instruction from the annotator.
+    elsif($line->{FORM} =~ m/^(se)č$/i)
+    {
+        $auto_subtokens = "$1 co";
     }
     return $auto_subtokens;
 }

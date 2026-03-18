@@ -242,6 +242,7 @@ $(FORANNDIR)/%.tsv: $(PREPRCDIR)/%.conllu
 # STOL=16 ANNBASE=048_piccolomini                                 make postprocess_def
 # STOL=16 ANNBASE=049_frantovy_prava                              make postprocess_def
 # STOL=16 ANNBASE=050_hanus                                       make postprocess_def
+# STOL=16 ANNBASE=051_voceh_mor                                   make postprocess_def
 # STOL=16 ANNBASE=052_dopisy_dorota_z_krumlova                    make postprocess_def
 # STOL=16 ANNBASE=053_vejce                                       make postprocess_def
 # STOL=16 ANNBASE=056_peristerius_kaz                             make postprocess_def
