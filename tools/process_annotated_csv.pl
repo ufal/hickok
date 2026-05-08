@@ -801,7 +801,9 @@ sub get_automatic_subtokens
     # But there are other spellings: jaks’ = jak jsi, žejs’ = že jsi
     elsif($line->{FORM} =~ m/^(.+?)(j?s’?)$/i)
     {
-        $auto_subtokens = "$1 jsi";
+        my $first = $1;
+        $first =~ s/’$//;
+        $auto_subtokens = "$first jsi";
     }
     # ještoj’ = ješto jest
     elsif($line->{FORM} =~ m/^(ješto)j’$/i)
