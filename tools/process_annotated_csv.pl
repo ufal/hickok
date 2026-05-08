@@ -659,8 +659,7 @@ sub encode_resegment_instructions
     }
     # Word segmentation instructions are in the columns RETOKENIZE and SUBTOKENS.
     # We may want to split a token ('rozdělit') or merge it with previous token
-    # ('spojit'). At present, only splitting of selected kinds of multiword tokens
-    # is implemented in Udapi.
+    # ('spojit').
     if($line->{RETOKENIZE} ne '_')
     {
         # Fix previously encountered typos.
@@ -673,9 +672,14 @@ sub encode_resegment_instructions
                 unshift(@misc, "Bug=RetokenizeExistingMWTNotSupported");
                 $n_err++;
             }
-            # In a rare case, splitting is required because of ill-edited text.
+            # In rare cases, splitting is required because of ill-edited text.
             # No multiword tokens are created.
-            if($line->{FORM} eq 'nadevšecko')
+            if($line->{FORM} eq 'jedendruhého')
+            {
+                unshift(@misc, "SplitTokenMorpho=LEMMA=druhý\\tUPOS=ADJ\\tFEATS=Animacy=Anim\\pCase=Acc\\pGender=Masc\\pNumber=Sing\\pNumType=Ord");
+                unshift(@misc, "SplitToken=$line->{SUBTOKENS}");
+            }
+            elsif($line->{FORM} eq 'nadevšecko')
             {
                 unshift(@misc, "SplitTokenMorpho=LEMMA=všecek\\tUPOS=DET\\tFEATS=Case=Acc\\pGender=Neut\\pNumber=Sing\\pPronType=Tot");
                 unshift(@misc, "SplitToken=$line->{SUBTOKENS}");
