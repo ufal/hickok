@@ -353,6 +353,16 @@ compare19:
 
 
 #----------------------------------------------------------------------------------------------------------------------
+# Monitor corpus parsing
+# /net/work/people/zeman/hickok-data-neverzovano/monitor_korpus/21/JADRO
+
+monitor:
+	./tools/remove_doc_p_xml.pl $(MONITOR)/21/JADRO/zvrevrop.xml > $( nekam jinam ..... )/zvrevrop.txt
+	$(UDPIPE) cs_fictree by212 < $< | ./tools/fix_sentence_segmentation_quotes.pl | ./tools/fix_sentence_segmentation.pl > $@
+
+
+
+#----------------------------------------------------------------------------------------------------------------------
 # The goals from here down were partly copied from an older project. They have not been fully adapted to be useful.
 
 DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
