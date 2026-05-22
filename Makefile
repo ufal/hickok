@@ -370,7 +370,7 @@ MONITORTEXTFILES := $(patsubst $(MONITORDIR)/%, $(MONITORTEXTDIR)/%, $(MONITORXM
 # Extract plain text from an XML file.
 .PHONY: monitortext
 monitortext:   $(MONITORTEXTFILES)
-$(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.conllu
+$(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.xml
 	mkdir -p $(@D)
 	./tools/remove_doc_p_xml.pl $< > $@
 
