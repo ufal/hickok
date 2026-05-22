@@ -364,7 +364,7 @@ compare19:
 # $(MONITORDIR) has subfolders "19", "20", "21" for individual centuries (where "21" in fact starts with the year 1990).
 # Each of them has subfolders "JADRO" and "NEJADRO".
 # Their contents are .txt files in "19" and .xml files in "20" and "21".
-MONITORXMLFILES := $(wildcard $(MONITORDIR)/20/*.xml) $(wildcard $(MONITORDIR)/21/*.xml)
+MONITORXMLFILES := $(wildcard $(MONITORDIR)/20/*/*.xml) $(wildcard $(MONITORDIR)/21/*/*.xml)
 MONITORTEXTFILES := $(patsubst $(MONITORDIR)/%, $(MONITORTEXTDIR)/%, $(MONITORXMLFILES))
 
 # Extract plain text from an XML file.
