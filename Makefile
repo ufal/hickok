@@ -2,6 +2,9 @@ SHELL=/bin/bash
 UDPIPE=$(PARSINGROOT)/udpipe-parser/scripts/parse.pl
 
 # Define the folders for each step.
+# At present, "data" is a symlink to /net/work/people/zeman/hickok-data-neverzovano.
+# Despite the "neverzovano" in the path, some data there are actually under version control,
+# as they are again symlinks to /net/work/people/zeman/hickok-data.
 #VERTDIR   := data/vert_full
 VERTDIR   := data/vert_etalon
 CONLLUDIR := data/conllu
@@ -10,6 +13,10 @@ PARSEDDIR := data/parsed
 MERGEDDIR := data/merged
 PREPRCDIR := data/preprocessed
 FORANNDIR := data/for_annotation
+# The Monitor corpus has its own workflow. We process it with UDPipe but we do not annotate anything manually there.
+MONITORDIR := data/monitor_korpus
+MONITORTEXTDIR := data/monitor_text
+MONITORPARSEDDIR := data/monitor_parsed
 
 # Find all source files in the source folder.
 VERTFILES   := $(wildcard $(VERTDIR)/*/*.vert)
@@ -354,10 +361,22 @@ compare19:
 
 #----------------------------------------------------------------------------------------------------------------------
 # Monitor corpus parsing
-# /net/work/people/zeman/hickok-data-neverzovano/monitor_korpus/21/JADRO
+# $(MONITORDIR) has subfolders "19", "20", "21" for individual centuries (where "21" in fact starts with the year 1990).
+# Each of them has subfolders "JADRO" and "NEJADRO".
+# Their contents are .txt files in "19" and .xml files in "20" and "21".
+MONITORXMLFILES := $(wildcard $(MONITORDIR)/20/*.xml) $(wildcard $(MONITORDIR)/21/*.xml)
+MONITORTEXTFILES := $(patsubst $(MONITORDIR)/%, $(MONITORTEXTDIR)/%, $(MONITORXMLFILES))
 
+# Extract plain text from an XML file.
+.PHONY: monitortext
+monitortext:   $(MONITORTEXTFILES)
+$(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.conllu
+	mkdir -p $(@D)
+	./tools/remove_doc_p_xml.pl $< > $@
+
+###!!! Tenhle cíl není zatím funkční!
 monitor:
-	./tools/remove_doc_p_xml.pl $(MONITOR)/21/JADRO/zvrevrop.xml > $( nekam jinam ..... )/zvrevrop.txt
+	./tools/remove_doc_p_xml.pl $(MONITORDIR)/21/JADRO/zvrevrop.xml > $(MONITORPARSEDDIR)/zvrevrop.txt
 	$(UDPIPE) cs_fictree by212 < $< | ./tools/fix_sentence_segmentation_quotes.pl | ./tools/fix_sentence_segmentation.pl > $@
 
 
