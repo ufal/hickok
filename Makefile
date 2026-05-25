@@ -366,13 +366,12 @@ compare19:
 # Their contents are .txt files in "19" and .xml files in "20" and "21".
 MONITOR19SRCFILES := $(wildcard $(MONITORDIR)/19/*/*.txt)
 MONITOR20XMLFILES := $(wildcard $(MONITORDIR)/20/*/*.xml) $(wildcard $(MONITORDIR)/21/*/*.xml)
-MONITOR19TEXTFILES := $(patsubst $(MONITORDIR)/19/%, $(MONITORTEXTDIR)/19/%, $(MONITOR19SRCFILES))
 MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 MONITORPARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 
 # Extract plain text from XML files, or copy (+rename) source text files.
 .PHONY: monitortext19
-monitortext19: $(MONITOR19TEXTFILES)
+monitortext19: $(MONITOR19SRCFILES)
 	./tools/copy_and_rename.pl --srcdir $(MONITORDIR)/19 --tgtdir $(MONITORTEXTDIR)/19
 .PHONY: monitortext20
 monitortext20: $(MONITOR20TEXTFILES)
