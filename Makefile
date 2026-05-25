@@ -366,8 +366,10 @@ compare19:
 # Their contents are .txt files in "19" and .xml files in "20" and "21".
 MONITOR19SRCFILES := $(wildcard $(MONITORDIR)/19/*/*.txt)
 MONITOR20XMLFILES := $(wildcard $(MONITORDIR)/20/*/*.xml) $(wildcard $(MONITORDIR)/21/*/*.xml)
+MONITOR19TEXTFILES := $(wildcard $(MONITORTEXTDIR)/19/*/*.txt)
 MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
-MONITORPARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
+MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
+MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 
 # Extract plain text from XML files, or copy (+rename) source text files.
 .PHONY: monitortext19
@@ -384,8 +386,10 @@ $(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.xml
 # The UDPipe Czech FicTree model does not know the Czech Unicode „quotes“; the two
 # subsequent Perl scripts try to fix them, but they are based on observations from
 # the Old Czech data, not from the Monitor Corpus.
-.PHONY: monitorparsed
-monitorparsed: $(MONITORPARSEDFILES)
+.PHONY: monitorparsed19
+monitorparsed19: $(MONITOR19PARSEDFILES)
+.PHONY: monitorparsed20
+monitorparsed20: $(MONITOR20PARSEDFILES)
 $(MONITORPARSEDDIR)/%.conllu: $(MONITORTEXTDIR)/%.txt
 	mkdir -p $(@D)
 	$(UDPIPE) cs_fictree by217 < $< | ./tools/fix_sentence_segmentation_quotes.pl | ./tools/fix_sentence_segmentation.pl > $@
