@@ -14,7 +14,8 @@ MERGEDDIR := data/merged
 PREPRCDIR := data/preprocessed
 FORANNDIR := data/for_annotation
 # The Monitor corpus has its own workflow. We process it with UDPipe but we do not annotate anything manually there.
-MONITORDIR := data/monitor_korpus
+MONITORSRCDIR := data/monitor_korpus
+MONITORRENAMEDDIR := data/monitor_renamed
 MONITORTEXTDIR := data/monitor_text
 MONITORPARSEDDIR := data/monitor_parsed
 
@@ -364,20 +365,24 @@ compare19:
 # $(MONITORDIR) has subfolders "19", "20", "21" for individual centuries (where "21" in fact starts with the year 1990).
 # Each of them has subfolders "JADRO" and "NEJADRO".
 # Their contents are .txt files in "19" and .xml files in "20" and "21".
-MONITOR19SRCFILES := $(wildcard $(MONITORDIR)/19/*/*.txt)
-MONITOR20XMLFILES := $(wildcard $(MONITORDIR)/20/*/*.xml) $(wildcard $(MONITORDIR)/21/*/*.xml)
+MONITOR19SRCFILES := $(wildcard $(MONITORSRCDIR)/19/*/*.txt)
+MONITOR20XMLFILES := $(wildcard $(MONITORSRCDIR)/20/*/*.xml) $(wildcard $(MONITORSRCDIR)/21/*/*.xml)
 MONITOR19TEXTFILES := $(wildcard $(MONITORTEXTDIR)/19/*/*.txt)
-MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
+MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORSRCDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
-MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
+MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORSRCDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 
+# The files from 19th century have bad names and must be copied and renamed first.
+.PHONY: monitor19rename
+monitor19rename: # nedávat mezi závislosti, protože obsahuje soubory, které mají v názvu mezeru: $(MONITOR19SRCFILES)
+	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/19 --tgtdir $(MONITORRENAMEDDIR)/19
 # Extract plain text from XML files, or copy (+rename) source text files.
 .PHONY: monitortext19
 monitortext19: # nedávat mezi závislosti, protože obsahuje soubory, které mají v názvu mezeru: $(MONITOR19SRCFILES)
 	./tools/copy_and_rename.pl --srcdir $(MONITORDIR)/19 --tgtdir $(MONITORTEXTDIR)/19
 .PHONY: monitortext20
 monitortext20: $(MONITOR20TEXTFILES)
-$(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.xml
+$(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
 	mkdir -p $(@D)
 	./tools/remove_doc_p_xml.pl $< > $@
 
