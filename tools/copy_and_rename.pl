@@ -123,27 +123,6 @@ sub process_folder
         my $tfpath = "$tgtpath/$tgtfile";
         print STDERR ("$dsfpath --> $tfpath\n");
         process_file($sfpath, $tfpath);
+        system("cp $sfpath $tfpath");
     }
-}
-
-
-
-#------------------------------------------------------------------------------
-# Copies the contents of a file. (We could also call system cp instead.)
-#------------------------------------------------------------------------------
-sub process_file
-{
-    my $srcfile = shift;
-    my $tgtfile = shift;
-    # Open the file or STDIN/STDOUT.
-    local $IN;
-    local $OUT;
-    open($IN, $srcfile) or confess("Cannot read '$srcfile': $!");
-    open($OUT, '>', $tgtfile) or confess("Cannot write '$tgtfile': $!");
-    while(<$IN>)
-    {
-        print $OUT;
-    }
-    close($IN);
-    close($OUT);
 }
