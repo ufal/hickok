@@ -28,5 +28,5 @@ while(<>)
     s/^\s*//;
     s/\s*$//;
     s/\s+/ /g;
-    print;
+    print("$_\n");
 }
