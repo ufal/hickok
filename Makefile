@@ -370,12 +370,10 @@ MONITOR19TEXTFILES := $(patsubst $(MONITORDIR)/19/%, $(MONITORTEXTDIR)/19/%, $(M
 MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 MONITORPARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 
-# Extract plain text from XML files, or copy source text files.
+# Extract plain text from XML files, or copy (+rename) source text files.
 .PHONY: monitortext19
 monitortext19: $(MONITOR19TEXTFILES)
-$(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.txt
-	mkdir -p $(@D)
-	cp $< $@
+	./tools/copy_and_rename.pl --srcdir $(MONITORDIR)/19 --tgtdir $(MONITORTEXTDIR)/19
 .PHONY: monitortext20
 monitortext20: $(MONITOR20TEXTFILES)
 $(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.xml
