@@ -371,7 +371,7 @@ MONITORPARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(s
 
 # Extract plain text from XML files, or copy (+rename) source text files.
 .PHONY: monitortext19
-monitortext19: $(MONITOR19SRCFILES)
+monitortext19: # nedávat mezi závislosti, protože obsahuje soubory, které mají v názvu mezeru: $(MONITOR19SRCFILES)
 	./tools/copy_and_rename.pl --srcdir $(MONITORDIR)/19 --tgtdir $(MONITORTEXTDIR)/19
 .PHONY: monitortext20
 monitortext20: $(MONITOR20TEXTFILES)
