@@ -122,7 +122,6 @@ sub process_folder
         my $sfpath = "$srcpath/$srcfile";
         my $tfpath = "$tgtpath/$tgtfile";
         print STDERR ("$dsfpath --> $tfpath\n");
-        process_file($sfpath, $tfpath);
         system("cp $sfpath $tfpath");
     }
 }
