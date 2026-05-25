@@ -366,8 +366,9 @@ compare19:
 # Each of them has subfolders "JADRO" and "NEJADRO".
 # Their contents are .txt files in "19" and .xml files in "20" and "21".
 MONITOR19SRCFILES := $(wildcard $(MONITORSRCDIR)/19/*/*.txt)
+MONITOR19XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/19/*/*.txt)
 MONITOR20XMLFILES := $(wildcard $(MONITORSRCDIR)/20/*/*.xml) $(wildcard $(MONITORSRCDIR)/21/*/*.xml)
-MONITOR19TEXTFILES := $(wildcard $(MONITORTEXTDIR)/19/*/*.txt)
+MONITOR19TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .xml,,$(MONITOR19XMLFILES)))))
 MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORSRCDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
 MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORSRCDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
@@ -376,12 +377,14 @@ MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $
 .PHONY: monitor19rename
 monitor19rename: # nedávat mezi závislosti, protože obsahuje soubory, které mají v názvu mezeru: $(MONITOR19SRCFILES)
 	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/19 --tgtdir $(MONITORRENAMEDDIR)/19
-# Extract plain text from XML files, or copy (+rename) source text files.
-.PHONY: monitortext19
-monitortext19: # nedávat mezi závislosti, protože obsahuje soubory, které mají v názvu mezeru: $(MONITOR19SRCFILES)
-	./tools/copy_and_rename.pl --srcdir $(MONITORDIR)/19 --tgtdir $(MONITORTEXTDIR)/19
-.PHONY: monitortext20
-monitortext20: $(MONITOR20TEXTFILES)
+# Despite having .txt in names, the files from 19th century contain markup that must be removed.
+.PHONY: monitor19text
+monitor19text: $(MONITOR19TEXTFILES)
+$(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
+	mkdir -p $(@D)
+	./tools/remove_xml_19.pl $< > $@
+.PHONY: monitor20text
+monitor20text: $(MONITOR20TEXTFILES)
 $(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
 	mkdir -p $(@D)
 	./tools/remove_doc_p_xml.pl $< > $@
@@ -391,10 +394,10 @@ $(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
 # The UDPipe Czech FicTree model does not know the Czech Unicode „quotes“; the two
 # subsequent Perl scripts try to fix them, but they are based on observations from
 # the Old Czech data, not from the Monitor Corpus.
-.PHONY: monitorparsed19
-monitorparsed19: $(MONITOR19PARSEDFILES)
-.PHONY: monitorparsed20
-monitorparsed20: $(MONITOR20PARSEDFILES)
+.PHONY: monitor19parsed
+monitor19parsed: $(MONITOR19PARSEDFILES)
+.PHONY: monitor20parsed
+monitor20parsed: $(MONITOR20PARSEDFILES)
 $(MONITORPARSEDDIR)/%.conllu: $(MONITORTEXTDIR)/%.txt
 	mkdir -p $(@D)
 	$(UDPIPE) cs_fictree by217 < $< | ./tools/fix_sentence_segmentation_quotes.pl | ./tools/fix_sentence_segmentation.pl > $@
