@@ -364,14 +364,20 @@ compare19:
 # $(MONITORDIR) has subfolders "19", "20", "21" for individual centuries (where "21" in fact starts with the year 1990).
 # Each of them has subfolders "JADRO" and "NEJADRO".
 # Their contents are .txt files in "19" and .xml files in "20" and "21".
-MONITORXMLFILES := $(wildcard $(MONITORDIR)/20/*/*.xml) $(wildcard $(MONITORDIR)/21/*/*.xml)
-#MONITORTEXTFILES := $(patsubst $(MONITORDIR)/%, $(MONITORTEXTDIR)/%, $(MONITORXMLFILES))
-MONITORTEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITORXMLFILES)))))
-MONITORPARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITORXMLFILES)))))
+MONITOR19SRCFILES := $(wildcard $(MONITORDIR)/19/*/*.txt)
+MONITOR20XMLFILES := $(wildcard $(MONITORDIR)/20/*/*.xml) $(wildcard $(MONITORDIR)/21/*/*.xml)
+MONITOR19TEXTFILES := $(patsubst $(MONITORDIR)/19/%, $(MONITORTEXTDIR)/19/%, $(MONITOR19SRCFILES))
+MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
+MONITORPARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 
-# Extract plain text from an XML file.
-.PHONY: monitortext
-monitortext: $(MONITORTEXTFILES)
+# Extract plain text from XML files, or copy source text files.
+.PHONY: monitortext19
+monitortext19: $(MONITOR19TEXTFILES)
+$(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.txt
+	mkdir -p $(@D)
+	cp $< $@
+.PHONY: monitortext20
+monitortext20: $(MONITOR20TEXTFILES)
 $(MONITORTEXTDIR)/%.txt: $(MONITORDIR)/%.xml
 	mkdir -p $(@D)
 	./tools/remove_doc_p_xml.pl $< > $@
