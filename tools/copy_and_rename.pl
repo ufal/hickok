@@ -114,7 +114,6 @@ sub process_folder
         # Specific for the files from the 19th century: remove certain prefixes and suffixes.
         $tgtfile =~ s/^martin_(18[0-9][0-9])__/${1}_/;
         $tgtfile =~ s/1899_upr.*$/1899.$tgtextension/;
-        $tgtfile =~ s/__.*$/.$tgtextension/;
         # Avoid multiple adjacent underscores, as well as leading or trailing underscores.
         $tgtfile =~ s/_+/_/g;
         $tgtfile =~ s/^_// unless($tgtfile eq '_');
@@ -139,32 +138,12 @@ sub process_file
     # Open the file or STDIN/STDOUT.
     local $IN;
     local $OUT;
-    if(defined($srcfile))
-    {
-        open($IN, $srcfile) or confess("Cannot read '$srcfile': $!");
-    }
-    else
-    {
-        $IN = \*STDIN;
-    }
-    if(defined($tgtfile))
-    {
-        open($OUT, '>', $tgtfile) or confess("Cannot write '$tgtfile': $!");
-    }
-    else
-    {
-        $OUT = \*STDOUT;
-    }
+    open($IN, $srcfile) or confess("Cannot read '$srcfile': $!");
+    open($OUT, '>', $tgtfile) or confess("Cannot write '$tgtfile': $!");
     while(<$IN>)
     {
         print $OUT;
     }
-    if(defined($srcfile))
-    {
-        close($IN);
-    }
-    if(defined($tgtfile))
-    {
-        close($OUT);
-    }
+    close($IN);
+    close($OUT);
 }
