@@ -380,7 +380,7 @@ monitor19rename: # nedávat mezi závislosti, protože obsahuje soubory, které 
 # Despite having .txt in names, the files from 19th century contain markup that must be removed.
 .PHONY: monitor19text
 monitor19text: $(MONITOR19TEXTFILES)
-$(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
+$(MONITORTEXTDIR)/%.txt: $(MONITORRENAMEDDIR)/%.txt
 	mkdir -p $(@D)
 	./tools/remove_xml_19.pl $< > $@
 .PHONY: monitor20text
