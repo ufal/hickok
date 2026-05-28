@@ -102,7 +102,7 @@ sub process_folder
                 $decoded_srcfile = decode('utf8', $decoded_srcfile);
             }
             # This string is damaged and "á" appears as "Ě<U+0081>".
-            $decoded_srcfile =~ s/Pr.*vo lidu/Právo_lidu/;
+            $decoded_srcfile =~ s/Pr.*vo lidu/Právo lidu/;
         }
         # Get rid of non-English letters in the filename.
         my $tgtfile = ascii::ascii($decoded_srcfile);
