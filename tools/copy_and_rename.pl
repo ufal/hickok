@@ -102,10 +102,12 @@ sub process_folder
                 $decoded_srcfile = decode('utf8', $decoded_srcfile);
             }
             # This string is damaged and "á" appears as "Ě<U+0081>".
-            $decoded_srcfile =~ s/Pr..vo lidu/Právo_lidu/;
+            $decoded_srcfile =~ s/Pr.*vo lidu/Právo_lidu/;
         }
         # Get rid of non-English letters in the filename.
         my $tgtfile = ascii::ascii($decoded_srcfile);
+        # Again, the damaged "Právo lidu".
+        $tgtfile =~ s/Pr.*vo lidu/Pravo_lidu/;
         $tgtfile =~ s/\.$srcextension$/.$tgtextension/;
         # Some names use CamelCase, some use underscores. Standardize to lowercase with underscores.
         $tgtfile =~ s/([a-z])([A-Z0-9])/${1}_${2}/g;
