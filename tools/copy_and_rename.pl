@@ -114,6 +114,7 @@ sub process_folder
         # Specific for the files from the 19th century: remove certain prefixes and suffixes.
         $tgtfile =~ s/^martin_(18[0-9][0-9])__/${1}_/;
         $tgtfile =~ s/1899_upr.*$/1899.$tgtextension/;
+        $tgtfile =~ s/\+1//;
         # Avoid multiple adjacent underscores, as well as leading or trailing underscores.
         $tgtfile =~ s/_+/_/g;
         $tgtfile =~ s/^_// unless($tgtfile eq '_');
@@ -122,6 +123,14 @@ sub process_folder
         my $sfpath = "$srcpath/$srcfile";
         my $tfpath = "$tgtpath/$tgtfile";
         print STDERR ("$dsfpath --> $tfpath\n");
-        system("cp $sfpath $tfpath");
+        # We cannot use system("cp $sfpath $tfpath") because the system will not understand $sfpath with accented characters or spaces.
+        open(my $IN, $sfpath) or confess("Cannot read '$sfpath': $!");
+        open(my $OUT, ">$tfpath") or confess("Cannot write '$tfpath': $!");
+        while(<$IN>)
+        {
+            print $OUT ($_);
+        }
+        close($IN);
+        close($OUT);
     }
 }
