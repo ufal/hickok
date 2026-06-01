@@ -346,6 +346,12 @@ postprocess19:
 compare19:
 	./tools/survey_ambiguous_analyses.pl --compare data/annotated/19stol.conllu data/annotated/14stol.conllu data/annotated/fictree.conllu > data/annotated/19stol-14stol-fictree-diff.txt
 
+parse19:
+	mkdir -p data/19_stol_parsed_by217
+	for i in data/annotated/19_stol/*.conllu ; do echo $$i ; \
+	  $(UDPIPE) cs_fictree by217 conllu < $$i > data/19_stol_parsed_by217/`basename $$i` ; \
+	done
+
 # TODO:
 # - Jsou tam často rozdělené věty, kde by neměly být (např. 1864_blesk_9.4.1864, ale i různě jinde). Projednat další postup s Martinem.
 # - Převést poziční (šestnáctimístné) značky na UPOS a FEATS (Interset). Zatím zjištěné odchylky od tagsetu cs::cnk:
