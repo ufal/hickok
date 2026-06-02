@@ -740,7 +740,7 @@ sub encode_resegment_instructions
                     # abychme (předzpracování zatím umí jen novočeské abych, abys, aby, abychom, abyste)
                     # jakoby (ojediněle mělo být rozděleno, ale nebylo)
                     # dajžto
-                    if($line->{SUBTOKENS} =~ m/^(\S+|to li) (jsi|jest|by|bychme|bysme|byšta|byšte|i|liž|ť|tě|ti|t|nějž?|co|to)$/)
+                    if($line->{SUBTOKENS} =~ m/^(\S+|to li) (jsi|jest|by|bychme|bysme|byšta|byšte|i|liž|ť|tě|ti|t|nějž?|což?|to)$/)
                     {
                         unshift(@misc, "AddMwt=$line->{SUBTOKENS}");
                     }
@@ -868,6 +868,11 @@ sub get_automatic_subtokens
     elsif($line->{FORM} =~ m/^(se)č$/i)
     {
         $auto_subtokens = "$1 co";
+    }
+    # načež = na + což
+    elsif($line->{FORM} =~ m/^(na)čež$/i)
+    {
+        $auto_subtokens = "$1 což";
     }
     return $auto_subtokens;
 }
