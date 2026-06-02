@@ -371,6 +371,8 @@ parse19:
 # $(MONITORDIR) has subfolders "19", "20", "21" for individual centuries (where "21" in fact starts with the year 1990).
 # Each of them has subfolders "JADRO" and "NEJADRO".
 # Their contents are .txt files in "19" and .xml files in "20" and "21".
+MONITOR13SRCFILES := $(wildcard $(MONITORSRCDIR)/13-15/*/*.txt)
+MONITOR16SRCFILES := $(wildcard $(MONITORSRCDIR)/16-18/*/*.txt)
 MONITOR19SRCFILES := $(wildcard $(MONITORSRCDIR)/19/*/*.txt)
 MONITOR19XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/19/*/*.txt)
 MONITOR20XMLFILES := $(wildcard $(MONITORSRCDIR)/20/*/*.xml) $(wildcard $(MONITORSRCDIR)/21/*/*.xml)
@@ -380,6 +382,13 @@ MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $
 MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .xml,,$(MONITOR20TEXTFILES)))))
 
 # The files from 19th century have bad names and must be copied and renamed first.
+# The files from 13th to 18th century seem less bad but we will rename them anyway.
+.PHONY: monitor13rename
+monitor13rename:
+	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/13-15 --tgtdir $(MONITORRENAMEDDIR)/13-15
+.PHONY: monitor16rename
+monitor16rename:
+	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/16-18 --tgtdir $(MONITORRENAMEDDIR)/16-18
 .PHONY: monitor19rename
 monitor19rename: # nedávat mezi závislosti, protože obsahuje soubory, které mají v názvu mezeru: $(MONITOR19SRCFILES)
 	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/19 --tgtdir $(MONITORRENAMEDDIR)/19
