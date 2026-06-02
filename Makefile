@@ -374,8 +374,12 @@ parse19:
 MONITOR13SRCFILES := $(wildcard $(MONITORSRCDIR)/13-15/*/*.txt)
 MONITOR16SRCFILES := $(wildcard $(MONITORSRCDIR)/16-18/*/*.txt)
 MONITOR19SRCFILES := $(wildcard $(MONITORSRCDIR)/19/*/*.txt)
+MONITOR13XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/13-15/*/*.txt)
+MONITOR16XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/16-18/*/*.txt)
 MONITOR19XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/19/*/*.txt)
 MONITOR20XMLFILES := $(wildcard $(MONITORSRCDIR)/20/*/*.xml) $(wildcard $(MONITORSRCDIR)/21/*/*.xml)
+MONITOR13TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR13XMLFILES)))))
+MONITOR16TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR16XMLFILES)))))
 MONITOR19TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR19XMLFILES)))))
 MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORSRCDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
 MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
@@ -392,7 +396,11 @@ monitor16rename:
 .PHONY: monitor19rename
 monitor19rename: # nedávat mezi závislosti, protože obsahuje soubory, které mají v názvu mezeru: $(MONITOR19SRCFILES)
 	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/19 --tgtdir $(MONITORRENAMEDDIR)/19
-# Despite having .txt in names, the files from 19th century contain markup that must be removed.
+# Despite having .txt in names, the files from 13th to 19th century contain markup that must be removed.
+.PHONY: monitor13text
+monitor13text: $(MONITOR13TEXTFILES)
+.PHONY: monitor16text
+monitor16text: $(MONITOR16TEXTFILES)
 .PHONY: monitor19text
 monitor19text: $(MONITOR19TEXTFILES)
 $(MONITORTEXTDIR)/%.txt: $(MONITORRENAMEDDIR)/%.txt
