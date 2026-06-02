@@ -382,6 +382,8 @@ MONITOR13TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst 
 MONITOR16TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR16XMLFILES)))))
 MONITOR19TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR19XMLFILES)))))
 MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORSRCDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
+MONITOR13PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR13TEXTFILES)))))
+MONITOR16PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR16TEXTFILES)))))
 MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
 MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .xml,,$(MONITOR20TEXTFILES)))))
 
@@ -417,6 +419,10 @@ $(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
 # The UDPipe Czech FicTree model does not know the Czech Unicode „quotes“; the two
 # subsequent Perl scripts try to fix them, but they are based on observations from
 # the Old Czech data, not from the Monitor Corpus.
+.PHONY: monitor13parsed
+monitor13parsed: $(MONITOR13PARSEDFILES)
+.PHONY: monitor16parsed
+monitor16parsed: $(MONITOR16PARSEDFILES)
 .PHONY: monitor19parsed
 monitor19parsed: $(MONITOR19PARSEDFILES)
 .PHONY: monitor20parsed
