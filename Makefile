@@ -377,19 +377,9 @@ ETALON19SRCFILES := $(wildcard data/annotated/19_stol/*.conllu)
 ETALON13FILES := $(addprefix data/etalon13/,$(addsuffix .conllu,$(subst data/annotated/,,$(subst /15_stol,,$(subst /14_stol,,$(subst _DEF.conllu,,$(ETALON13SRCFILES)))))))
 ETALON16FILES := $(addprefix data/etalon16/,$(addsuffix .conllu,$(subst data/annotated/,,$(subst /18_stol,,$(subst /17_stol,,$(subst /16_stol,,$(subst _DEF.conllu,,$(ETALON16SRCFILES))))))))
 ETALON19FILES := $(addprefix data/etalon19/,$(subst data/annotated/19_stol/,,$(ETALON19SRCFILES)))
-.PHONY: debugsubst
-debugsubst:
-	@echo ETALON13SRCFILES=$(ETALON13SRCFILES)
-	@echo -----
-	@echo ETALON13FILES=$(ETALON13FILES)
-	@echo
-	@echo ETALON16SRCFILES=$(ETALON16SRCFILES)
-	@echo -----
-	@echo ETALON16FILES=$(ETALON16FILES)
-	@echo
-	@echo ETALON19SRCFILES=$(ETALON19SRCFILES)
-	@echo -----
-	@echo ETALON19FILES=$(ETALON19FILES)
+ETALON13PARSEDFILES := $(addprefix data/etalon13_parsed/,$(subst data/etalon13/,,$(ETALON13FILES)))
+ETALON16PARSEDFILES := $(addprefix data/etalon16_parsed/,$(subst data/etalon16/,,$(ETALON16FILES)))
+ETALON19PARSEDFILES := $(addprefix data/etalon19_parsed/,$(subst data/etalon19/,,$(ETALON19FILES)))
 .PHONY: etalon13
 etalon13: $(ETALON13FILES)
 data/etalon13/%.conllu: $(ANNOTDIR)/14_stol/%_DEF.conllu
@@ -438,6 +428,23 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
 	      write.Conllu files=- \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+
+# Parsing etalons using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
+.PHONY: etalon13parsed
+etalon13parsed: $(ETALON13PARSEDFILES)
+data/etalon13_parsed/%.conllu: data/etalon13/%.conllu
+	mkdir -p $(@D)
+	$PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+.PHONY: etalon16parsed
+etalon16parsed: $(ETALON16PARSEDFILES)
+data/etalon16_parsed/%.conllu: data/etalon16/%.conllu
+	mkdir -p $(@D)
+	$PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+.PHONY: etalon19parsed
+etalon19parsed: $(ETALON19PARSEDFILES)
+data/etalon19_parsed/%.conllu: data/etalon19/%.conllu
+	mkdir -p $(@D)
+	$PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 
 
 
