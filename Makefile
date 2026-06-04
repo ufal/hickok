@@ -13,6 +13,7 @@ PARSEDDIR := data/parsed
 MERGEDDIR := data/merged
 PREPRCDIR := data/preprocessed
 FORANNDIR := data/for_annotation
+ANNOTDIR  := data/annotated
 # The Monitor corpus has its own workflow. We process it with UDPipe but we do not annotate anything manually there.
 MONITORSRCDIR := data/monitor_korpus
 MONITORRENAMEDDIR := data/monitor_renamed
@@ -310,45 +311,45 @@ UDAPISCEN = \
     ud.FixPunct
 postprocess:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi ; if [[ -z "$(A1)" ]] ; then exit 2 ; fi ; if [[ -z "$(A2)" ]] ; then exit 3 ; fi
-	set -o pipefail ; perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)_stol/$(ANNBASE).tsv --name1 $(A1) --ann1 data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).csv 2>&1 >data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1)_$(A2).diff.txt | tee data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1)_$(A2).postprocess.log
-	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).conllu $(UDAPISCEN) write.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).fixed.conllu
-	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).conllu $(UDAPISCEN) write.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).fixed.conllu
-	mv data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).fixed.conllu data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).conllu
-	mv data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).fixed.conllu data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).conllu
-	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
-	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
-	validate.py --lang cs data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).conllu |& tee data/annotated/$(STOL)_stol/$(ANNBASE)_$(A1).validation.log
-	validate.py --lang cs data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).conllu |& tee data/annotated/$(STOL)_stol/$(ANNBASE)_$(A2).validation.log
+	set -o pipefail ; perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)_stol/$(ANNBASE).tsv --name1 $(A1) --ann1 $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).csv --name2 $(A2) --ann2 $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).csv 2>&1 >$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1)_$(A2).diff.txt | tee $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1)_$(A2).postprocess.log
+	udapy read.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).conllu $(UDAPISCEN) write.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).fixed.conllu
+	udapy read.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).conllu $(UDAPISCEN) write.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).fixed.conllu
+	mv $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).fixed.conllu $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).conllu
+	mv $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).fixed.conllu $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).conllu
+	udapy read.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	udapy read.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	validate.py --lang cs $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).conllu |& tee $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A1).validation.log
+	validate.py --lang cs $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).conllu |& tee $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_$(A2).validation.log
 
 # Use only a slightly modified postprocessing procedure to process the definitive version (after addressing the differences between the annotators).
 # We still use the same script in the beginning, using "DEF" as the identifier of both annotators (the script will read the same file twice).
 postprocess_def:
 	if [[ -z "$(ANNBASE)" ]] ; then exit 1 ; fi
-	set -o pipefail ; perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)_stol/$(ANNBASE).tsv --name1 DEF --ann1 data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.csv 2>&1 | tee data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.postprocess.log
-	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu $(UDAPISCEN) write.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.fixed.conllu
-	#cp data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.pre-fix-backup.conllu
-	mv data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.fixed.conllu data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu
-	udapy read.Conllu files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
-	validate.py --lang cs data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.conllu |& tee data/annotated/$(STOL)_stol/$(ANNBASE)_DEF.validation.log
+	set -o pipefail ; perl ./tools/process_annotated_csv.pl --orig data/for_annotation/$(STOL)_stol/$(ANNBASE).tsv --name1 DEF --ann1 $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.csv 2>&1 | tee $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.postprocess.log
+	udapy read.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.conllu $(UDAPISCEN) write.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.fixed.conllu
+	#cp $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.conllu $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.pre-fix-backup.conllu
+	mv $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.fixed.conllu $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.conllu
+	udapy read.Conllu files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.conllu util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' ud.cs.MarkFeatsBugs util.MarkMwtBugsAtNodes write.TextModeTreesHtml files=$(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.bugs.html marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc
+	validate.py --lang cs $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.conllu |& tee $(ANNOTDIR)/$(STOL)_stol/$(ANNBASE)_DEF.validation.log
 
 # 19th century files were annotated independently by Martin's team and we do not have to handle them in the same way
 # as the Old/Middle Czech files above. Instead, we take the manually annotated vertical files and convert them to
 # CoNLL-U.
 postprocess19:
-	./tools/vert2conllu19stol.pl --srcdir data/annotated/19_stol_vert_od_martina --tgtdir data/annotated/19_stol
-	for i in data/annotated/19_stol/*.conllu ; do echo $$i ; \
+	./tools/vert2conllu19stol.pl --srcdir $(ANNOTDIR)/19_stol_vert_od_martina --tgtdir $(ANNOTDIR)/19_stol
+	for i in $(ANNOTDIR)/19_stol/*.conllu ; do echo $$i ; \
 	  cp $$i backup.conllu ; \
 	  set -o pipefail ; cat backup.conllu | udapy -s util.Eval node='node.misc["XixstolTag"]=node.xpos' ud.cs.AddMwt ud.cs.FixMorpho | ./tools/xpos_pdtc_from_upos_feats.pl > $$i ; \
 	  rm -f backup.conllu ; \
 	done
-	cat data/annotated/19_stol/*.conllu > data/annotated/19stol.conllu
+	cat $(ANNOTDIR)/19_stol/*.conllu > $(ANNOTDIR)/19stol.conllu
 
 compare19:
-	./tools/survey_ambiguous_analyses.pl --compare data/annotated/19stol.conllu data/annotated/14stol.conllu data/annotated/fictree.conllu > data/annotated/19stol-14stol-fictree-diff.txt
+	./tools/survey_ambiguous_analyses.pl --compare $(ANNOTDIR)/19stol.conllu $(ANNOTDIR)/14stol.conllu $(ANNOTDIR)/fictree.conllu > $(ANNOTDIR)/19stol-14stol-fictree-diff.txt
 
 parse19:
 	mkdir -p data/19_stol_parsed_by217
-	for i in data/annotated/19_stol/*.conllu ; do echo $$i ; \
+	for i in $(ANNOTDIR)/19_stol/*.conllu ; do echo $$i ; \
 	  $(UDPIPE) cs_fictree by217 conllu < $$i > data/19_stol_parsed_by217/`basename $$i` ; \
 	done
 
@@ -363,6 +364,55 @@ parse19:
 # - Všem datům (nejen těm z 19. století) dopočítat jednotné značky XPOS zpětně z UPOS a FEATS. Asi stejné, jako jsou v PDT-C.
 # - Prohnat to validací včetně MarkFeatsBugs.
 # - Udělat nějaké statistické porovnání lematizace, UPOS a FEATS mezi PDT-C, 19. stoletím, střední a starou češtinou. Např. pro každý tvar seřadit jeho analýzy podle četnosti, pak se podívat, jestli se nejčastější výsledek v různých korpusech liší.
+
+
+
+#----------------------------------------------------------------------------------------------------------------------
+# Clean the gold standard data ("etalons") and copy them to a new location.
+# Note: It would be more elegant to use $(patsubst %_stol,,$(SRCFILES)) but it does not seem to work on my system.
+ETALON13SRCFILES := $(wildcard data/annotated/14_stol/*_DEF.conllu) $(wildcard data/annotated/15_stol/*_DEF.conllu)
+ETALON16SRCFILES := $(wildcard data/annotated/16_stol/*_DEF.conllu) $(wildcard data/annotated/17_stol/*_DEF.conllu) $(wildcard data/annotated/18_stol/*_DEF.conllu)
+ETALON19SRCFILES := $(wildcard data/annotated/19_stol/*.conllu)
+ETALON13FILES := $(addprefix data/etalon13/,$(addsuffix .conllu,$(subst data/annotated/,,$(subst /15_stol,,$(subst /14_stol,,$(subst _DEF.conllu,,$(ETALON13SRCFILES)))))))
+ETALON16FILES := $(addprefix data/etalon16/,$(addsuffix .conllu,$(subst data/annotated/,,$(subst /18_stol,,$(subst /17_stol,,$(subst /16_stol,,$(subst _DEF.conllu,,$(ETALON16SRCFILES))))))))
+ETALON19FILES := $(addprefix data/etalon19/,$(subst data/annotated/19_stol/,,$(ETALON19SRCFILES)))
+.PHONY: debugsubst
+debugsubst:
+	@echo ETALON13SRCFILES=$(ETALON13SRCFILES)
+	@echo -----
+	@echo ETALON13FILES=$(ETALON13FILES)
+	@echo
+	@echo ETALON16SRCFILES=$(ETALON16SRCFILES)
+	@echo -----
+	@echo ETALON16FILES=$(ETALON16FILES)
+	@echo
+	@echo ETALON19SRCFILES=$(ETALON19SRCFILES)
+	@echo -----
+	@echo ETALON19FILES=$(ETALON19FILES)
+.PHONY: etalon13
+etalon13: $(ETALON13FILES)
+data/etalon13/%.conllu: $(ANNOTDIR)/14_stol/%_DEF.conllu
+	mkdir -p $(@D)
+	udapy read.Conllu files=$< fix_cycles=1 util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' write.Conllu files=$@
+data/etalon13/%.conllu: $(ANNOTDIR)/15_stol/%_DEF.conllu
+	mkdir -p $(@D)
+	udapy read.Conllu files=$< fix_cycles=1 util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' write.Conllu files=$@
+.PHONY: etalon16
+etalon16: $(ETALON16FILES)
+data/etalon16/%.conllu: $(ANNOTDIR)/16_stol/%_DEF.conllu
+	mkdir -p $(@D)
+	udapy read.Conllu files=$< fix_cycles=1 util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' write.Conllu files=$@
+data/etalon16/%.conllu: $(ANNOTDIR)/17_stol/%_DEF.conllu
+	mkdir -p $(@D)
+	udapy read.Conllu files=$< fix_cycles=1 util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' write.Conllu files=$@
+data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
+	mkdir -p $(@D)
+	udapy read.Conllu files=$< fix_cycles=1 util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' write.Conllu files=$@
+.PHONY: etalon19
+etalon19: $(ETALON19FILES)
+data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
+	mkdir -p $(@D)
+	udapy read.Conllu files=$< fix_cycles=1 util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""' write.Conllu files=$@
 
 
 
@@ -441,7 +491,7 @@ DEFFILES15 := 021_podk_u 026_otc_b 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kla
 # Evaluate the quality of the parsing and preprocessing on the files for which we now have manual annotation.
 # The UD parser evaluation script and conllu_quick_fix.pl should be in PATH.
 # The conllu_quick_fix.pl script ensures that fatal syntactic errors, which are not our focus here, will not prevent evaluation.
-DEFFILES := $(addprefix data/annotated/14_stol/, $(addsuffix _DEF.conllu, $(DEFFILES14))) $(addprefix data/annotated/15_stol/, $(addsuffix _DEF.conllu, $(DEFFILES15)))
+DEFFILES := $(addprefix $(ANNOTDIR)/14_stol/, $(addsuffix _DEF.conllu, $(DEFFILES14))) $(addprefix $(ANNOTDIR)/15_stol/, $(addsuffix _DEF.conllu, $(DEFFILES15)))
 EVALFILES := $(addprefix $(PREPRCDIR)/13_19_stol/, $(addsuffix .conllu, $(DEFFILES14) $(DEFFILES15)))
 eval:
 	cat $(DEFFILES) | conllu_quick_fix.pl > gold.conllu
