@@ -434,17 +434,17 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 etalon13parsed: $(ETALON13PARSEDFILES)
 data/etalon13_parsed/%.conllu: data/etalon13/%.conllu
 	mkdir -p $(@D)
-	$PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 .PHONY: etalon16parsed
 etalon16parsed: $(ETALON16PARSEDFILES)
 data/etalon16_parsed/%.conllu: data/etalon16/%.conllu
 	mkdir -p $(@D)
-	$PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 .PHONY: etalon19parsed
 etalon19parsed: $(ETALON19PARSEDFILES)
 data/etalon19_parsed/%.conllu: data/etalon19/%.conllu
 	mkdir -p $(@D)
-	$PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 
 
 
