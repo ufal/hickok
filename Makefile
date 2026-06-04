@@ -395,15 +395,15 @@ etalon13: $(ETALON13FILES)
 data/etalon13/%.conllu: $(ANNOTDIR)/14_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
-	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
-	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
+	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
+	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      write.Conllu files=- \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon13/%.conllu: $(ANNOTDIR)/15_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
-	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
-	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
+	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
+	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      write.Conllu files=- \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 .PHONY: etalon16
@@ -411,22 +411,22 @@ etalon16: $(ETALON16FILES)
 data/etalon16/%.conllu: $(ANNOTDIR)/16_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
-	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
-	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
+	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
+	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      write.Conllu files=- \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon16/%.conllu: $(ANNOTDIR)/17_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
-	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
-	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
+	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
+	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      write.Conllu files=- \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
-	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
-	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
+	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
+	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      write.Conllu files=- \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 .PHONY: etalon19
@@ -434,8 +434,8 @@ etalon19: $(ETALON19FILES)
 data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
-	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
-	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""' \
+	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
+	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      write.Conllu files=- \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 
