@@ -385,6 +385,7 @@ clean_etalons:
 	rm -rf data/etalon13/*.conllu
 	rm -rf data/etalon16/*.conllu
 	rm -rf data/etalon19/*.conllu
+# The etalons will be parsed using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
 .PHONY: etalons
 etalons: etalon13 etalon16 etalon19
 .PHONY: etalon13
@@ -460,23 +461,6 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
 	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 
-# Parsing etalons using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
-.PHONY: etalon13parsed
-etalon13parsed: $(ETALON13PARSEDFILES)
-data/etalon13_parsed/%.conllu: data/etalon13/%.conllu
-	mkdir -p $(@D)
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
-.PHONY: etalon16parsed
-etalon16parsed: $(ETALON16PARSEDFILES)
-data/etalon16_parsed/%.conllu: data/etalon16/%.conllu
-	mkdir -p $(@D)
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
-.PHONY: etalon19parsed
-etalon19parsed: $(ETALON19PARSEDFILES)
-data/etalon19_parsed/%.conllu: data/etalon19/%.conllu
-	mkdir -p $(@D)
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
-
 # Concatenate each etalon into a big file similarly to UD treebanks.
 UDPIPE_DATA_DIR := /net/work/people/zeman/udpipe/data
 .PHONY: etalon_test_only
@@ -545,6 +529,7 @@ etalon19split:
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/dev
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/test
 	@echo If necessary, update the size of this treebank in $(UDPIPE_DATA_DIR)/langs_sizes.
+
 # wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/*.conllu
 # 6517 sentences, 124360 morphosyntactic words, 122869 surface tokens (including 1490 multiword tokens spanning 2981 words)
 # wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-train.conllu
@@ -553,6 +538,35 @@ etalon19split:
 # 393 sentences, 9558 morphosyntactic words, 9438 surface tokens (including 120 multiword tokens spanning 240 words)
 # wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-test.conllu
 # 412 sentences, 9358 morphosyntactic words, 9265 surface tokens (including 93 multiword tokens spanning 186 words)
+
+# wcc data/cs_e16tdt/*.conllu
+# 5607 sentences, 123076 morphosyntactic words, 121956 surface tokens (including 1120 multiword tokens spanning 2240 words)
+# wcc data/cs_e16tdt/cs_e16tdt-ud-train.conllu
+# 4967 sentences, 103829 morphosyntactic words, 102893 surface tokens (including 936 multiword tokens spanning 1872 words)
+# wcc data/cs_e16tdt/cs_e16tdt-ud-dev.conllu
+# 339 sentences, 9691 morphosyntactic words, 9579 surface tokens (including 112 multiword tokens spanning 224 words)
+# wcc data/cs_e16tdt/cs_e16tdt-ud-test.conllu
+# 301 sentences, 9556 morphosyntactic words, 9484 surface tokens (including 72 multiword tokens spanning 144 words)
+
+# wcc data/cs_e19tdt/*.conllu
+# 7034 sentences, 128803 morphosyntactic words, 128107 surface tokens (including 696 multiword tokens spanning 1392 words)
+# wcc data/cs_e19tdt/cs_e19tdt-ud-train.conllu
+# 5807 sentences, 111015 morphosyntactic words, 110440 surface tokens (including 575 multiword tokens spanning 1150 words)
+# wcc data/cs_e19tdt/cs_e19tdt-ud-dev.conllu
+# 720 sentences, 8897 morphosyntactic words, 8849 surface tokens (including 48 multiword tokens spanning 96 words)
+# wcc data/cs_e19tdt/cs_e19tdt-ud-test.conllu
+# 507 sentences, 8891 morphosyntactic words, 8818 surface tokens (including 73 multiword tokens spanning 146 words)
+
+etalon13testfictree:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-by217.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-by217.conllu
+etalon16testfictree:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-by217.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-by217.conllu
+etalon19testfictree:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-by217.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-by217.conllu
+
 trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
 	ssh -A sol1
 	cd /net/work/people/zeman/udpipe
