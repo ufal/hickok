@@ -380,6 +380,13 @@ ETALON19FILES := $(addprefix data/etalon19/,$(subst data/annotated/19_stol/,,$(E
 ETALON13PARSEDFILES := $(addprefix data/etalon13_parsed/,$(subst data/etalon13/,,$(ETALON13FILES)))
 ETALON16PARSEDFILES := $(addprefix data/etalon16_parsed/,$(subst data/etalon16/,,$(ETALON16FILES)))
 ETALON19PARSEDFILES := $(addprefix data/etalon19_parsed/,$(subst data/etalon19/,,$(ETALON19FILES)))
+.PHONY: clean_etalons
+clean_etalons:
+	rm -rf data/etalon13
+	rm -rf data/etalon16
+	rm -rf data/etalon19
+.PHONY: etalons
+etalons: etalon13 etalon16 etalon19
 .PHONY: etalon13
 etalon13: $(ETALON13FILES)
 data/etalon13/%.conllu: $(ANNOTDIR)/14_stol/%_DEF.conllu
