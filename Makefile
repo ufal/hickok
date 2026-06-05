@@ -452,6 +452,20 @@ data/etalon19_parsed/%.conllu: data/etalon19/%.conllu
 	mkdir -p $(@D)
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' < $< | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 
+# Concatenate each etalon into a big file similarly to UD treebanks.
+UDPIPE_DATA_DIR := /net/work/people/zeman/udpipe/data
+.PHONY: etalon_test_only
+etalon_test_only:
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13to
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e16to
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e19to
+	rm -f cs_e13to/*.conllu
+	rm -f cs_e16to/*.conllu
+	rm -f cs_e19to/*.conllu
+	cat data/etalon13_parsed/*.conllu > $(UDPIPE_DATA_DIR)/cs_e13to/cs_e13to-ud-test.conllu
+	cat data/etalon16_parsed/*.conllu > $(UDPIPE_DATA_DIR)/cs_e16to/cs_e16to-ud-test.conllu
+	cat data/etalon19_parsed/*.conllu > $(UDPIPE_DATA_DIR)/cs_e19to/cs_e19to-ud-test.conllu
+
 
 
 #----------------------------------------------------------------------------------------------------------------------
