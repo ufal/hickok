@@ -485,6 +485,23 @@ etalon13split:
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e13tdt/train
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e13tdt/dev
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e13tdt/test
+	@echo If necessary, update the size of this treebank in $(UDPIPE_DATA_DIR)/langs_sizes.
+# wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/*.conllu
+# 6517 sentences, 124360 morphosyntactic words, 122869 surface tokens (including 1490 multiword tokens spanning 2981 words)
+# wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-train.conllu
+# 5712 sentences, 105444 morphosyntactic words, 104166 surface tokens (including 1277 multiword tokens spanning 2555 words)
+# wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-dev.conllu
+# 393 sentences, 9558 morphosyntactic words, 9438 surface tokens (including 120 multiword tokens spanning 240 words)
+# wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-test.conllu
+# 412 sentences, 9358 morphosyntactic words, 9265 surface tokens (including 93 multiword tokens spanning 186 words)
+trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
+	ssh -A sol1
+	cd /net/work/people/zeman/udpipe
+	./scripts/compute_embeddings.sh ./data
+	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
+	./scripts/train.sh ./data cs_e13tdt
+	# This will submit one cluster job for cs_e13tdt. It may take between 1 and 2 hours. Monitor progress:
+	tail -f models/data-cs_e13tdt/training.log
 
 
 
