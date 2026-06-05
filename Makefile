@@ -511,6 +511,40 @@ etalon13split:
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e13tdt/dev
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e13tdt/test
 	@echo If necessary, update the size of this treebank in $(UDPIPE_DATA_DIR)/langs_sizes.
+# Split Etalon 16 to training, development and test data.
+ETALON16DEV := $(addprefix $(UDPIPE_DATA_DIR)/cs_e16tdt/train/,$(addsuffix .conllu,049_frantovy_prava 065_o_ctnych_manzelkach_tehotnych 076_smol_jimr))
+ETALON16TEST := $(addprefix $(UDPIPE_DATA_DIR)/cs_e16tdt/train/,$(addsuffix .conllu,050_hanus 063_div_velik 080_pranostika_nova))
+etalon16split:
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e16tdt/train
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e16tdt/dev
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e16tdt/test
+	cp data/etalon16/*.conllu $(UDPIPE_DATA_DIR)/cs_e16tdt/train
+	mv $(ETALON16DEV) $(UDPIPE_DATA_DIR)/cs_e16tdt/dev
+	mv $(ETALON16TEST) $(UDPIPE_DATA_DIR)/cs_e16tdt/test
+	cat $(UDPIPE_DATA_DIR)/cs_e16tdt/train/*.conllu > $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-train.conllu
+	cat $(UDPIPE_DATA_DIR)/cs_e16tdt/dev/*.conllu > $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-dev.conllu
+	cat $(UDPIPE_DATA_DIR)/cs_e16tdt/test/*.conllu > $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e16tdt/train
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e16tdt/dev
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e16tdt/test
+	@echo If necessary, update the size of this treebank in $(UDPIPE_DATA_DIR)/langs_sizes.
+# Split Etalon 19 to training, development and test data.
+ETALON19DEV := $(addprefix $(UDPIPE_DATA_DIR)/cs_e19tdt/train/,$(addsuffix .conllu,1802_krameriusovy_noviny_21.8.1802 1832_svihlik_edmund_a_belinka 1855_stroupeznicka_boure 1869_jaros_z_chladku))
+ETALON19TEST := $(addprefix $(UDPIPE_DATA_DIR)/cs_e19tdt/train/,$(addsuffix .conllu,1808_kramerius_vyd_rozlicne_povidacky 1827_rettigova_bila_ruze 1846_prazske_noviny_19.3.1846 1874_palacky_nejnovejsi_politicke_uvahy))
+etalon19split:
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e19tdt/train
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e19tdt/dev
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e19tdt/test
+	cp data/etalon19/*.conllu $(UDPIPE_DATA_DIR)/cs_e19tdt/train
+	mv $(ETALON19DEV) $(UDPIPE_DATA_DIR)/cs_e19tdt/dev
+	mv $(ETALON19TEST) $(UDPIPE_DATA_DIR)/cs_e19tdt/test
+	cat $(UDPIPE_DATA_DIR)/cs_e19tdt/train/*.conllu > $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-train.conllu
+	cat $(UDPIPE_DATA_DIR)/cs_e19tdt/dev/*.conllu > $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-dev.conllu
+	cat $(UDPIPE_DATA_DIR)/cs_e19tdt/test/*.conllu > $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/train
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/dev
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/test
+	@echo If necessary, update the size of this treebank in $(UDPIPE_DATA_DIR)/langs_sizes.
 # wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/*.conllu
 # 6517 sentences, 124360 morphosyntactic words, 122869 surface tokens (including 1490 multiword tokens spanning 2981 words)
 # wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-train.conllu
@@ -525,8 +559,23 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	./scripts/compute_embeddings.sh ./data
 	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
 	./scripts/train.sh ./data cs_e13tdt
-	# This will submit one cluster job for cs_e13tdt. It may take between 1 and 2 hours. Monitor progress:
+	# This will submit one cluster job for cs_e13tdt. It may take about 2 hours. Monitor progress:
 	tail -f models/data-cs_e13tdt/training.log
+	# UDPipe 1.2 cannot digest CoNLL-U files that have spaces in MISC.
+	# But maybe it was just that I forgot to set allow_spaces (not sure if that would only allow them in FORM and LEMMA, or also in MISC).
+	# On the other hand, https://ufal.mff.cuni.cz/udpipe/1/users-manual#model_training_tokenizer says that if any training token contains
+	# a space, the default is allow_spaces=1.
+	mkdir -p data/cs_e13tdt/fortok
+	cat data/cs_e13tdt/cs_e13tdt-ud-train.conllu | perl -pe 'if(m/^[0-9]/) { chomp; @f=split(/\t/); $f[9]=~s/\s/_/g; $_=join("\t", @f)."\n" }' > data/cs_e13tdt/fortok/cs_e13tdt-ud-train.conllu
+	cat data/cs_e13tdt/cs_e13tdt-ud-dev.conllu | perl -pe 'if(m/^[0-9]/) { chomp; @f=split(/\t/); $f[9]=~s/\s/_/g; $_=join("\t", @f)."\n" }' > data/cs_e13tdt/fortok/cs_e13tdt-ud-dev.conllu
+	cat data/cs_e13tdt/cs_e13tdt-ud-test.conllu | perl -pe 'if(m/^[0-9]/) { chomp; @f=split(/\t/); $f[9]=~s/\s/_/g; $_=join("\t", @f)."\n" }' > data/cs_e13tdt/fortok/cs_e13tdt-ud-test.conllu
+	/home/zeman/nastroje/udpipe/udpipe-1.2.0-bin/bin-linux64/udpipe --train --tagger=none --parser=none cs_e13tdt.tokenizer --heldout=data/cs_e13tdt/fortok/cs_e13tdt-ud-dev.conllu data/cs_e13tdt/fortok/cs_e13tdt-ud-train.conllu
+	mv cs_e13tdt.tokenizer models/data-cs_e13tdt
+	# Launch parsing server with the new model.
+	source /net/work/people/zeman/python-env-udpipe-inference-lenka/bin/activate
+	python udpipe2_server.py 8001 --threads=4 czech czech-e13tdt-ud-hickok-260605:cs_e13tdt-ud-hickok-260605:ces:cs ./models/data-cs_e13tdt cs_e13tdt https://universaldependencies.org/
+	# Access the model through client script.
+	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
 
 
 
