@@ -476,7 +476,7 @@ etalon13split:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13tdt/train
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13tdt/dev
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13tdt/test
-	cp $(UDPIPE_DATA_DIR)/cs_e13to/*.conllu $(UDPIPE_DATA_DIR)/cs_e13tdt/train
+	cp data/etalon13_parsed/*.conllu $(UDPIPE_DATA_DIR)/cs_e13tdt/train
 	mv $(ETALON13DEV) $(UDPIPE_DATA_DIR)/cs_e13tdt/dev
 	mv $(ETALON13TEST) $(UDPIPE_DATA_DIR)/cs_e13tdt/test
 	cat $(UDPIPE_DATA_DIR)/cs_e13tdt/train/*.conllu > $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-train.conllu
