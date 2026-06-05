@@ -397,7 +397,9 @@ data/etalon13/%.conllu: $(ANNOTDIR)/14_stol/%_DEF.conllu
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 data/etalon13/%.conllu: $(ANNOTDIR)/15_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
@@ -406,7 +408,9 @@ data/etalon13/%.conllu: $(ANNOTDIR)/15_stol/%_DEF.conllu
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 .PHONY: etalon16
 etalon16: $(ETALON16FILES)
 data/etalon16/%.conllu: $(ANNOTDIR)/16_stol/%_DEF.conllu
@@ -417,7 +421,9 @@ data/etalon16/%.conllu: $(ANNOTDIR)/16_stol/%_DEF.conllu
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 data/etalon16/%.conllu: $(ANNOTDIR)/17_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
@@ -426,7 +432,9 @@ data/etalon16/%.conllu: $(ANNOTDIR)/17_stol/%_DEF.conllu
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
@@ -435,7 +443,9 @@ data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 .PHONY: etalon19
 etalon19: $(ETALON19FILES)
 data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
@@ -446,7 +456,9 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 
 # Parsing etalons using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
 .PHONY: etalon13parsed
