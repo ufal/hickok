@@ -382,9 +382,9 @@ ETALON16PARSEDFILES := $(addprefix data/etalon16_parsed/,$(subst data/etalon16/,
 ETALON19PARSEDFILES := $(addprefix data/etalon19_parsed/,$(subst data/etalon19/,,$(ETALON19FILES)))
 .PHONY: clean_etalons
 clean_etalons:
-	rm -rf data/etalon13
-	rm -rf data/etalon16
-	rm -rf data/etalon19
+	rm -rf data/etalon13/*.conllu
+	rm -rf data/etalon16/*.conllu
+	rm -rf data/etalon19/*.conllu
 .PHONY: etalons
 etalons: etalon13 etalon16 etalon19
 .PHONY: etalon13
