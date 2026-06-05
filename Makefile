@@ -584,10 +584,15 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	cat data/cs_e13tdt/cs_e13tdt-ud-dev.conllu | perl -pe 'if(m/^[0-9]/) { chomp; @f=split(/\t/); $f[9]=~s/\s/_/g; $_=join("\t", @f)."\n" }' > data/cs_e13tdt/fortok/cs_e13tdt-ud-dev.conllu
 	cat data/cs_e13tdt/cs_e13tdt-ud-test.conllu | perl -pe 'if(m/^[0-9]/) { chomp; @f=split(/\t/); $f[9]=~s/\s/_/g; $_=join("\t", @f)."\n" }' > data/cs_e13tdt/fortok/cs_e13tdt-ud-test.conllu
 	/home/zeman/nastroje/udpipe/udpipe-1.2.0-bin/bin-linux64/udpipe --train --tagger=none --parser=none cs_e13tdt.tokenizer --heldout=data/cs_e13tdt/fortok/cs_e13tdt-ud-dev.conllu data/cs_e13tdt/fortok/cs_e13tdt-ud-train.conllu
+	/home/zeman/nastroje/udpipe/udpipe-1.2.0-bin/bin-linux64/udpipe --train --tagger=none --parser=none cs_e16tdt.tokenizer --heldout=data/cs_e16tdt/fortok/cs_e16tdt-ud-dev.conllu data/cs_e16tdt/fortok/cs_e16tdt-ud-train.conllu
+	/home/zeman/nastroje/udpipe/udpipe-1.2.0-bin/bin-linux64/udpipe --train --tagger=none --parser=none cs_e19tdt.tokenizer --heldout=data/cs_e19tdt/fortok/cs_e19tdt-ud-dev.conllu data/cs_e19tdt/fortok/cs_e19tdt-ud-train.conllu
 	mv cs_e13tdt.tokenizer models/data-cs_e13tdt
 	# Launch parsing server with the new model.
 	source /net/work/people/zeman/python-env-udpipe-inference-lenka/bin/activate
 	python udpipe2_server.py 8001 --threads=4 czech czech-e13tdt-ud-hickok-260605:cs_e13tdt-ud-hickok-260605:ces:cs ./models/data-cs_e13tdt cs_e13tdt https://universaldependencies.org/
+	# Or with multiple models.
+	# Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
+	python udpipe2_server.py 8001 --threads=4 e13 e13 ./models/data-cs_e13tdt cs_e13tdt https://universaldependencies.org/ e16 ./models/data-cs_e16tdt cs_e16tdt https://universaldependencies.org/ e19 ./models/data-cs_e19tdt cs_e19tdt https://universaldependencies.org/
 	# Access the model through client script.
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
 
