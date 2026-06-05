@@ -466,6 +466,9 @@ etalon_test_only:
 	cat data/etalon16_parsed/*.conllu > $(UDPIPE_DATA_DIR)/cs_e16to/cs_e16to-ud-test.conllu
 	cat data/etalon19_parsed/*.conllu > $(UDPIPE_DATA_DIR)/cs_e19to/cs_e19to-ud-test.conllu
 
+# for i in /net/work/people/zeman/hickok-data/etalon13_parsed/*.conllu ; do $PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $i >> cs_e13to-tagged.conllu ; done
+# /net/work/people/zeman/unidep/tools/eval.py -v cs_e13to/cs_e13to-ud-test.conllu ./cs_e13to-tagged.conllu
+
 
 
 #----------------------------------------------------------------------------------------------------------------------
