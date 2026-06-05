@@ -469,6 +469,23 @@ etalon_test_only:
 # for i in /net/work/people/zeman/hickok-data/etalon13_parsed/*.conllu ; do $PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $i >> cs_e13to-tagged.conllu ; done
 # /net/work/people/zeman/unidep/tools/eval.py -v cs_e13to/cs_e13to-ud-test.conllu ./cs_e13to-tagged.conllu
 
+# Split Etalon 13 to training, development and test data.
+ETALON13DEV := $(addprefix $(UDPIPE_DATA_DIR)/cs_e13tdt/train/,$(addsuffix .conllu,005_umuc_rajhr 017_pas_muz_a 030_lek_frant_muz 040_let_a))
+ETALON13TEST := $(addprefix $(UDPIPE_DATA_DIR)/cs_e13tdt/train/,$(addsuffix .conllu,010_bibl_drazd_mt 019_rada_otc_r 033_prav_svab_c 042_pov_ol))
+etalon13split:
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13tdt/train
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13tdt/dev
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13tdt/test
+	cp $(UDPIPE_DATA_DIR)/cs_e13to/*.conllu $(UDPIPE_DATA_DIR)/cs_e13tdt/train
+	mv $(ETALON13DEV) $(UDPIPE_DATA_DIR)/cs_e13tdt/dev
+	mv $(ETALON13TEST) $(UDPIPE_DATA_DIR)/cs_e13tdt/test
+	cat $(UDPIPE_DATA_DIR)/cs_e13tdt/train/*.conllu > $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-train.conllu
+	cat $(UDPIPE_DATA_DIR)/cs_e13tdt/dev/*.conllu > $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-dev.conllu
+	cat $(UDPIPE_DATA_DIR)/cs_e13tdt/test/*.conllu > $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e13tdt/train
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e13tdt/dev
+	rm -rf $(UDPIPE_DATA_DIR)/cs_e13tdt/test
+
 
 
 #----------------------------------------------------------------------------------------------------------------------
