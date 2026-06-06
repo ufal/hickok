@@ -338,11 +338,14 @@ postprocess19:
 	  set -o pipefail ; cat backup.conllu | udapy -s util.Eval node='node.misc["XixstolTag"]=node.xpos' ud.cs.AddMwt ud.cs.FixMorpho | ./tools/xpos_pdtc_from_upos_feats.pl > $$i ; \
 	  rm -f backup.conllu ; \
 	done
-	cat $(ANNOTDIR)/19_stol/*.conllu > $(ANNOTDIR)/19stol.conllu
 
 compare19:
+	# Podobně jako na řádku níže potřebuju taky fictree.conllu a podobně jeden soubor pro staročeštinu (popř. včetně střední češtiny).
+	cat $(ANNOTDIR)/19_stol/*.conllu > $(ANNOTDIR)/19stol.conllu
 	./tools/survey_ambiguous_analyses.pl --compare $(ANNOTDIR)/19stol.conllu $(ANNOTDIR)/14stol.conllu $(ANNOTDIR)/fictree.conllu > $(ANNOTDIR)/19stol-14stol-fictree-diff.txt
 
+# Nyní parsujeme novočeským UDPipem i Etalon 19, který z tohohle vznikne.
+# Rozdíl je ale v tom, že tam pouze doplňujeme novočeskou syntaxi a morfologii necháváme ruční, kdežto tady se predikuje i morfologie (výsledek slouží ke srovnání s ruční anotací a odhalení systematických rozdílů v ruční anotaci).
 parse19:
 	mkdir -p data/19_stol_parsed_by217
 	for i in $(ANNOTDIR)/19_stol/*.conllu ; do echo $$i ; \
@@ -568,6 +571,8 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	./scripts/compute_embeddings.sh ./data
 	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
 	./scripts/train.sh ./data cs_e13tdt
+	./scripts/train.sh ./data cs_e16tdt
+	./scripts/train.sh ./data cs_e19tdt
 	# This will submit one cluster job for cs_e13tdt. It may take about 2 hours. Monitor progress:
 	tail -f models/data-cs_e13tdt/training.log
 	# UDPipe 1.2 cannot digest CoNLL-U files that have spaces in MISC.
