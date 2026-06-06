@@ -678,25 +678,25 @@ clean_monitor20parsed:
 	rm -rf $(MONITOR20PARSEDFILES)/*
 .PHONY: monitor13parsed
 monitor13parsed: $(MONITOR13PARSEDFILES)
-$(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTEXTDIR)/13-15/%.txt:
+$(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTEXTDIR)/13-15/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e13 --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: monitor16parsed
 monitor16parsed: $(MONITOR16PARSEDFILES)
-$(MONITORPARSEDDIR)/16-18/%.conllu: $(MONITORTEXTDIR)/16-18/%.txt:
+$(MONITORPARSEDDIR)/16-18/%.conllu: $(MONITORTEXTDIR)/16-18/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e16 --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: monitor19parsed
 monitor19parsed: $(MONITOR19PARSEDFILES)
-$(MONITORPARSEDDIR)/19/%.conllu: $(MONITORTEXTDIR)/19/%.txt:
+$(MONITORPARSEDDIR)/19/%.conllu: $(MONITORTEXTDIR)/19/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e19 --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: monitor20parsed
 monitor20parsed: $(MONITOR20PARSEDFILES)
-$(MONITORPARSEDDIR)/20/%.conllu: $(MONITORTEXTDIR)/20/%.txt:
+$(MONITORPARSEDDIR)/20/%.conllu: $(MONITORTEXTDIR)/20/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
-$(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt:
+$(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
 
