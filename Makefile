@@ -15,11 +15,6 @@ MERGEDDIR := data/merged
 PREPRCDIR := data/preprocessed
 FORANNDIR := data/for_annotation
 ANNOTDIR  := data/annotated
-# The Monitor corpus has its own workflow. We process it with UDPipe but we do not annotate anything manually there.
-MONITORSRCDIR := data/monitor_korpus
-MONITORRENAMEDDIR := data/monitor_renamed
-MONITORTEXTDIR := data/monitor_text
-MONITORPARSEDDIR := data/monitor_parsed
 
 # Find all source files in the source folder.
 VERTFILES   := $(wildcard $(VERTDIR)/*/*.vert)
@@ -593,16 +588,27 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	# Or with multiple models.
 	# Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
 	python udpipe2_server.py 8001 --threads=4 e13 e13 ./models/data-cs_e13tdt cs_e13tdt https://universaldependencies.org/ e16 ./models/data-cs_e16tdt cs_e16tdt https://universaldependencies.org/ e19 ./models/data-cs_e19tdt cs_e19tdt https://universaldependencies.org/
+	# Or launch the server on a cluster machine with a GPU.
+	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
+		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
+			e13 ./models/data-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
+			e16 ./models/data-cs_e16tdt cs_e16tdt https://ufal.mff.cuni.cz/ \
+			e19 ./models/data-cs_e19tdt cs_e19tdt https://ufal.mff.cuni.cz/ \
+			czech:ces:cs:fictree:e21 ./models-pretrained/cs_all-ud-2.17-251125.model cs_fictree https://ufal.mff.cuni.cz
 	# Access the model through client script.
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
 
 
 
 #----------------------------------------------------------------------------------------------------------------------
-# Monitor corpus parsing
+# Monitor corpus.
 # $(MONITORDIR) has subfolders "19", "20", "21" for individual centuries (where "21" in fact starts with the year 1990).
 # Each of them has subfolders "JADRO" and "NEJADRO".
-# Their contents are .txt files in "19" and .xml files in "20" and "21".
+# Their contents are .txt files in "13-15", "16-18" and "19", and .xml files in "20" and "21".
+# Even the .txt files contain occasional markup that must be removed. Prepare the files: rename them, remove markup.
+MONITORSRCDIR := data/monitor_korpus
+MONITORRENAMEDDIR := data/monitor_renamed
+MONITORTEXTDIR := data/monitor_text
 MONITOR13SRCFILES := $(wildcard $(MONITORSRCDIR)/13-15/*/*.txt)
 MONITOR16SRCFILES := $(wildcard $(MONITORSRCDIR)/16-18/*/*.txt)
 MONITOR19SRCFILES := $(wildcard $(MONITORSRCDIR)/19/*/*.txt)
@@ -614,10 +620,6 @@ MONITOR13TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst 
 MONITOR16TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR16XMLFILES)))))
 MONITOR19TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR19XMLFILES)))))
 MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORSRCDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
-MONITOR13PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR13TEXTFILES)))))
-MONITOR16PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR16TEXTFILES)))))
-MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
-MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .xml,,$(MONITOR20TEXTFILES)))))
 
 # The files from 19th century have bad names and must be copied and renamed first.
 # The files from 13th to 18th century seem less bad but we will rename them anyway.
@@ -646,22 +648,57 @@ $(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
 	mkdir -p $(@D)
 	./tools/remove_doc_p_xml.pl $< > $@
 
-# Parse the plain text with UDPipe 2.17. The script is in my parsing SVN repository.
-# The script accesses the REST API at https://lindat.mff.cuni.cz/services/udpipe/.
-# The UDPipe Czech FicTree model does not know the Czech Unicode „quotes“; the two
-# subsequent Perl scripts try to fix them, but they are based on observations from
-# the Old Czech data, not from the Monitor Corpus.
+
+
+#----------------------------------------------------------------------------------------------------------------------
+# Parsing the monitor corpus.
+# By default, texts from 20th and 21st centuries are parsed by a Modern Czech model (FicTree), texts from 19th century
+# are parsed by a model trained on Etalon 19, 16th to 18th century by Etalon 16, and 13th to 15th century by Etalon 13.
+# We assume that a parsing service is running on the network at the address given in $(UDPIPESERVICE). For official
+# pretrained UD models this could be Lindat, but for our custom models we need to launch the service on our cluster
+# (see above how to do it) and then access it from here.
+UDPIPESERVICE := http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001
+UDPIPECLIENT := python /net/work/people/zeman/udpipe/udpipe2_client.py
+MONITORPARSEDDIR := data/monitor_parsed
+MONITOR13PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR13TEXTFILES)))))
+MONITOR16PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR16TEXTFILES)))))
+MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
+MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .xml,,$(MONITOR20TEXTFILES)))))
+.PHONY: clean_monitor13parsed
+clean_monitor13parsed:
+	rm -rf $(MONITOR13PARSEDFILES)/*
+.PHONY: clean_monitor16parsed
+clean_monitor16parsed:
+	rm -rf $(MONITOR16PARSEDFILES)/*
+.PHONY: clean_monitor19parsed
+clean_monitor19parsed:
+	rm -rf $(MONITOR19PARSEDFILES)/*
+.PHONY: clean_monitor20parsed
+clean_monitor20parsed:
+	rm -rf $(MONITOR20PARSEDFILES)/*
 .PHONY: monitor13parsed
 monitor13parsed: $(MONITOR13PARSEDFILES)
+$(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTEXTDIR)/13-15/%.txt:
+	mkdir -p $(@D)
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e13 --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: monitor16parsed
 monitor16parsed: $(MONITOR16PARSEDFILES)
+$(MONITORPARSEDDIR)/16-18/%.conllu: $(MONITORTEXTDIR)/16-18/%.txt:
+	mkdir -p $(@D)
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e16 --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: monitor19parsed
 monitor19parsed: $(MONITOR19PARSEDFILES)
+$(MONITORPARSEDDIR)/19/%.conllu: $(MONITORTEXTDIR)/19/%.txt:
+	mkdir -p $(@D)
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e19 --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: monitor20parsed
 monitor20parsed: $(MONITOR20PARSEDFILES)
-$(MONITORPARSEDDIR)/%.conllu: $(MONITORTEXTDIR)/%.txt
+$(MONITORPARSEDDIR)/20/%.conllu: $(MONITORTEXTDIR)/20/%.txt:
 	mkdir -p $(@D)
-	$(UDPIPE) cs_fictree by217 < $< | ./tools/fix_sentence_segmentation_quotes.pl | ./tools/fix_sentence_segmentation.pl > $@
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
+$(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt:
+	mkdir -p $(@D)
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
 
 
 
