@@ -666,16 +666,16 @@ MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $
 MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .xml,,$(MONITOR20TEXTFILES)))))
 .PHONY: clean_monitor13parsed
 clean_monitor13parsed:
-	rm -rf $(MONITOR13PARSEDFILES)/*
+	rm -rf $(MONITORPARSEDDIR)/13-15/*
 .PHONY: clean_monitor16parsed
 clean_monitor16parsed:
-	rm -rf $(MONITOR16PARSEDFILES)/*
+	rm -rf $(MONITORPARSEDDIR)/16-18/*
 .PHONY: clean_monitor19parsed
 clean_monitor19parsed:
-	rm -rf $(MONITOR19PARSEDFILES)/*
+	rm -rf $(MONITORPARSEDDIR)/19/*
 .PHONY: clean_monitor20parsed
 clean_monitor20parsed:
-	rm -rf $(MONITOR20PARSEDFILES)/*
+	rm -rf $(MONITORPARSEDDIR)/{20,21}/*
 .PHONY: monitor13parsed
 monitor13parsed: $(MONITOR13PARSEDFILES)
 $(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTEXTDIR)/13-15/%.txt
