@@ -566,6 +566,12 @@ etalon19testfictree:
 etalon19teste19:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model e19 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye19.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye19.conllu
+etalon19teste16:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model e16 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye16.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye16.conllu
+etalon19teste13:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model e13 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye13.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye13.conllu
 
 
 
