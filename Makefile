@@ -371,9 +371,15 @@ ETALON13PARSEDFILES := $(addprefix data/etalon13_parsed/,$(subst data/etalon13/,
 ETALON16PARSEDFILES := $(addprefix data/etalon16_parsed/,$(subst data/etalon16/,,$(ETALON16FILES)))
 ETALON19PARSEDFILES := $(addprefix data/etalon19_parsed/,$(subst data/etalon19/,,$(ETALON19FILES)))
 .PHONY: clean_etalons
-clean_etalons:
+clean_etalons: clean_etalon13 clean_etalon16 clean_etalon19
+.PHONY: clean_etalon13
+clean_etalon13:
 	rm -rf data/etalon13/*.conllu
+.PHONY: clean_etalon16
+clean_etalon16:
 	rm -rf data/etalon16/*.conllu
+.PHONY: clean_etalon19
+clean_etalon19:
 	rm -rf data/etalon19/*.conllu
 # The etalons will be parsed using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
 .PHONY: etalons
