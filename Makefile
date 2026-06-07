@@ -528,43 +528,6 @@ etalon19split:
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/test
 	@echo If necessary, update the size of this treebank in $(UDPIPE_DATA_DIR)/langs_sizes.
 
-# wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/*.conllu
-# 6517 sentences, 124360 morphosyntactic words, 122869 surface tokens (including 1490 multiword tokens spanning 2981 words)
-# wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-train.conllu
-# 5712 sentences, 105444 morphosyntactic words, 104166 surface tokens (including 1277 multiword tokens spanning 2555 words)
-# wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-dev.conllu
-# 393 sentences, 9558 morphosyntactic words, 9438 surface tokens (including 120 multiword tokens spanning 240 words)
-# wcc /net/work/people/zeman/udpipe/data/cs_e13tdt/cs_e13tdt-ud-test.conllu
-# 412 sentences, 9358 morphosyntactic words, 9265 surface tokens (including 93 multiword tokens spanning 186 words)
-
-# wcc data/cs_e16tdt/*.conllu
-# 5607 sentences, 123076 morphosyntactic words, 121956 surface tokens (including 1120 multiword tokens spanning 2240 words)
-# wcc data/cs_e16tdt/cs_e16tdt-ud-train.conllu
-# 4967 sentences, 103829 morphosyntactic words, 102893 surface tokens (including 936 multiword tokens spanning 1872 words)
-# wcc data/cs_e16tdt/cs_e16tdt-ud-dev.conllu
-# 339 sentences, 9691 morphosyntactic words, 9579 surface tokens (including 112 multiword tokens spanning 224 words)
-# wcc data/cs_e16tdt/cs_e16tdt-ud-test.conllu
-# 301 sentences, 9556 morphosyntactic words, 9484 surface tokens (including 72 multiword tokens spanning 144 words)
-
-# wcc data/cs_e19tdt/*.conllu
-# 7034 sentences, 128803 morphosyntactic words, 128107 surface tokens (including 696 multiword tokens spanning 1392 words)
-# wcc data/cs_e19tdt/cs_e19tdt-ud-train.conllu
-# 5807 sentences, 111015 morphosyntactic words, 110440 surface tokens (including 575 multiword tokens spanning 1150 words)
-# wcc data/cs_e19tdt/cs_e19tdt-ud-dev.conllu
-# 720 sentences, 8897 morphosyntactic words, 8849 surface tokens (including 48 multiword tokens spanning 96 words)
-# wcc data/cs_e19tdt/cs_e19tdt-ud-test.conllu
-# 507 sentences, 8891 morphosyntactic words, 8818 surface tokens (including 73 multiword tokens spanning 146 words)
-
-etalon13testfictree:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-by217.conllu
-	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-by217.conllu
-etalon16testfictree:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-by217.conllu
-	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-by217.conllu
-etalon19testfictree:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-by217.conllu
-	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-by217.conllu
-
 trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
 	ssh -A sol1
 	cd /net/work/people/zeman/udpipe
@@ -590,6 +553,19 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	# Access the model through client script. Note that we need to know which cluster machine the server runs on!
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model e13 --tokenizer='' --tagger='' --parser=''
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
+
+etalon13testfictree:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-by217.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-by217.conllu
+etalon16testfictree:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-by217.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-by217.conllu
+etalon19testfictree:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-by217.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-by217.conllu
+etalon19teste19:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model e19 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye19.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye19.conllu
 
 
 
@@ -695,29 +671,9 @@ $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 
 
 
-#----------------------------------------------------------------------------------------------------------------------
-# The goals from here down were partly copied from an older project. They have not been fully adapted to be useful.
-
-DEFFILES14 := 001_prip_jir 002_modl_kunh 003_alx_h 004_zalt_u 005_umuc_rajhr 008_hrad_sat 011_alx_bm 019_rada_otc_r
-DEFFILES15 := 021_podk_u 026_otc_b 028_hus_kor_d_35 032_mart_kron_a 037_bibl_kladr_1rg
-# Evaluate the quality of the parsing and preprocessing on the files for which we now have manual annotation.
-# The UD parser evaluation script and conllu_quick_fix.pl should be in PATH.
-# The conllu_quick_fix.pl script ensures that fatal syntactic errors, which are not our focus here, will not prevent evaluation.
-DEFFILES := $(addprefix $(ANNOTDIR)/14_stol/, $(addsuffix _DEF.conllu, $(DEFFILES14))) $(addprefix $(ANNOTDIR)/15_stol/, $(addsuffix _DEF.conllu, $(DEFFILES15)))
-EVALFILES := $(addprefix $(PREPRCDIR)/13_19_stol/, $(addsuffix .conllu, $(DEFFILES14) $(DEFFILES15)))
-eval:
-	cat $(DEFFILES) | conllu_quick_fix.pl > gold.conllu
-	cat $(EVALFILES) | conllu_quick_fix.pl > sys.conllu
-	eval.py -v gold.conllu sys.conllu
-
-
-
-# Clean rule to remove all generated files.
-clean:
-	rm -rf $(CONLLUDIR) $(TEXTDIR) $(PARSEDDIR) $(MERGEDDIR) $(PREPRCDIR) $(FORANNDIR)
-
-
-
+#######################################################################################################################
+###!!! Ty cíle z Makefilu níže možná prostě vyhodím, ale za úvahu stojí ta ruční anotace, kterou jsem tehdy dělal já, Jirka Pergler a Pavel Kosek.
+###!!! Sice jsme ještě neměli ustálená pravidla jako v Hičkoku, ale zase to byly texty, které se pak v Hičkoku nedělaly (prvních 5 kapitol Matoušova evangelia z Bible drážďanské).
 # Archiv cílů z projektu Matouš 2021
 
 amblist:
