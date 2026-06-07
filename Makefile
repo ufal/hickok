@@ -575,32 +575,20 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	./scripts/train.sh ./data cs_e19tdt
 	# This will submit one cluster job for cs_e13tdt. It may take about 2 hours. Monitor progress:
 	tail -f models/data-cs_e13tdt/training.log
-	# UDPipe 1.2 cannot digest CoNLL-U files that have spaces in MISC.
-	# But maybe it was just that I forgot to set allow_spaces (not sure if that would only allow them in FORM and LEMMA, or also in MISC).
-	# On the other hand, https://ufal.mff.cuni.cz/udpipe/1/users-manual#model_training_tokenizer says that if any training token contains
-	# a space, the default is allow_spaces=1.
-	mkdir -p data/cs_e13tdt/fortok
-	cat data/cs_e13tdt/cs_e13tdt-ud-train.conllu | perl -pe 'if(m/^[0-9]/) { chomp; @f=split(/\t/); $f[9]=~s/\s/_/g; $_=join("\t", @f)."\n" }' > data/cs_e13tdt/fortok/cs_e13tdt-ud-train.conllu
-	cat data/cs_e13tdt/cs_e13tdt-ud-dev.conllu | perl -pe 'if(m/^[0-9]/) { chomp; @f=split(/\t/); $f[9]=~s/\s/_/g; $_=join("\t", @f)."\n" }' > data/cs_e13tdt/fortok/cs_e13tdt-ud-dev.conllu
-	cat data/cs_e13tdt/cs_e13tdt-ud-test.conllu | perl -pe 'if(m/^[0-9]/) { chomp; @f=split(/\t/); $f[9]=~s/\s/_/g; $_=join("\t", @f)."\n" }' > data/cs_e13tdt/fortok/cs_e13tdt-ud-test.conllu
-	/home/zeman/nastroje/udpipe/udpipe-1.2.0-bin/bin-linux64/udpipe --train --tagger=none --parser=none cs_e13tdt.tokenizer --heldout=data/cs_e13tdt/fortok/cs_e13tdt-ud-dev.conllu data/cs_e13tdt/fortok/cs_e13tdt-ud-train.conllu
-	/home/zeman/nastroje/udpipe/udpipe-1.2.0-bin/bin-linux64/udpipe --train --tagger=none --parser=none cs_e16tdt.tokenizer --heldout=data/cs_e16tdt/fortok/cs_e16tdt-ud-dev.conllu data/cs_e16tdt/fortok/cs_e16tdt-ud-train.conllu
-	/home/zeman/nastroje/udpipe/udpipe-1.2.0-bin/bin-linux64/udpipe --train --tagger=none --parser=none cs_e19tdt.tokenizer --heldout=data/cs_e19tdt/fortok/cs_e19tdt-ud-dev.conllu data/cs_e19tdt/fortok/cs_e19tdt-ud-train.conllu
-	mv cs_e13tdt.tokenizer models/data-cs_e13tdt
-	# Launch parsing server with the new model.
-	source /net/work/people/zeman/python-env-udpipe-inference-lenka/bin/activate
-	python udpipe2_server.py 8001 --threads=4 czech czech-e13tdt-ud-hickok-260605:cs_e13tdt-ud-hickok-260605:ces:cs ./models/data-cs_e13tdt cs_e13tdt https://universaldependencies.org/
-	# Or with multiple models.
+	# Train tokenizer using UDPipe 1.2 (runs locally, does not use cluster).
+	./scripts/train_tokenizer.sh ./data cs_e13tdt models/data-cs_e13tdt
+	./scripts/train_tokenizer.sh ./data cs_e16tdt models/data-cs_e16tdt
+	./scripts/train_tokenizer.sh ./data cs_e19tdt models/data-cs_e19tdt
+	# Launch parsing server with the new models, ideally on a cluster machine with a GPU available.
 	# Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
-	python udpipe2_server.py 8001 --threads=4 e13 e13 ./models/data-cs_e13tdt cs_e13tdt https://universaldependencies.org/ e16 ./models/data-cs_e16tdt cs_e16tdt https://universaldependencies.org/ e19 ./models/data-cs_e19tdt cs_e19tdt https://universaldependencies.org/
-	# Or launch the server on a cluster machine with a GPU.
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
 		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
 			e13 ./models/data-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
 			e16 ./models/data-cs_e16tdt cs_e16tdt https://ufal.mff.cuni.cz/ \
 			e19 ./models/data-cs_e19tdt cs_e19tdt https://ufal.mff.cuni.cz/ \
 			czech:ces:cs:fictree:e21 ./models-pretrained/cs_all-ud-2.17-251125.model cs_fictree https://ufal.mff.cuni.cz
-	# Access the model through client script.
+	# Access the model through client script. Note that we need to know which cluster machine the server runs on!
+	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model e13 --tokenizer='' --tagger='' --parser=''
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
 
 
