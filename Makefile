@@ -339,12 +339,6 @@ postprocess19:
 	  rm -f backup.conllu ; \
 	done
 
-compare19:
-	###!!! Teď, když máme sjednocené cíle pro výrobu tří etalonů, by se tohle srovnání mohlo přesunout tam.
-	# Podobně jako na řádku níže potřebuju taky fictree.conllu a podobně jeden soubor pro staročeštinu (popř. včetně střední češtiny).
-	cat $(ANNOTDIR)/19_stol/*.conllu > $(ANNOTDIR)/19stol.conllu
-	./tools/survey_ambiguous_analyses.pl --compare $(ANNOTDIR)/19stol.conllu $(ANNOTDIR)/14stol.conllu $(ANNOTDIR)/fictree.conllu > $(ANNOTDIR)/19stol-14stol-fictree-diff.txt
-
 # Nyní parsujeme novočeským UDPipem i Etalon 19, který z tohohle vznikne.
 # Rozdíl je ale v tom, že tam pouze doplňujeme novočeskou syntaxi a morfologii necháváme ruční, kdežto tady se
 # predikuje i morfologie (výsledek slouží ke srovnání s ruční anotací a odhalení systematických rozdílů v ruční anotaci).
@@ -361,8 +355,6 @@ parse19:
 #   - Možná bude problém rozpoznat vlastní jména. Ale např. v onom Blesku z dubna 1864 má jméno "Precl" na 6. pozici (za pádem) nějaké "j", normálně tam bývá pomlčka.
 #   - Dořešit části spřežek a jiné divné věci se značkou Yo (je toho jen asi 34 typů, tak by to šlo vyřešit i seznamem).
 # - Prohnat to validací včetně MarkFeatsBugs.
-# - Udělat nějaké statistické porovnání lematizace, UPOS a FEATS mezi PDT-C, 19. stoletím, střední a starou češtinou.
-#   Např. pro každý tvar seřadit jeho analýzy podle četnosti, pak se podívat, jestli se nejčastější výsledek v různých korpusech liší.
 
 
 
@@ -459,6 +451,21 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
 	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 
+# TODO:
+# - Prohnat i 19. století validací včetně MarkFeatsBugs.
+# - Udělat nějaké statistické porovnání lematizace, UPOS a FEATS mezi PDT-C, 19. stoletím, střední a starou češtinou.
+#   Např. pro každý tvar seřadit jeho analýzy podle četnosti, pak se podívat, jestli se nejčastější výsledek v různých korpusech liší.
+compare19:
+	###!!! Teď, když máme sjednocené cíle pro výrobu tří etalonů, by se tohle srovnání mohlo přesunout tam.
+	# Podobně jako na řádku níže potřebuju taky fictree.conllu a podobně jeden soubor pro staročeštinu (popř. včetně střední češtiny).
+	cat $(ANNOTDIR)/19_stol/*.conllu > $(ANNOTDIR)/19stol.conllu
+	./tools/survey_ambiguous_analyses.pl --compare $(ANNOTDIR)/19stol.conllu $(ANNOTDIR)/14stol.conllu $(ANNOTDIR)/fictree.conllu > $(ANNOTDIR)/19stol-14stol-fictree-diff.txt
+
+
+
+#----------------------------------------------------------------------------------------------------------------------
+# Training and testing parsers on the etalons.
+
 # Concatenate each etalon into a big file similarly to UD treebanks.
 UDPIPE_DATA_DIR := /net/work/people/zeman/udpipe/data
 .PHONY: etalon_test_only
@@ -472,9 +479,6 @@ etalon_test_only:
 	cat data/etalon13/*.conllu > $(UDPIPE_DATA_DIR)/cs_e13to/cs_e13to-ud-test.conllu
 	cat data/etalon16/*.conllu > $(UDPIPE_DATA_DIR)/cs_e16to/cs_e16to-ud-test.conllu
 	cat data/etalon19/*.conllu > $(UDPIPE_DATA_DIR)/cs_e19to/cs_e19to-ud-test.conllu
-
-# for i in /net/work/people/zeman/hickok-data/etalon13_parsed/*.conllu ; do $PARSINGROOT/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $i >> cs_e13to-tagged.conllu ; done
-# /net/work/people/zeman/unidep/tools/eval.py -v cs_e13to/cs_e13to-ud-test.conllu ./cs_e13to-tagged.conllu
 
 # Split Etalon 13 to training, development and test data.
 ETALON13DEV := $(addprefix $(UDPIPE_DATA_DIR)/cs_e13tdt/train/,$(addsuffix .conllu,005_umuc_rajhr 017_pas_muz_a 030_lek_frant_muz 040_let_a))

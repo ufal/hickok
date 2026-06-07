@@ -653,6 +653,7 @@ sub process_token
                 $lemma = lc($form);
                 $lemma =~ s/ce$/ko/;
                 $lemma =~ s/[ěu]$/o/;
+                $lemma =~ s/anjelsko/andělsko/;
                 ($upos, $feats) = split(/\t/, $interset->convert('N-NS6-----A-----'));
             }
             elsif($form =~ m/^(snadě)$/)
@@ -665,6 +666,7 @@ sub process_token
             {
                 $lemma = lc($form);
                 $lemma =~ s/.$//;
+                $lemma =~ s/^zpod$/spod/;
                 ($upos, $feats) = split(/\t/, $interset->convert('N-IS2-----A-----'));
             }
             elsif($form =~ m/^(při)$/)
