@@ -634,6 +634,60 @@ sub process_token
         {
             add_misc_attribute(\@misc, 'AddMwt', "$1 něj");
         }
+        # The tag 'Yo' usually marks the second of two words which would be
+        # written as one word in Modern Czech: v levo, v pravo, na jevo, ...
+        if($xpos =~ m/^Yo/)
+        {
+            if($form =~ m/^(levo|pravo|jevo)$/i)
+            {
+                ($upos, $feats) = split(/\t/, $interset->convert('N-NS4-----A-----'));
+            }
+            elsif($form =~ m/^(živa|úplna|povlovna|krátka|husta|hola|darma|cela|pola)$/)
+            {
+                $lemma = lc($form);
+                $lemma =~ s/a$/o/;
+                ($upos, $feats) = split(/\t/, $interset->convert('N-NS2-----A-----'));
+            }
+            elsif($form =~ m/^(živě|brzku|homéopaticku|vojensku|německu|česku|anjelsku|živu|krátce|jevě)$/)
+            {
+                $lemma = lc($form);
+                $lemma =~ s/ce$/ko/;
+                $lemma =~ s/[ěu]$/o/;
+                ($upos, $feats) = split(/\t/, $interset->convert('N-NS6-----A-----'));
+            }
+            elsif($form =~ m/^(snadě)$/)
+            {
+                $lemma = lc($form);
+                $lemma =~ s/.$//;
+                ($upos, $feats) = split(/\t/, $interset->convert('N-IS6-----A-----'));
+            }
+            elsif($form =~ m/^(novu|zpodu|hora)$/)
+            {
+                $lemma = lc($form);
+                $lemma =~ s/.$//;
+                ($upos, $feats) = split(/\t/, $interset->convert('N-IS2-----A-----'));
+            }
+            elsif($form =~ m/^(při)$/)
+            {
+                $lemma = lc($form);
+                ($upos, $feats) = split(/\t/, $interset->convert('RR--6-----------'));
+            }
+            elsif($form =~ m/^(sám)$/)
+            {
+                $lemma = 'samý';
+                ($upos, $feats) = split(/\t/, $interset->convert('PLMS1-----------'));
+            }
+            elsif($form =~ m/^(čež)$/)
+            {
+                $lemma = 'což';
+                ($upos, $feats) = split(/\t/, $interset->convert('P4-S4-----------'));
+            }
+            elsif($form =~ m/^(nivec)$/)
+            {
+                $lemma = 'nivec';
+                ($upos, $feats) = split(/\t/, $interset->convert('PW--4-----------'));
+            }
+        }
     }
     # Aggregates have a double lemma, e.g., "tos" has the lemma "ten_být".
     # Keep only the first part (the AddMwt block in Udapi will take care of

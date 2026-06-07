@@ -340,12 +340,14 @@ postprocess19:
 	done
 
 compare19:
+	###!!! Teď, když máme sjednocené cíle pro výrobu tří etalonů, by se tohle srovnání mohlo přesunout tam.
 	# Podobně jako na řádku níže potřebuju taky fictree.conllu a podobně jeden soubor pro staročeštinu (popř. včetně střední češtiny).
 	cat $(ANNOTDIR)/19_stol/*.conllu > $(ANNOTDIR)/19stol.conllu
 	./tools/survey_ambiguous_analyses.pl --compare $(ANNOTDIR)/19stol.conllu $(ANNOTDIR)/14stol.conllu $(ANNOTDIR)/fictree.conllu > $(ANNOTDIR)/19stol-14stol-fictree-diff.txt
 
 # Nyní parsujeme novočeským UDPipem i Etalon 19, který z tohohle vznikne.
-# Rozdíl je ale v tom, že tam pouze doplňujeme novočeskou syntaxi a morfologii necháváme ruční, kdežto tady se predikuje i morfologie (výsledek slouží ke srovnání s ruční anotací a odhalení systematických rozdílů v ruční anotaci).
+# Rozdíl je ale v tom, že tam pouze doplňujeme novočeskou syntaxi a morfologii necháváme ruční, kdežto tady se
+# predikuje i morfologie (výsledek slouží ke srovnání s ruční anotací a odhalení systematických rozdílů v ruční anotaci).
 parse19:
 	mkdir -p data/19_stol_parsed_by217
 	for i in $(ANNOTDIR)/19_stol/*.conllu ; do echo $$i ; \
@@ -353,16 +355,14 @@ parse19:
 	done
 
 # TODO:
-# - Jsou tam často rozdělené věty, kde by neměly být (např. 1864_blesk_9.4.1864, ale i různě jinde). Projednat další postup s Martinem.
 # - Převést poziční (šestnáctimístné) značky na UPOS a FEATS (Interset). Zatím zjištěné odchylky od tagsetu cs::cnk:
 #   - Částice sice bývají samotné T (místo TT), ale zvratné "se" může mít T7, což je zřejmě kombinace TT a P7 tam, kde anotátoři nechtějí říct, že je to zájmeno, a chtějí to mít jako částici.
 #     Tohle určitě opravit, ale na druhou stranu tu informaci někde v MISC zachovat, protože nám pomůže se syntaktickou anotací (expl:pv/pass vs. normální větný člen).
 #   - Možná bude problém rozpoznat vlastní jména. Ale např. v onom Blesku z dubna 1864 má jméno "Precl" na 6. pozici (za pádem) nějaké "j", normálně tam bývá pomlčka.
 #   - Dořešit části spřežek a jiné divné věci se značkou Yo (je toho jen asi 34 typů, tak by to šlo vyřešit i seznamem).
-# - Spousta tokenů má v MISC Comment=ToDo. Má se něco udělat, nebo se to má smazat?
-# - Všem datům (nejen těm z 19. století) dopočítat jednotné značky XPOS zpětně z UPOS a FEATS. Asi stejné, jako jsou v PDT-C.
 # - Prohnat to validací včetně MarkFeatsBugs.
-# - Udělat nějaké statistické porovnání lematizace, UPOS a FEATS mezi PDT-C, 19. stoletím, střední a starou češtinou. Např. pro každý tvar seřadit jeho analýzy podle četnosti, pak se podívat, jestli se nejčastější výsledek v různých korpusech liší.
+# - Udělat nějaké statistické porovnání lematizace, UPOS a FEATS mezi PDT-C, 19. stoletím, střední a starou češtinou.
+#   Např. pro každý tvar seřadit jeho analýzy podle četnosti, pak se podívat, jestli se nejčastější výsledek v různých korpusech liší.
 
 
 
