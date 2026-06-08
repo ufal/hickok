@@ -349,11 +349,6 @@ parse19:
 	done
 
 # TODO:
-# - Převést poziční (šestnáctimístné) značky na UPOS a FEATS (Interset). Zatím zjištěné odchylky od tagsetu cs::cnk:
-#   - Částice sice bývají samotné T (místo TT), ale zvratné "se" může mít T7, což je zřejmě kombinace TT a P7 tam, kde anotátoři nechtějí říct, že je to zájmeno, a chtějí to mít jako částici.
-#     Tohle určitě opravit, ale na druhou stranu tu informaci někde v MISC zachovat, protože nám pomůže se syntaktickou anotací (expl:pv/pass vs. normální větný člen).
-#   - Možná bude problém rozpoznat vlastní jména. Ale např. v onom Blesku z dubna 1864 má jméno "Precl" na 6. pozici (za pádem) nějaké "j", normálně tam bývá pomlčka.
-#   - Dořešit části spřežek a jiné divné věci se značkou Yo (je toho jen asi 34 typů, tak by to šlo vyřešit i seznamem).
 # - Prohnat to validací včetně MarkFeatsBugs.
 
 
@@ -473,7 +468,25 @@ compare19:
 # Training and testing parsers on the etalons.
 
 # Concatenate each etalon into a big file similarly to UD treebanks.
-UDPIPE_DATA_DIR := /net/work/people/zeman/udpipe/data
+# Also fetch modern Czech data from an official UD release.
+UDPIPE_DATA_DIR := data/for_udpipe
+UD_RELEASE_DIR := /net/data/universal-dependencies-2.18
+
+.PHONY: copy_ud_czech
+copy_ud_czech:
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_pdtc
+	rm -f $(UDPIPE_DATA_DIR)/cs_pdtc/*.conllu
+	cp $(UD_RELEASE_DIR)/UD_Czech-PDTC/*.conllu $(UDPIPE_DATA_DIR)/cs_pdtc
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_fictree
+	rm -f $(UDPIPE_DATA_DIR)/cs_fictree/*.conllu
+	cp $(UD_RELEASE_DIR)/UD_Czech-FicTree/*.conllu $(UDPIPE_DATA_DIR)/cs_fictree
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_cac
+	rm -f $(UDPIPE_DATA_DIR)/cs_cac/*.conllu
+	cp $(UD_RELEASE_DIR)/UD_Czech-CAC/*.conllu $(UDPIPE_DATA_DIR)/cs_cac
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_cltt
+	rm -f $(UDPIPE_DATA_DIR)/cs_cltt/*.conllu
+	cp $(UD_RELEASE_DIR)/UD_Czech-CLTT/*.conllu $(UDPIPE_DATA_DIR)/cs_cltt
+
 .PHONY: etalon_test_only
 etalon_test_only:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13to
