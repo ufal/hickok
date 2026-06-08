@@ -559,7 +559,7 @@ cs_all:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_all
 	rm -f $(UDPIPE_DATA_DIR)/cs_all/*
 	for i in cs_pdtc cs_fictree cs_cac cs_cltt cs_e13tdt cs_e16tdt cs_e19tdt ; do cp $(UDPIPE_DATA_DIR)/$$i/*.conllu $(UDPIPE_DATA_DIR)/cs_all ; done
-	cd $(UDPIPE_DATA_DIR) ; for i in *-train.conllu ; do mv $$i cs_all-$$i ; done
+	cd $(UDPIPE_DATA_DIR)/cs_all ; for i in *-train.conllu ; do mv $$i cs_all-$$i ; done
 
 .PHONY: langsizes
 langsizes:
