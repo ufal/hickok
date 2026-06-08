@@ -562,7 +562,12 @@ cs_all:
 
 .PHONY: langsizes
 langsizes:
-	for i in $(UDPIPE_DATA_DIR)/cs_* ; do echo -en "$$i\t" ; cat $$i/*-train.conllu | grep -P '^[0-9]+\t' | wc -l ; done
+	for i in $(UDPIPE_DATA_DIR)/cs_* ; do \
+	  if compgen -G "data/for_udpipe/cs_e13tdt/*-train.conllu" > /dev/null ; then \
+	    echo -en "`basename $$i`\t" ; \
+	    cat $$i/*-train.conllu | grep -P '^[0-9]+\t' | wc -l ; \
+	  fi ; \
+	done
 
 trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
 	ssh -A sol1
