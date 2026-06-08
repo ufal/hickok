@@ -562,10 +562,11 @@ cs_all:
 
 .PHONY: langsizes
 langsizes:
+	rm -f $(UDPIPE_DATA_DIR)/langs_sizes
 	for i in $(UDPIPE_DATA_DIR)/cs_* ; do \
 	  if compgen -G "$$i/*-train.conllu" > /dev/null ; then \
-	    echo -en "`basename $$i`\t" ; \
-	    cat $$i/*-train.conllu | grep -P '^[0-9]+\t' | wc -l ; \
+	    echo -en "`basename $$i`\t" >> $(UDPIPE_DATA_DIR)/langs_sizes ; \
+	    cat $$i/*-train.conllu | grep -P '^[0-9]+\t' | wc -l >> $(UDPIPE_DATA_DIR)/langs_sizes ; \
 	  fi ; \
 	done
 
