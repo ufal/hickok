@@ -475,16 +475,16 @@ UD_RELEASE_DIR := /net/data/universal-dependencies-2.18
 .PHONY: copy_ud_czech
 copy_ud_czech:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_pdtc
-	rm -f $(UDPIPE_DATA_DIR)/cs_pdtc/*.conllu
+	rm -f $(UDPIPE_DATA_DIR)/cs_pdtc/*
 	cp $(UD_RELEASE_DIR)/UD_Czech-PDTC/*.conllu $(UDPIPE_DATA_DIR)/cs_pdtc
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_fictree
-	rm -f $(UDPIPE_DATA_DIR)/cs_fictree/*.conllu
+	rm -f $(UDPIPE_DATA_DIR)/cs_fictree/*
 	cp $(UD_RELEASE_DIR)/UD_Czech-FicTree/*.conllu $(UDPIPE_DATA_DIR)/cs_fictree
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_cac
-	rm -f $(UDPIPE_DATA_DIR)/cs_cac/*.conllu
+	rm -f $(UDPIPE_DATA_DIR)/cs_cac/*
 	cp $(UD_RELEASE_DIR)/UD_Czech-CAC/*.conllu $(UDPIPE_DATA_DIR)/cs_cac
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_cltt
-	rm -f $(UDPIPE_DATA_DIR)/cs_cltt/*.conllu
+	rm -f $(UDPIPE_DATA_DIR)/cs_cltt/*
 	cp $(UD_RELEASE_DIR)/UD_Czech-CLTT/*.conllu $(UDPIPE_DATA_DIR)/cs_cltt
 
 .PHONY: etalon_test_only
@@ -557,8 +557,9 @@ etalon19split:
 .PHONY: cs_all
 cs_all:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_all
-	rm -f $(UDPIPE_DATA_DIR)/cs_all/*.conllu
+	rm -f $(UDPIPE_DATA_DIR)/cs_all/*
 	for i in cs_pdtc cs_fictree cs_cac cs_cltt cs_e13tdt cs_e16tdt cs_e19tdt ; do cp $(UDPIPE_DATA_DIR)/$$i/*.conllu $(UDPIPE_DATA_DIR)/cs_all ; done
+	cd $(UDPIPE_DATA_DIR) ; for i in *-train.conllu ; do mv $$i cs_all-$$i ; done
 
 .PHONY: langsizes
 langsizes:
@@ -569,21 +570,22 @@ langsizes:
 	    cat $$i/*-train.conllu | grep -P '^[0-9]+\t' | wc -l >> $(UDPIPE_DATA_DIR)/langs_sizes ; \
 	  fi ; \
 	done
+	cat $(UDPIPE_DATA_DIR)/langs_sizes
 
 trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
 	ssh -A sol1
 	cd /net/work/people/zeman/udpipe
-	./scripts/compute_embeddings.sh ./data
+	./scripts/compute_embeddings.sh ./hickok
 	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
-	./scripts/train.sh ./data cs_e13tdt
-	./scripts/train.sh ./data cs_e16tdt
-	./scripts/train.sh ./data cs_e19tdt
+	./scripts/train.sh ./hickok cs_e13tdt
+	./scripts/train.sh ./hickok cs_e16tdt
+	./scripts/train.sh ./hickok cs_e19tdt
 	# This will submit one cluster job for cs_e13tdt. It may take about 2 hours. Monitor progress:
-	tail -f models/data-cs_e13tdt/training.log
+	tail -f models/hickok-cs_e13tdt/training.log
 	# Train tokenizer using UDPipe 1.2 (runs locally, does not use cluster).
-	./scripts/train_tokenizer.sh ./data cs_e13tdt models/data-cs_e13tdt
-	./scripts/train_tokenizer.sh ./data cs_e16tdt models/data-cs_e16tdt
-	./scripts/train_tokenizer.sh ./data cs_e19tdt models/data-cs_e19tdt
+	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
+	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
+	./scripts/train_tokenizer.sh ./hickok cs_e19tdt models/hickok-cs_e19tdt
 	# Launch parsing server with the new models, ideally on a cluster machine with a GPU available.
 	# Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
