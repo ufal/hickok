@@ -563,7 +563,7 @@ cs_all:
 .PHONY: langsizes
 langsizes:
 	for i in $(UDPIPE_DATA_DIR)/cs_* ; do \
-	  if compgen -G "data/for_udpipe/cs_e13tdt/*-train.conllu" > /dev/null ; then \
+	  if compgen -G "$$i/*-train.conllu" > /dev/null ; then \
 	    echo -en "`basename $$i`\t" ; \
 	    cat $$i/*-train.conllu | grep -P '^[0-9]+\t' | wc -l ; \
 	  fi ; \
