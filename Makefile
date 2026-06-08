@@ -502,6 +502,7 @@ etalon_test_only:
 # Split Etalon 13 to training, development and test data.
 ETALON13DEV := $(addprefix $(UDPIPE_DATA_DIR)/cs_e13tdt/train/,$(addsuffix .conllu,005_umuc_rajhr 017_pas_muz_a 030_lek_frant_muz 040_let_a))
 ETALON13TEST := $(addprefix $(UDPIPE_DATA_DIR)/cs_e13tdt/train/,$(addsuffix .conllu,010_bibl_drazd_mt 019_rada_otc_r 033_prav_svab_c 042_pov_ol))
+.PHONY: etalon13split
 etalon13split:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13tdt/train
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e13tdt/dev
@@ -519,6 +520,7 @@ etalon13split:
 # Split Etalon 16 to training, development and test data.
 ETALON16DEV := $(addprefix $(UDPIPE_DATA_DIR)/cs_e16tdt/train/,$(addsuffix .conllu,049_frantovy_prava 065_o_ctnych_manzelkach_tehotnych 076_smol_jimr))
 ETALON16TEST := $(addprefix $(UDPIPE_DATA_DIR)/cs_e16tdt/train/,$(addsuffix .conllu,050_hanus 063_div_velik 080_pranostika_nova))
+.PHONY: etalon16split
 etalon16split:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e16tdt/train
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e16tdt/dev
@@ -536,6 +538,7 @@ etalon16split:
 # Split Etalon 19 to training, development and test data.
 ETALON19DEV := $(addprefix $(UDPIPE_DATA_DIR)/cs_e19tdt/train/,$(addsuffix .conllu,1802_krameriusovy_noviny_21.8.1802 1832_svihlik_edmund_a_belinka 1855_stroupeznicka_boure 1869_jaros_z_chladku))
 ETALON19TEST := $(addprefix $(UDPIPE_DATA_DIR)/cs_e19tdt/train/,$(addsuffix .conllu,1808_kramerius_vyd_rozlicne_povidacky 1827_rettigova_bila_ruze 1846_prazske_noviny_19.3.1846 1874_palacky_nejnovejsi_politicke_uvahy))
+.PHONY: etalon19split
 etalon19split:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e19tdt/train
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_e19tdt/dev
@@ -550,6 +553,16 @@ etalon19split:
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/dev
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/test
 	@echo If necessary, update the size of this treebank in $(UDPIPE_DATA_DIR)/langs_sizes.
+
+.PHONY: cs_all
+cs_all:
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_all
+	rm -f $(UDPIPE_DATA_DIR)/cs_all/*.conllu
+	for i in cs_pdtc cs_fictree cs_cac cs_cltt cs_e13tdt cs_e16tdt cs_e19tdt ; do cp $(UDPIPE_DATA_DIR)/$$i/*.conllu $(UDPIPE_DATA_DIR)/cs_all ; done
+
+.PHONY: langsizes
+langsizes:
+	for i in $(UDPIPE_DATA_DIR)/cs_* ; do echo -en "$$i\t" ; cat $$i/*-train.conllu | grep -P '^[0-9]+\t' | wc -l ; done
 
 trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
 	ssh -A sol1
