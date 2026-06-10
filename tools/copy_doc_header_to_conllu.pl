@@ -39,4 +39,20 @@ while(<TEXT>)
     }
 }
 close(TEXT);
-###!!! A teď ještě vložit odpovídající komentáře na začátek souboru CoNLL-U.
+# A teď ještě vložit odpovídající komentáře na začátek souboru CoNLL-U.
+my $conllu = "# doc autor = $docauthor\n";
+$conllu .= "# doc titul = $doctitle\n";
+$conllu .= "# doc pubyear = $docyear\n";
+$conllu .= "# doc txtype = $doctype\n";
+open(CONLLU, $cfile) or die("Nelze číst $cfile: $!");
+while(<CONLLU>)
+{
+    $conllu .= $_;
+}
+close(CONLLU);
+# Mohli bychom přímo nahradit původní soubor CoNLL-U novým. Asi ale bude zatím bezpečnější ukládat výsledek někde vedle.
+my $ofile = $cfile;
+$ofile =~ s:monitor_parsed/:monitor_parsed_with_header/:;
+open(OUT, ">$ofile") or die("Nelze psát $ofile: $!");
+print OUT ($conllu);
+close(OUT);
