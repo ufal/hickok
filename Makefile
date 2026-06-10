@@ -727,7 +727,7 @@ $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 testmonitor: $(MONITOR_WITH_HEADER)
 $(MONITORHEADERDIR)/%.conllu: $(MONITORTEXTDIR)/%.txt
 	mkdir -p $(@D)
-	perl tools/copy_doc_header_to_conllu.pl $< /dev/null
+	perl tools/copy_doc_header_to_conllu.pl $< $(MONITORPARSEDDIR)/$*.conllu
 
 
 
