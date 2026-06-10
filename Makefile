@@ -686,6 +686,8 @@ MONITOR13PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $
 MONITOR16PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR16TEXTFILES)))))
 MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
 MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .xml,,$(MONITOR20TEXTFILES)))))
+MONITORHEADERDIR := data/monitor_parsed_with_header
+MONITOR_WITH_HEADER := $(addprefix $(MONITORHEADERDIR)/, $(subst $(MONITORPARSEDDIR)/,,$(MONITOR13PARSEDFILES) $(MONITOR16PARSEDFILES) $(MONITOR19PARSEDFILES) $(MONITOR20PARSEDFILES)))
 .PHONY: clean_monitor13parsed
 clean_monitor13parsed:
 	rm -rf $(MONITORPARSEDDIR)/13-15/*
@@ -722,19 +724,10 @@ $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: testmonitor
-testmonitor: $(MONITOR13TEXTFILES) $(MONITOR16TEXTFILES) $(MONITOR19TEXTFILES) $(MONITOR20TEXTFILES)
-	for i in $(MONITOR13TEXTFILES) ; do \
-	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
-	done
-	for i in $(MONITOR16TEXTFILES) ; do \
-	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
-	done
-	for i in $(MONITOR19TEXTFILES) ; do \
-	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
-	done
-	for i in $(MONITOR20TEXTFILES) ; do \
-	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
-	done
+testmonitor: $(MONITOR_WITH_HEADER)
+$(MONITORHEADERDIR)/%.conllu: $(MONITORTEXTDIR)/%.txt
+	mkdir -p $(@D)
+	perl tools/copy_doc_header_to_conllu.pl $< /dev/null
 
 
 
