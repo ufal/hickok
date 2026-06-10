@@ -721,6 +721,11 @@ $(MONITORPARSEDDIR)/20/%.conllu: $(MONITORTEXTDIR)/20/%.txt
 $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
+.PHONY: testmonitor
+testmonitor: $(MONITOR13TEXTFILES) $(MONITOR16TEXTFILES) $(MONITOR19TEXTFILES) $(MONITOR20TEXTFILES)
+	for i in $(MONITOR13TEXTFILES) $(MONITOR16TEXTFILES) $(MONITOR19TEXTFILES) $(MONITOR20TEXTFILES) ; do \
+	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
+	done
 
 
 
