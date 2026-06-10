@@ -723,7 +723,16 @@ $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: testmonitor
 testmonitor: $(MONITOR13TEXTFILES) $(MONITOR16TEXTFILES) $(MONITOR19TEXTFILES) $(MONITOR20TEXTFILES)
-	for i in $(MONITOR13TEXTFILES) $(MONITOR16TEXTFILES) $(MONITOR19TEXTFILES) $(MONITOR20TEXTFILES) ; do \
+	for i in $(MONITOR13TEXTFILES) ; do \
+	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
+	done
+	for i in $(MONITOR16TEXTFILES) ; do \
+	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
+	done
+	for i in $(MONITOR19TEXTFILES) ; do \
+	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
+	done
+	for i in $(MONITOR20TEXTFILES) ; do \
 	  perl tools/copy_doc_header_to_conllu.pl $$i /dev/null ; \
 	done
 
