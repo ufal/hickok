@@ -22,6 +22,10 @@ my $cfile = $ARGV[1];
 # Například data/monitor_korpus/21/JADRO/_1rocnikope.xml:
 # <doc year="2015" author="X" title="Propozice 1. ročníku Open Novoborské Akademie 2015" txtype_group="NFC: oborová literatura">
 # Předpokládáme, že celá značka je vždy na jednom řádku.
+my $docyear;
+my $docauthor;
+my $doctitle;
+my $doctype;
 open(TEXT, $tfile) or die("Nelze číst $tfile: $!");
 while(<TEXT>)
 {
@@ -39,6 +43,10 @@ while(<TEXT>)
     }
 }
 close(TEXT);
+if(!defined($docyear))
+{
+    die("Neznámý rok vydání dokumentu $tfile");
+}
 # A teď ještě vložit odpovídající komentáře na začátek souboru CoNLL-U.
 my $conllu = "# doc autor = $docauthor\n";
 $conllu .= "# doc titul = $doctitle\n";
