@@ -123,6 +123,8 @@ sub process_folder
         $tgtfile =~ s/_+/_/g;
         $tgtfile =~ s/^_// unless($tgtfile eq '_');
         $tgtfile =~ s/_$// unless($tgtfile eq '_');
+        # In the Monitor corpus, some input files have the .xml extension (20th and 21st centuries), others have .txt. Unify.
+        $tgtfile =~ s/\.xml$/.txt/;
         my $dsfpath = "$srcpath/$decoded_srcfile";
         my $sfpath = "$srcpath/$srcfile";
         my $tfpath = "$tgtpath/$tgtfile";
