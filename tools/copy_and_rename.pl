@@ -69,7 +69,7 @@ sub process_folder
     closedir(DIR);
     my @folders = sort(grep {-d "$srcpath/$_" && !m/^\.\.?$/} (@objects));
     # What file type are we looking for? Currently hardcoded: .txt.
-    my $srcextension = 'txt';
+    my $srcextension = '(txt|xml)';
     my $tgtextension = 'txt';
     my @srcfiles = sort(grep {-f "$srcpath/$_" && m/\.$srcextension$/} (@objects));
     printf STDERR ("$srcpath: found %d subfolders and %d source files.\n", scalar(@folders), scalar(@srcfiles));
