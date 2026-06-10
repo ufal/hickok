@@ -685,7 +685,7 @@ MONITORPARSEDDIR := data/monitor_parsed
 MONITOR13PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR13TEXTFILES)))))
 MONITOR16PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR16TEXTFILES)))))
 MONITOR19PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
-MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .xml,,$(MONITOR20TEXTFILES)))))
+MONITOR20PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR20TEXTFILES)))))
 MONITORHEADERDIR := data/monitor_parsed_with_header
 MONITOR_WITH_HEADER := $(addprefix $(MONITORHEADERDIR)/, $(subst $(MONITORPARSEDDIR)/,,$(MONITOR13PARSEDFILES) $(MONITOR16PARSEDFILES) $(MONITOR19PARSEDFILES) $(MONITOR20PARSEDFILES)))
 .PHONY: clean_monitor13parsed
