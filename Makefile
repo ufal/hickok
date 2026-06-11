@@ -634,17 +634,18 @@ MONITORTEXTDIR := data/monitor_text
 MONITOR13SRCFILES := $(wildcard $(MONITORSRCDIR)/13-15/*/*.txt)
 MONITOR16SRCFILES := $(wildcard $(MONITORSRCDIR)/16-18/*/*.txt)
 MONITOR19SRCFILES := $(wildcard $(MONITORSRCDIR)/19/*/*.txt)
-MONITOR13XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/13-15/*/*.txt)
-MONITOR16XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/16-18/*/*.txt)
-MONITOR19XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/19/*/*.txt)
-MONITOR20XMLFILES := $(wildcard $(MONITORRENAMEDDIR)/20/*/*.xml) $(wildcard $(MONITORRENAMEDDIR)/21/*/*.xml)
-MONITOR13TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR13XMLFILES)))))
-MONITOR16TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR16XMLFILES)))))
-MONITOR19TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR19XMLFILES)))))
-MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .xml,,$(MONITOR20XMLFILES)))))
+MONITOR13RENAMEDFILES := $(wildcard $(MONITORRENAMEDDIR)/13-15/*/*.txt)
+MONITOR16RENAMEDFILES := $(wildcard $(MONITORRENAMEDDIR)/16-18/*/*.txt)
+MONITOR19RENAMEDFILES := $(wildcard $(MONITORRENAMEDDIR)/19/*/*.txt)
+MONITOR20RENAMEDFILES := $(wildcard $(MONITORRENAMEDDIR)/20/*/*.xml) $(wildcard $(MONITORRENAMEDDIR)/21/*/*.xml)
+MONITOR13TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR13RENAMEDFILES)))))
+MONITOR16TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR16RENAMEDFILES)))))
+MONITOR19TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR19RENAMEDFILES)))))
+MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .xml,,$(MONITOR20RENAMEDFILES)))))
 
 # The files from 19th century have bad names and must be copied and renamed first.
 # The files from 13th to 18th century seem less bad but we will rename them anyway.
+# For the files from 20th and 21st century, we just need to replace .xml with .txt.
 .PHONY: monitor13rename
 monitor13rename:
 	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/13-15 --tgtdir $(MONITORRENAMEDDIR)/13-15
@@ -655,9 +656,14 @@ monitor16rename:
 monitor19rename: # nedávat mezi závislosti, protože obsahuje soubory, které mají v názvu mezeru: $(MONITOR19SRCFILES)
 	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/19 --tgtdir $(MONITORRENAMEDDIR)/19
 .PHONY: monitor20rename
-monitor20rename:
-	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/20 --tgtdir $(MONITORRENAMEDDIR)/20
-	./tools/copy_and_rename.pl --srcdir $(MONITORSRCDIR)/21 --tgtdir $(MONITORRENAMEDDIR)/21
+monitor20rename: $(MONITOR20RENAMEDFILES)
+$(MONITORRENAMEDDIR)/20/%.txt: $(MONITORSRCDIR)/20/%.xml
+	mkdir -p $(@D)
+	cp $< $@
+$(MONITORRENAMEDDIR)/21/%.txt: $(MONITORSRCDIR)/21/%.xml
+	mkdir -p $(@D)
+	cp $< $@
+
 # Despite having .txt in names, the files from 13th to 19th century contain markup that must be removed.
 .PHONY: monitor13text
 monitor13text: $(MONITOR13TEXTFILES)
