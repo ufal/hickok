@@ -733,8 +733,10 @@ $(MONITORPARSEDDIR)/20/%.conllu: $(MONITORTEXTDIR)/20/%.txt
 $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
-.PHONY: testmonitor
-testmonitor: $(MONITOR_WITH_HEADER)
+# In the long term, the following should be part of the parsing goals above.
+# But now we only want to add the header to already existing parses, without waiting for the parser again.
+.PHONY: monitor_parsed_with_header
+monitor_parsed_with_header: $(MONITOR_WITH_HEADER)
 $(MONITORHEADERDIR)/%.conllu: $(MONITORRENAMEDDIR)/%.txt
 	mkdir -p $(@D)
 	perl tools/copy_doc_header_to_conllu.pl $< $(MONITORPARSEDDIR)/$*.conllu
