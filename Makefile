@@ -637,11 +637,11 @@ MONITOR19SRCFILES := $(wildcard $(MONITORSRCDIR)/19/*/*.txt)
 MONITOR13RENAMEDFILES := $(wildcard $(MONITORRENAMEDDIR)/13-15/*/*.txt)
 MONITOR16RENAMEDFILES := $(wildcard $(MONITORRENAMEDDIR)/16-18/*/*.txt)
 MONITOR19RENAMEDFILES := $(wildcard $(MONITORRENAMEDDIR)/19/*/*.txt)
-MONITOR20RENAMEDFILES := $(wildcard $(MONITORRENAMEDDIR)/20/*/*.txt) $(wildcard $(MONITORRENAMEDDIR)/21/*/*.txt)
+MONITOR20RENAMEDFILES := $(addprefix $(MONITORRENAMEDDIR)/, $(addsuffix .txt, $(subst $(MONITORSRCDIR)/,,$(subst .xml,,$(wildcard $(MONITORSRCDIR)/20/*/*.xml) $(wildcard $(MONITORSRCDIR)/21/*/*.xml)))))
 MONITOR13TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR13RENAMEDFILES)))))
 MONITOR16TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR16RENAMEDFILES)))))
 MONITOR19TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR19RENAMEDFILES)))))
-MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .xml,,$(MONITOR20RENAMEDFILES)))))
+MONITOR20TEXTFILES := $(addprefix $(MONITORTEXTDIR)/, $(addsuffix .txt, $(subst $(MONITORRENAMEDDIR)/,,$(subst .txt,,$(MONITOR20RENAMEDFILES)))))
 
 # The files from 19th century have bad names and must be copied and renamed first.
 # The files from 13th to 18th century seem less bad but we will rename them anyway.
