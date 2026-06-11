@@ -735,7 +735,7 @@ $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
 .PHONY: testmonitor
 testmonitor: $(MONITOR_WITH_HEADER)
-$(MONITORHEADERDIR)/%.conllu: $(MONITORTEXTDIR)/%.txt
+$(MONITORHEADERDIR)/%.conllu: $(MONITORRENAMEDDIR)/%.txt
 	mkdir -p $(@D)
 	perl tools/copy_doc_header_to_conllu.pl $< $(MONITORPARSEDDIR)/$*.conllu
 
