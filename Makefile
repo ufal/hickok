@@ -462,16 +462,16 @@ compare19:
 	cat $(ANNOTDIR)/19_stol/*.conllu > $(ANNOTDIR)/19stol.conllu
 	./tools/survey_ambiguous_analyses.pl --compare $(ANNOTDIR)/19stol.conllu $(ANNOTDIR)/14stol.conllu $(ANNOTDIR)/fictree.conllu > $(ANNOTDIR)/19stol-14stol-fictree-diff.txt
 
-VALIDATE_OPTIONS := --max-err=0 --no-warnings -e punct-is-nonproj punct-causes-nonproj too-many-subjects too-many-objects upos-rel-punct rel-upos-advmod rel-upos-aux rel-upos-case rel-upos-cc rel-upos-cop rel-upos-det rel-upos-expl rel-upos-mark rel-upos-nummod rel-upos-punct right-to-left-appos right-to-left-conj right-to-left-fixed right-to-left-flat leaf-aux-cop leaf-det leaf-fixed leaf-mark-case leaf-punct obl-should-be-nmod cop-lemma
+VALIDATE_OPTIONS := --max-err=0 --no-warnings -e root-is-not-0 punct-is-nonproj punct-causes-nonproj leaf-aux-cop leaf-cc leaf-det leaf-fixed leaf-mark-case leaf-punct upos-rel-punct rel-upos-advmod rel-upos-aux rel-upos-case rel-upos-cc rel-upos-cop rel-upos-det rel-upos-expl rel-upos-mark rel-upos-nummod rel-upos-punct right-to-left-appos right-to-left-conj right-to-left-fixed right-to-left-flat obl-should-be-nmod too-many-subjects too-many-objects cop-lemma
 .PHONY: validate_etalon13
 validate_etalon13:
-	validate.py --lang cs data/etalon13/*.conllu $(VALIDATE_OPTIONS) > data/etalon13.validation.log
+	validate.py --lang cs data/etalon13/*.conllu $(VALIDATE_OPTIONS) 2>&1 > data/etalon13.validation.log
 .PHONY: validate_etalon16
 validate_etalon16:
-	validate.py --lang cs data/etalon16/*.conllu $(VALIDATE_OPTIONS) > data/etalon16.validation.log
+	validate.py --lang cs data/etalon16/*.conllu $(VALIDATE_OPTIONS) 2>&1 > data/etalon16.validation.log
 .PHONY: validate_etalon19
 validate_etalon19:
-	validate.py --lang cs data/etalon19/*.conllu $(VALIDATE_OPTIONS) > data/etalon19.validation.log
+	validate.py --lang cs data/etalon19/*.conllu $(VALIDATE_OPTIONS) 2>&1 > data/etalon19.validation.log
 
 
 
