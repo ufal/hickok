@@ -465,13 +465,13 @@ compare19:
 VALIDATE_OPTIONS := --max-err=0 --no-warnings -e root-is-not-0 punct-is-nonproj punct-causes-nonproj leaf-aux-cop leaf-cc leaf-det leaf-fixed leaf-mark-case leaf-punct upos-rel-punct rel-upos-advmod rel-upos-aux rel-upos-case rel-upos-cc rel-upos-cop rel-upos-det rel-upos-expl rel-upos-mark rel-upos-nummod rel-upos-punct right-to-left-appos right-to-left-conj right-to-left-fixed right-to-left-flat obl-should-be-nmod too-many-subjects too-many-objects cop-lemma
 .PHONY: validate_etalon13
 validate_etalon13:
-	validate.py --lang cs data/etalon13/*.conllu $(VALIDATE_OPTIONS) 2>&1 > data/etalon13.validation.log
+	validate.py --lang cs data/etalon13/*.conllu $(VALIDATE_OPTIONS) > data/etalon13.validation.log 2>&1
 .PHONY: validate_etalon16
 validate_etalon16:
-	validate.py --lang cs data/etalon16/*.conllu $(VALIDATE_OPTIONS) 2>&1 > data/etalon16.validation.log
+	validate.py --lang cs data/etalon16/*.conllu $(VALIDATE_OPTIONS) > data/etalon16.validation.log 2>&1
 .PHONY: validate_etalon19
 validate_etalon19:
-	validate.py --lang cs data/etalon19/*.conllu $(VALIDATE_OPTIONS) 2>&1 > data/etalon19.validation.log
+	validate.py --lang cs data/etalon19/*.conllu $(VALIDATE_OPTIONS) > data/etalon19.validation.log 2>&1
 
 
 
