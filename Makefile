@@ -442,6 +442,7 @@ data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
 etalon19: $(ETALON19FILES)
 data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	mkdir -p $(@D)
+	# For some reason, in one sentence the parser generates non-existent DEPREL "<pad>".
 	udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
@@ -450,6 +451,7 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
+	    | udapy -s util.Eval node='if node.deprel == "<pad>": node.deprel = "dep"' \
 	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 
 # TODO:
