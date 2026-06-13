@@ -472,6 +472,11 @@ validate_etalon16:
 .PHONY: validate_etalon19
 validate_etalon19:
 	validate.py --lang cs data/etalon19/*.conllu $(VALIDATE_OPTIONS) > data/etalon19.validation.log 2>&1
+	udapy read.Conllu files='!data/etalon19/*.conllu' \
+	  ud.cs.MarkFeatsBugs \
+	  util.MarkMwtBugsAtNodes \
+	  write.TextModeTreesHtml marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc \
+	  > data/etalon19.bugs.html
 
 
 
