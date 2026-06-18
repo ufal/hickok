@@ -613,6 +613,7 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 # Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
 .PHONY: parsing_server
 parsing_server:
+	cd /net/work/people/zeman/udpipe ; \
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
 		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
 			e13 ./models/hickok-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
@@ -623,6 +624,7 @@ parsing_server:
 
 .PHONY: parsing_server_all
 parsing_server_all:
+	cd /net/work/people/zeman/udpipe ; \
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
 		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
 			alle13 ./models/hickok-cs_all cs_e13tdt https://ufal.mff.cuni.cz/ \
