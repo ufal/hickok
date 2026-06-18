@@ -576,10 +576,13 @@ etalon19split:
 cs_all:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_all
 	rm -f $(UDPIPE_DATA_DIR)/cs_all/*
+	# We edit the source CoNLL-U in place and insert the variant comment line in the beginning.
+	# If this is run multiple times, there will be multiple such lines—harmless, but still junk.
 	for i in cs_pdtc cs_fictree cs_cac cs_cltt cs_e13tdt cs_e16tdt cs_e19tdt ; do \
+	  for j in train dev test ; do \
+	    sed "1i# variant = $$i" -i $(UDPIPE_DATA_DIR)/$$i/$$i-ud-$$j.conllu
+	  done ; \
 	  cat $(UDPIPE_DATA_DIR)/$$i/*-train.conllu >> $(UDPIPE_DATA_DIR)/cs_all/cs_all-ud-train.conllu ; \
-	  cp $(UDPIPE_DATA_DIR)/$$i/*-dev.conllu $(UDPIPE_DATA_DIR)/cs_all ; \
-	  cp $(UDPIPE_DATA_DIR)/$$i/*-test.conllu $(UDPIPE_DATA_DIR)/cs_all ; \
 	done
 
 .PHONY: langsizes
