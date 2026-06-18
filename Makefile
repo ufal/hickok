@@ -580,7 +580,7 @@ cs_all:
 	# If this is run multiple times, there will be multiple such lines—harmless, but still junk.
 	for i in cs_pdtc cs_fictree cs_cac cs_cltt cs_e13tdt cs_e16tdt cs_e19tdt ; do \
 	  for j in train dev test ; do \
-	    sed "1i# variant = $$i" -i $(UDPIPE_DATA_DIR)/$$i/$$i-ud-$$j.conllu
+	    sed "1i# variant = $$i" -i $(UDPIPE_DATA_DIR)/$$i/$$i-ud-$$j.conllu ; \
 	  done ; \
 	  cat $(UDPIPE_DATA_DIR)/$$i/*-train.conllu >> $(UDPIPE_DATA_DIR)/cs_all/cs_all-ud-train.conllu ; \
 	done
