@@ -27,6 +27,10 @@ MERGEDFILES := $(patsubst $(CONLLUDIR)/%, $(MERGEDDIR)/%, $(CONLLUFILES))
 PREPRCFILES := $(patsubst $(CONLLUDIR)/%, $(PREPRCDIR)/%, $(CONLLUFILES))
 FORANNFILES := $(addprefix $(FORANNDIR)/, $(addsuffix .tsv, $(subst $(CONLLUDIR)/,,$(subst .conllu,,$(CONLLUFILES)))))
 
+# This will be needed when training UDPipe models, including an official UD release.
+UDPIPE_DATA_DIR := data/for_udpipe
+UD_RELEASE_DIR := /net/data/universal-dependencies-2.18
+
 # If a command ends with ane error, delete its target file because it may be corrupt.
 .DELETE_ON_ERROR:
 
@@ -348,9 +352,6 @@ parse19:
 	  $(UDPIPE) cs_fictree by217 conllu < $$i > data/19_stol_parsed_by217/`basename $$i` ; \
 	done
 
-# TODO:
-# - Prohnat to validací včetně MarkFeatsBugs.
-
 
 
 #----------------------------------------------------------------------------------------------------------------------
@@ -454,16 +455,6 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	    | udapy -s util.Eval node='if node.deprel == "<pad>": node.deprel = "dep"' \
 	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
 
-# TODO:
-# - Prohnat i 19. století validací včetně MarkFeatsBugs.
-# - Udělat nějaké statistické porovnání lematizace, UPOS a FEATS mezi PDT-C, 19. stoletím, střední a starou češtinou.
-#   Např. pro každý tvar seřadit jeho analýzy podle četnosti, pak se podívat, jestli se nejčastější výsledek v různých korpusech liší.
-compare19:
-	###!!! Teď, když máme sjednocené cíle pro výrobu tří etalonů, by se tohle srovnání mohlo přesunout tam.
-	# Podobně jako na řádku níže potřebuju taky fictree.conllu a podobně jeden soubor pro staročeštinu (popř. včetně střední češtiny).
-	cat $(ANNOTDIR)/19_stol/*.conllu > $(ANNOTDIR)/19stol.conllu
-	./tools/survey_ambiguous_analyses.pl --compare $(ANNOTDIR)/19stol.conllu $(ANNOTDIR)/14stol.conllu $(ANNOTDIR)/fictree.conllu > $(ANNOTDIR)/19stol-14stol-fictree-diff.txt
-
 VALIDATE_OPTIONS := --max-err=0 --no-warnings -e root-is-not-0 punct-is-nonproj punct-causes-nonproj leaf-aux-cop leaf-cc leaf-det leaf-fixed leaf-mark-case leaf-punct upos-rel-punct rel-upos-advmod rel-upos-aux rel-upos-case rel-upos-cc rel-upos-cop rel-upos-det rel-upos-expl rel-upos-mark rel-upos-nummod rel-upos-punct right-to-left-appos right-to-left-conj right-to-left-fixed right-to-left-flat obl-should-be-nmod too-many-subjects too-many-objects cop-lemma
 .PHONY: validate_etalon13
 validate_etalon13:
@@ -480,6 +471,16 @@ validate_etalon19:
 	  write.TextModeTreesHtml marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc \
 	  > data/etalon19.bugs.html
 
+.PHONY: compare_etalons
+compare_etalons:
+	# Podobně jako na řádku níže potřebuju taky fictree.conllu a podobně jeden soubor pro staročeštinu (popř. včetně střední češtiny).
+	cat data/etalon13/*.conllu > data/etalon13.conllu
+	cat data/etalon16/*.conllu > data/etalon16.conllu
+	cat data/etalon19/*.conllu > data/etalon19.conllu
+	cat $(UD_RELEASE_DIR)/UD_Czech-FicTree/*.conllu > data/fictree.conllu
+	cat $(UD_RELEASE_DIR)/UD_Czech-PDTC/*.conllu > data/pdtc.conllu
+	./tools/survey_ambiguous_analyses.pl --compare data/etalon13.conllu data/etalon16.conllu data/etalon19.conllu data/fictree.conllu data/pdtc.conllu > data/etalons-diff.txt
+
 
 
 #----------------------------------------------------------------------------------------------------------------------
@@ -487,8 +488,6 @@ validate_etalon19:
 
 # Concatenate each etalon into a big file similarly to UD treebanks.
 # Also fetch modern Czech data from an official UD release.
-UDPIPE_DATA_DIR := data/for_udpipe
-UD_RELEASE_DIR := /net/data/universal-dependencies-2.18
 
 .PHONY: copy_ud_czech
 copy_ud_czech:
@@ -604,8 +603,11 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	./scripts/train.sh ./hickok cs_e13tdt
 	./scripts/train.sh ./hickok cs_e16tdt
 	./scripts/train.sh ./hickok cs_e19tdt
-	# This will submit one cluster job for cs_e13tdt. It may take about 2 hours. Monitor progress:
-	tail -f models/hickok-cs_e13tdt/training.log
+	EXP=seed12 ./scripts/train.sh ./hickok cs_all --clip_gradient=1.0 --seed=12
+	EXP=seed21 ./scripts/train.sh ./hickok cs_all --clip_gradient=1.0 --seed=21
+	# Each of the above will submit one cluster job for training. It may take about 2 hours for individual etalons. For cs_all, it takes 1 to 2 days.
+	# Monitor progress:
+	tail -f models/hickok-cs_all-seed21/training.log
 	# Train tokenizer using UDPipe 1.2 (runs locally, does not use cluster).
 	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
