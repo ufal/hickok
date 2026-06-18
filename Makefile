@@ -638,24 +638,42 @@ ukazka_pouziti_parseru: # ukázka, není myšlena ke spuštění jako cíl
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model e13 --tokenizer='' --tagger='' --parser=''
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
 
+etalon13teste13:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-bye13.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-bye13.conllu
+etalon13teste16:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-bye16.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-bye16.conllu
+etalon13teste19:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle19 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-bye19.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-bye19.conllu
 etalon13testfictree:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-by217.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-by217.conllu
+etalon16teste13:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-bye13.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-bye13.conllu
+etalon16teste16:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-bye16.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-bye16.conllu
+etalon16teste19:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle19 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-bye19.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-bye19.conllu
 etalon16testfictree:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-by217.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-by217.conllu
-etalon19testfictree:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-by217.conllu
-	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-by217.conllu
-etalon19teste19:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle19 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye19.conllu
-	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye19.conllu
-etalon19teste16:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye16.conllu
-	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye16.conllu
 etalon19teste13:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye13.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye13.conllu
+etalon19teste16:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye16.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye16.conllu
+etalon19teste19:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model alle19 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye19.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye19.conllu
+etalon19testfictree:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-by217.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-by217.conllu
 
 
 
