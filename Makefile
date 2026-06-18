@@ -607,14 +607,31 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e19tdt models/hickok-cs_e19tdt
-	# Launch parsing server with the new models, ideally on a cluster machine with a GPU available.
-	# Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
+
+# To test the parser, launch parsing server with the new models. We need a cluster machine with a GPU available,
+# hence we run this on one of the sols (cluster head machines) with the sbatch command.
+# Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
+.PHONY: parsing_server
+parsing_server:
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
 		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
-			e13 ./models/data-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
-			e16 ./models/data-cs_e16tdt cs_e16tdt https://ufal.mff.cuni.cz/ \
-			e19 ./models/data-cs_e19tdt cs_e19tdt https://ufal.mff.cuni.cz/ \
+			e13 ./models/hickok-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
+			e16 ./models/hickok-cs_e16tdt cs_e16tdt https://ufal.mff.cuni.cz/ \
+			e19 ./models/hickok-cs_e19tdt cs_e19tdt https://ufal.mff.cuni.cz/ \
 			czech:ces:cs:fictree:e21 ./models-pretrained/cs_all-ud-2.17-251125.model cs_fictree https://ufal.mff.cuni.cz
+	@echo Do not forget to scancel the parsing server job when done with parsing!
+
+.PHONY: parsing_server_all
+parsing_server_all:
+	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
+		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
+			alle13 ./models/hickok-cs_all cs_e13tdt https://ufal.mff.cuni.cz/ \
+			alle16 ./models/hickok-cs_all cs_e16tdt https://ufal.mff.cuni.cz/ \
+			alle19 ./models/hickok-cs_all cs_e19tdt https://ufal.mff.cuni.cz/ \
+			czech:ces:cs:fictree:e21 ./models-pretrained/cs_all-ud-2.17-251125.model cs_fictree https://ufal.mff.cuni.cz
+	@echo Do not forget to scancel the parsing server job when done with parsing!
+
+ukazka_pouziti_parseru: # ukázka, není myšlena ke spuštění jako cíl
 	# Access the model through client script. Note that we need to know which cluster machine the server runs on!
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001 --model e13 --tokenizer='' --tagger='' --parser=''
 	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
