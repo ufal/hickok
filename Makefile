@@ -584,6 +584,21 @@ cs_all:
 	  cat $(UDPIPE_DATA_DIR)/$$i/*-train.conllu >> $(UDPIPE_DATA_DIR)/cs_all/cs_all-ud-train.conllu ; \
 	done
 
+# This will be presented to UDPipe also as cs_all but from the Modern Czech era, it will include only FicTree.
+# Needless to say, if cs_all exists with different contents, back up it first, as it will be overwritten!
+.PHONY: cs_fall
+cs_fall:
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_all
+	rm -rf $(UDPIPE_DATA_DIR)/cs_all/*
+	# We edit the source CoNLL-U in place and insert the variant comment line in the beginning.
+	# If this is run multiple times, there will be multiple such lines—harmless, but still junk.
+	for i in cs_fictree cs_e13tdt cs_e16tdt cs_e19tdt ; do \
+	  for j in train dev test ; do \
+	    sed "1i# variant = $$i" -i $(UDPIPE_DATA_DIR)/$$i/$$i-ud-$$j.conllu ; \
+	  done ; \
+	  cat $(UDPIPE_DATA_DIR)/$$i/*-train.conllu >> $(UDPIPE_DATA_DIR)/cs_all/cs_all-ud-train.conllu ; \
+	done
+
 .PHONY: langsizes
 langsizes:
 	rm -f $(UDPIPE_DATA_DIR)/langs_sizes
