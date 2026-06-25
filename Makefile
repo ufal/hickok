@@ -593,7 +593,8 @@ cs_fall:
 	# We edit the source CoNLL-U in place, replacing any previous variant line.
 	for i in cs_fictree cs_e13tdt cs_e16tdt cs_e19tdt ; do \
 	  for j in train dev test ; do \
-	    sed -e '/^# variant = /d' -e "1i# variant = $$i" -i $(UDPIPE_DATA_DIR)/$$i/$$i-ud-$$j.conllu ; \
+	    sed -i '/^# variant = /d' $(UDPIPE_DATA_DIR)/$$i/$$i-ud-$$j.conllu ; \
+	    sed -i '1i# variant = $$i' $(UDPIPE_DATA_DIR)/$$i/$$i-ud-$$j.conllu ; \
 	  done ; \
 	  cat $(UDPIPE_DATA_DIR)/$$i/*-train.conllu >> $(UDPIPE_DATA_DIR)/cs_all/cs_all-ud-train.conllu ; \
 	done
