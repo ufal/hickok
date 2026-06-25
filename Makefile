@@ -603,8 +603,9 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	./scripts/train.sh ./hickok cs_e13tdt
 	./scripts/train.sh ./hickok cs_e16tdt
 	./scripts/train.sh ./hickok cs_e19tdt
-	EXP=seed12 ./scripts/train.sh ./hickok cs_all --clip_gradient=1.0 --seed=12
-	EXP=seed21 ./scripts/train.sh ./hickok cs_all --clip_gradient=1.0 --seed=21
+	# Milan suggested --clip_gradient=1.0. With this data, it did not help. But it did with 0.9 and --seed=12 (other seeds I tried still crashed).
+	EXP=seed12 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=12
+	EXP=seed21 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=21
 	# Each of the above will submit one cluster job for training. It may take about 2 hours for individual etalons. For cs_all, it takes 1 to 2 days.
 	# Monitor progress:
 	tail -f models/hickok-cs_all-seed21/training.log
@@ -612,6 +613,8 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e19tdt models/hickok-cs_e19tdt
+	# If training cs_all, copy all tokenizers to its folder.
+	for i in e13tdt e16tdt e19tdt fictree ; do cp models/hickok-cs_$i/cs_$i.tokenizer models/hickok-cs_all ; done
 
 # To test the parser, launch parsing server with the new models. We need a cluster machine with a GPU available,
 # hence we run this on one of the sols (cluster head machines) with the sbatch command.
@@ -619,6 +622,7 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 .PHONY: parsing_server
 parsing_server:
 	cd /net/work/people/zeman/udpipe ; \
+	rm -f udpipe2_server.log ; \
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
 		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
 			e13 ./models/hickok-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
@@ -630,6 +634,7 @@ parsing_server:
 .PHONY: parsing_server_all
 parsing_server_all:
 	cd /net/work/people/zeman/udpipe ; \
+	rm -f udpipe2_server.log ; \
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
 		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 alle13 \
 			alle13 ./models/hickok-cs_all cs_e13tdt https://ufal.mff.cuni.cz/ \
