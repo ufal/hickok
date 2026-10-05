@@ -703,6 +703,14 @@ etalon19testfictree:
 
 
 #----------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------
+# Za parsing Monitoru je třeba přidat postprocessing, kde se některé věci opraví, např. zkratky, viz mail od Martina 4.10.2026:
+#Jojo, tenhle seznam zkratek prosím aplikuj na Monitor jako postprocessing po výstupu UDpipu. V etalonu19 by to mělo být už dávno vyřešeno, tak budem tvrdit, že je.  U těch zkratek, co máš v seznamu, jsem řešil jen lemma, nikoli velikost písmen. Ale pokud bude platit, že ve výstupu bude "word=lemma", tak to není žádný problém.
+###!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#----------------------------------------------------------------------------------------------------------------------
 # Monitor corpus.
 # $(MONITORDIR) has subfolders "19", "20", "21" for individual centuries (where "21" in fact starts with the year 1990).
 # Each of them has subfolders "JADRO" and "NEJADRO".
