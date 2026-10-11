@@ -1,0 +1,331 @@
+"abrahama	41.162 ipm"	v e16 změnit lemma Abrahám za Abraham
+"ačkolivěk	32.416 ipm"	v e13 změnit lemma na: ačkoli
+"agrest	16.166 ipm"	v e13 změnit lemma na: agrest
+"ano	2396.448 ipm"	v 13. změnit lemma ano na an u PRON
+"arsenia	8.332 ipm"	"v e13 změnit lemma na ""Arsenius"""
+"augustin	89.118 ipm"	"v e16 změnit lemma z Augustýn na Augustin; a odstranit Abbr=Yes"
+"auvech	48.415 ipm"	v e1š a 16 ujednotit na lemma auvech
+"avicena	16.166 ipm"	v e16 změnit NameTypa=Sur na Giv
+"bachus	56.792 ipm"	v e16 změnit lemma Bachus na Bacchus
+"balšám	23.581 ipm"	v e13 změnit lemma na: balšám
+"bedra	23.690 ipm"	v e16 změnit lemma na: bedra
+"bližní	35.080 ipm"	v e16 změnit na: NOUN... (jako je to ve fictree a pdt)
+"blížních	15.895 ipm"	"v e16 změnit na: NOUN	Animacy=Anim|Case=Gen|Gender=Masc|Number=Plur"
+"bližnímu	14.692 ipm"	"v e16 změnit na: NOUN	Animacy=Anim|Case=Dat|Gender=Masc|Number=Sing"
+"bodl	23.955 ipm"	v e13 změnit lemma na: bodat
+"bratří	221.922 ipm"	v e13 ujednotit lemma na: bratr (nezávisle na rodu)
+"bratři	68.756 ipm"	v e13 změnit lemma na: bratr (nezávisle na rodu)
+"bycha	16.541 ipm"	v e16 změnit: Animacy=Anim na Animacy=Inan
+"cokoliv	27.192 ipm"	v e16 a pdt změnit lemma na: cokoli
+"což	4178.393 ipm"	"v e13 a 16 a) odstranit interpretaci DET a ujednotit na PRON; b) odstranit interpretaci SCONJ_a ujednotit na PRON; c) u PRON odstranit Animacy"
+"cožkoli	72.331 ipm"	"v e16 ujednotit na: PRON	Case=Acc|PronType=Ind"
+"cožkolivěk	16.166 ipm"	"v e13 změnit  na: cožkoli	PRON	Case=Acc|PronType=Ind"
+"čáry	66.757 ipm"	v e13 a 16 změnit lemma na: čáry
+"častokrát	187.032 ipm"	v e13 a 16 a pdt ujednotit na interpretaci: ADV NumType=Mult| PronType=Ind
+"čemkoliv	8.416 ipm"	v e16 a pdt změnit lemma na: cokoli
+"červena	26.374 ipm"	"v e16 změnit na: červeno	NOUN	Case=Gen|Gender=Neut|Number=Sing"
+"čtvery	8.332 ipm"	v e13 změnit lemma na: čtvery
+"čtvrt	137.233 ipm"	v e13 a 16 (apdt) odstrranit Gender u NUM
+"da	108.417 ipm"	v e 13 asi odstranit Variant=Long
+"dale	26.701 ipm"	v e16 ujednotit na lemma: dále
+"další	1500.036 ipm"	v e13 změnit lemma daleký na další
+"darováno	8.416 ipm"	v e16 doplnit: Animacy..., Aspect...
+"dav	62.563 ipm"	v e13 změnit VerbForm=Part na VerbForm=Conv
+"dávna	48.143 ipm"	"v e13 a 16 změnit ADj interpretaci s GENITIVEM SG. Neuter na: dávno	NOUN	Case=Gen|Gender=Neut|Number=Sing; "
+"dceř	15.811 ipm"	v e13 změnit lemma na dcera
+"de	355.649 ipm"	v e16 odstarnit u lemma tu jít atribut: Foreign=Yes
+"děda	32.341 ipm"	v e13 změnit lemma na: děda
+"dědu	14.899 ipm"	v e13 změnit lemma na: děda
+"děly	9.869 ipm"	v e16 doplnit: Aspect=Imp
+"desk	48.330 ipm"	"v e16 změnit lemma na ""desky"""
+"devatery	8.416 ipm"	"v e16 změnit na: NUM	Case=Nom|Number=Plur|NumForm=Word|NumType=Sets"
+"dí	441.878 ipm"	v e16 doplnit Aspect=Imp
+"diem	16.457 ipm"	v e16 doplnit : Aspect=Imp / Aspect=Perf|
+"dítek	152.825 ipm"	v e16 změnit Gende=Fem na Neut
+"dítkám	55.809 ipm"	v e16 změnit Gende=Fem na Neut
+"dítky	317.895 ipm"	v e16 změnit Gende=Fem na Neut
+"dlužen	113.552 ipm"	Odstranit z e13 Aspect=Imp|
+"doba	193.305 ipm"	v e13 změnit interptretaci: Gender=Neut|Number=Plur na Gender=Fem|Number=Sing
+"dobra	34.263 ipm"	v e13 ujednotitr na interpretaci: dobrý ADJ Case=...
+"dobro	73.882 ipm"	v e13 ujednotit u interpretace ADJ lemma na: dobrý
+"dobude	32.455 ipm"	v e13 ujednotit na: Tense=Pres
+"dočekati	24.291 ipm"	v e13 změnit lemma na dočkat
+"dolejšího	16.541 ipm"	v e16 změnit lemma na: dolní
+"dosti	1218.917 ipm"	"v e13 a 16 ujednotit na lemma ""dost""; a zrušit nejspíš číslovkovopu interpretaci (není v e 19 ani foictree"
+"drahně	16.166 ipm"	"v e16 změnit  na: drahně	ADV	Degree=Pos|Polarity=Pos"
+"draho	34.283 ipm"	v e13 doklad: že ť žákóm draho vařenie je podle mě a jiných komntextů ADj, nikoli ADV, tak asi přeanotovat tenhle doklad
+"druhé	1393.665 ipm"	v e13 u interpretace: druhý ADV... změnit lemma na druhé
+"drva	40.458 ipm"	v e16 změnit lemma na: dřevo
+"důchodní	15.895 ipm"	"v e16 změnit na: NOUN	Animacy=Anim|Case=Nom|Gender=Masc|Number=Sing"
+"dvé	55.913 ipm"	"v e13 ujednotit na: dvé	NUM	Case=Acc|Number=Sing|NumForm=Word|NumType=Card"
+"dvoje	84.067 ipm"	"v e13 a 16 ujednotit lemma na: dvojí; ADJ změnit na NUM; Numype na Sets a doplnit NumForm=Word"
+"dýnka	8.332 ipm"	"v e13 změnit lemma na ""dýnko"""
+"etc	524.311 ipm"	"v e16 odstranit interpretaci: etc	ADV	Degree=Pos|Polarity=Pos"
+"galilee	48.331 ipm"	"v e16 změnit lemma na ""Galilea"""
+"had	65.867 ipm"	v e16 opravit Animacy na Anim
+"hanební	16.166 ipm"	v e13 změnit lemma na: hanebný
+"hodinky	98.587 ipm"	v e16 a pdt změnit (ujednotit) lemma na: hodinky
+"holé	22.339 ipm"	v e13 nutno změnit  ADJ... za: VERB Aspect=Imp|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act
+"huoře	16.166 ipm"	v e16 zmenit lemma na: špatně
+"hůře	32.095 ipm"	"v e16 a pdt  změnit lemma na ""špatně"""
+"hus	41.246 ipm"	v e13 ujednotit na lemma hus
+"husí	16.643 ipm"	v e13 změnit lemma na hus
+"izrahelských	40.290 ipm"	v e13 změnit lemma na izraelský
+"jakés	39.204 ipm"	v e16 změnit lemma na: jakýsi
+"jakež	24.207 ipm"	"v e16 změnit na interpretaci jako je v e13: jakož	SCONJ	_"
+"jakoby	143.687 ipm"	v e16 změnit na: SCONJ_
+"jakýž	40.374 ipm"	"v e16 změnit nově na ""PronType=Rel"""
+"jána	12.195 ipm"	v e16 změnit lemma na Ján
+"jedenkaždý	104.204 ipm"	v e16 změnit DET na PRON
+"jediné	482.617 ipm"	"v e13 změnit lemma ""jediné"" na ""jedině"""
+"jednékaždé	15.895 ipm"	v e16 změnit DET na PRON
+"jedni	119.158 ipm"	v e13 a16 ujednotit lemma na: jedny a NumType na Sets
+"jedno	1117.507 ipm"	číslovkovou interpretaci v e16 odstranit a nahradit za obyčejné ADV
+"jedny	70.890 ipm"	"v e13 ujednotit lemma na: jedny a NumType na Sets; doplnit: Animacy a Gender"
+"jejichžto	46.974 ipm"	v e16 změnit lemma na jehožto
+"jenžto	143.739 ipm"	v e16 změnit na: jenžtoPRON|Case=Acc|Gender=Neut|Number=Sing|PrepCase=Npr|PronType=Rel
+"jesus	41.246 ipm"	v e13 změnit lemma Jezus za Jesus
+"ješto	2413.012 ipm"	"z 13 a 16 odstranit variantu: ADV	PronType=Rel; a doplnit variantu: PRON	PrepCase=Npr|PronType=Rel"
+"jidáš	72.893 ipm"	v e16 zmenit NameType=Sur na NameType=Giv
+"jupiter	51.076 ipm"	v e16 změnit NameType=Oth na NameType=Giv
+"kak	330.269 ipm"	v e13 ujednotit na lemma kak
+"kázal	402.600 ipm"	"""Aspect"" zde chybí i u několika případů v e13 a e16"
+"kdekoliv	33.720 ipm"	v e16 a pdt opravit lemma na: kdekoli
+"kdes	31.725 ipm"	v e16 a pdt změnit lemma na: kdesi
+"kdokoliv	41.160 ipm"	v e13 a pdt změnit lemma na: kdokoli
+"kdykoliv	44.727 ipm"	v e13 a pdt změnit lemma na: kdykoli
+"klade	111.660 ipm"	v e13 smazat: Variant=Short
+"kladní	8.416 ipm"	v e16 změnit lemma na: kladný
+"knížetem	16.457 ipm"	v e13 a 16  měnit na Neutrum večtně aributů k tomuto tokenu
+"kohokoliv	17.639 ipm"	v e13 a pdt změnit lemma na: kdokoli
+"kolik	587.836 ipm"	upravit e13 a e16 podle fictree a e19
+"koliko	16.166 ipm"	v e16 změnit lemma na: kolik
+"kolikrát	174.862 ipm"	v e13 a 16 ujednotit na:PronType=Int
+"korunoval	25.577 ipm"	v e13 doplnit: Aspect=Imp
+"korunován	105.368 ipm"	v e13 a 16 doplnit Aspect=Imp
+"králova	64.180 ipm"	"v e16 změnit komplet na: králův	ADJ	Case=Nom|Gender=Fem|Gender[psor]=Masc|Number=Sing|Poss=Yes"
+"kristem	50.327 ipm"	v e13 doplnit NameType=Sur
+"kristova	124.548 ipm"	"v e16 změnit ""NameType=Giv"" na ""NameType=Sur"""
+"kristovu	48.350 ipm"	v e13 změnit NameType=Giv na NameType=Sur
+"krom	155.638 ipm"	v e16 a pdt ujednostit na lemma kromě
+"kterou	1342.122 ipm"	upravit v e13 a e16 podle e19 a fictree
+"lepí	31.272 ipm"	"v e13 ujednotit nas lemma: dobrý; a Variant=Short "
+"letanie	16.166 ipm"	v e16 změnit lemma na: litanie
+"leze	33.366 ipm"	v e13 oppdstranit: Variant=Long
+"loje	23.936 ipm"	v e16 změnit lemma na: lůj
+"luciper	40.374 ipm"	v e13a e16 změnit všusde na lemma Luciper
+"lucipera	24.207 ipm"	v e13a e16 změnit všusde na lemma Luciper
+"magdalena	57.787 ipm"	v e16 změnit lemma Magdaléna na Magdalena
+"magdaleně	8.416 ipm"	"v e16 změnit lemma na ""Magdalena"""
+"magdaleny	16.185 ipm"	v e16 změnit lemma Magdaléna na Magdalena
+"macha	27.864 ipm"	v e16 změnit NameType=Giv na NameType=Sur
+"málo	1227.223 ipm"	změnit ADJ interpretaci v e13 na ADV
+"manželstva	23.936 ipm"	v e13 a 16 změnit lemma na: manželství
+"maří	40.787 ipm"	"v e13 změnit lemma na ""Marie"""
+"medle	72.059 ipm"	v e16 změnit na:medle PART_
+"met	10.741 ipm"	v e16 změnit lemma na: med
+"metly	40.748 ipm"	v e16 změnit lemma metl za metla
+"mléce	57.224 ipm"	"v e13 opravit lemma na ""mléko"""
+"mnoha	279.011 ipm"	v e16 u mnohý ADJ doplnit atribut: Variant=Short
+"moci	1157.400 ipm"	v e13 a fictree doplnit Aspect u slovesa
+"mudřec	24.291 ipm"	v e16 změnit lemma na mudrc
+"mýtní	16.102 ipm"	"v e13 změnit na: mýtný	NOUN	Animacy=Anim|Case=Nom|Gender=Masc|Number=Plur"
+"nabude	35.110 ipm"	v e13 změnit: Tense=Fut na Tense=Pres
+"nadme	15.811 ipm"	v e13 změnit lemma na nadmout
+"najednou	503.477 ipm"	"v e16 změnit na: ADV	Degree=Pos|Polarity=Pos"
+"najprv	112.912 ipm"	v e13 a 16 ujednotit lemma na nejprve
+"náklonosti	15.895 ipm"	v e16 změnit lemma na: náklonnost
+"né	16.166 ipm"	"v e13 změnit na: ne	PART	_"
+"nebes	223.704 ipm"	v e13 a 16 změnit lemma na: nebesa
+"nebesa	126.726 ipm"	v e13 a 16 změnit lemma na: nebesa
+"nebesích	14.111 ipm"	v e16 změnit lemma na nebesa
+"nebť	257.446 ipm"	v e13 a 16 ujednotit lemma na neboť
+"neduživý	16.166 ipm"	v e16 ujednotit lemma na: neduživý
+"nechažť	16.166 ipm"	"v e13 změnit na: nechť	PART	_"
+"nejblíž	17.890 ipm"	v e16 změnit lemma na: blízko
+"nejen	462.397 ipm"	"v e13 změnit lemma ""jen"" na ""nejen"""
+"nejenom	63.794 ipm"	v e16 opravit na lemma nejenom
+"nejináč	40.270 ipm"	v e16 změnit lemma na: jinak
+"nejprv	88.665 ipm"	v e16 ujednotit lemma na nejprve
+"nejspíš	87.024 ipm"	v e16 upravit na lemma nejspíš
+"nejspíše	36.085 ipm"	v e16 upravit na lemma nejspíš
+"nějž	128.814 ipm"	v e16 změnit případ PronType=Prs na PronType=Rel
+"některému	9.204 ipm"	v pdt doplnit: Animacy=Anim|Number=Sing|PronType=Ind
+"nemocen	97.327 ipm"	v 13 a 16 ujednotit lemma na: nemocný
+"nemocného	103.777 ipm"	v e16 změnit lemma na: nemocný
+"nemocnému	63.825 ipm"	v e13 změnit lemma na: nemocný a Polarity na Pos
+"nemocni	16.166 ipm"	"v e13 a 16 změnit lemma na: nemocný; v e16 doplnit: Variant=Short"
+"nemocní	29.685 ipm"	v e13 změnit na lemma: nemocný
+"nemocnou	29.030 ipm"	v e16 zmenit na lemma: nemocný
+"nemocných	59.898 ipm"	"v e13 a 16 změnit lemma všude na ""nemocný"""
+"nemocným	42.447 ipm"	v e13a 16 změnit lemma na: nemocný
+"nemysli	20.097 ipm"	"v e16 odstranit ""Voice=Act"""
+"nenadále	72.996 ipm"	v e16 sjednotit na lemma nenadále
+"nepochybně	126.132 ipm"	v e16 změnit na PART_
+"neponesu	15.811 ipm"	v e13 změnit lemma na nést
+"nepřeje	22.271 ipm"	v e13 upravit na (je to prézens ne minulý čas): Aspect=Imp|Mood=Ind|Number=Sing|Person=3|Polarity=Neg|Tense=Pres|VerbForm=Fin|Voice=Act
+"neřci	16.166 ipm"	v e13 změnit lemma na: nerci
+"nesmírná	15.274 ipm"	v e16 změnit lemma na: nesmírný a Polarity na Pos
+"nestydaté	8.706 ipm"	v e16 změnit lemma na: nestydatý
+"netoliko	348.306 ipm"	v e13 a 16 ujednotit lemma na netoliko
+"nezbude	19.280 ipm"	v e13 změnit z Tense=Fut na Tense=Pres
+"nie	250.445 ipm"	v e16 ostranit: |Foreign=Yes
+"nikdá	243.875 ipm"	"v e13 a e16 změnit lemma na ""nikdy"" všude"
+"nikda	80.747 ipm"	v e13 a 16 ujednotit lemma na: nikdy
+"nikoli	408.271 ipm"	v e13 všechno změnit na: PART_
+"nižádného	56.101 ipm"	v e13 ujednotit na PronType=Neg
+"nuž	23.936 ipm"	"v e13 a 16 změnit lemma na: nuže; a INTJ_na PART_"
+"nuže	128.024 ipm"	v e13 a 16 změnit na: PART_
+"nynie	233.362 ipm"	v e16 opravit podle e13
+"obé	48.518 ipm"	v e13 a 16 změnit lemma na: obé
+"obé	48.518 ipm"	v e13 a16 změnit NUM interpretaci na ADJ interpretaci s lemmatem obé!!!
+"obého	30.503 ipm"	v e13 změnit lemma na: obé
+"obého	30.503 ipm"	v e16 změnit podle e13 (dodat gender etc.) s lemmatem obé
+"obětovali	65.931 ipm"	v  e13 a 16 doplnit: Aspect...
+"obětovat	21.043 ipm"	v e13 doplnit : Aspect=Imp / Aspect=Perf|
+"obory	24.783 ipm"	"v e13 přidat ""NameType=Geo"""
+"obraze	22.462 ipm"	v e16 změnit Animacy =Anim na Animacy=Inan
+"obvzláštně	56.165 ipm"	v e16 ujednotiti na lemma: obzvláště
+"obvzláštní	32.145 ipm"	v e16 ujednotit na lemma: obzvláštní
+"odsad	24.291 ipm"	v e16 změnit lemma na odsud
+"onehdá	16.541 ipm"	v e13 a 16 a v pdt změnit lemma na: onehdy
+"otcovým	16.102 ipm"	"v e13 změnit komplet na: otcův	ADJ	Case=Ins|Degree=Pos|Gender=Neut|Gender[psor]=Masc|Number=Sing|Poss=Yes"
+"ovšem	1015.660 ipm"	v13 odsttranit PronType=Tot
+"oženil	24.029 ipm"	v e13 doplnit: Aspect=Perf
+"pačesy	8.706 ipm"	v e16 změnit lemma na: pačesy
+"pana	635.480 ipm"	"v e16 změnit lemma na ""pan"""
+"pár	852.892 ipm"	v e13 předělat DET na NUM se vším náležitým
+"peci	17.555 ipm"	v e13 změnit lemma pece na pec
+"peněz	635.783 ipm"	"v e13 a16 zde změnit na lemma ""peníze""; ale jinak rozlišovat lemma peníze vs. peníz"
+"penězi	72.492 ipm"	v e13 a16 změnit lemma na: peníze
+"penězích	38.314 ipm"	v e16 změnit lemma na: peníze
+"penězům	24.852 ipm"	v e16 změnit lemma na: peníze
+"peníze	738.975 ipm"	"v e13 a16 zde změnit na lemma ""peníze""; ale jinak rozlišovat lemma peníze vs. peníz"
+"penze	27.192 ipm"	"v e16 změnit  na: penze NOUN	Case=Acc|Gender=Fem|Number=Plur"
+"plecí	23.852 ipm"	v e13 u Gender=Fem zěnit lemma na: plec
+"pleci	47.704 ipm"	v e13 zmnit lemma na: plec
+"polívka	42.369 ipm"	v e16 změnit lemma polévka na polívka
+"polívku	68.715 ipm"	v e16 změnit lemma na: polívku
+"polívky	52.465 ipm"	v e16 změnit lemma polévka na polívka
+"ponese	41.451 ipm"	v e13 změnit lemma na: nést
+"ponukl	16.166 ipm"	v e13 změnit lemma na: ponouknout
+"pořáde	48.395 ipm"	v e16 ujednotit lemma na: pořád
+"posavad	104.430 ipm"	v e16 udělat jednotně jako u tvaru posavád, tudíž: posavadADVDegree=Pos|Polarity=Pos
+"posla	146.616 ipm"	"v e13 změnit výskyt ""poslatNoun..."" na lemma ""poselNOUN..."""
+"povědom	15.895 ipm"	v e16 doplnit: Variant=Short
+"prázdno	64.930 ipm"	"v e13 změnit lemma ""prázdno"" na ""prázdný"""
+"president	37.829 ipm"	v e16 zmenit lemma z prezident na president
+"procesí	88.729 ipm"	v e16 změnit  na Number=Sing
+"pročež	287.192 ipm"	v e16 ujednotit na PronType=Int/Rel
+"prokopa	75.071 ipm"	v e16 zmenit NameType=Sur na NameType=Giv
+"proto	2832.384 ipm"	z 13 odstranit variantu s Degreee
+"protožť	16.166 ipm"	"v e13 změnit na: CCONJ	_"
+"prsa	175.466 ipm"	"v e16 změnit lemma na ""prsa"""
+"prsi	144.825 ipm"	v e13 ujednotit gender na Inan/Masc
+"prsí	55.558 ipm"	v e13 změnit femininní interpretaci na Maskulinum neživotné
+"prv	111.974 ipm"	v e16 ujednotit lemma na prve
+"prvé	760.838 ipm"	"v e13a 16 u lemmatu ""prvé"" (ADV) změnit toto lemma na: prve a xpos změnit z: NumType=Ord na:  Degree=Pos|Polarity=Pos"
+"přibude	27.903 ipm"	v e13 ujednotit  na: Tense=Pres
+"přijedu	28.794 ipm"	"v obou případech v e13 by měl být korektní tvar ""přijedú"""
+"přiklad	16.166 ipm"	v e13 změnit lemma na: příklad
+"půl	749.874 ipm"	v e16 (aprdt) doplnit: Case a Number
+"půldruhého	9.579 ipm"	v e16 změnit na: půldruhý ADJ Case Gen|Gender=Fem|Number=Sing|NumType=Ord
+"rači	56.456 ipm"	"v e13 doplnit ""Asapect"""
+"račte	95.052 ipm"	v e13 doplnit: Aspect=Imp
+"radějí	112.996 ipm"	v e13 změnit lemma na rád
+"radní	59.814 ipm"	"v e16 změnit interpretaci s vokativem na  Noun: radní	NOUN	Animacy=Anim|Case=Voc|Gender=Masc|Number=Plur"
+"radního	16.185 ipm"	v e16 změnit na: NOUN Animacy=Anim|Case=Acc|Gender=Masc|Number=Sing
+"rámě	43.594 ipm"	v e13 (a pdt) změnit lemma na: rameno
+"ramene	26.581 ipm"	v e13 změnit lemma na: rameno
+"rúče	32.249 ipm"	v e13 ujednotit na lemma ruče
+"říčan	25.247 ipm"	v e16 změnit rod z Fem na Inan Masc
+"řkúc	418.309 ipm"	v e13 doplnit na různých místech: Aspect... a Gender
+"řkúce	241.403 ipm"	v e13 doplnit: Aspect...
+"sam	36.588 ipm"	v e13 odstranit: Variant=Short
+"samém	69.767 ipm"	v pdt doplnit : Animacy, Number, PronType
+"samých	135.010 ipm"	v e13  smazat: |Variant=Short
+"séci	16.166 ipm"	v e16 změnit lemma na: síci
+"set	261.487 ipm"	v e16 odstranit Animacy a Gender
+"shřešil	24.207 ipm"	v e13 ujednotit lemma na: zhřešit
+"sic	137.325 ipm"	v e13 a 16 ujednotit lema na: sice
+"sirach	24.020 ipm"	v e16 změnit nameTypa=Sur na Giv
+"skoval	40.458 ipm"	v e13 a 16 ujednotit lemma na : schoval
+"skut	39.915 ipm"	v e16 doplnit: Abbr=Yes
+"složiv	23.936 ipm"	v e13 změnit VerbForm=Part na VerbForm=Conv
+"spíšeji	24.020 ipm"	v e16 změnit lemma na: spíš
+"spropitné	8.706 ipm"	"v e16 zmenit na: spropitné	NOUN	Case=Acc|Gender=Neut|Number=Sing"
+"sprostní	24.207 ipm"	v e16 změnit lema na: sprostný
+"stáři	24.207 ipm"	"v e16 změnit lema na: stář; a gender nově na: Fem"
+"stě	93.147 ipm"	v e13 opravit Number=Sing na Number=Dual
+"stkvěl	16.166 ipm"	v e16 změnit lemma na: skvít
+"stoupil	15.895 ipm"	v e13 změnit lemma na: sestoupit
+"střeže	24.291 ipm"	v e13 změnit lemma na: střežit
+"summa	176.903 ipm"	"v e16 změnit lemma na ""summa"""
+"šatech	149.683 ipm"	"v e16 změnit lemma ""šat"" na ""šaty"""
+"šaty	307.797 ipm"	v e13, v e16 a pdt ujednotit lemma na: šaty (důvod: plurálové paradigma je totožné u lemmatu šat i šaty, tudíž nelze odlišit, tak můžem použít jen lemma šaty pro pl - odlišné třeba peníz/peníze, kde lema peníz má jiné plurálové paradigma než lemma peníze)
+"školném	9.495 ipm"	v e13 změnit lemma na: školný
+"take	153.995 ipm"	"v e13 ujednotit lemma na ""tak"" a ponechat PronType=Dem"
+"takměř	39.120 ipm"	v e13 změnit lemma na: téměř
+"takož	23.852 ipm"	v e13 ujednotit lemma na: takž
+"takto	1225.222 ipm"	změnit v e13 Degree=Pos|Polarity=Pos na PronType=Dem
+"takže	1438.807 ipm"	změnit v e13 CCONJ na SCONJ
+"tedy	2260.622 ipm"	změnit Part v e16 na CCONJ
+"tehda	409.892 ipm"	"v e13 a 16 změnit na lemma ""tehdy""; a na interpretaci: PronType=Dem"
+"teletem	15.811 ipm"	v e13 změnit lemma na: tele
+"tenkráte	94.658 ipm"	"v e16 ujednotit na lemma tenkrát; a na PronType=Dem"
+"teprv	352.344 ipm"	v e13 a 16 ujednotit lemma na teprve
+"těžko	181.834 ipm"	v e13 a 16 ujednotit na: ADV Degree=Pos|Polarity=Pos
+"tisíc	637.006 ipm"	v e13 a16 doplnit: Animacy..., Gender=...
+"tisíce	246.271 ipm"	v e13 a16 doplnit: Animacy..., Gender=...
+"tisícem	8.332 ipm"	"v e13 změnit na: NUM	Animacy=Inan|Case=Ins|Gender=Masc|Number=Sing|NumForm=Word|NumType=Card"
+"tisíci	139.772 ipm"	v e13 a16 doplnit: Animacy..., Gender=...
+"tisící	16.392 ipm"	v e13 a16 změnit na ADJ a doplnit podle e19
+"tíž	71.556 ipm"	"v e16 ujednotit lemma na: tíže; interpretaci DET změnit na:  tíže	NOUN	Case=Acc|Gender=Fem|Number=Sing"
+"tolikéž	145.812 ipm"	v e13 a 16 ujednotit na interpretaci: AVD a verzi, kterou dojodneme
+"toliko	1019.414 ipm"	"v e13 a e16 ujednotit na lemma ""tolik"""
+"tovařišie	24.291 ipm"	v e13 změnit lemma na: tovaryš
+"tož	104.115 ipm"	v e13 ujednotit u DET lemma na: tenž
+"troja	8.416 ipm"	"v e16 změnit lemma na ""Troja"""
+"troje	73.533 ipm"	"v e13 a 16 ujednotit lemma na: trojí; ADJ změnit na NUM; Numype na Sets a doplnit NumForm=Word"
+"troji	23.581 ipm"	v e13 změnit lemma Trója na Troja
+"třeva	16.166 ipm"	"v e16 změnit na: střevo	NOUN	Case=Acc|Gender=Neut|Number=Plur"
+"tří	440.507 ipm"	v e1š a 16 Animacy... a Gender
+"tuď	15.895 ipm"	v e16 změnit lemma na: tuď
+"tvárnosti	16.457 ipm"	v e16 změnit lemma na: tvárnost
+"tým	98.688 ipm"	v e16 změnit lemma na tý
+"uťal	24.666 ipm"	v e13 změnit lemma na: utnout
+"valem	24.162 ipm"	v e13 změnit lemma na: valem
+"věčí	40.458 ipm"	v e13 ujednotit lemma na: velký
+"veškeré	256.372 ipm"	v e16 změnit DET na PRON
+"veškeren	40.102 ipm"	"v e13 a 16 ujednotit na lemma veškerý; u e13 odstranit ""Variant=Short"""
+"veškerý	33.094 ipm"	v e13 změnit DET na PRON
+"většího	54.901 ipm"	v e16 změnit lemma veliký na velký
+"viec	265.443 ipm"	"v e13 a) změnit lema víc na více; b) u interpretace: hodně	ADV	Degree=Pos|Polarity=Pos změnit Degree na Cmp (u lemmatu hodně to nemůže být pozitiv!); c) u interpretace  hodně DET doplnit chybějící: |Degree=Cmp "
+"viece	788.538 ipm"	"v e13 a) změnit lemma mnoho na hodně a víc na více; b) u interpretace: hodně	ADV	Degree=Pos|Polarity=Pos změnit Degree na Cmp (u lemmatu hodně to nemůže být pozitiv!); c) odstranit:Polarity=Pos u interpretace: hodně DET... "
+"višeň	16.457 ipm"	v e13 změnit lemma na:  višeň
+"vojsky	25.370 ipm"	"v e13 změnit lemma ""vojsko"" na ""vojska"""
+"vrátného	8.997 ipm"	"v e16 změnit na: NOUN	Animacy=Anim|Case=Acc|Gender=Masc|Number=Sing; platí i pro tvar ""vratný"" s lemma trem ""vrátný"", kde bude: NOUN	Animacy=Anim|Case=Nom|Gender=Masc|Number=Sing"
+"vrátným	8.416 ipm"	"v e16 změnit na: NOUN	Animacy=Anim|Case=Ins|Gender=Masc|Number=Sing"
+"všady	104.264 ipm"	v e13 ujednotit na lemma všudy
+"všelijak	88.457 ipm"	v e16 ujednotit xpos
+"všelijaké	117.168 ipm"	v e16 ujednotiti na: PronType=Ind
+"všelijakého	16.541 ipm"	v e16 ujednotit na: PronType=Ind
+"všelijaký	24.311 ipm"	v e16 ujednotit na: PronType=Ind
+"všeliké	144.010 ipm"	v e13 ujednotit na PronType=Tot
+"všelikého	80.560 ipm"	"v e13 ujednotit na DET etc; v e16 ujednotit na PronType=Tot"
+"všelikému	55.829 ipm"	"v e13 ujednotit na DET etc; v e16 ujednotit na PronType=Tot"
+"vuoz	16.166 ipm"	v e13 změnit lemma na: vůz
+"vydaly	22.497 ipm"	v e13 doplnit: Aspect=Perf
+"vynešeno	15.895 ipm"	v e16 změnit lemma na: vynešený
+"zadost	24.246 ipm"	"v e16 cyhbná anotace, změnit na: zadost	ADV	Degree=Pos|Polarity=Pos"
+"zachovale	14.111 ipm"	"v e16 změnit na: ADV	Degree=Pos|Polarity=Pos"
+"zámutkem	15.811 ipm"	v e13 změnit lemma na: zármutek
+"zaroveň	24.291 ipm"	v e13 změnit lemma na: zároveň
+"závírce	15.895 ipm"	v e16 změnit lemma na: závírka
+"zbude	48.704 ipm"	v e13 změnit z Tense=Fut na Tense=Pres
+"zbudil	24.291 ipm"	v e13 změnit lemma na: vzbudit
+"zdenkovi	23.664 ipm"	v e16 změnit lemma na: Zdenek
+"zimě	280.991 ipm"	v e13 bych to ADV taky interpretoval jako lokál, a to bezpředložkový - ujednoti na Noun
+"zlatých	296.832 ipm"	v e13 a 16 identifikovat doklady, kde se jedná o NOUN a dát jim NOUN interpretaci (jsou tam!!)
+"zroste	31.706 ipm"	v e13 změnit lemma na: vzrůst
+"žádný	905.868 ipm"	v e13 odstranit  Polarity=Pos a dát  PronType=Neg
