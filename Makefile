@@ -378,6 +378,9 @@ clean_etalon16:
 clean_etalon19:
 	rm -rf data/etalon19/*.conllu
 # The etalons will be parsed using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
+###!!! The ud.cs.FixEtalon Udapi block is currrently placed in my Udapi folder but it is not versioned. It should be versioned in Hičkok!
+###!!! Parsing etalons should be a separate step. First, it is nondeterministic when Lindat REST API is involved, so it may spoil git diff.
+###!!! And second, we will want to be able to play with different models, not just the model pretrained on UD_Czech-FicTree 2.17.
 .PHONY: etalons
 etalons: etalon13 etalon16 etalon19
 .PHONY: etalon13
@@ -387,23 +390,31 @@ data/etalon13/%.conllu: $(ANNOTDIR)/14_stol/%_DEF.conllu
 	udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
+	      ud.cs.FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
-	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon13/%.conllu: $(ANNOTDIR)/15_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
+	      ud.cs.FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+.PHONY: parse_etalon13
+parse_etalon13:
+	for i in data/etalon13/*.conllu ; do \
+	    echo $$i ; \
+	    cp $$i backup.conllu ; \
+	    cat backup.conllu \
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
+	    rm backup.conllu ; \
+	done
 .PHONY: etalon16
 etalon16: $(ETALON16FILES)
 data/etalon16/%.conllu: $(ANNOTDIR)/16_stol/%_DEF.conllu
@@ -411,23 +422,21 @@ data/etalon16/%.conllu: $(ANNOTDIR)/16_stol/%_DEF.conllu
 	udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
+	      ud.cs.FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
-	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon16/%.conllu: $(ANNOTDIR)/17_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
+	      ud.cs.FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
-	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
 	mkdir -p $(@D)
 	udapy read.Conllu files=$< fix_cycles=1 \
@@ -436,9 +445,17 @@ data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
-	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+.PHONY: parse_etalon16
+parse_etalon16:
+	for i in data/etalon16/*.conllu ; do \
+	    echo $$i ; \
+	    cp $$i backup.conllu ; \
+	    cat backup.conllu \
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
+	    rm backup.conllu ; \
+	done
 .PHONY: etalon19
 etalon19: $(ETALON19FILES)
 data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
