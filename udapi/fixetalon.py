@@ -84,6 +84,7 @@ class FixEtalon(Block):
             # "v e13 změnit  na: cožkoli	PRON	Case=Acc|PronType=Ind"
             node.lemma = 'cožkoli'
             node.upos = 'PRON'
+            node.feats['NumType'] = ''
             node.feats['PronType'] = 'Ind'
             node.feats['Case'] = 'Acc'
         elif lform == 'čáry':
@@ -135,6 +136,8 @@ class FixEtalon(Block):
                 node.feats['Gender'] = 'Neut'
                 node.feats['Number'] = 'Sing'
                 node.feats['Case'] = 'Gen'
+                node.feats['Polarity'] = ''
+                node.feats['Variant'] = ''
         elif lform == 'dceř':
             # v e13 změnit lemma na dcera
             node.lemma = 'dcera'
@@ -1020,8 +1023,7 @@ class FixEtalon(Block):
         elif lform == 'těžko':
             # v e13 a 16 ujednotit na: ADV Degree=Pos|Polarity=Pos
             node.upos = 'ADV'
-            node.feats['Degree'] = 'Pos'
-            node.feats['Polarity'] = 'Pos'
+            node.feats = {'Degree': 'Pos', 'Polarity': 'Pos'}
         elif lform == 'tisíc':
             # v e13 a16 doplnit: Animacy..., Gender=...
             ###!!! DZ: ???
@@ -1212,6 +1214,7 @@ class FixEtalon(Block):
             node.upos = 'NOUN'
             if node.feats['Case'] == '':
                 node.feats['Case'] = 'Loc'
+            node.feats['Polarity'] = ''
         elif lform == 'zlatých':
             # v e13 a 16 identifikovat doklady, kde se jedná o NOUN a dát jim NOUN interpretaci (jsou tam!!)
             ###!!! DZ: ???
