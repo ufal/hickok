@@ -93,8 +93,7 @@ class FixEtalon(Block):
         elif lform == 'častokrát':
             # v e13 a 16 a pdt ujednotit na interpretaci: ADV NumType=Mult| PronType=Ind
             node.upos = 'ADV'
-            node.feats['NumType'] = 'Mult'
-            node.feats['PronType'] = 'Ind'
+            node.feats = {'NumType': 'Mult', 'PronType': 'Ind'}
         elif lform == 'čemkoliv':
             # v e16 a pdt změnit lemma na: cokoli
             node.lemma = 'cokoli'
@@ -212,15 +211,12 @@ class FixEtalon(Block):
             # "v e13 a 16 ujednotit na lemma ""dost""; a zrušit nejspíš číslovkovopu interpretaci (není v e 19 ani foictree"
             node.lemma = 'dost'
             node.upos = 'ADV'
-            node.feats['NumType'] = ''
-            node.feats['PronType'] = ''
-            node.feats['Case'] = ''
+            node.feats = {'Degree': 'Pos', 'Polarity': 'Pos'}
         elif lform == 'drahně':
             # "v e16 změnit  na: drahně	ADV	Degree=Pos|Polarity=Pos"
             node.lemma = 'drahně'
             node.upos = 'ADV'
-            node.feats['Degree'] = 'Pos'
-            node.feats['Polarity'] = 'Pos'
+            node.feats = {'Degree': 'Pos', 'Polarity': 'Pos'}
         elif lform == 'draho':
             # v e13 doklad: že ť žákóm draho vařenie je podle mě a jiných komntextů ADj, nikoli ADV, tak asi přeanotovat tenhle doklad
             if node.prev_node.form == 'žákóm':
@@ -904,9 +900,8 @@ class FixEtalon(Block):
             node.feats['Animacy'] = 'Inan'
         elif lform == 'řkúc':
             # v e13 doplnit na různých místech: Aspect... a Gender
+            ###!!! DZ: Nemůžu doplnit Gender, protože přinejmenším některé výskyty jsou Number=Plur.
             node.feats['Aspect'] = 'Perf'
-            if node.feats['Gender'] == '':
-                node.feats['Gender'] = 'Fem'
         elif lform == 'řkúce':
             # v e13 doplnit: Aspect...
             node.feats['Aspect'] = 'Perf'
@@ -1155,23 +1150,35 @@ class FixEtalon(Block):
         elif lform == 'všelijaké':
             # v e16 ujednotiti na: PronType=Ind
             node.feats['PronType'] = 'Ind'
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = ''
         elif lform == 'všelijakého':
             # v e16 ujednotit na: PronType=Ind
             node.feats['PronType'] = 'Ind'
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = ''
         elif lform == 'všelijaký':
             # v e16 ujednotit na: PronType=Ind
             node.feats['PronType'] = 'Ind'
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = ''
         elif lform == 'všeliké':
             # v e13 ujednotit na PronType=Tot
             node.feats['PronType'] = 'Tot'
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = ''
         elif lform == 'všelikého':
             # "v e13 ujednotit na DET etc; v e16 ujednotit na PronType=Tot"
             node.upos = 'DET'
             node.feats['PronType'] = 'Tot'
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = ''
         elif lform == 'všelikému':
             # "v e13 ujednotit na DET etc; v e16 ujednotit na PronType=Tot"
             node.upos = 'DET'
             node.feats['PronType'] = 'Tot'
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = ''
         elif lform == 'vuoz':
             # v e13 změnit lemma na: vůz
             node.lemma = 'vůz'
