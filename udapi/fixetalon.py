@@ -79,6 +79,8 @@ class FixEtalon(Block):
                 node.upos = 'PRON'
                 if node.feats['PronType'] == '':
                     node.feats['PronType'] = 'Rel'
+                if node.feats['Case'] == '':
+                    node.feats['Case'] = 'Nom'
             node.feats['Animacy'] = ''
             node.feats['NumType'] = ''
         elif lform == 'cožkoli':
@@ -448,6 +450,8 @@ class FixEtalon(Block):
             node.feats['Poss'] = 'Yes'
             node.feats['Gender[psor]'] = 'Masc'
             ###!!! DZ: ovšem Gender, Number a Case tady měnit nemůžu, závisí na kontextu.
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = ''
         elif lform == 'kristem':
             # v e13 doplnit NameType=Sur
             node.lemma = 'Kristus'
@@ -614,6 +618,7 @@ class FixEtalon(Block):
             # v e16 změnit případ PronType=Prs na PronType=Rel
             if node.feats['PronType'] == 'Prs':
                 node.feats['PronType'] = 'Rel'
+                node.feats['Person'] = ''
         elif lform == 'nemocen':
             # v 13 a 16 ujednotit lemma na: nemocný
             node.lemma = 'nemocný'
@@ -641,7 +646,9 @@ class FixEtalon(Block):
             node.lemma = 'nemocný'
         elif lform == 'nemysli':
             # "v e16 odstranit ""Voice=Act"""
-            node.feats['Voice'] = ''
+            ###!!! DZ: Ale Voice je povinný.
+            dummy = 0
+            #node.feats['Voice'] = ''
         elif lform == 'nenadále':
             # v e16 sjednotit na lemma nenadále
             node.lemma = 'nenadále'
@@ -833,7 +840,7 @@ class FixEtalon(Block):
             dummy = 0
         elif lform == 'pročež':
             # v e16 ujednotit na PronType=Int/Rel
-            node.feats['PronType'] = 'Rel'
+            node.feats = {'PronType': 'Rel'}
         elif lform == 'prokopa':
             # v e16 zmenit NameType=Sur na NameType=Giv
             node.feats['NameType'] = 'Giv'
@@ -885,6 +892,9 @@ class FixEtalon(Block):
             node.lemma = 'půldruhý'
             node.upos = 'ADJ'
             node.feats['Case'] = 'Gen'
+            ###!!! Kontext je "půldruhého tisíce grošů českých", takže Gender=Masc.
+            node.feats['Gender'] = 'Masc'
+            node.feats['Animacy'] = 'Anim'
             node.feats['Number'] = 'Sing'
             node.feats['NumType'] = 'Ord'
             node.feats['NumForm'] = ''
@@ -1111,6 +1121,7 @@ class FixEtalon(Block):
             node.lemma = 'střevo'
             node.upos = 'NOUN'
             node.feats['Gender'] = 'Neut'
+            node.feats['Animacy'] = ''
         elif lform == 'tří':
             # v e1š a 16 Animacy... a Gender
             ###!!! DZ: ???
