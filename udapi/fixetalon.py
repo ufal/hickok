@@ -74,6 +74,7 @@ class FixEtalon(Block):
                 if node.feats['PronType'] == '':
                     node.feats['PronType'] = 'Rel'
             node.feats['Animacy'] = ''
+            node.feats['NumType'] = ''
         elif lform == 'cožkoli':
             # "v e16 ujednotit na: PRON	Case=Acc|PronType=Ind"
             node.upos = 'PRON'

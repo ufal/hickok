@@ -387,20 +387,20 @@ etalons: etalon13 etalon16 etalon19
 etalon13: $(ETALON13FILES)
 data/etalon13/%.conllu: $(ANNOTDIR)/14_stol/%_DEF.conllu
 	mkdir -p $(@D)
-	udapy read.Conllu files=$< fix_cycles=1 \
+	PYTHONPATH=$(PYTHONPATH):./udapi udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
-	      .udapi.FixEtalon \
+	      .FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon13/%.conllu: $(ANNOTDIR)/15_stol/%_DEF.conllu
 	mkdir -p $(@D)
-	udapy read.Conllu files=$< fix_cycles=1 \
+	PYTHONPATH=$(PYTHONPATH):./udapi udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
-	      .udapi.FixEtalon \
+	      .FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
@@ -419,30 +419,30 @@ parse_etalon13:
 etalon16: $(ETALON16FILES)
 data/etalon16/%.conllu: $(ANNOTDIR)/16_stol/%_DEF.conllu
 	mkdir -p $(@D)
-	udapy read.Conllu files=$< fix_cycles=1 \
+	PYTHONPATH=$(PYTHONPATH):./udapi udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
-	      .udapi.FixEtalon \
+	      .FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon16/%.conllu: $(ANNOTDIR)/17_stol/%_DEF.conllu
 	mkdir -p $(@D)
-	udapy read.Conllu files=$< fix_cycles=1 \
+	PYTHONPATH=$(PYTHONPATH):./udapi udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
-	      .udapi.FixEtalon \
+	      .FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
 data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
 	mkdir -p $(@D)
-	udapy read.Conllu files=$< fix_cycles=1 \
+	PYTHONPATH=$(PYTHONPATH):./udapi udapy read.Conllu files=$< fix_cycles=1 \
 	      util.Eval node='node.misc["AmbLemma"] = ""; node.misc["AmbHlemma"] = ""; node.misc["AmbPrgTag"] = ""; node.misc["AmbBrnTag"] = ""; node.misc["AmbHlemmaPrgTag"] = ""; node.misc["AmbHlemmaBrnTag"] = ""; node.misc["InflClass"] = ""; node.misc["Lemma1300"] = ""; node.misc["Verse"] = ""; node.misc["XixstolTag"] = ""; node.misc["Comment"] = ""; node.misc["CzechParticle"] = ""' \
 	      util.Eval node='if node.multiword_token and (node == node.multiword_token.words[0]): mwt = node.multiword_token; mwt.misc["AmbLemma"] = ""; mwt.misc["AmbHlemma"] = ""; mwt.misc["AmbPrgTag"] = ""; mwt.misc["AmbBrnTag"] = ""; mwt.misc["AmbHlemmaPrgTag"] = ""; mwt.misc["AmbHlemmaBrnTag"] = ""; mwt.misc["InflClass"] = ""; mwt.misc["Lemma1300"] = ""; mwt.misc["Verse"] = ""; mwt.misc["XixstolTag"] = ""; mwt.misc["Comment"] = ""; mwt.misc["CzechParticle"] = ""' \
-	      .udapi.FixEtalon \
+	      .FixEtalon \
 	      write.Conllu files=- \
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
@@ -476,7 +476,7 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 VALIDATE_OPTIONS := --max-err=0 --no-warnings -e root-is-not-0 punct-is-nonproj punct-causes-nonproj leaf-aux-cop leaf-cc leaf-det leaf-fixed leaf-mark-case leaf-punct upos-rel-punct rel-upos-advmod rel-upos-aux rel-upos-case rel-upos-cc rel-upos-cop rel-upos-det rel-upos-expl rel-upos-mark rel-upos-nummod rel-upos-punct right-to-left-appos right-to-left-conj right-to-left-fixed right-to-left-flat obl-should-be-nmod too-many-subjects too-many-objects cop-lemma
 .PHONY: validate_etalon13
 validate_etalon13:
-	validate.py --lang cs data/etalon13/*.conllu $(VALIDATE_OPTIONS) > data/etalon13.validation.log 2>&1
+	validate.py --lang cs data/etalon13/*.conllu $(VALIDATE_OPTIONS) 2>&1 | tee data/etalon13.validation.log
 	udapy read.Conllu files='!data/etalon13/*.conllu' \
 	  ud.cs.MarkFeatsBugs \
 	  util.MarkMwtBugsAtNodes \
@@ -484,7 +484,7 @@ validate_etalon13:
 	  > data/etalon13.bugs.html
 .PHONY: validate_etalon16
 validate_etalon16:
-	validate.py --lang cs data/etalon16/*.conllu $(VALIDATE_OPTIONS) > data/etalon16.validation.log 2>&1
+	validate.py --lang cs data/etalon16/*.conllu $(VALIDATE_OPTIONS) 2>&1 | tee data/etalon16.validation.log
 	udapy read.Conllu files='!data/etalon16/*.conllu' \
 	  ud.cs.MarkFeatsBugs \
 	  util.MarkMwtBugsAtNodes \
@@ -492,7 +492,7 @@ validate_etalon16:
 	  > data/etalon16.bugs.html
 .PHONY: validate_etalon19
 validate_etalon19:
-	validate.py --lang cs data/etalon19/*.conllu $(VALIDATE_OPTIONS) > data/etalon19.validation.log 2>&1
+	validate.py --lang cs data/etalon19/*.conllu $(VALIDATE_OPTIONS) 2>&1 | tee data/etalon19.validation.log
 	udapy read.Conllu files='!data/etalon19/*.conllu' \
 	  ud.cs.MarkFeatsBugs \
 	  util.MarkMwtBugsAtNodes \
