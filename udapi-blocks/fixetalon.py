@@ -3,8 +3,6 @@ Project Hičkok: Fix individual positions in Etalon 13 and Etalon 16, following
 observation and comparison performed by Martin Stluka.
 """
 from udapi.core.block import Block
-import logging
-import re
 
 class FixEtalon(Block):
 
@@ -547,6 +545,7 @@ class FixEtalon(Block):
             # "v e13 změnit na: ne	PART	_"
             node.lemma = 'ne'
             node.upos = 'PART'
+            node.feats = {}
         elif lform == 'nebes':
             # v e13 a 16 změnit lemma na: nebesa
             node.lemma = 'nebesa'
@@ -661,6 +660,7 @@ class FixEtalon(Block):
         elif lform == 'nikoli':
             # v e13 všechno změnit na: PART_
             node.upos = 'PART'
+            node.feats = {}
         elif lform == 'nižádného':
             # v e13 ujednotit na PronType=Neg
             node.feats['PronType'] = 'Neg'
@@ -668,9 +668,11 @@ class FixEtalon(Block):
             # "v e13 a 16 změnit lemma na: nuže; a INTJ_na PART_"
             node.lemma = 'nuže'
             node.upos = 'PART'
+            node.feats = {}
         elif lform == 'nuže':
             # v e13 a 16 změnit na: PART_
             node.upos = 'PART'
+            node.feats = {}
         elif lform == 'nynie':
             # v e16 opravit podle e13
             ###!!! DZ: A to je jak?
