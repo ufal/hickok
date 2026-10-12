@@ -250,7 +250,7 @@ class FixEtalon(Block):
             node.feats['Case'] = 'Nom'
             node.feats['Gender'] = 'Masc'
             node.feats['Number'] = 'Sing'
-            node.feats['Polarity'] = 'Pos'
+            node.feats['Polarity'] = ''
         elif lform == 'dvé':
             # "v e13 ujednotit na: dvé	NUM	Case=Acc|Number=Sing|NumForm=Word|NumType=Card"
             node.lemma = 'dvé'
@@ -900,6 +900,7 @@ class FixEtalon(Block):
                 node.upos = 'NOUN'
                 node.feats['Animacy'] = 'Anim'
                 node.feats['Gender'] = 'Masc'
+                node.feats['Polarity'] = ''
         elif lform == 'radního':
             # v e16 změnit na: NOUN Animacy=Anim|Case=Acc|Gender=Masc|Number=Sing
             node.lemma = 'radní'
@@ -907,7 +908,7 @@ class FixEtalon(Block):
             node.feats['Animacy'] = 'Anim'
             node.feats['Gender'] = 'Masc'
             node.feats['Number'] = 'Sing'
-            node.feats['Polarity'] = 'Pos'
+            node.feats['Polarity'] = ''
         elif lform == 'rámě':
             # v e13 (a pdt) změnit lemma na: rameno
             node.lemma = 'rameno'
