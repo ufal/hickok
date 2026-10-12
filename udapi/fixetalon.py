@@ -109,8 +109,12 @@ class FixEtalon(Block):
             node.lemma = 'čtvery'
         elif lform == 'čtvrt':
             # v e13 a 16 (apdt) odstrranit Gender u NUM
+            ###!!! DZ: Naopak, Gender=Fem je povinné a je potřeba ho doplnit i u tvaru "čtvrtí", viz níže.
             if node.upos == 'NUM':
-                node.feats['Gender'] = ''
+                node.feats['Gender'] = 'Fem'
+        elif lform == 'čtvrtí':
+            if node.upos == 'NUM':
+                node.feats['Gender'] = 'Fem'
         elif lform == 'da':
             # v e 13 asi odstranit Variant=Long
             node.feats['Variant'] = ''
@@ -360,10 +364,13 @@ class FixEtalon(Block):
             node.lemma = 'Jesus'
         elif lform == 'ješto':
             # "z 13 a 16 odstranit variantu: ADV	PronType=Rel; a doplnit variantu: PRON	PrepCase=Npr|PronType=Rel"
-            if node.upos == 'ADV':
-                node.upos = 'PRON'
-                node.feats['PronType'] = 'Rel'
-                node.feats['PrepCase'] = 'Npr'
+            ###!!! DZ: Nelze provést automaticky, protože neznám rod, číslo a pád, které jsou povinné.
+            dummy = 0
+            #if node.upos == 'ADV':
+            #    node.lemma = 'jenžto'
+            #    node.upos = 'PRON'
+            #    node.feats['PronType'] = 'Rel'
+            #    node.feats['PrepCase'] = 'Npr'
         elif lform == 'jidáš':
             # v e16 zmenit NameType=Sur na NameType=Giv
             node.feats['NameType'] = 'Giv'
