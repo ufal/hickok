@@ -46,12 +46,15 @@ class FixEtalon(Block):
         elif lform == 'bližní':
             # v e16 změnit na: NOUN... (jako je to ve fictree a pdt)
             node.upos = 'NOUN'
+            node.feats['Polarity'] = ''
         elif lform == 'blížních':
             # "v e16 změnit na: NOUN	Animacy=Anim|Case=Gen|Gender=Masc|Number=Plur"
             node.upos = 'NOUN'
+            node.feats['Polarity'] = ''
         elif lform == 'bližnímu':
             # "v e16 změnit na: NOUN	Animacy=Anim|Case=Dat|Gender=Masc|Number=Sing"
             node.upos = 'NOUN'
+            node.feats['Polarity'] = ''
         elif lform == 'bodl':
             # v e13 změnit lemma na: bodat
             node.lemma = 'bodnout'
@@ -78,6 +81,7 @@ class FixEtalon(Block):
         elif lform == 'cožkoli':
             # "v e16 ujednotit na: PRON	Case=Acc|PronType=Ind"
             node.upos = 'PRON'
+            node.feats['NumType'] = ''
             node.feats['PronType'] = 'Ind'
             node.feats['Case'] = 'Acc'
         elif lform == 'cožkolivěk':
@@ -104,6 +108,8 @@ class FixEtalon(Block):
             node.feats['Gender'] = 'Neut'
             node.feats['Number'] = 'Sing'
             node.feats['Case'] = 'Gen'
+            node.feats['Polarity'] = ''
+            node.feats['Variant'] = ''
         elif lform == 'čtvery':
             # v e13 změnit lemma na: čtvery
             node.lemma = 'čtvery'
@@ -244,6 +250,7 @@ class FixEtalon(Block):
             node.feats['Case'] = 'Nom'
             node.feats['Gender'] = 'Masc'
             node.feats['Number'] = 'Sing'
+            node.feats['Polarity'] = 'Pos'
         elif lform == 'dvé':
             # "v e13 ujednotit na: dvé	NUM	Case=Acc|Number=Sing|NumForm=Word|NumType=Card"
             node.lemma = 'dvé'
@@ -875,9 +882,11 @@ class FixEtalon(Block):
             node.feats['Case'] = 'Gen'
             node.feats['Number'] = 'Sing'
             node.feats['NumType'] = 'Ord'
+            node.feats['NumForm'] = ''
         elif lform == 'rači':
             # "v e13 doplnit ""Asapect"""
-            node.feats['Aspect'] = 'Imp'
+            if node.upos == 'VERB':
+                node.feats['Aspect'] = 'Imp'
         elif lform == 'račte':
             # v e13 doplnit: Aspect=Imp
             node.feats['Aspect'] = 'Imp'
@@ -898,6 +907,7 @@ class FixEtalon(Block):
             node.feats['Animacy'] = 'Anim'
             node.feats['Gender'] = 'Masc'
             node.feats['Number'] = 'Sing'
+            node.feats['Polarity'] = 'Pos'
         elif lform == 'rámě':
             # v e13 (a pdt) změnit lemma na: rameno
             node.lemma = 'rameno'
@@ -959,6 +969,7 @@ class FixEtalon(Block):
             node.upos = 'NOUN'
             node.feats['Gender'] = 'Neut'
             node.feats['Number'] = 'Sing'
+            node.feats['Polarity'] = ''
         elif lform == 'sprostní':
             # v e16 změnit lema na: sprostný
             node.lemma = 'sprostný'
@@ -1153,10 +1164,12 @@ class FixEtalon(Block):
             # platí i pro tvar ""vratný"" s lemma trem ""vrátný"", kde bude: NOUN	Animacy=Anim|Case=Nom|Gender=Masc|Number=Sing"
             node.upos = 'NOUN'
             node.lemma = 'vrátný'
+            node.feats['Polarity'] = ''
         elif lform == 'vrátným':
             # "v e16 změnit na: NOUN	Animacy=Anim|Case=Ins|Gender=Masc|Number=Sing"
             node.upos = 'NOUN'
             node.lemma = 'vrátný'
+            node.feats['Polarity'] = ''
         elif lform == 'všady':
             # v e13 ujednotit na lemma všudy
             node.lemma = 'všudy'
