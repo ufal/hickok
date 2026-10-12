@@ -135,6 +135,7 @@ class FixEtalon(Block):
                 node.feats['Gender'] = 'Neut'
                 node.feats['Number'] = 'Sing'
                 node.feats['Case'] = 'Gen'
+                node.feats['Degree'] = ''
                 node.feats['Polarity'] = ''
                 node.feats['Variant'] = ''
         elif lform == 'dceř':
@@ -222,6 +223,9 @@ class FixEtalon(Block):
             if node.prev_node.form == 'žákóm':
                 node.upos = 'ADJ'
                 node.lemma = 'drahý'
+                node.feats['Gender'] = 'Neut'
+                node.feats['Number'] = 'Sing'
+                node.feats['Case'] = 'Nom'
         elif lform == 'druhé':
             # v e13 u interpretace: druhý ADV... změnit lemma na druhé
             if node.upos == 'ADV':
@@ -718,6 +722,8 @@ class FixEtalon(Block):
             node.upos = 'ADJ'
             node.feats['Poss'] = 'Yes'
             node.feats['Gender[psor]'] = 'Masc'
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = ''
         elif lform == 'ovšem':
             # v13 odsttranit PronType=Tot
             node.feats['PronType'] = ''
@@ -1219,8 +1225,11 @@ class FixEtalon(Block):
             # v e13 bych to ADV taky interpretoval jako lokál, a to bezpředložkový - ujednoti na Noun
             node.lemma = 'zima'
             node.upos = 'NOUN'
+            node.feats['Gender'] = 'Fem'
+            node.feats['Number'] = 'Sing'
             if node.feats['Case'] == '':
                 node.feats['Case'] = 'Loc'
+            node.feats['Degree'] = ''
             node.feats['Polarity'] = ''
         elif lform == 'zlatých':
             # v e13 a 16 identifikovat doklady, kde se jedná o NOUN a dát jim NOUN interpretaci (jsou tam!!)
