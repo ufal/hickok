@@ -476,9 +476,19 @@ VALIDATE_OPTIONS := --max-err=0 --no-warnings -e root-is-not-0 punct-is-nonproj 
 .PHONY: validate_etalon13
 validate_etalon13:
 	validate.py --lang cs data/etalon13/*.conllu $(VALIDATE_OPTIONS) > data/etalon13.validation.log 2>&1
+	udapy read.Conllu files='!data/etalon13/*.conllu' \
+	  ud.cs.MarkFeatsBugs \
+	  util.MarkMwtBugsAtNodes \
+	  write.TextModeTreesHtml marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc \
+	  > data/etalon13.bugs.html
 .PHONY: validate_etalon16
 validate_etalon16:
 	validate.py --lang cs data/etalon16/*.conllu $(VALIDATE_OPTIONS) > data/etalon16.validation.log 2>&1
+	udapy read.Conllu files='!data/etalon16/*.conllu' \
+	  ud.cs.MarkFeatsBugs \
+	  util.MarkMwtBugsAtNodes \
+	  write.TextModeTreesHtml marked_only=1 layout=compact attributes=form,lemma,upos,xpos,feats,deprel,misc \
+	  > data/etalon16.bugs.html
 .PHONY: validate_etalon19
 validate_etalon19:
 	validate.py --lang cs data/etalon19/*.conllu $(VALIDATE_OPTIONS) > data/etalon19.validation.log 2>&1
