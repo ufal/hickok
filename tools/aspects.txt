@@ -138,7 +138,6 @@
       5 bušit Imp
    1166 bydlet Imp
       9 bydlívat Imp
-      1 být 
  144451 být Imp
     520 bývat Imp
      14 bývávat Imp
@@ -4296,8 +4295,7 @@
       1 sepnout Perf
      14 sepsat Perf
       1 sepsout Perf
-      1 serializovat Imp
-      1 serializovat Imp,Perf
+      2 serializovat Imp,Perf
       8 servírovat Imp,Perf
       8 seřadit Perf
       1 seřazovat Imp
