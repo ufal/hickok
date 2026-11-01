@@ -857,8 +857,8 @@ class FixEtalon(Block):
             node.feats['NameType'] = 'Giv'
         elif lform == 'proto':
             # z 13 odstranit variantu s Degreee
-            node.upos = 'ADV'
-            node.feats = {'PronType': 'Dem'}
+            if node.upos == 'ADV':
+                node.feats = {'PronType': 'Dem'}
         elif lform == 'protožť':
             # "v e13 změnit na: CCONJ	_"
             node.upos = 'CCONJ'
