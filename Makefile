@@ -471,7 +471,9 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
 	    | udapy -s util.Eval node='if node.deprel == "<pad>": node.deprel = "dep"' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $@
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' \
+	    | tools/add_aspect.py --list tools/aspects.txt --upos VERB,AUX \
+	    | tools/add_aspect.py --list tools/aspects-adj.txt --upos ADJ > $@
 
 VALIDATE_OPTIONS := --max-err=0 --no-warnings -e root-is-not-0 multiple-roots punct-is-nonproj punct-causes-nonproj leaf-aux-cop leaf-cc leaf-det leaf-fixed leaf-mark-case leaf-punct upos-rel-punct rel-upos-advmod rel-upos-aux rel-upos-case rel-upos-cc rel-upos-cop rel-upos-det rel-upos-expl rel-upos-mark rel-upos-nummod rel-upos-punct right-to-left-appos right-to-left-conj right-to-left-fixed right-to-left-flat obl-should-be-nmod too-many-subjects too-many-objects cop-lemma
 .PHONY: validate_etalon13
