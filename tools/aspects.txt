@@ -6442,7 +6442,7 @@
       6 zahřívat Imp
       5 zahubit Perf
       1 zahustit Perf
-      2 zahýbat Imp
+      3 zahýbat Imp
       2 zahýbat Perf
     110 zahynout Perf
      41 zacházet Imp
