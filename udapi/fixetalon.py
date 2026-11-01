@@ -138,7 +138,7 @@ class FixEtalon(Block):
             node.lemma = 'další'
         elif lform == 'darováno':
             # v e16 doplnit: Animacy..., Aspect...
-            dummy = 0 ###!!!
+            node.feats['Aspect'] = 'Perf'
         elif lform == 'dav':
             # v e13 změnit VerbForm=Part na VerbForm=Conv
             if node.feats['VerbForm'] == 'Part':
@@ -279,8 +279,13 @@ class FixEtalon(Block):
             node.lemma = 'dýnko'
         elif lform == 'etc':
             # "v e16 odstranit interpretaci: etc	ADV	Degree=Pos|Polarity=Pos"
-            ###!!! DZ: A jakou interpretaci dát místo toho?
-            dummy = 0
+            # V e19 je aktuálně etc etc X X@-------------.
+            # V PDTC se to vyskytuje jen pětkrát a vždy je to součást nějakého názvu, nikdy to není ve významu "atd."
+            node.lemma = 'etc'
+            node.upos = 'ADV'
+            node.feats['Abbr'] = 'Yes'
+            node.feats['Degree'] = ''
+            node.feats['Polarity'] = 'Pos'
         elif lform == 'galilee':
             # "v e16 změnit lemma na ""Galilea"""
             node.lemma = 'Galilea'
@@ -295,7 +300,7 @@ class FixEtalon(Block):
             node.lemma = 'hodinky'
         elif lform == 'holé':
             # v e13 nutno změnit  ADJ... za: VERB Aspect=Imp|Mood=Ind|Number=Sing|Person=3|Polarity=Pos|Tense=Pres|VerbForm=Fin|Voice=Act
-            ###!!! DZ: Ale jaké by to pak mělo lemma? A jak to poznám od míst, kde to má být ADJ?
+            ###!!! DZ: Ale jaké by to pak mělo lemma? A jak to poznám od míst, kde to má být ADJ? (Skript neví, jestli kouká na e13, e16, nebo něco jiného.)
             dummy = 0
         elif lform == 'huoře':
             # v e16 zmenit lemma na: špatně
@@ -321,7 +326,9 @@ class FixEtalon(Block):
             node.lemma = 'jakýsi'
         elif lform == 'jakež':
             # "v e16 změnit na interpretaci jako je v e13: jakož	SCONJ	_"
-            dummy = 0
+            node.lemma = 'jakož'
+            node.upos = 'SCONJ'
+            node.feats = {}
         elif lform == 'jakoby':
             # v e16 změnit na: SCONJ_
             node.upos = 'SCONJ'
@@ -396,8 +403,8 @@ class FixEtalon(Block):
             node.lemma = 'kak'
         elif lform == 'kázal':
             # """Aspect"" zde chybí i u několika případů v e13 a e16"
-            ###!!! DZ: A nebylo to tehdy obouvidové?
-            dummy = 0
+            # Opravit na (StčS se tváří, že jde jen o ipf., případy v etalonech 13 a 16, které Aspect mají značený, mají taky Imp):
+            node.feats['Aspect'] = 'Imp'
         elif lform == 'kdekoliv':
             # v e16 a pdt opravit lemma na: kdekoli
             node.lemma = 'kdekoli'
@@ -437,12 +444,10 @@ class FixEtalon(Block):
             node.feats['PronType'] = 'Int'
         elif lform == 'korunoval':
             # v e13 doplnit: Aspect=Imp
-            ###!!! DZ: A není to obouvidové?
-            dummy = 0
+            node.feats['Aspect'] = 'Imp,Perf'
         elif lform == 'korunován':
             # v e13 a 16 doplnit Aspect=Imp
-            ###!!! DZ: A není to obouvidové?
-            dummy = 0
+            node.feats['Aspect'] = 'Imp,Perf'
         elif lform == 'králova':
             # "v e16 změnit komplet na: králův	ADJ	Case=Nom|Gender=Fem|Gender[psor]=Masc|Number=Sing|Poss=Yes"
             node.lemma = 'králův'
@@ -646,6 +651,7 @@ class FixEtalon(Block):
             node.lemma = 'nemocný'
         elif lform == 'nemysli':
             # "v e16 odstranit ""Voice=Act"""
+            # Opravit na (u imperativů je zatím "Voice=Act" uváděn systematicky jen v e19, v jiných etalonech nikoli; máme to na našem seznamu k vyřešení i ve FicTree; tak si myslím, že by to  v tomto jednom případě v e16 mělo být odstraněno, pokud se rozhodnem k systematickému odstranění v e19:
             ###!!! DZ: Ale Voice je povinný.
             dummy = 0
             #node.feats['Voice'] = ''
@@ -705,24 +711,29 @@ class FixEtalon(Block):
             node.feats = {}
         elif lform == 'nynie':
             # v e16 opravit podle e13
-            ###!!! DZ: A to je jak?
-            dummy = 0
+            node.lemma = 'nyní'
+            node.upos = 'ADV'
+            node.feats = {'PronType': 'Dem'}
         elif lform == 'obé':
             # v e13 a 16 změnit lemma na: obé
             # v e13 a16 změnit NUM interpretaci na ADJ interpretaci s lemmatem obé!!! ###!!! DZ: ???
+            # Máme to nejednotně; ve všech třech etalonech (13,16,19) je interpretace obé obé ADJ CvNS..., ale v e13 a e16 ještě interpretace obé obé NUM CnXS...; navrhuju ujednocení a počítám,že k tomu CnXS... to bude schůdnější a jednotné s "dvé", "tré".
             node.lemma = 'obé'
+            node.upos = 'NUM'
+            case = node.feats['Case']
+            node.feats = {'NumType': 'Card', 'PronType': 'Tot', 'NumForm': 'Word', 'Number': 'Sing', 'Case': case}
         elif lform == 'obého':
             # v e13 změnit lemma na: obé
             node.lemma = 'obé'
             # v e16 změnit podle e13 (dodat gender etc.) s lemmatem obé ###!!! DZ: ???
+            node.upos = 'NUM'
+            node.feats = {'NumType': 'Card', 'PronType': 'Tot', 'NumForm': 'Word', 'Number': 'Sing', 'Case': 'Gen'}
         elif lform == 'obětovali':
             # v  e13 a 16 doplnit: Aspect...
-            ###!!! DZ: obouvidové
-            dummy = 0
+            node.feats['Aspect'] = 'Imp,Perf'
         elif lform == 'obětovat':
             # v e13 doplnit : Aspect=Imp / Aspect=Perf|
-            ###!!! DZ: obouvidové
-            dummy = 0
+            node.feats['Aspect'] = 'Imp,Perf'
         elif lform == 'obory':
             # "v e13 přidat ""NameType=Geo"""
             if node.upos == 'PROPN':
@@ -846,8 +857,8 @@ class FixEtalon(Block):
             node.feats['NameType'] = 'Giv'
         elif lform == 'proto':
             # z 13 odstranit variantu s Degreee
-            ###!!! DZ: ???
-            dummy = 0
+            node.upos = 'ADV'
+            node.feats = {'PronType': 'Dem'}
         elif lform == 'protožť':
             # "v e13 změnit na: CCONJ	_"
             node.upos = 'CCONJ'
@@ -1064,25 +1075,25 @@ class FixEtalon(Block):
             node.feats = {'Degree': 'Pos', 'Polarity': 'Pos'}
         elif lform == 'tisíc':
             # v e13 a16 doplnit: Animacy..., Gender=...
-            ###!!! DZ: ???
-            dummy = 0
+            node.feats['Gender'] = ''
+            node.feats['Animacy'] = ''
         elif lform == 'tisíce':
             # v e13 a16 doplnit: Animacy..., Gender=...
-            ###!!! DZ: ???
-            dummy = 0
+            node.feats['Gender'] = ''
+            node.feats['Animacy'] = ''
         elif lform == 'tisícem':
             # "v e13 změnit na: NUM	Animacy=Inan|Case=Ins|Gender=Masc|Number=Sing|NumForm=Word|NumType=Card"
             node.upos = 'NUM'
-            node.feats['Animacy'] = 'Inan'
             node.feats['Case'] = 'Ins'
-            node.feats['Gender'] = 'Masc'
+            node.feats['Gender'] = ''
+            node.feats['Animacy'] = ''
             node.feats['Number'] = 'Sing'
             node.feats['NumForm'] = 'Word'
             node.feats['NumType'] = 'Card'
         elif lform == 'tisíci':
             # v e13 a16 doplnit: Animacy..., Gender=...
-            ###!!! DZ: ???
-            dummy = 0
+            node.feats['Gender'] = ''
+            node.feats['Animacy'] = ''
         elif lform == 'tisící':
             # v e13 a16 změnit na ADJ a doplnit podle e19
             ###!!! DZ: ???
@@ -1093,8 +1104,8 @@ class FixEtalon(Block):
             dummy = 0
         elif lform == 'tolikéž':
             # v e13 a 16 ujednotit na interpretaci: AVD a verzi, kterou dojodneme
-            ###!!! DZ: ???
-            dummy = 0
+            node.upos = 'ADV'
+            node.feats = {'PronType': 'Dem'}
         elif lform == 'toliko':
             # "v e13 a e16 ujednotit na lemma ""tolik"""
             node.lemma = 'tolik'
@@ -1177,6 +1188,7 @@ class FixEtalon(Block):
             node.lemma = 'višeň'
         elif lform == 'vojsky':
             # "v e13 změnit lemma ""vojsko"" na ""vojska"""
+            # Opravit jeden případ v e13 - vojsky	vojsko	NOUN	NNNP7----------	Case=Ins|Gender=Neut|Number=Plur - (jedná se chybnou interpretaci slova, jde o genitiv singurálu od slova vojska) na:
             ###!!! DZ: ???
             dummy = 0
         elif lform == 'vrátného':
@@ -1283,6 +1295,8 @@ class FixEtalon(Block):
         elif lform == 'žádný':
             # v e13 odstranit  Polarity=Pos a dát  PronType=Neg
             ###!!! DZ: Ale podle lemmatu to znamená "žádaný", takže ADJ, ne DET.
-            dummy = 0
+            # Rozumím. Ale máme to řešeno v e13 a 16  dvojím způsobem, a to, že máme buď lemma žádaný ADJ, nebo žádný ADJ, přičemž tvar slova( forma) je "žádný". S tím významem je taky trošku v těhle případech problém, je to spíš "žádoucí" než "žádaný" (včetně odvozenin). Tudíž navrhuju v těchto 2 případech v e13 opravit pouze lemma z "žádaný" na "žádný" ( je to je jen ve dvou totožných kotextech z Mastičkářovi), ať je to jednotně:
+            if node.lemma == 'žádaný':
+                node.lemma = 'žádný'
             #node.feats['Polarity'] = ''
             #node.feats['PronType'] = 'Neg'
