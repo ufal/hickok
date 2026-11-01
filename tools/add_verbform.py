@@ -23,7 +23,7 @@ It can also be used as a udapi block:
 (with the directory of this file on PYTHONPATH).
 
 In a UD treebank folder:
-    for i in *.conllu ; do echo $i ; cp $i backup.conllu ; python /net/work/people/zeman/hickok/tools/add_verbform.py --list /net/work/people/zeman/hickok/tools/verbforms.txt --show-unknown < backup.conllu > $i ; rm -f backup.conllu ; done
+    for i in *.conllu ; do echo $i ; cp $i backup.conllu ; python /net/work/people/zeman/hickok/tools/add_verbform.py --list /net/work/people/zeman/hickok/tools/verbforms-noun.txt < backup.conllu > $i ; rm -f backup.conllu ; done
 """
 import argparse
 import sys
