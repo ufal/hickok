@@ -104,8 +104,13 @@ def main():
     from udapi.block.write.conllu import Conllu as Writer
     Reader(files=args.input).process_document(doc)
     block.process_document(doc)
-    Writer(files=args.output).process_document(doc)
     block.process_end()
+    writer = Writer(files=args.output)
+    # Outside a Udapi block pipeline, the before and after hooks are not called
+    # automatically. They take care of opening the output file handle.
+    writer.before_process_document(doc)
+    writer.process_document(doc)
+    writer.after_process_document(doc)
     if args.show_unknown:
         for lemma, n in sorted(block.unknown.items(), key=lambda kv: -kv[1]):
             print(f"{n}\t{lemma}", file=sys.stderr)
