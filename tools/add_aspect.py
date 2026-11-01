@@ -19,6 +19,9 @@ Usage:
 It can also be used as a udapi block:
     udapy read.Conllu files=in.conllu add_aspect.AddAspect list_file=aspects.txt write.Conllu
 (with the directory of this file on PYTHONPATH).
+
+In a UD treebank folder:
+    for i in *.conllu ; do echo $i ; cp $i backup.conllu ; python /net/work/people/zeman/hickok/tools/add_aspect.py --list /net/work/people/zeman/hickok/tools/aspects.txt --show-unknown < backup.conllu > $i ; rm -f backup.conllu ; done
 """
 import argparse
 import sys
@@ -61,7 +64,7 @@ def load_aspect_list(path):
 class AddAspect(Block):
     """Add Aspect to nodes of the given UPOS that lack it, if their lemma is in the list."""
 
-    def __init__(self, list_file, upos='VERB', **kwargs):
+    def __init__(self, list_file, upos='VERB,AUX', **kwargs):
         super().__init__(**kwargs)
         self.aspects = load_aspect_list(list_file)
         self.upos = set(upos.split(','))
@@ -89,8 +92,8 @@ def main():
     parser.add_argument('--list', required=True, help='file with "freq lemma Aspect" lines')
     parser.add_argument('-i', '--input', default='-', help='input CoNLL-U (default: stdin)')
     parser.add_argument('-o', '--output', default='-', help='output CoNLL-U (default: stdout)')
-    parser.add_argument('--upos', default='VERB',
-                        help='comma-separated UPOS tags to process (default: VERB)')
+    parser.add_argument('--upos', default='VERB,AUX',
+                        help='comma-separated UPOS tags to process (default: VERB,AUX)')
     parser.add_argument('--show-unknown', action='store_true',
                         help='print lemmas missing from the list (stderr)')
     args = parser.parse_args()
