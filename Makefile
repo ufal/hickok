@@ -377,10 +377,7 @@ clean_etalon16:
 .PHONY: clean_etalon19
 clean_etalon19:
 	rm -rf data/etalon19/*.conllu
-# The etalons will be parsed using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
-###!!! The ud.cs.FixEtalon Udapi block is currrently placed in my Udapi folder but it is not versioned. It should be versioned in Hičkok!
-###!!! Parsing etalons should be a separate step. First, it is nondeterministic when Lindat REST API is involved, so it may spoil git diff.
-###!!! And second, we will want to be able to play with different models, not just the model pretrained on UD_Czech-FicTree 2.17.
+
 .PHONY: etalons
 etalons: etalon13 etalon16 etalon19
 .PHONY: etalon13
@@ -405,6 +402,9 @@ data/etalon13/%.conllu: $(ANNOTDIR)/15_stol/%_DEF.conllu
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
+# The etalons will be parsed using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
+# Parsing etalons is a separate goal. First, it is nondeterministic when Lindat REST API is involved, so it may spoil git diff.
+# And second, we will want to be able to play with different models, not just the model pretrained on UD_Czech-FicTree 2.17.
 .PHONY: parse_etalon13
 parse_etalon13:
 	for i in data/etalon13/*.conllu ; do \
@@ -457,6 +457,7 @@ parse_etalon16:
 	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
 	    rm backup.conllu ; \
 	done
+
 .PHONY: etalon19
 etalon19: $(ETALON19FILES)
 data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
