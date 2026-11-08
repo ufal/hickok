@@ -29,7 +29,9 @@ FORANNFILES := $(addprefix $(FORANNDIR)/, $(addsuffix .tsv, $(subst $(CONLLUDIR)
 
 # This will be needed when training UDPipe models, including an official UD release.
 UDPIPE_DATA_DIR := data/for_udpipe
-UD_RELEASE_DIR := /net/data/universal-dependencies-2.18
+# Before UD 2.19 is out, use the dev branch of my working copy.
+#UD_RELEASE_DIR := /net/data/universal-dependencies-2.19
+UD_RELEASE_DIR := /net/work/people/zeman/unidep
 
 # If a command ends with ane error, delete its target file because it may be corrupt.
 .DELETE_ON_ERROR:
