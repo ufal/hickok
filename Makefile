@@ -484,9 +484,11 @@ xxxdata/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	    | tools/add_verbform.py --list tools/verbforms-noun.txt --upos NOUN > $@
 # Toto je ten nový cíl, který už nebere data z původního zdroje, ale z upravených souborů od
 # Martina, a aplikuje na ně zbývající automatické kroky, které v nich ještě chyběly.
+# Martin u většiny souborů smazal povinný prázdný řádek na konci, takže ho musím zase vrátit.
 data/etalon19/%.conllu: data/etalon19_rucne_opraveny/%.conllu
 	mkdir -p $(@D)
 	cat $< \
+	    | perl -CDS -e 'while(<>) {push(@doc, $$_)} if($$doc[-1] !~ m/^\s*$$/) {push(@doc, "\n")} print(@doc)' \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
 	    | tools/add_aspect.py --list tools/aspects.txt --upos VERB,AUX \
 	    | tools/add_aspect.py --list tools/aspects-adj.txt --upos ADJ \
