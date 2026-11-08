@@ -460,7 +460,13 @@ parse_etalon16:
 
 .PHONY: etalon19
 etalon19: $(ETALON19FILES)
-data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
+# Poté co Martin v říjnu 2026 prováděl vlastní úpravy v již vygenerovaném Etalonu 19, musíme být
+# opatrní s přegenerováváním tohoto etalonu. Původní cíl (ten první níže) už nelze použít, protože
+# ignoruje Martinovy opravy. Na druhou stranu jsou v něm ale kroky, které Etalon 19 ještě neobsahoval,
+# když se Martin do oprav pustil (add_aspect.py a add_verbform.py na konci). Proto přidávám nový
+# cíl (ten druhý níže), který přebírá Martinem upravené soubory a tyto kroky na ně aplikuje. První
+# cíl vyřazuju z provozu změnou cesty "data" na "xxxdata".
+xxxdata/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	mkdir -p $(@D)
 	# For some reason, in one sentence the parser generates non-existent DEPREL "<pad>".
 	udapy read.Conllu files=$< fix_cycles=1 \
@@ -473,6 +479,15 @@ data/etalon19/%.conllu: $(ANNOTDIR)/19_stol/%.conllu
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
 	    | udapy -s util.Eval node='if node.deprel == "<pad>": node.deprel = "dep"' \
 	    | grep -v -P '# (udpipe_model_licence|generator) = ' \
+	    | tools/add_aspect.py --list tools/aspects.txt --upos VERB,AUX \
+	    | tools/add_aspect.py --list tools/aspects-adj.txt --upos ADJ \
+	    | tools/add_verbform.py --list tools/verbforms-noun.txt --upos NOUN > $@
+# Toto je ten nový cíl, který už nebere data z původního zdroje, ale z upravených souborů od
+# Martina, a aplikuje na ně zbývající automatické kroky, které v nich ještě chyběly.
+data/etalon19/%.conllu: data/etalon19_rucne_opraveny/%.conllu
+	mkdir -p $(@D)
+	cat $< \
+	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc \
 	    | tools/add_aspect.py --list tools/aspects.txt --upos VERB,AUX \
 	    | tools/add_aspect.py --list tools/aspects-adj.txt --upos ADJ \
 	    | tools/add_verbform.py --list tools/verbforms-noun.txt --upos NOUN > $@
