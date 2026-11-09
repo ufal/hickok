@@ -685,11 +685,15 @@ trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečn
 # To test the parser, launch parsing server with the new models. We need a cluster machine with a GPU available,
 # hence we run this on one of the sols (cluster head machines) with the sbatch command.
 # Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
+###!!! Note November 2026: Some nodes vanished from the cluster, so the following sbatch requirements would now fail:
+###!!!   -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5
+###!!! so we now replace them with
+###!!!   -C "gpu_cc6.1"
 .PHONY: parsing_server
 parsing_server:
 	cd /net/work/people/zeman/udpipe ; \
 	rm -f udpipe2_server.log ; \
-	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
+	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1" --mem=24G -o udpipe2_server_slurm.log ./run2 \
 		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
 			e13 ./models/hickok-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
 			e16 ./models/hickok-cs_e16tdt cs_e16tdt https://ufal.mff.cuni.cz/ \
@@ -701,12 +705,12 @@ parsing_server:
 parsing_server_all:
 	cd /net/work/people/zeman/udpipe ; \
 	rm -f udpipe2_server.log ; \
-	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5 --mem=24G -o udpipe2_server_slurm.log ./run2 \
+	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1" --mem=24G -o udpipe2_server_slurm.log ./run2 \
 		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 alle13 \
-			alle13 ./models/hickok-cs_all cs_e13tdt https://ufal.mff.cuni.cz/ \
-			alle16 ./models/hickok-cs_all cs_e16tdt https://ufal.mff.cuni.cz/ \
-			alle19 ./models/hickok-cs_all cs_e19tdt https://ufal.mff.cuni.cz/ \
-			czech:ces:cs:fictree:e21 ./models-pretrained/cs_all-ud-2.17-251125.model cs_fictree https://ufal.mff.cuni.cz
+			alle13 ./models/hickok-cs_all cs_e13tdt  https://ufal.mff.cuni.cz/ \
+			alle16 ./models/hickok-cs_all cs_e16tdt  https://ufal.mff.cuni.cz/ \
+			alle19 ./models/hickok-cs_all cs_e19tdt  https://ufal.mff.cuni.cz/ \
+			alle21 ./models/hickok-cs_all cs_fictree https://ufal.mff.cuni.cz
 	@echo Do not forget to scancel the parsing server job when done with parsing!
 
 ukazka_pouziti_parseru: # ukázka, není myšlena ke spuštění jako cíl
