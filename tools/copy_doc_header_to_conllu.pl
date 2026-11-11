@@ -58,9 +58,9 @@ while(<CONLLU>)
     $conllu .= $_;
 }
 close(CONLLU);
-# Mohli bychom přímo nahradit původní soubor CoNLL-U novým. Asi ale bude zatím bezpečnější ukládat výsledek někde vedle.
 my $ofile = $cfile;
-$ofile =~ s:monitor_parsed/:monitor_parsed_with_header/:;
+###!!! Uložíme změny do původního souboru. Pokud bychom to měli psát jinam, tak je potřeba, aby bylo možné stanovit cílový soubor při volání skriptu.
+###!!!$ofile =~ s:monitor_parsed/:monitor_parsed_with_header/:;
 open(OUT, ">$ofile") or die("Nelze psát $ofile: $!");
 print OUT ($conllu);
 close(OUT);

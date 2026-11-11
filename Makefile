@@ -837,7 +837,7 @@ $(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
 # We assume that a parsing service is running on the network at the address given in $(UDPIPESERVICE). For official
 # pretrained UD models this could be Lindat, but for our custom models we need to launch the service on our cluster
 # (see above how to do it) and then access it from here.
-UDPIPESERVICE := http://dll-10gpu2.ufal.hide.ms.mff.cuni.cz:8001
+UDPIPESERVICE := http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001
 UDPIPECLIENT := python /net/work/people/zeman/udpipe/udpipe2_client.py
 MONITORPARSEDDIR := data/monitor_parsed
 MONITOR13PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR13TEXTFILES)))))
@@ -862,75 +862,27 @@ clean_monitor20parsed:
 monitor13parsed: $(MONITOR13PARSEDFILES)
 $(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTEXTDIR)/13-15/%.txt
 	mkdir -p $(@D)
-	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e13 --tokenizer='' --tagger='' --parser='' < $< > $@
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle13 --tokenizer='' --tagger='' --parser='' < $< > $@
+	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/$*.txt $@
 .PHONY: monitor16parsed
 monitor16parsed: $(MONITOR16PARSEDFILES)
 $(MONITORPARSEDDIR)/16-18/%.conllu: $(MONITORTEXTDIR)/16-18/%.txt
 	mkdir -p $(@D)
-	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e16 --tokenizer='' --tagger='' --parser='' < $< > $@
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle16 --tokenizer='' --tagger='' --parser='' < $< > $@
+	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/$*.txt $@
 .PHONY: monitor19parsed
 monitor19parsed: $(MONITOR19PARSEDFILES)
 $(MONITORPARSEDDIR)/19/%.conllu: $(MONITORTEXTDIR)/19/%.txt
 	mkdir -p $(@D)
-	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model e19 --tokenizer='' --tagger='' --parser='' < $< > $@
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle19 --tokenizer='' --tagger='' --parser='' < $< > $@
+	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/$*.txt $@
 .PHONY: monitor20parsed
 monitor20parsed: $(MONITOR20PARSEDFILES)
 $(MONITORPARSEDDIR)/20/%.conllu: $(MONITORTEXTDIR)/20/%.txt
 	mkdir -p $(@D)
-	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle21 --tokenizer='' --tagger='' --parser='' < $< > $@
+	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/$*.txt $@
 $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	mkdir -p $(@D)
-	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model fictree --tokenizer='' --tagger='' --parser='' < $< > $@
-# In the long term, the following should be part of the parsing goals above.
-# But now we only want to add the header to already existing parses, without waiting for the parser again.
-.PHONY: monitor_parsed_with_header
-monitor_parsed_with_header: $(MONITOR_WITH_HEADER)
-$(MONITORHEADERDIR)/%.conllu: $(MONITORRENAMEDDIR)/%.txt
-	mkdir -p $(@D)
-	perl tools/copy_doc_header_to_conllu.pl $< $(MONITORPARSEDDIR)/$*.conllu
-
-
-
-#######################################################################################################################
-###!!! Ty cíle z Makefilu níže možná prostě vyhodím, ale za úvahu stojí ta ruční anotace, kterou jsem tehdy dělal já, Jirka Pergler a Pavel Kosek.
-###!!! Sice jsme ještě neměli ustálená pravidla jako v Hičkoku, ale zase to byly texty, které se pak v Hičkoku nedělaly (prvních 5 kapitol Matoušova evangelia z Bible drážďanské).
-# Archiv cílů z projektu Matouš 2021
-
-amblist:
-	cat 08-bibl_dr_ol_mt-morfixed.conllu | udapy util.Eval node='if re.match(r"^(PRON|DET)$$", node.upos): print(node.upos, node.feats["PronType"], node.lemma, node.feats["Poss"], node.feats["Reflex"], node.feats["Number"], node.feats["Person"], node.feats["Gender"], node.feats["Case"], node.form.lower())' | sort | uniq -c > zajmena.txt
-	cat 08-bibl_dr_ol_mt-morfixed.conllu | udapy util.Eval node='lemma = node.lemma; lemma += "/"+node.misc["Lemma1300"] if node.misc["Lemma1300"] != "" else ""; print(f"{node.form.lower()}\t{node.upos} {node.feats} {lemma}")' | perl -CDS -pe 'while(<>) { chomp; @f=split(/\t/); $$cw{$$f[0]}++; $$ca{$$f[0]}{$$f[1]}++ } @w=sort {$$r=$$cw{$$b}<=>$$cw{$$a}; unless($$r){$$r=$$a cmp $$b}; $$r} (keys(%cw)); foreach $$w (@w) { print("$$w\t$$cw{$$w}\n"); @u=sort {$$r=$$ca{$$w}{$$b}<=>$$ca{$$w}{$$a}; unless($$r){$$r=$$a cmp $$b}; $$r} (keys(%{$$ca{$$w}})); foreach $$u (@u) { print("\t$$u\t$$ca{$$w}{$$u}\n") } }' > amblist.txt
-	conllu-stats.pl 08-bibl_dr_ol_mt-morfixed.conllu > stats.xml
-
-# Check allowed and required features. This is how we run Udapi in Windows (udapy.bat will take care
-# of setting PYTHONPATH and calling python with the right copy of the udapy script; however, we
-# cannot use STDIN and STDOUT redirection because it would trigger UTF-8 encoding errors; also note
-# the swapped single and double quotes as compared to the Linux command below):
-
-# udapy read.Conllu files=bibl_dr_ol_mt-manual-zeman.conllu ud.cs.MarkFeatsBugs util.Eval node="if node.misc['Bug']: node.feats['Bug'] = node.misc['Bug']" write.TextModeTreesHtml mark=Bug marked_only=True attributes=form,lemma,upos,feats files=bugs.html
-check_features:
-	udapy read.Conllu files=bibl_dr_ol_mt-manual-zeman.conllu ud.cs.MarkFeatsBugs util.Eval node='if node.misc["Bug"]: node.feats["Bug"] = node.misc["Bug"]' write.TextModeTreesHtml mark=Bug marked_only=True attributes=form,lemma,upos,feats files=bugs.html
-
-# Initially we annotate the first 5 chapters of MATT in Bible drážďanská. This part will be used
-# to evaluate the parser and to compute inter-annotator agreement.
-test_data:
-	conllu_cut.pl --last 161 < 02-bibl_dr_mt-processed-udpipe-pdt26.conllu | conllu-quick-fix.pl > test-udpipe.conllu
-	conllu_cut.pl --last 161 < 03-bibl_dr_mt-parsed.conllu | conllu-quick-fix.pl > test-parsed.conllu
-	conllu_cut.pl --last bibldrazd-mt-kapitola-5-vers-48 < 08-bibl_dr_ol_mt-morfixed.conllu | conllu-quick-fix.pl > test-morfixed.conllu
-	conllu_cut.pl --last bibldrazd-mt-kapitola-5-vers-48 < bibl_dr_ol_mt-manual-zeman.conllu > test-manual-zeman.conllu
-	eval.py -v test-manual-zeman.conllu test-udpipe.conllu
-	eval.py -v test-manual-zeman.conllu test-parsed.conllu
-	eval.py -v test-manual-zeman.conllu test-morfixed.conllu
-	# Inter-annotator agreement chapter 3, Kosek vs. Zeman.
-	conllu_cut.pl --first 35 --last bibldrazd-mt-kapitola-3-vers-17 < bibl_dr_ol_mt-manual-zeman.conllu > kapitola3-zeman.conllu
-	conllu_cut.pl --first 35 --last bibldrazd-mt-kapitola-3-vers-17 < bibl_dr_ol_mt-manual-kosek.conllu > kapitola3-kosek.conllu
-	eval.py -v kapitola3-zeman.conllu kapitola3-kosek.conllu
-	# Use chapters 1 to 4 for training, 5 for testing.
-	conllu_cut.pl --last bibldrazd-mt-kapitola-4-vers-25 < bibl_dr_ol_mt-manual-zeman.conllu > train-1-4-manual-zeman.conllu
-	conllu_cut.pl --first 79 --last bibldrazd-mt-kapitola-5-vers-48 < bibl_dr_ol_mt-manual-zeman.conllu > test-5-manual-zeman.conllu
-	udpipe --tag --parse /home/zeman/nastroje/udpipe/udpipe-models/models/czech-pdt-ud-2.5-191206.udpipe < test-5-manual-zeman.conllu > kap-1-5-parsed/bibl_dr_mt_5-reprocessed-udpipe12-pdt25.conllu
-	eval.py -v test-5-manual-zeman.conllu kap-1-5-parsed/bibl_dr_mt_5-reprocessed-udpipe12-pdt25.conllu
-	udpipe --train model-1-4.udpipe --tokenizer=none train-1-4-manual-zeman.conllu
-	udpipe --tag --parse model-1-4.udpipe < test-5-manual-zeman.conllu > kap-1-5-parsed/bibl_dr_mt_5-reprocessed-udpipe12-bdmt14.conllu
-	eval.py -v test-5-manual-zeman.conllu kap-1-5-parsed/bibl_dr_mt_5-reprocessed-udpipe12-bdmt14.conllu
-	udpipe --train model-fictree210-bdmt14.udpipe --tokenizer=none cs_fictree-ud-train.conllu train-1-4-manual-zeman.conllu
-
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle21 --tokenizer='' --tagger='' --parser='' < $< > $@
+	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/$*.txt $@
