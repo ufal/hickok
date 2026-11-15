@@ -691,6 +691,7 @@ trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jak
 	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e19tdt models/hickok-cs_e19tdt
+	./scripts/train_tokenizer.sh ./hickok cs_hickoksyntax models/hickok-cs_hickoksyntax
 	# If training cs_all, copy all tokenizers to its folder.
 	for i in e13tdt e16tdt e19tdt fictree ; do cp models/hickok-cs_$i/cs_$i.tokenizer models/hickok-cs_all ; done
 
@@ -723,7 +724,8 @@ parsing_server_all:
 			alle13 ./models/hickok-cs_all cs_e13tdt  https://ufal.mff.cuni.cz/ \
 			alle16 ./models/hickok-cs_all cs_e16tdt  https://ufal.mff.cuni.cz/ \
 			alle19 ./models/hickok-cs_all cs_e19tdt  https://ufal.mff.cuni.cz/ \
-			alle21 ./models/hickok-cs_all cs_fictree https://ufal.mff.cuni.cz
+			alle21 ./models/hickok-cs_all cs_fictree https://ufal.mff.cuni.cz \
+			syntax ./models/hickok-cs_hickoksyntax cs_hickoksyntax https://ufal.mff.cuni.cz
 	@echo Do not forget to scancel the parsing server job when done with parsing!
 	tail -f /net/work/people/zeman/udpipe/udpipe2_server_slurm.log
 
