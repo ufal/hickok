@@ -853,6 +853,10 @@ $(MONITORTEXTDIR)/%.txt: $(MONITORSRCDIR)/%.xml
 # (see above how to do it) and then access it from here.
 UDPIPESERVICE := http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001
 UDPIPECLIENT := python /net/work/people/zeman/udpipe/udpipe2_client.py
+MONITORTAGGEDDIR := data/monitor_tagged
+MONITOR13TAGGEDFILES := $(addprefix $(MONITORTAGGEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR13TEXTFILES)))))
+MONITOR16TAGGEDFILES := $(addprefix $(MONITORTAGGEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR16TEXTFILES)))))
+MONITOR19TAGGEDFILES := $(addprefix $(MONITORTAGGEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR19TEXTFILES)))))
 MONITORPARSEDDIR := data/monitor_parsed
 MONITOR13PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR13TEXTFILES)))))
 MONITOR16PARSEDFILES := $(addprefix $(MONITORPARSEDDIR)/, $(addsuffix .conllu, $(subst $(MONITORTEXTDIR)/,,$(subst .txt,,$(MONITOR16TEXTFILES)))))
@@ -872,9 +876,9 @@ clean_monitor19parsed:
 .PHONY: clean_monitor20parsed
 clean_monitor20parsed:
 	rm -rf $(MONITORPARSEDDIR)/{20,21}/*
-.PHONY: monitor13parsed
-monitor13parsed: $(MONITOR13PARSEDFILES)
-$(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTEXTDIR)/13-15/%.txt
+.PHONY: monitor13tagged
+monitor13tagged: $(MONITOR13TAGGEDFILES)
+$(MONITORTAGGEDDIR)/13-15/%.conllu: $(MONITORTEXTDIR)/13-15/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle13 --tokenizer='' --tagger='' --parser='' < $< > $@
 	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/13-15/$*.txt $@
@@ -900,3 +904,9 @@ $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle21 --tokenizer='' --tagger='' --parser='' < $< > $@
 	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/21/$*.txt $@
+# November 2026: New goals to add better syntax to files that have been processed by morphological UDPipe model.
+.PHONY: monitor13parsed
+monitor13parsed: $(MONITOR13PARSEDFILES)
+$(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTAGGEDDIR)/13-15/%.conllu
+	mkdir -p $(@D)
+	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model syntax --input=conllu --parser='' < $< > $@
