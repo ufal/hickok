@@ -650,6 +650,15 @@ cs_fall:
 	  cat $(UDPIPE_DATA_DIR)/$$i/*-train.conllu >> $(UDPIPE_DATA_DIR)/cs_all/cs_all-ud-train.conllu ; \
 	done
 
+.PHONY: cs_hickoksyntax
+cs_hickoksyntax:
+	mkdir -p $(UDPIPE_DATA_DIR)/cs_hickoksyntax
+	rm -rf $(UDPIPE_DATA_DIR)/cs_hickoksyntax/*
+	for i in train dev test ; do \
+	  cp $(UDPIPE_DATA_DIR)/cs_fictree/cs_fictree-ud-$$i.conllu $(UDPIPE_DATA_DIR)/cs_hickoksyntax/cs_hickoksyntax-ud-$$i.conllu ; \
+	done
+	cat data/syntax/od_bary_1[369]/*.conllu >>$(UDPIPE_DATA_DIR)/cs_hickoksyntax/cs_hickoksyntax-ud-train.conllu
+
 .PHONY: langsizes
 langsizes:
 	rm -f $(UDPIPE_DATA_DIR)/langs_sizes
@@ -661,17 +670,20 @@ langsizes:
 	done
 	cat $(UDPIPE_DATA_DIR)/langs_sizes
 
-trenovani_modelu_na_etalonu_13: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
+trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
 	ssh -A sol1
 	cd /net/work/people/zeman/udpipe
 	./scripts/compute_embeddings.sh ./hickok
 	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
+	# There is an alternative below, which trains a joint model "cs_all", fine-tuned for each of the included treebanks.
 	./scripts/train.sh ./hickok cs_e13tdt
 	./scripts/train.sh ./hickok cs_e16tdt
 	./scripts/train.sh ./hickok cs_e19tdt
 	# Milan suggested --clip_gradient=1.0. With this data, it did not help. But it did with 0.9 and --seed=12 (other seeds I tried still crashed).
 	EXP=seed12 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=12
 	EXP=seed21 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=21
+	# Another variant, assuming we have tiny dev data and no test data. To be used for syntax (manual samples from e13+e16+e19, combined with full FicTree).
+	./scripts/train_hickok_notest.sh ./hickok cs_hickoksyntax
 	# Each of the above will submit one cluster job for training. It may take about 2 hours for individual etalons. For cs_all, it takes 1 to 2 days.
 	# Monitor progress:
 	tail -f models/hickok-cs_all-seed21/training.log
