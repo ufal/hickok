@@ -905,8 +905,11 @@ $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle21 --tokenizer='' --tagger='' --parser='' < $< > $@
 	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/21/$*.txt $@
 # November 2026: New goals to add better syntax to files that have been processed by morphological UDPipe model.
+# I don't know if I have to clear the HEAD and DEPREL columns first but I'm trying it because UDPipe crashes on some files (Broken pipe error).
 .PHONY: monitor13parsed
 monitor13parsed: $(MONITOR13PARSEDFILES)
 $(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTAGGEDDIR)/13-15/%.conllu
 	mkdir -p $(@D)
-	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model syntax --input=conllu --parser='' < $< > $@
+	cat $< \
+	  | perl -CDS -pe 'if(m/^[0-9]/) {@f=split(/\t/); $$f[6] = "_"; $$f[7] = "_"; $$_ = join("\t", @f)}' \
+	  | $(UDPIPECLIENT) --service $(UDPIPESERVICE) --model syntax --input=conllu --parser='' > $@
