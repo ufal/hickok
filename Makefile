@@ -882,15 +882,15 @@ $(MONITORTAGGEDDIR)/13-15/%.conllu: $(MONITORTEXTDIR)/13-15/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle13 --tokenizer='' --tagger='' --parser='' < $< > $@
 	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/13-15/$*.txt $@
-.PHONY: monitor16parsed
-monitor16parsed: $(MONITOR16PARSEDFILES)
-$(MONITORPARSEDDIR)/16-18/%.conllu: $(MONITORTEXTDIR)/16-18/%.txt
+.PHONY: monitor16tagged
+monitor16tagged: $(MONITOR16TAGGEDFILES)
+$(MONITORTAGGEDDIR)/16-18/%.conllu: $(MONITORTEXTDIR)/16-18/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle16 --tokenizer='' --tagger='' --parser='' < $< > $@
 	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/16-18/$*.txt $@
-.PHONY: monitor19parsed
-monitor19parsed: $(MONITOR19PARSEDFILES)
-$(MONITORPARSEDDIR)/19/%.conllu: $(MONITORTEXTDIR)/19/%.txt
+.PHONY: monitor19tagged
+monitor19tagged: $(MONITOR19TAGGEDFILES)
+$(MONITORTAGGEDDIR)/19/%.conllu: $(MONITORTEXTDIR)/19/%.txt
 	mkdir -p $(@D)
 	$(UDPIPECLIENT) --service $(UDPIPESERVICE) --model alle19 --tokenizer='' --tagger='' --parser='' < $< > $@
 	perl tools/copy_doc_header_to_conllu.pl $(MONITORRENAMEDDIR)/19/$*.txt $@
@@ -909,6 +909,20 @@ $(MONITORPARSEDDIR)/21/%.conllu: $(MONITORTEXTDIR)/21/%.txt
 .PHONY: monitor13parsed
 monitor13parsed: $(MONITOR13PARSEDFILES)
 $(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTAGGEDDIR)/13-15/%.conllu
+	mkdir -p $(@D)
+	cat $< \
+	  | perl -CDS -pe 'if(m/^[0-9]/) {@f=split(/\t/); $$f[6] = "_"; $$f[7] = "_"; $$_ = join("\t", @f)}' \
+	  | $(UDPIPECLIENT) --service $(UDPIPESERVICE) --model syntax --input=conllu --parser='' > $@ || cat $< > $@
+.PHONY: monitor16parsed
+monitor16parsed: $(MONITOR16PARSEDFILES)
+$(MONITORPARSEDDIR)/16-18/%.conllu: $(MONITORTAGGEDDIR)/16-18/%.conllu
+	mkdir -p $(@D)
+	cat $< \
+	  | perl -CDS -pe 'if(m/^[0-9]/) {@f=split(/\t/); $$f[6] = "_"; $$f[7] = "_"; $$_ = join("\t", @f)}' \
+	  | $(UDPIPECLIENT) --service $(UDPIPESERVICE) --model syntax --input=conllu --parser='' > $@ || cat $< > $@
+.PHONY: monitor19parsed
+monitor19parsed: $(MONITOR19PARSEDFILES)
+$(MONITORPARSEDDIR)/19/%.conllu: $(MONITORTAGGEDDIR)/19/%.conllu
 	mkdir -p $(@D)
 	cat $< \
 	  | perl -CDS -pe 'if(m/^[0-9]/) {@f=split(/\t/); $$f[6] = "_"; $$f[7] = "_"; $$_ = join("\t", @f)}' \
