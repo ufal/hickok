@@ -912,4 +912,4 @@ $(MONITORPARSEDDIR)/13-15/%.conllu: $(MONITORTAGGEDDIR)/13-15/%.conllu
 	mkdir -p $(@D)
 	cat $< \
 	  | perl -CDS -pe 'if(m/^[0-9]/) {@f=split(/\t/); $$f[6] = "_"; $$f[7] = "_"; $$_ = join("\t", @f)}' \
-	  | $(UDPIPECLIENT) --service $(UDPIPESERVICE) --model syntax --input=conllu --parser='' > $@
+	  | $(UDPIPECLIENT) --service $(UDPIPESERVICE) --model syntax --input=conllu --parser='' > $@ || cat $< > $@
