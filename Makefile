@@ -714,7 +714,7 @@ parsing_server:
 			e19 ./models/hickok-cs_e19tdt cs_e19tdt https://ufal.mff.cuni.cz/ \
 			czech:ces:cs:fictree:e21 ./models-pretrained/cs_all-ud-2.17-251125.model cs_fictree https://ufal.mff.cuni.cz
 	@echo Do not forget to scancel the parsing server job when done with parsing!
-	tail -f /net/work/people/zeman/udpipe/udpipe2_server_slurm.log
+	tail ---disable-inotify -f /net/work/people/zeman/udpipe/udpipe2_server_slurm.log
 
 .PHONY: parsing_server_all
 parsing_server_all:
@@ -728,7 +728,7 @@ parsing_server_all:
 			alle21 ./models/hickok-cs_all cs_fictree https://ufal.mff.cuni.cz \
 			syntax ./models/hickok-cs_hickoksyntax cs_hickoksyntax https://ufal.mff.cuni.cz
 	@echo Do not forget to scancel the parsing server job when done with parsing!
-	tail -f /net/work/people/zeman/udpipe/udpipe2_server_slurm.log
+	tail ---disable-inotify -f /net/work/people/zeman/udpipe/udpipe2_server_slurm.log
 
 ###!!! Here we must set manually the name of the cluster machine the server runs on!
 UDPIPESERVER=tdll-8gpu3
