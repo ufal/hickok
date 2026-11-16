@@ -697,6 +697,7 @@ trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jak
 
 # To test the parser, launch parsing server with the new models. We need a cluster machine with a GPU available,
 # hence we run this on one of the sols (cluster head machines) with the sbatch command.
+# Note: Default --max_request_size is 4MB but the Monitor corpus contains at least one file with 32MB. (There might be more but I do not have the full statistics.)
 # Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
 ###!!! Note November 2026: Some nodes vanished from the cluster, so the following sbatch requirements would now fail:
 ###!!!   -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5
@@ -707,7 +708,7 @@ parsing_server:
 	cd /net/work/people/zeman/udpipe ; \
 	rm -f udpipe2_server.log ; \
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1" --mem=24G -o udpipe2_server_slurm.log ./run2 \
-		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 e13 \
+		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 --max_request_size 50000000 e13 \
 			e13 ./models/hickok-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
 			e16 ./models/hickok-cs_e16tdt cs_e16tdt https://ufal.mff.cuni.cz/ \
 			e19 ./models/hickok-cs_e19tdt cs_e19tdt https://ufal.mff.cuni.cz/ \
@@ -720,7 +721,7 @@ parsing_server_all:
 	cd /net/work/people/zeman/udpipe ; \
 	rm -f udpipe2_server.log ; \
 	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1" --mem=24G -o udpipe2_server_slurm.log ./run2 \
-		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 alle13 \
+		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 --max_request_size 50000000 alle13 \
 			alle13 ./models/hickok-cs_all cs_e13tdt  https://ufal.mff.cuni.cz/ \
 			alle16 ./models/hickok-cs_all cs_e16tdt  https://ufal.mff.cuni.cz/ \
 			alle19 ./models/hickok-cs_all cs_e19tdt  https://ufal.mff.cuni.cz/ \
