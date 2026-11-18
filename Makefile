@@ -368,6 +368,7 @@ ETALON19FILES := $(addprefix data/etalon19/,$(subst data/annotated/19_stol/,,$(E
 ETALON13PARSEDFILES := $(addprefix data/etalon13_parsed/,$(subst data/etalon13/,,$(ETALON13FILES)))
 ETALON16PARSEDFILES := $(addprefix data/etalon16_parsed/,$(subst data/etalon16/,,$(ETALON16FILES)))
 ETALON19PARSEDFILES := $(addprefix data/etalon19_parsed/,$(subst data/etalon19/,,$(ETALON19FILES)))
+
 .PHONY: clean_etalons
 clean_etalons: clean_etalon13 clean_etalon16 clean_etalon19
 .PHONY: clean_etalon13
@@ -404,19 +405,6 @@ data/etalon13/%.conllu: $(ANNOTDIR)/15_stol/%_DEF.conllu
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
-# The etalons will be parsed using UD_Czech-FicTree 2.17 model. The parser must not touch tokenization, segmentation, and morphology.
-# Parsing etalons is a separate goal. First, it is nondeterministic when Lindat REST API is involved, so it may spoil git diff.
-# And second, we will want to be able to play with different models, not just the model pretrained on UD_Czech-FicTree 2.17.
-.PHONY: parse_etalon13
-parse_etalon13:
-	for i in data/etalon13/*.conllu ; do \
-	    echo $$i ; \
-	    cp $$i backup.conllu ; \
-	    cat backup.conllu \
-	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
-	    rm backup.conllu ; \
-	done
 .PHONY: etalon16
 etalon16: $(ETALON16FILES)
 data/etalon16/%.conllu: $(ANNOTDIR)/16_stol/%_DEF.conllu
@@ -449,16 +437,6 @@ data/etalon16/%.conllu: $(ANNOTDIR)/18_stol/%_DEF.conllu
 	    | grep -v -P '# (udpipe_model|udpipe_model_license|generator) = ' \
 	    | perl -pe 's/\# (newdoc id|newpar id|sent_id) = 13_19_stol-/\# $$1 = /' \
 	    | $(UDTOOLS)/conllu_convert_uposf_to_xpos.pl -t cs::pdtc > $@
-.PHONY: parse_etalon16
-parse_etalon16:
-	for i in data/etalon16/*.conllu ; do \
-	    echo $$i ; \
-	    cp $$i backup.conllu ; \
-	    cat backup.conllu \
-	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
-	    rm backup.conllu ; \
-	done
 
 .PHONY: etalon19
 etalon19: $(ETALON19FILES)
@@ -496,6 +474,120 @@ data/etalon19/%.conllu: data/etalon19_rucne_opraveny/%.conllu
 	    | tools/add_aspect.py --list tools/aspects-adj.txt --upos ADJ \
 	    | tools/add_verbform.py --list tools/verbforms-noun.txt --upos NOUN > $@
 
+
+
+#----------------------------------------------------------------------------------------------------------------------
+# Training and testing UDPipe models.
+# One possible workflow is to first train a syntactic model on FicTree + manually annotated small samples from old data,
+# then apply it to the rest of old data (where we have only manual morphology but not syntax) and train a final model
+# on the result (train together four variants, the three etalons and FicTree as the etalon for 20th+21st centuries).
+# Note: Additional goals cover the preparation of data for training UDPipe. They are further down this Makefile.
+
+trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
+	ssh -A sol1
+	cd /net/work/people/zeman/udpipe
+	./scripts/compute_embeddings.sh ./hickok
+	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
+	# There is an alternative below, which trains a joint model "cs_all", fine-tuned for each of the included treebanks.
+	./scripts/train.sh ./hickok cs_e13tdt
+	./scripts/train.sh ./hickok cs_e16tdt
+	./scripts/train.sh ./hickok cs_e19tdt
+	# Milan suggested --clip_gradient=1.0. With this data, it did not help. But it did with 0.9 and --seed=12 (other seeds I tried still crashed).
+	EXP=seed12 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=12
+	EXP=seed21 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=21
+	# Another variant, assuming we have tiny dev data and no test data. To be used for syntax (manual samples from e13+e16+e19, combined with full FicTree).
+	./scripts/train_hickok_notest.sh ./hickok cs_hickoksyntax
+	# Each of the above will submit one cluster job for training. It may take about 2 hours for individual etalons. For cs_all, it takes 1 to 2 days.
+	# Monitor progress:
+	tail -f models/hickok-cs_all-seed21/training.log
+	# Train tokenizer using UDPipe 1.2 (runs locally, does not use cluster).
+	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
+	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
+	./scripts/train_tokenizer.sh ./hickok cs_e19tdt models/hickok-cs_e19tdt
+	./scripts/train_tokenizer.sh ./hickok cs_hickoksyntax models/hickok-cs_hickoksyntax
+	# If training cs_all, copy all tokenizers to its folder.
+	for i in e13tdt e16tdt e19tdt fictree ; do cp models/hickok-cs_$i/cs_$i.tokenizer models/hickok-cs_all ; done
+
+# To test the parser, launch parsing server with the new models. We need a cluster machine with a GPU available,
+# hence we run this on one of the sols (cluster head machines) with the sbatch command.
+# Note: Default --max_request_size is 4MB but the Monitor corpus contains at least one file with 32MB. (There might be more but I do not have the full statistics.)
+# Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
+###!!! Note November 2026: Some nodes vanished from the cluster, so the following sbatch requirements would now fail:
+###!!!   -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5
+###!!! so we now replace them with
+###!!!   -C "gpu_cc6.1"
+.PHONY: parsing_server_all
+parsing_server_all:
+	cd /net/work/people/zeman/udpipe ; \
+	rm -f udpipe2_server.log ; \
+	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1" --mem=24G -o udpipe2_server_slurm.log ./run2 \
+		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 --max_request_size 50000000 alle13 \
+			alle13 ./models/hickok-cs_all cs_e13tdt  https://ufal.mff.cuni.cz/ \
+			alle16 ./models/hickok-cs_all cs_e16tdt  https://ufal.mff.cuni.cz/ \
+			alle19 ./models/hickok-cs_all cs_e19tdt  https://ufal.mff.cuni.cz/ \
+			alle21 ./models/hickok-cs_all cs_fictree https://ufal.mff.cuni.cz \
+			syntax ./models/hickok-cs_hickoksyntax cs_hickoksyntax https://ufal.mff.cuni.cz
+	@echo Do not forget to scancel the parsing server job when done with parsing!
+	tail ---disable-inotify -f /net/work/people/zeman/udpipe/udpipe2_server_slurm.log
+
+###!!! Here we must set manually the name of the cluster machine the server runs on!
+UDPIPESERVER=tdll-8gpu3
+
+ukazka_pouziti_parseru: # ukázka, není myšlena ke spuštění jako cíl
+	# Access the model through client script. Note that we need to know which cluster machine the server runs on!
+	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --tokenizer='' --tagger='' --parser=''
+	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
+
+
+
+#----------------------------------------------------------------------------------------------------------------------
+# The etalons will be parsed using UDPipe. The parser must not touch tokenization, segmentation, and morphology.
+# Parsing etalons is a separate goal. First, it is nondeterministic when Lindat REST API is involved, so it may spoil
+# git diff if it is part of the main etalon-building goal. And second, we will want to be able to play with different
+# models, not just the model pretrained on UD_Czech-FicTree 2.17.
+# Uncomment one of the following parser options:
+# 1. pretrained FicTree model, online Lindat service;
+# 2. our mix of FicTree+old manually annotated samples.
+#UDPIPE_TO_PARSE_ETALONS=--model cs_fictree-ud-2.17-251125
+UDPIPE_TO_PARSE_ETALONS=--service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model syntax
+
+.PHONY: parse_etalon13
+parse_etalon13:
+	for i in data/etalon13/*.conllu ; do \
+	    echo $$i ; \
+	    cp $$i backup.conllu ; \
+	    cat backup.conllu \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
+	    rm backup.conllu ; \
+	done
+.PHONY: parse_etalon16
+parse_etalon16:
+	for i in data/etalon16/*.conllu ; do \
+	    echo $$i ; \
+	    cp $$i backup.conllu ; \
+	    cat backup.conllu \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
+	    rm backup.conllu ; \
+	done
+.PHONY: parse_etalon19
+parse_etalon19:
+	for i in data/etalon19/*.conllu ; do \
+	    echo $$i ; \
+	    cp $$i backup.conllu ; \
+	    cat backup.conllu \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' \
+	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
+	    rm backup.conllu ; \
+	done
+
+
+
+#----------------------------------------------------------------------------------------------------------------------
+# Validating the etalons using the official UD validator combined with Udapi ud.MarkFeatsBugs. This should be applied
+# to the final etalons including syntax, but since the syntax is automatically predicted, syntax-related validation
+# errors should be ignored.
 VALIDATE_OPTIONS := --max-err=0 --no-warnings -e root-is-not-0 multiple-roots punct-is-nonproj punct-causes-nonproj leaf-aux-cop leaf-cc leaf-det leaf-fixed leaf-mark-case leaf-punct upos-rel-punct rel-upos-advmod rel-upos-aux rel-upos-case rel-upos-cc rel-upos-cop rel-upos-det rel-upos-expl rel-upos-mark rel-upos-nummod rel-upos-punct right-to-left-appos right-to-left-conj right-to-left-fixed right-to-left-flat obl-should-be-nmod too-many-subjects too-many-objects cop-lemma
 .PHONY: validate_etalon13
 validate_etalon13:
@@ -535,7 +627,7 @@ compare_etalons:
 
 
 #----------------------------------------------------------------------------------------------------------------------
-# Training and testing parsers on the etalons.
+# Preparing data for UDPipe training and testing.
 
 # Concatenate each etalon into a big file similarly to UD treebanks.
 # Also fetch modern Czech data from an official UD release.
@@ -670,73 +762,10 @@ langsizes:
 	done
 	cat $(UDPIPE_DATA_DIR)/langs_sizes
 
-trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
-	ssh -A sol1
-	cd /net/work/people/zeman/udpipe
-	./scripts/compute_embeddings.sh ./hickok
-	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
-	# There is an alternative below, which trains a joint model "cs_all", fine-tuned for each of the included treebanks.
-	./scripts/train.sh ./hickok cs_e13tdt
-	./scripts/train.sh ./hickok cs_e16tdt
-	./scripts/train.sh ./hickok cs_e19tdt
-	# Milan suggested --clip_gradient=1.0. With this data, it did not help. But it did with 0.9 and --seed=12 (other seeds I tried still crashed).
-	EXP=seed12 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=12
-	EXP=seed21 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=21
-	# Another variant, assuming we have tiny dev data and no test data. To be used for syntax (manual samples from e13+e16+e19, combined with full FicTree).
-	./scripts/train_hickok_notest.sh ./hickok cs_hickoksyntax
-	# Each of the above will submit one cluster job for training. It may take about 2 hours for individual etalons. For cs_all, it takes 1 to 2 days.
-	# Monitor progress:
-	tail -f models/hickok-cs_all-seed21/training.log
-	# Train tokenizer using UDPipe 1.2 (runs locally, does not use cluster).
-	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
-	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
-	./scripts/train_tokenizer.sh ./hickok cs_e19tdt models/hickok-cs_e19tdt
-	./scripts/train_tokenizer.sh ./hickok cs_hickoksyntax models/hickok-cs_hickoksyntax
-	# If training cs_all, copy all tokenizers to its folder.
-	for i in e13tdt e16tdt e19tdt fictree ; do cp models/hickok-cs_$i/cs_$i.tokenizer models/hickok-cs_all ; done
 
-# To test the parser, launch parsing server with the new models. We need a cluster machine with a GPU available,
-# hence we run this on one of the sols (cluster head machines) with the sbatch command.
-# Note: Default --max_request_size is 4MB but the Monitor corpus contains at least one file with 32MB. (There might be more but I do not have the full statistics.)
-# Note: Each model is a quadruple of parameters: model name(s) (colon-separated), path to model, treebank id (because in that path could be a model for multiple treebanks), acknowledgements URL.
-###!!! Note November 2026: Some nodes vanished from the cluster, so the following sbatch requirements would now fail:
-###!!!   -C "gpu_cc6.1|gpu_cc7.5" -x dll-8gpu5
-###!!! so we now replace them with
-###!!!   -C "gpu_cc6.1"
-.PHONY: parsing_server
-parsing_server:
-	cd /net/work/people/zeman/udpipe ; \
-	rm -f udpipe2_server.log ; \
-	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1" --mem=24G -o udpipe2_server_slurm.log ./run2 \
-		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 --max_request_size 50000000 e13 \
-			e13 ./models/hickok-cs_e13tdt cs_e13tdt https://ufal.mff.cuni.cz/ \
-			e16 ./models/hickok-cs_e16tdt cs_e16tdt https://ufal.mff.cuni.cz/ \
-			e19 ./models/hickok-cs_e19tdt cs_e19tdt https://ufal.mff.cuni.cz/ \
-			czech:ces:cs:fictree:e21 ./models-pretrained/cs_all-ud-2.17-251125.model cs_fictree https://ufal.mff.cuni.cz
-	@echo Do not forget to scancel the parsing server job when done with parsing!
-	tail ---disable-inotify -f /net/work/people/zeman/udpipe/udpipe2_server_slurm.log
 
-.PHONY: parsing_server_all
-parsing_server_all:
-	cd /net/work/people/zeman/udpipe ; \
-	rm -f udpipe2_server.log ; \
-	sbatch -p gpu-ms,gpu-troja -G 1 -C "gpu_cc6.1" --mem=24G -o udpipe2_server_slurm.log ./run2 \
-		udpipe2_server.py 8001 --logfile udpipe2_server.log --threads=4 --max_request_size 50000000 alle13 \
-			alle13 ./models/hickok-cs_all cs_e13tdt  https://ufal.mff.cuni.cz/ \
-			alle16 ./models/hickok-cs_all cs_e16tdt  https://ufal.mff.cuni.cz/ \
-			alle19 ./models/hickok-cs_all cs_e19tdt  https://ufal.mff.cuni.cz/ \
-			alle21 ./models/hickok-cs_all cs_fictree https://ufal.mff.cuni.cz \
-			syntax ./models/hickok-cs_hickoksyntax cs_hickoksyntax https://ufal.mff.cuni.cz
-	@echo Do not forget to scancel the parsing server job when done with parsing!
-	tail ---disable-inotify -f /net/work/people/zeman/udpipe/udpipe2_server_slurm.log
-
-###!!! Here we must set manually the name of the cluster machine the server runs on!
-UDPIPESERVER=tdll-8gpu3
-
-ukazka_pouziti_parseru: # ukázka, není myšlena ke spuštění jako cíl
-	# Access the model through client script. Note that we need to know which cluster machine the server runs on!
-	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model e13 --tokenizer='' --tagger='' --parser=''
-	echo "Soused včera prodal auto." | python udpipe2_client.py --service http://localhost:8001 --model czech --tokenizer='' --tagger='' --parser=''
+#----------------------------------------------------------------------------------------------------------------------
+# Testing UDPipe models on the etalons.
 
 etalon13teste13:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-bye13.conllu
