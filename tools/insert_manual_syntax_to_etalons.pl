@@ -78,7 +78,48 @@ foreach my $period ('13', '16', '19')
                 die("Unknown sent_id") if(!defined($current_sent_id));
                 if(exists($manual_sentences{$current_sent_id}))
                 {
-                    push(@document, @{$manual_sentences{$current_sent_id}});
+                    # We cannot simply replace the sentence in the etalon with the one from Bára.
+                    # First, the manual file sometimes contains document-level headers at sentences
+                    # that are not the first sentence of the document (but they are first in the
+                    # excerpt selected for manual annotation). Second, the manual file has good
+                    # syntax but possibly outdated morphology (we made some fixes in the etalons
+                    # after we gave Bára data to annotate). So we should not copy anything else
+                    # than dependency relations!
+                    # First, take comment lines from the current etalon.
+                    while(@sentence && $sentence[0] =~ m/^\#/)
+                    {
+                        push(@document, shift(@sentence));
+                    }
+                    # Remove any comment lines from the manual syntax version.
+                    my @manual = @{$manual_sentences{$current_sent_id}};
+                    while(@manual && $manual[0] =~ m/^\#/)
+                    {
+                        shift(@manual);
+                    }
+                    # Now both versions should have the same number of lines.
+                    my $n_etalon = scalar(@sentence);
+                    my $n_manual = scalar(@manual);
+                    if($n_etalon != $n_manual)
+                    {
+                        die("Etalon sentence has $n_etalon and manual sentence has $n_manual non-comment lines");
+                    }
+                    # Decompose each token/word line and replace syntax with manual annotation.
+                    for(my $i = 0; $i <= $#sentence; $i++)
+                    {
+                        # Is this a word/token line, or the final empty line?
+                        if($sentence[$i] =~ m/^[0-9]/)
+                        {
+                            my @fe = split(/\t/, $sentence[$i]);
+                            my @fm = split(/\t/, $manual[$i]);
+                            $fe[6] = $fm[6]; # HEAD
+                            $fe[7] = $fm[7]; # DEPREL
+                            push(@document, join("\t", @fe));
+                        }
+                        else
+                        {
+                            push(@document, $sentence[$i]);
+                        }
+                    }
                 }
                 else
                 {
