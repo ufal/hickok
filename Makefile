@@ -557,8 +557,8 @@ parse_etalon13:
 	    echo $$i ; \
 	    cp $$i backup.conllu ; \
 	    cat backup.conllu \
-	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' 2>/dev/null \
+	    | grep -v -P '# (udpipe_model|udpipe_model_licence|generator) = ' > $$i ; \
 	    rm backup.conllu ; \
 	done
 .PHONY: parse_etalon16
@@ -567,8 +567,8 @@ parse_etalon16:
 	    echo $$i ; \
 	    cp $$i backup.conllu ; \
 	    cat backup.conllu \
-	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' 2>/dev/null \
+	    | grep -v -P '# (udpipe_model|udpipe_model_licence|generator) = ' > $$i ; \
 	    rm backup.conllu ; \
 	done
 .PHONY: parse_etalon19
@@ -577,8 +577,8 @@ parse_etalon19:
 	    echo $$i ; \
 	    cp $$i backup.conllu ; \
 	    cat backup.conllu \
-	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' \
-	    | grep -v -P '# (udpipe_model_licence|generator) = ' > $$i ; \
+	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' 2>/dev/null \
+	    | grep -v -P '# (udpipe_model|udpipe_model_licence|generator) = ' > $$i ; \
 	    rm backup.conllu ; \
 	done
 
