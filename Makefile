@@ -551,6 +551,9 @@ ukazka_pouziti_parseru: # ukázka, není myšlena ke spuštění jako cíl
 #UDPIPE_TO_PARSE_ETALONS=--model cs_fictree-ud-2.17-251125
 UDPIPE_TO_PARSE_ETALONS=--service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model syntax
 
+.PHONY: parse_etalons
+parse_etalons: parse_etalon13 parse_etalon16 parse_etalon19 insert_manual_syntax_to_etalons
+
 .PHONY: parse_etalon13
 parse_etalon13:
 	for i in data/etalon13/*.conllu ; do \
@@ -581,6 +584,10 @@ parse_etalon19:
 	    | grep -v -P '# (udpipe_model|udpipe_model_licence|generator) = ' > $$i ; \
 	    rm backup.conllu ; \
 	done
+
+.PHONY: insert_manual_syntax_to_etalons
+insert_manual_syntax_to_etalons:
+	tools/insert_manual_syntax_to_etalons.pl
 
 
 
