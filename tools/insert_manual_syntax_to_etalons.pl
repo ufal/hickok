@@ -52,7 +52,7 @@ foreach my $period ('13', '16', '19')
 {
     my $path = "$data_path/etalon$period";
     opendir(DIR, $path) or die("Cannot read folder '$path': $!");
-    my @files = grep {-f "$path/$_" && m/\.conllu$/} (readdir(DIR));
+    my @files = sort(grep {-f "$path/$_" && m/\.conllu$/} (readdir(DIR)));
     closedir(DIR);
     foreach my $file (@files)
     {
