@@ -28,6 +28,9 @@ foreach my $period ('13', '16', '19')
         my $current_sent_id;
         while(<FILE>)
         {
+            # If manual syntax contains forgotten info about automatic parsing,
+            # skip it.
+            next if(m/^\#\s*udpipe_model\s*=/);
             push(@sentence, $_);
             if(m/^\#\s*sent_id\s*=\s*(.+)$/)
             {
