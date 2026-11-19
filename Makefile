@@ -562,7 +562,7 @@ parse_etalon13:
 	    cat backup.conllu \
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' 2>/dev/null \
 	    | grep -v -P '# (udpipe_model|udpipe_model_licence|generator) = ' \
-	    | udapy -s util.Eval tree='tree.deprel = "root"' > $$i ; \
+	    | udapy -s util.Eval node='if node.parent.is_root: node.deprel = "root"' util.Eval node='if node.udeprel == "root" and not node.parent.is_root: node.deprel = "dep"' > $$i ; \
 	    rm backup.conllu ; \
 	done
 .PHONY: parse_etalon16
@@ -573,7 +573,7 @@ parse_etalon16:
 	    cat backup.conllu \
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' 2>/dev/null \
 	    | grep -v -P '# (udpipe_model|udpipe_model_licence|generator) = ' \
-	    | udapy -s util.Eval tree='tree.deprel = "root"' > $$i ; \
+	    | udapy -s util.Eval node='if node.parent.is_root: node.deprel = "root"' util.Eval node='if node.udeprel == "root" and not node.parent.is_root: node.deprel = "dep"' > $$i ; \
 	    rm backup.conllu ; \
 	done
 .PHONY: parse_etalon19
@@ -584,7 +584,7 @@ parse_etalon19:
 	    cat backup.conllu \
 	    | $(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py $(UDPIPE_TO_PARSE_ETALONS) --input=conllu --parser='' 2>/dev/null \
 	    | grep -v -P '# (udpipe_model|udpipe_model_licence|generator) = ' \
-	    | udapy -s util.Eval tree='tree.deprel = "root"' > $$i ; \
+	    | udapy -s util.Eval node='if node.parent.is_root: node.deprel = "root"' util.Eval node='if node.udeprel == "root" and not node.parent.is_root: node.deprel = "dep"' > $$i ; \
 	    rm backup.conllu ; \
 	done
 
