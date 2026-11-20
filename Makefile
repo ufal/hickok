@@ -765,7 +765,7 @@ cs_fall:
 	done
 	# UDPipe will be confused if it finds additional cs_* treebanks in the folder. Instead of trying to identify them automatically, we just issue a warning.
 	@echo "The following treebanks will be included in cs_all. We prepared four: cs_fictree, cs_e13tdt, cs_e16tdt, cs_e19tdt. If there is anything extra, rename it first."
-	@for i in hickok/cs_* ; do echo "  $$i" ; done
+	@for i in $(UDPIPE_DATA_DIR)/cs_* ; do echo "  $$i" ; done
 
 .PHONY: cs_hickoksyntax
 cs_hickoksyntax:
