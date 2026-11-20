@@ -90,6 +90,9 @@ foreach my $period ('13', '16', '19')
                     {
                         push(@document, shift(@sentence));
                     }
+                    # Add an extra comment that will make this sentence recognizable
+                    # as one with manual syntactic annotation.
+                    push(@document, "\# manual syntax\n");
                     # Remove any comment lines from the manual syntax version.
                     my @manual = @{$manual_sentences{$current_sent_id}};
                     while(@manual && $manual[0] =~ m/^\#/)
@@ -123,6 +126,13 @@ foreach my $period ('13', '16', '19')
                 }
                 else
                 {
+                    # The sentence should not contain a comment about manual syntax,
+                    # as we did not find it in our manual syntactic annotation.
+                    if(grep {m/^\# manual syntax/} (@sentence))
+                    {
+                        print STDERR ("WARNING: Sentence '$current_sent_id' is labeled as 'manual syntax' but it was not found in manually annotated data.\n");
+                        @sentence = grep {!m/^\# manual syntax/} (@sentence);
+                    }
                     push(@document, @sentence);
                 }
                 @sentence = ();
