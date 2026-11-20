@@ -88,7 +88,12 @@ foreach my $period ('13', '16', '19')
                     # First, take comment lines from the current etalon.
                     while(@sentence && $sentence[0] =~ m/^\#/)
                     {
-                        push(@document, shift(@sentence));
+                        my $line = shift(@sentence);
+                        # Do not duplicate the 'manual syntax' label if it is already there.
+                        unless($line =~ m/^\# manual syntax/)
+                        {
+                            push(@document, $line);
+                        }
                     }
                     # Add an extra comment that will make this sentence recognizable
                     # as one with manual syntactic annotation.
