@@ -488,8 +488,10 @@ data/etalon19/%.conllu: data/etalon19_rucne_opraveny/%.conllu
 trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jako cíl
 	ssh -A sol1
 	cd /net/work/people/zeman/udpipe
-	# compute_embeddings.sh will not compute embeddings for a file for which the embeddings file already exists.
-	# So if we have modified the data (e.g. a new version of the etalons), we must remove the old embeddings first.
+	# compute_embeddings.sh will not compute embeddings for a file for which the embeddings file already exists,
+	# unless the CoNLL-U file is newer than the embeddings file. So an update of the treebanks should be handled
+	# correctly. Nevertheless, if we want to make sure that all embeddings are computed from scratch, we must
+	# remove the old embeddings first.
 	rm hickok/cs_e1*/*.conllu.npz hickok/cs_e1*/*.conllu.log
 	./scripts/compute_embeddings.sh ./hickok
 	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
