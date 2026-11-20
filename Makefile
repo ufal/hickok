@@ -490,7 +490,7 @@ trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jak
 	cd /net/work/people/zeman/udpipe
 	# compute_embeddings.sh will not compute embeddings for a file for which the embeddings file already exists.
 	# So if we have modified the data (e.g. a new version of the etalons), we must remove the old embeddings first.
-	rm data/cs_e1*/*.conllu.npz data/cs_e1*/*.conllu.log
+	rm hickok/cs_e1*/*.conllu.npz hickok/cs_e1*/*.conllu.log
 	./scripts/compute_embeddings.sh ./hickok
 	# This will submit a cluster job for each treebank in data. Wait until squeue says that all jobs finished. It should not take long.
 	# There is an alternative below, which trains a joint model "cs_all", fine-tuned for each of the included treebanks.
@@ -504,7 +504,7 @@ trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jak
 	./scripts/train_hickok_notest.sh ./hickok cs_hickoksyntax
 	# Each of the above will submit one cluster job for training. It may take about 2 hours for individual etalons. For cs_all, it takes 1 to 2 days.
 	# Monitor progress:
-	tail -f models/hickok-cs_all-seed21/training.log
+	tail ---disable-inotify -f models/hickok-cs_all-seed21/training.log
 	# Train tokenizer using UDPipe 1.2 (runs locally, does not use cluster).
 	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
@@ -733,7 +733,10 @@ etalon19split:
 	rm -rf $(UDPIPE_DATA_DIR)/cs_e19tdt/test
 	@echo If necessary, update the size of this treebank in $(UDPIPE_DATA_DIR)/langs_sizes.
 
-.PHONY: cs_all
+# Originally I wanted to use really all Czech treebanks I have, but it did not work. First, it
+# would often diverge during training. And second, even if it did not diverge, the accuracy would
+# not be better. So this goal is not used now. Instead, see cs_fall below.
+.PHONY: cs_aall
 cs_all:
 	mkdir -p $(UDPIPE_DATA_DIR)/cs_all
 	rm -rf $(UDPIPE_DATA_DIR)/cs_all/*
@@ -760,6 +763,9 @@ cs_fall:
 	  done ; \
 	  cat $(UDPIPE_DATA_DIR)/$$i/*-train.conllu >> $(UDPIPE_DATA_DIR)/cs_all/cs_all-ud-train.conllu ; \
 	done
+	# UDPipe will be confused if it finds additional cs_* treebanks in the folder. Instead of trying to identify them automatically, we just issue a warning.
+	@echo "The following treebanks will be included in cs_all. We prepared four: cs_fictree, cs_e13tdt, cs_e16tdt, cs_e19tdt. If there is anything extra, rename it first."
+	@for i in hickok/cs_* ; do echo "  $$i" ; done
 
 .PHONY: cs_hickoksyntax
 cs_hickoksyntax:
