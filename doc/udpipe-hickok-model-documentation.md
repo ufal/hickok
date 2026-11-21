@@ -7,7 +7,7 @@ the [FicTree](https://universaldependencies.org/treebanks/cs_fictree/index.html)
 [Universal Dependencies 2.19](http://hdl.handle.net/11234/1-6316). In addition, the models use
 [RobeCzech](https://huggingface.co/ufal/robeczech-base).
 
-The models require [UDPiep 2](https://ufal.mff.cuni.cz/udpipe/2).
+The models require [UDPipe 2](https://ufal.mff.cuni.cz/udpipe/2).
 
 ## Training Data
 
@@ -63,8 +63,8 @@ Number of sentences with manually annotated syntax:
 
 ## Download
 
-The latest version YYYYMMDD of the HIČKOK models can be downloaded from the [LINDAT/CLARIAH-CZ
-repository](https://hdl.handle.net/11234/1-NNNN). ###!!! TBA
+The latest version 20261120 of the HIČKOK models can be downloaded from the [LINDAT/CLARIAH-CZ
+repository](https://hdl.handle.net/11234/1-6325).
 
 The models are also available in the [REST service](https://lindat.mff.cuni.cz/services/udpipe/).
 
@@ -82,9 +82,6 @@ Finally, [RobeCzech](https://huggingface.co/ufal/robeczech-base) is used to prov
 word embeddings.
 
 ## Model Performance
-
-###!!! (and can we provide evaluation both on raw text and on gold standard tokenization+segmentation?)
-###!!! At present, the scores are on gold standard tokenization.
 
 <style>
   <!-- Make sure that the header is visible even if the table is long and the user scrolls down. -->
@@ -128,6 +125,15 @@ word embeddings.
 </tr>
 <tr>
 <td style="text-align:left"><span id="czech-hickok-e16-20261120">czech-hickok-e16-20261120</span></td>
+<td style="text-align:left">Raw text</td>
+<td style="text-align:right">99.92</td>
+<td style="text-align:right">92.23</td>
+<td style="text-align:right">96.60</td>
+<td style="text-align:right">98.78</td>
+<td style="text-align:right">95.28</td>
+</tr>
+<tr>
+<td style="text-align:left"><span id="czech-hickok-e16-20261120">czech-hickok-e16-20261120</span></td>
 <td style="text-align:left">Gold tokenization</td>
 <td style="text-align:right">—</td>
 <td style="text-align:right">—</td>
@@ -137,12 +143,30 @@ word embeddings.
 </tr>
 <tr>
 <td style="text-align:left"><span id="czech-hickok-e19-20261120">czech-hickok-e19-20261120</span></td>
+<td style="text-align:left">Raw text</td>
+<td style="text-align:right">99.78</td>
+<td style="text-align:right">92.62</td>
+<td style="text-align:right">97.73</td>
+<td style="text-align:right">98.64</td>
+<td style="text-align:right">96.52</td>
+</tr>
+<tr>
+<td style="text-align:left"><span id="czech-hickok-e19-20261120">czech-hickok-e19-20261120</span></td>
 <td style="text-align:left">Gold tokenization</td>
 <td style="text-align:right">—</td>
 <td style="text-align:right">—</td>
 <td style="text-align:right">97.96</td>
 <td style="text-align:right">98.85</td>
 <td style="text-align:right">96.67</td>
+</tr>
+<tr>
+<td style="text-align:left"><span id="czech-hickok-fictree-20261120">czech-hickok-fictree-20261120</span></td>
+<td style="text-align:left">Raw text</td>
+<td style="text-align:right">100.0</td>
+<td style="text-align:right">98.49</td>
+<td style="text-align:right">99.25</td>
+<td style="text-align:right">99.23</td>
+<td style="text-align:right">97.67</td>
 </tr>
 <tr>
 <td style="text-align:left"><span id="czech-hickok-fictree-20261120">czech-hickok-fictree-20261120</span></td>
