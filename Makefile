@@ -816,8 +816,11 @@ etalon16teste13:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-bye13.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-bye13.conllu
 etalon16teste16:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-bye16.conllu
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=conllu --tagger='' --parser='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-bye16.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-bye16.conllu
+	$(UDTOOLS)/conllu_to_text.pl < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test.txt
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=text --tokenizer='' --tagger='' --parser='' < cs_e16tdt-ud-test.txt > cs_e16tdt-ud-test-rawbye16.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-rawbye16.conllu
 etalon16teste19:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle19 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu > cs_e16tdt-ud-test-bye19.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e16tdt/cs_e16tdt-ud-test.conllu cs_e16tdt-ud-test-bye19.conllu
@@ -831,14 +834,20 @@ etalon19teste16:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye16.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye16.conllu
 etalon19teste19:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle19 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye19.conllu
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle19 --input=conllu --tagger='' --parser='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-bye19.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-bye19.conllu
+	$(UDTOOLS)/conllu_to_text.pl < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test.txt
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle19 --input=text --tokenizer='' --tagger='' --parser='' < cs_e19tdt-ud-test.txt > cs_e19tdt-ud-test-rawbye19.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-rawbye19.conllu
 etalon19testfictree:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-by217.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-by217.conllu
 fictreetestfictree:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle21 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_fictree/cs_fictree-ud-test.conllu > cs_fictree-ud-test-byfictree.conllu
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle21 --input=conllu --tagger='' --parser='' < $(UDPIPE_DATA_DIR)/cs_fictree/cs_fictree-ud-test.conllu > cs_fictree-ud-test-byfictree.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_fictree/cs_fictree-ud-test.conllu cs_fictree-ud-test-byfictree.conllu
+	$(UDTOOLS)/conllu_to_text.pl < $(UDPIPE_DATA_DIR)/cs_fictree/cs_fictree-ud-test.conllu > cs_fictree-ud-test.txt
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle21 --input=text --tokenizer='' --tagger='' --parser='' < cs_fictree-ud-test.txt > cs_fictree-ud-test-rawbyfictree.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_fictree/cs_fictree-ud-test.conllu cs_fictree-ud-test-rawbyfictree.conllu
 
 
 

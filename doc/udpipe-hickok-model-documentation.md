@@ -86,11 +86,22 @@ word embeddings.
 ###!!! (and can we provide evaluation both on raw text and on gold standard tokenization+segmentation?)
 ###!!! At present, the scores are on gold standard tokenization.
 
+<style>
+  <!-- Make sure that the header is visible even if the table is long and the user scrolls down. -->
+  th {
+      position: sticky;
+      top: 0;
+      background-color: #ffffff;
+      z-index: 2;
+  }
+</style>
 <table class="table table-condensed table-bordered table-striped">
 <thead>
 <tr>
 <th style="text-align:left">Model</th>
-<th style="text-align:left">Dataset</th>
+<th style="text-align:left">Mode</th>
+<th style="text-align:right">Words</th>
+<th style="text-align:right">Sents</th>
 <th style="text-align:right">Lemma</th>
 <th style="text-align:right">UPOS</th>
 <th style="text-align:right">UFeats</th>
@@ -99,28 +110,45 @@ word embeddings.
 <tbody>
 <tr>
 <td style="text-align:left"><span id="czech-hickok-e13-20261120">czech-hickok-e13-20261120</span></td>
-<td style="text-align:left">test e13</td>
+<td style="text-align:left">Raw text</td>
+<td style="text-align:right">99.66</td>
+<td style="text-align:right">92.12</td>
+<td style="text-align:right">95.88</td>
+<td style="text-align:right">97.76</td>
+<td style="text-align:right">93.71</td>
+</tr>
+<tr>
+<td style="text-align:left"><span id="czech-hickok-e13-20261120">czech-hickok-e13-20261120</span></td>
+<td style="text-align:left">Gold tokenization</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">—</td>
 <td style="text-align:right">96.13</td>
 <td style="text-align:right">97.99</td>
 <td style="text-align:right">93.93</td>
 </tr>
 <tr>
 <td style="text-align:left"><span id="czech-hickok-e16-20261120">czech-hickok-e16-20261120</span></td>
-<td style="text-align:left">test e16</td>
+<td style="text-align:left">Gold tokenization</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">—</td>
 <td style="text-align:right">96.67</td>
 <td style="text-align:right">98.85</td>
 <td style="text-align:right">95.33</td>
 </tr>
 <tr>
 <td style="text-align:left"><span id="czech-hickok-e19-20261120">czech-hickok-e19-20261120</span></td>
-<td style="text-align:left">test e19</td>
+<td style="text-align:left">Gold tokenization</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">—</td>
 <td style="text-align:right">97.96</td>
 <td style="text-align:right">98.85</td>
 <td style="text-align:right">96.67</td>
 </tr>
 <tr>
-<td style="text-align:left"><span id="czech-hickok-e19-20261120">czech-hickok-e19-20261120</span></td>
-<td style="text-align:left">test fictree</td>
+<td style="text-align:left"><span id="czech-hickok-fictree-20261120">czech-hickok-fictree-20261120</span></td>
+<td style="text-align:left">Gold tokenization</td>
+<td style="text-align:right">—</td>
+<td style="text-align:right">—</td>
 <td style="text-align:right">99.25</td>
 <td style="text-align:right">99.24</td>
 <td style="text-align:right">97.67</td>
