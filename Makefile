@@ -833,6 +833,9 @@ etalon19teste19:
 etalon19testfictree:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --model cs_fictree-ud-2.17-251125 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu > cs_e19tdt-ud-test-by217.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e19tdt/cs_e19tdt-ud-test.conllu cs_e19tdt-ud-test-by217.conllu
+fictreetestfictree:
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle21 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_fictree/cs_fictree-ud-test.conllu > cs_fictree-ud-test-byfictree.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_fictree/cs_fictree-ud-test.conllu cs_fictree-ud-test-byfictree.conllu
 
 
 
