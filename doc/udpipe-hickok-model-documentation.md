@@ -83,8 +83,8 @@ word embeddings.
 
 ## Model Performance
 
-###!!! TBA
 ###!!! (and can we provide evaluation both on raw text and on gold standard tokenization+segmentation?)
+###!!! At present, the scores are on gold standard tokenization.
 
 <table class="table table-condensed table-bordered table-striped">
 <thead>
@@ -94,17 +94,36 @@ word embeddings.
 <th style="text-align:right">Lemma</th>
 <th style="text-align:right">UPOS</th>
 <th style="text-align:right">UFeats</th>
-<th style="text-align:right">LAS</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left"><span id="czech-hickok-e13-20261120">czech-hickok-e13-20261120</span></td>
+<td style="text-align:left">test e13</td>
+<td style="text-align:right">96.13</td>
+<td style="text-align:right">97.99</td>
+<td style="text-align:right">93.93</td>
+</tr>
+<tr>
+<td style="text-align:left"><span id="czech-hickok-e16-20261120">czech-hickok-e16-20261120</span></td>
+<td style="text-align:left">test e16</td>
+<td style="text-align:right">96.67</td>
+<td style="text-align:right">98.85</td>
+<td style="text-align:right">95.33</td>
+</tr>
+<tr>
+<td style="text-align:left"><span id="czech-hickok-e19-20261120">czech-hickok-e19-20261120</span></td>
+<td style="text-align:left">test e19</td>
+<td style="text-align:right">97.96</td>
+<td style="text-align:right">98.85</td>
+<td style="text-align:right">96.67</td>
+</tr>
+<tr>
+<td style="text-align:left"><span id="czech-hickok-e19-20261120">czech-hickok-e19-20261120</span></td>
 <td style="text-align:left">test fictree</td>
-<td style="text-align:right">99.20</td>
-<td style="text-align:right">99.33</td>
-<td style="text-align:right">97.22</td>
-<td style="text-align:right">93.99</td>
+<td style="text-align:right">99.25</td>
+<td style="text-align:right">99.24</td>
+<td style="text-align:right">97.67</td>
 </tr>
 </tbody>
 </table>

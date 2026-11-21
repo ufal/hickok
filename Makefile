@@ -798,8 +798,11 @@ langsizes:
 # Testing UDPipe models on the etalons.
 
 etalon13teste13:
-	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-bye13.conllu
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --input=conllu --tagger='' --parser='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-bye13.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-bye13.conllu
+	$(UDTOOLS)/conllu_to_text.pl < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test.txt
+	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --input=text --tokenizer='' --tagger='' --parser='' < cs_e13tdt-ud-test.txt > cs_e13tdt-ud-test-rawbye13.conllu
+	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-rawbye13.conllu
 etalon13teste16:
 	$(PARSINGROOT)/udpipe-parser/scripts/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle16 --input=conllu --tagger='' < $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu > cs_e13tdt-ud-test-bye16.conllu
 	$(UDTOOLS)/eval.py -v $(UDPIPE_DATA_DIR)/cs_e13tdt/cs_e13tdt-ud-test.conllu cs_e13tdt-ud-test-bye16.conllu
