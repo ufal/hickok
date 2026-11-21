@@ -502,6 +502,8 @@ trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jak
 	# Milan suggested --clip_gradient=1.0. With this data, it did not help. But it did with 0.9 and --seed=12 (other seeds I tried still crashed).
 	EXP=seed12 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=12
 	EXP=seed21 ./scripts/train.sh ./hickok cs_all --clip_gradient=0.9 --seed=21
+	# Now select one of the seeds as the default one. If both terminated successfully, pick one arbitrarily.
+	ln -s models/hickok-cs_all-seed12 models/hickok-cs_all
 	# Another variant, assuming we have tiny dev data and no test data. To be used for syntax (manual samples from e13+e16+e19, combined with full FicTree).
 	./scripts/train_hickok_notest.sh ./hickok cs_hickoksyntax
 	# Each of the above will submit one cluster job for training. It may take about 2 hours for individual etalons. For cs_all, it takes 1 to 2 days.
@@ -511,6 +513,7 @@ trenovani_modelu: # jen přibližný záznam akcí; nelze skutečně spustit jak
 	./scripts/train_tokenizer.sh ./hickok cs_e13tdt models/hickok-cs_e13tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e16tdt models/hickok-cs_e16tdt
 	./scripts/train_tokenizer.sh ./hickok cs_e19tdt models/hickok-cs_e19tdt
+	./scripts/train_tokenizer.sh ./hickok cs_fictree models/hickok-cs_fictree
 	./scripts/train_tokenizer.sh ./hickok cs_hickoksyntax models/hickok-cs_hickoksyntax
 	# If training cs_all, copy all tokenizers to its folder.
 	for i in e13tdt e16tdt e19tdt fictree ; do cp models/hickok-cs_$i/cs_$i.tokenizer models/hickok-cs_all ; done

@@ -53,6 +53,14 @@ FicTree has also manual annotation of syntactic dependency relations. In the thr
 only a small sample has manual syntactic annotation. In the rest, syntax was predicted by a model
 trained on the manually annotated data.
 
+<!--
+Number of sentences with manually annotated syntax:
+| Dataset | Train | Dev | Test |
+| e13 | 109 | 6 | 0 |
+| e16 |  71 | 4 | 7 |
+| e19 |  85 | 0 | 0 |
+-->
+
 ## Download
 
 The latest version YYYYMMDD of the HIČKOK models can be downloaded from the [LINDAT/CLARIAH-CZ
@@ -76,22 +84,27 @@ word embeddings.
 ## Model Performance
 
 ###!!! TBA
+###!!! (and can we provide evaluation both on raw text and on gold standard tokenization+segmentation?)
 
 <table class="table table-condensed table-bordered table-striped">
 <thead>
 <tr>
 <th style="text-align:left">Model</th>
 <th style="text-align:left">Dataset</th>
-<th style="text-align:right">UPOS</th>
 <th style="text-align:right">Lemma</th>
+<th style="text-align:right">UPOS</th>
+<th style="text-align:right">UFeats</th>
+<th style="text-align:right">LAS</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:left"><span id="czech-hickok-e13-20261120">czech-hickok-e13-20261120</span></td>
 <td style="text-align:left">test fictree</td>
-<td style="text-align:right">96.73</td>
-<td style="text-align:right">96.39</td>
+<td style="text-align:right">99.20</td>
+<td style="text-align:right">99.33</td>
+<td style="text-align:right">97.22</td>
+<td style="text-align:right">93.99</td>
 </tr>
 </tbody>
 </table>
