@@ -545,6 +545,7 @@ UDPIPESERVER=tdll-8gpu3
 
 ukazka_pouziti_parseru: # ukázka, není myšlena ke spuštění jako cíl
 	# Access the model through client script. Note that we need to know which cluster machine the server runs on! (Use http://localhost:8001 if it is another process on the current machine.)
+	# If --service is omitted, the default is https://lindat.mff.cuni.cz/services/udpipe/api
 	echo "Soused včera prodal auto." | python /net/work/people/zeman/udpipe/udpipe2_client.py --service http://$(UDPIPESERVER).ufal.hide.ms.mff.cuni.cz:8001 --model alle13 --tokenizer='' --tagger='' --parser='' 2>/dev/null | grep -v -P '#\s*(generator|udpipe_model_licence)\s*='
 
 
